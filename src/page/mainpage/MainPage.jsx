@@ -1,5 +1,6 @@
 import "./MainPage.css";
 import { useAppContext } from "../../context/context";
+import MainHeader from "../../component/mainPage/MainHeader";
 import {
   decreaseCount,
   increseCount,
@@ -11,6 +12,7 @@ export default function MainPage() {
   console.log(appState, dispatch);
   return (
     <div className="container">
+      <MainHeader />
       <div>{appState.count}</div>
       <span class="material-symbols-outlined">home</span>
       <button onClick={() => dispatch(increseCount())}>증가</button>
