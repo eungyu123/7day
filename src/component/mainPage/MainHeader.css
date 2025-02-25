@@ -1,45 +1,69 @@
-.headercontainer {
+.mainheadercontainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: none;
   height: 50px;
-  margin: 0;
-  padding: 0;
 }
-.left-section {
+.mainleft-section {
   display: flex;
   height: 100%;
-  width: 80px;
+  width: 100px;
   align-items: center;
 }
-.center-section {
+.maincenter-section {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: var(--toss-blue);
-  border-radius: 10;
-  height: 100%;
-  padding: 1;
+  border-radius: 10px;
+  height: 70%;
+  padding-left: 3px;
+  padding-right: 3px;
 }
-.right-section {
+.mainright-section {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
   height: 100%;
-  width: 80px;
+  width: 100px;
 }
-.headertext {
+.mainheadertext {
   display: flex;
   align-items: center;
-  font-size: 15px;
+  font-size: 10px;
   color: white;
   height: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
 }
-.headerboldtext {
+.mainheaderboldtext {
   display: flex;
   align-items: center;
   font-size: 20px;
   color: white;
+  font-weight: 600;
   height: 100%;
+}
+.mainmodalbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 5px;
+  height:50%;
+  /* 가로:세로 비율 */
+  aspect-ratio: 1/1;
+}
+.mainicon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  height: 100%;
+  width: 100%;
 }
