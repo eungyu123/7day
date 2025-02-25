@@ -5,8 +5,9 @@ import { appReducer } from "./context/reducer/reducer";
 import { appContext } from "./context/context";
 import { Routes, Route } from "react-router-dom";
 
-import MainPage from "./page/mainpage/MainPage";
+// import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
+import Inventory from "./page/inventory/Inventory";
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
 
@@ -19,7 +20,7 @@ function App() {
     <>
       <appContext.Provider value={providerState}>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<Inventory />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>

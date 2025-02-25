@@ -1,0 +1,53 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+}
+.characterViewer {
+  width: 100%;
+  height: 350px;
+}
+.inventory {
+  height: calc(100% - 350px);
+  background-color: white;
+  border-radius: 15px 15px 0px 0px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.inventoryHeader {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.inventorySelect {
+  flex: 1;
+  text-align: center;
+  margin-top: 15px;
+  color: var(--toss-gray);
+  font-weight: 600;
+  font-size: 17px;
+}
+.inventoryMain {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 15px;
+
+  overflow-y: auto;
+}
+.InventoryItem {
+  background-color: var(--toss-light-gray);
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  margin: 15px;
+}
+.InventoryItem:hover {
+  outline: 3.5px solid var(--toss-blue);
+  outline-offset: -3.5px;
+}
