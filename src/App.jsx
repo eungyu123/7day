@@ -9,6 +9,8 @@ import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
 import MissonPage from "./page/missonpage/Missonpage";
 import ProfilePage from "./page/profilepage/ProfilePage";
+import WalkingPage from "./page/walkingpage/WalkingPage";
+import WalkingCoursePage from "./page/walkingpage/WalkingCoursePage";
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
 
@@ -24,6 +26,8 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/MissonPage" element={<MissonPage />} />
           <Route path="/ProfilePage" element={<ProfilePage />} />
+          <Route path="/WalkingPage" element={<WalkingPage />} />
+          <Route path="/WalkingCoursePage" element={<WalkingCoursePage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>
