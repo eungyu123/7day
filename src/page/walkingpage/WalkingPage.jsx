@@ -1,14 +1,15 @@
-import Header from "../../component/common/header";
+import Header from "../../component/common/header/Header";
 import "./WalkingPage.css";
+import { useNavigate } from "react-router-dom";
+import WalkingMain from "../../component/walkingpage/WalkingMain";
+
 export default function WalkingPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="walkingcontainer">
       <Header />
-      {/* <div>
-        <p>산책로 추천</p>
-        <p>매일 다른 산책로가 추천돼요</p>
-      </div>
-      <div></div> */}
+      <WalkingMain />
     </div>
   );
 }

@@ -1,0 +1,42 @@
+.walkingmaincontainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+.walkingmaininfolist {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  overflow-y: auto;
+}
+.walkingmaininfo {
+  display: flex;
+  flex-direction: column;
+  height: 10%;
+  margin-left: 20px;
+}
+.walkingmaininfotext1 {
+  margin: 0;
+  font-size: larger;
+  font-weight: 500;
+}
+.walkingmaininfotext2 {
+  margin: 0;
+  font-size: small;
+  color: gray;
+  margin-top: 5px;
+}
+.walkingmaininfocontainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 600px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
