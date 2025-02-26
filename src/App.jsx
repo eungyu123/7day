@@ -10,7 +10,7 @@ import NotFound from "./page/notfound/NotFound";
 import MissonPage from "./page/missonpage/Missonpage";
 import ProfilePage from "./page/profilepage/ProfilePage";
 import WalkingPage from "./page/walkingpage/WalkingPage";
-import WalkingCoursePage from "./page/walkingpage/WalkingCoursePage";
+import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
 
