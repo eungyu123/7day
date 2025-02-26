@@ -7,6 +7,8 @@ export default function Container({ children }) {
         margin: "auto",
         display: "flex",
         flexFlow: "row wrap",
+        justifyContent: "center",
+        backgroundColor: "#fff",
       }}
     >
       {children}

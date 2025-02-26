@@ -1,7 +1,10 @@
 .common-nav-btns-wrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 20px var(--common-padding); /* 정상 작동 */
-  gap: 4px;
+  width: 95%;
+  border-radius: 24px;
+  padding: 14px 10px;
+  gap: 6px;
+  background-color: white;
+  margin-bottom: 20px;
 }

@@ -2,9 +2,11 @@ import "./MainPage.css";
 import { useAppContext } from "../../context/context";
 import KaKaoMapComponent from "../../component/mainpage/kakaomap/KaKaoMapComponent";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
+import HalfBasicButton from "../../component/common/button/HalfBasicButton";
 import BasicButton from "../../component/common/button/BasicButton";
 import MainMap from "../../component/mainpage/MainMap";
 import Container from "../../component/common/Container";
+import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
@@ -52,6 +54,15 @@ export default function MainPage() {
       <div className="main-character-wrapper">
         <div className=""></div>
       </div>
+
+      <HalfButtonWrapper>
+        <HalfBasicButton
+          title="💎포인트"
+          des="1000원"
+          rightIcon="chevron_right"
+        />
+        <HalfBasicButton title="🏪상점" des=" " rightIcon="chevron_right" />
+      </HalfButtonWrapper>
       <ButtonWrapper>
         {buttonsProp.map((button) => (
           <BasicButton

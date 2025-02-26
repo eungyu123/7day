@@ -8,6 +8,8 @@ import { Routes, Route } from "react-router-dom";
 import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
 import HatcheryPage from "./page/hatchery/HatcheryPage";
+import ProfilePage from "./page/profilepage/ProfilePage";
+import SettingPage from "./page/Setting/SettingPage";
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
@@ -22,7 +24,9 @@ function App() {
       <appContext.Provider value={providerState}>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/kakao" element={<HatcheryPage />} />
+          <Route path="/hatchery" element={<HatcheryPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/setting" element={<SettingPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>

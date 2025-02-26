@@ -7,6 +7,7 @@
 
   /* 색상 */
   --toss-blue: #0064ff;
+  --toss-background: #f3f4f6;
 
   /* 폰트 크기  */
   --font-xs: 10px;
@@ -19,8 +20,12 @@
   --main-padding: 12px;
 }
 
+/* body {
+  background-color: #f3f4f6;
+} */
+
 * {
-  border: 0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }

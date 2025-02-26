@@ -1,0 +1,44 @@
+.common-common-headercontainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.common-left-section {
+  display: flex;
+  height: 100%;
+  width: 80px;
+  align-items: center;
+}
+
+.common-center-section {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.common-right-section {
+  display: flex;
+  height: 100%;
+  width: 80px;
+}
+
+.common-headertext {
+  display: flex;
+  align-items: center;
+  font-size: x-large;
+  height: 100%;
+}
+
+.common-material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  font-size: xx-large;
+}
