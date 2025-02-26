@@ -23,7 +23,7 @@ export const useLocation = () => {
     };
 
     // 15초마다 위치정보를 갱신
-    const intervalId = setInterval(fetchLocation, 30000000);
+    const intervalId = setInterval(fetchLocation, 3000);
 
     // 컴포넌트가 언마운트 될때 intervalId 객체 clear
     return () => clearInterval(intervalId);

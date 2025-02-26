@@ -1,0 +1,22 @@
+.marker {
+  color: "#00ff04";
+  font-size: "2rem";
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+.fade-y-out-rotate {
+  animation: fade-y-out-rotate 1s ease-in-out forwards;
+}
+.imgWrapper {
+  width: 60px;
+  height: 60px;
+}
+
+@keyframes fade-y-out-rotate {
+  0% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  100% {
+    transform: translateY(-50px) rotateY(360deg);
+  }
+}
