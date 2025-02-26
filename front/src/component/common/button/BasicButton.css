@@ -13,7 +13,7 @@
 .common-basic-btn:active {
   transform: scale(0.98);
 }
-.common-basic-btn:hover {
+.common-basic-btn:hover .common-basic-btn-img-wrapper {
   background-color: rgb(236, 236, 236);
   color: black;
 }

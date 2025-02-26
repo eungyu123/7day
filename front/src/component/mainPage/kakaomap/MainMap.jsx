@@ -1,7 +1,7 @@
 import "./MainMap.css";
 import MapButton from "./MapButton";
 import Steps from "./Steps";
-import KaKaoMapComponent from "./kakaomap/KaKaoMapComponent";
+import KaKaoMapComponent from "./KaKaoMapComponent";
 
 export default function MainMap() {
   return (

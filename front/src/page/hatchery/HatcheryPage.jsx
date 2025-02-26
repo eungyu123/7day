@@ -2,7 +2,7 @@ import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import BasicButton from "../../component/common/button/BasicButton";
 import "./HatcheryPage.css";
 import Container from "../../component/common/Container";
-import Header from "../../component/common/header/header";
+import Header from "../../component/common/header/Header";
 
 export default function HatcheryPage() {
   const buttonsProp = [
@@ -10,25 +10,21 @@ export default function HatcheryPage() {
       icon: "🥚",
       description: `12개의 알을 모왔어요.
                     부화장으로 가보세요`,
-      rightIcon: "chevron_right",
     },
     {
       icon: "🥚",
       description: `12개의 알을 모왔어요.
                     부화장으로 가보세요`,
-      rightIcon: "chevron_right",
     },
     {
       icon: "🥚",
       description: `12개의 알을 모왔어요.
                     부화장으로 가보세요`,
-      rightIcon: "chevron_right",
     },
     {
       icon: "🥚",
       description: `12개의 알을 모왔어요.
                     부화장으로 가보세요`,
-      rightIcon: "chevron_right",
     },
   ];
 
@@ -39,13 +35,9 @@ export default function HatcheryPage() {
         <div className="hatchery-container-egg-count">🥚12개</div>
       </div>
       <ButtonWrapper>
-        {buttonsProp.map((v) => {
+        {buttonsProp.map((button) => {
           return (
-            <BasicButton
-              icon={v.icon}
-              description={v.description}
-              rightIcon={v.rightIcon}
-            />
+            <BasicButton icon={button.icon} description={button.description} />
           );
         })}
       </ButtonWrapper>

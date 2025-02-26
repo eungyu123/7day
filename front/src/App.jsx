@@ -14,13 +14,15 @@ import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
 import HatcheryPage from "./page/hatchery/HatcheryPage";
 import SettingPage from "./page/Setting/SettingPage";
 
+import { useScrollToTop } from "./hook/useScrollToTop";
+
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
-
   const providerState = {
     appState,
     dispatch,
   };
+  useScrollToTop();
 
   return (
     <>
@@ -30,9 +32,9 @@ function App() {
           <Route path="/MissonPage" element={<MissonPage />} />
           <Route path="/WalkingPage" element={<WalkingPage />} />
           <Route path="/WalkingCoursePage" element={<WalkingCoursePage />} />
-          <Route path="/hatchery" element={<HatcheryPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/setting" element={<SettingPage />} />
+          <Route path="/HatcheryPage" element={<HatcheryPage />} />
+          <Route path="/ProfilePage" element={<ProfilePage />} />
+          <Route path="/SettingPage" element={<SettingPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>

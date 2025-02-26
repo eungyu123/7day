@@ -1,14 +1,13 @@
 import "./MainPage.css";
 
 import { useAppContext } from "../../context/context";
-import KaKaoMapComponent from "../../component/mainpage/kakaomap/KaKaoMapComponent";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import HalfBasicButton from "../../component/common/button/HalfBasicButton";
 import BasicButton from "../../component/common/button/BasicButton";
-import MainMap from "../../component/mainpage/MainMap";
+import MainMap from "../../component/mainpage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
-
+import { PAGE_URLS } from "../../constant/constant";
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
 
@@ -16,35 +15,35 @@ export default function MainPage() {
     {
       icon: "📦",
       description: "캐릭터와 펫을 보관중이에요!",
-      rightIcon: "chevron_right",
+      href: PAGE_URLS.not,
     },
     {
       icon: "🥚",
       description: `12개의 알을 모왔어요.
                     부화장으로 가보세요`,
-      rightIcon: "chevron_right",
+      href: PAGE_URLS.HatcheryPage,
     },
     {
       icon: "🎯",
       description: `미션을 달성했어요 ! 
                     지금바로 확인하세요`,
-      rightIcon: "chevron_right",
+      href: PAGE_URLS.MissonPage,
     },
     {
       icon: "📦",
       description: "추천된 산책로를 따라 걸어보세요",
-      rightIcon: "chevron_right",
+      href: PAGE_URLS.WalkingPage,
     },
 
     {
       icon: "👟",
       description: "내 걸음을 분석해보세요",
-      rightIcon: "chevron_right",
+      href: PAGE_URLS.not,
     },
     {
       icon: "⚙️",
       description: "설정을 바꿀수 있어요",
-      rightIcon: "chevron_right",
+      href: PAGE_URLS.SettingPage,
     },
   ];
 
@@ -69,7 +68,7 @@ export default function MainPage() {
           <BasicButton
             icon={button.icon}
             description={button.description}
-            rightIcon={button.rightIcon}
+            href={button.href}
           />
         ))}
       </ButtonWrapper>

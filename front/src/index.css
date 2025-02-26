@@ -31,12 +31,29 @@
   background-color: #f3f4f6;
 } */
 
+/* 초기화 코드 추가*/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/* css 폰트 크기 클래스 */
 .font-xs {
   font-size: var(--font-xs);
 }
