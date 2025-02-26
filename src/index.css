@@ -1,4 +1,3 @@
-@import url("https://cdn.jsdelivr.net/gh/toss/tossface/dist/tossface.css");
 :root {
   font-family: tossface;
   font-synthesis: none;
@@ -6,5 +5,41 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --base-color: "#fff";
+  /* 색상 */
+  --toss-blue: #0064ff;
+
+  /* 폰트 크기  */
+  --font-xs: 10px;
+  --font-sm: 12px;
+  --font-md: 16px;
+  --font-lg: 20px;
+  --font-xl: 24px;
+  --font-2xl: 28px;
+  /* 패딩 */
+  --main-padding: 12px;
+}
+
+* {
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.font-xs {
+  font-size: var(--font-xs);
+}
+.font-sm {
+  font-size: var(--font-sm);
+}
+.font-md {
+  font-size: var(--font-md);
+}
+.font-lg {
+  font-size: var(--font-lg);
+}
+.font-xl {
+  font-size: var(--font-xl);
+}
+.font-2xl {
+  font-size: var(--font-2xl);
 }

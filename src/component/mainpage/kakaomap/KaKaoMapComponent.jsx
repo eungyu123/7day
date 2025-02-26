@@ -1,9 +1,9 @@
 import "./KaKaoMapComponent.css";
 import { useEffect, useState, useRef } from "react";
-import { useLocation } from "../../hook/useLocation";
+import { useLocation } from "../../../hook/useLocation";
 import { Map, CustomOverlayMap, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useKakaoLoader } from "react-kakao-maps-sdk";
-import ReactLogo from "../../assets/react.svg";
+import ReactLogo from "../../../assets/react.svg";
 
 const kakaoMapKey = import.meta.env.VITE_KAKAOMAP_KEY; // Vite의 환경 변수 접근 방식
 
@@ -67,7 +67,7 @@ export default function KaKaoMapComponent() {
         isPanto={true} // 부드럽게 움직이는것
         style={{
           width: "100%",
-          height: "350px",
+          height: "100%",
         }}
         level={3}
       >

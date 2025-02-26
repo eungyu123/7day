@@ -1,23 +1,66 @@
 import "./MainPage.css";
 import { useAppContext } from "../../context/context";
-import {
-  decreaseCount,
-  increseCount,
-  setCount,
-} from "../../context/reducer/action/action";
+import KaKaoMapComponent from "../../component/mainpage/kakaomap/KaKaoMapComponent";
+import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
+import BasicButton from "../../component/common/button/BasicButton";
+import MainMap from "../../component/mainpage/MainMap";
+import Container from "../../component/common/Container";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
-  console.log(appState, dispatch);
+
+  const buttonsProp = [
+    {
+      icon: "📦",
+      description: "캐릭터와 펫을 보관중이에요!",
+      rightIcon: "chevron_right",
+    },
+    {
+      icon: "🥚",
+      description: `12개의 알을 모왔어요.
+                    부화장으로 가보세요`,
+      rightIcon: "chevron_right",
+    },
+    {
+      icon: "🎯",
+      description: `미션을 달성했어요 ! 
+                    지금바로 확인하세요`,
+      rightIcon: "chevron_right",
+    },
+    {
+      icon: "📦",
+      description: "추천된 산책로를 따라 걸어보세요",
+      rightIcon: "chevron_right",
+    },
+
+    {
+      icon: "👟",
+      description: "내 걸음을 분석해보세요",
+      rightIcon: "chevron_right",
+    },
+    {
+      icon: "⚙️",
+      description: "설정을 바꿀수 있어요",
+      rightIcon: "chevron_right",
+    },
+  ];
+
   return (
-    <div className="container">
-      <div>{appState.count}</div>
-      <span class="material-symbols-outlined">home</span>
-      <button onClick={() => dispatch(increseCount())}>증가</button>
-      <button onClick={() => dispatch(decreaseCount())}>감소</button>
-      <button onClick={() => dispatch(setCount({ count: 5 }))}>
-        5로 고정{" "}
-      </button>
-    </div>
+    <Container>
+      <MainMap />
+      {/* 캐릭터 있는곳  */}
+      <div className="main-character-wrapper">
+        <div className=""></div>
+      </div>
+      <ButtonWrapper>
+        {buttonsProp.map((button) => (
+          <BasicButton
+            icon={button.icon}
+            description={button.description}
+            rightIcon={button.rightIcon}
+          />
+        ))}
+      </ButtonWrapper>
+    </Container>
   );
 }

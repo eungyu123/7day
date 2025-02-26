@@ -7,7 +7,8 @@ import { Routes, Route } from "react-router-dom";
 
 import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
-import KakaoMap from "./page/kakaomap/KakaoMap";
+import HatcheryPage from "./page/hatchery/HatcheryPage";
+
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
 
@@ -21,7 +22,7 @@ function App() {
       <appContext.Provider value={providerState}>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/kakao" element={<KakaoMap />} />
+          <Route path="/kakao" element={<HatcheryPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>
