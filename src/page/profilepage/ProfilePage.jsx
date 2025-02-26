@@ -1,4 +1,4 @@
-import Header from "../../component/common/header";
+import Header from "../../component/common/header/Header";
 import "./ProfilePage.css";
 
 export default function ProfilePage() {
