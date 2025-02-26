@@ -13,4 +13,8 @@
   --toss-blue: #0064ff;
   --toss-gray: #202632;
   --toss-light-gray: #d9d9d9;
+
+  /* radius */
+  --button-radius: 10px;
+  --modal-radius: 15px;
 }

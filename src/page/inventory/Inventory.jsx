@@ -4,10 +4,13 @@ import "../../index.css";
 import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
+import RewardModal from "../../component/modal/RewardModal";
 
 export default function Inventory() {
   const [selectedTab, setSelectedTab] = useState("character");
   const [selectedId, setSelectedId] = useState(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 캐릭터, 펫 임시 데이터
   const inventoryItems = [
@@ -52,6 +55,14 @@ export default function Inventory() {
             ))}
         </div>
       </div>
+
+      {/* 임시 모달 확인 버튼 */}
+      <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
+      <RewardModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        goal={"3000보"}
+      />
     </div>
   );
 }
