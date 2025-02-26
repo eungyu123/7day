@@ -1,66 +1,55 @@
 import { useState } from "react";
 import "./Inventory.css";
 import "../../index.css";
-
-const rootStyles = getComputedStyle(document.documentElement);
-const tossBlue = rootStyles.getPropertyValue("--toss-blue").trim();
+import InventoryTabs from "../../component/inventory/InventoryTabs";
+import InventoryItem from "../../component/inventory/InventoryItem";
+import CharacterViewer from "../../component/inventory/CharacterViewer";
 
 export default function Inventory() {
   const [selectedTab, setSelectedTab] = useState("character");
+  const [selectedId, setSelectedId] = useState(null);
 
-  const tabStyles = {
-    character: {
-      color: selectedTab === "character" ? tossBlue : "#666666",
-    },
-    pet: {
-      color: selectedTab === "pet" ? tossBlue : "#666666",
-    },
-  };
+  // 캐릭터, 펫 임시 데이터
+  const inventoryItems = [
+    { id: 1, type: "character" },
+    { id: 2, type: "character" },
+    { id: 3, type: "character" },
+    { id: 4, type: "character" },
+    { id: 5, type: "character" },
+    { id: 6, type: "character" },
+    { id: 7, type: "character" },
+    { id: 8, type: "character" },
+    { id: 9, type: "character" },
+    { id: 10, type: "character" },
+    { id: 11, type: "pet" },
+    { id: 12, type: "pet" },
+    { id: 13, type: "pet" },
+    { id: 14, type: "pet" },
+    { id: 15, type: "pet" },
+    { id: 16, type: "pet" },
+    { id: 17, type: "pet" },
+    { id: 18, type: "pet" },
+    { id: 19, type: "pet" },
+  ];
 
   return (
     <div className="container">
-      <div className="characterViewer">{/* 3D 이미지 넣을 공간 */}</div>
+      <CharacterViewer />
       <div className="inventory">
-        <div className="inventoryHeader">
-          <div
-            className="inventorySelect"
-            onClick={() => setSelectedTab("character")}
-            style={tabStyles.character}
-          >
-            캐릭터
-          </div>
-          <div
-            className="inventorySelect"
-            onClick={() => setSelectedTab("pet")}
-            style={tabStyles.pet}
-          >
-            펫
-          </div>
-        </div>
+        <InventoryTabs
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
         <div className="inventoryMain">
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
-          <div className="InventoryItem"></div>
+          {inventoryItems
+            .filter((item) => item.type === selectedTab)
+            .map((item) => (
+              <InventoryItem
+                key={item.id}
+                isSelected={selectedId === item.id}
+                onClick={() => setSelectedId(item.id)}
+              />
+            ))}
         </div>
       </div>
     </div>
