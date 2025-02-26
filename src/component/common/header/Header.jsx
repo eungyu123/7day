@@ -8,14 +8,17 @@ function Header({ PageName, BackNavigate = "/" }) {
   const navigate = useNavigate();
 
   return (
-    <div className="headercontainer">
-      <div className="left-section" onClick={() => navigate(BackNavigate)}>
+    <div className="commonheader-container">
+      <div
+        className="commonheader-left-section"
+        onClick={() => navigate(BackNavigate)}
+      >
         <span class="material-symbols-outlined">chevron_left</span>
       </div>
-      <div className="center-section">
-        <p className="headertext">{PageName}</p>
+      <div className="commonheader-center-section">
+        <p className="commonheader-text">{PageName}</p>
       </div>
-      <div className="left-section"></div>
+      <div className="commonheader-right-section"></div>
     </div>
   );
 }
