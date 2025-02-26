@@ -5,7 +5,7 @@ import { appReducer } from "./context/reducer/reducer";
 import { appContext } from "./context/context";
 import { Routes, Route } from "react-router-dom";
 
-// import MainPage from "./page/mainpage/MainPage";
+import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
 import MissonPage from "./page/missonpage/Missonpage";
 import ProfilePage from "./page/profilepage/ProfilePage";
