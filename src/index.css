@@ -1,6 +1,9 @@
 @import url("https://cdn.jsdelivr.net/gh/toss/tossface/dist/tossface.css");
+@import url("https://static.toss.im/tps/main.css");
+@import url("https://static.toss.im/tps/others.css");
 :root {
-  font-family: tossface;
+  /* font-family: tossface; */
+  font-family: "Toss Product Sans";
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
