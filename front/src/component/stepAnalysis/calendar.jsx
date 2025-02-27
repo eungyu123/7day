@@ -1,5 +1,5 @@
 import "../../page/stepAnalysisPage/calendar.css";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
 import React, { useState, useEffect } from "react";
 
 const Calendar = () => {
