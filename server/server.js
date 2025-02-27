@@ -14,6 +14,9 @@ connectDB();
 const middleware = require("./middleware/middleware");
 middleware(app);
 
+const nameRouter = require("./router/nameRouter");
+app.use("/api", nameRouter);
+
 const mainRouter = require("./router/mainRouter");
 app.use("/api/main", mainRouter);
 
