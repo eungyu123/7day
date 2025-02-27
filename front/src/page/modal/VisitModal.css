@@ -9,6 +9,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   color: var(--toss-gray);
+  z-index: 1050;
 }
 
 .visit-modal-header {
