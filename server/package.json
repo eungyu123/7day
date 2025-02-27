@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "middleware": "^1.0.0",
+    "mongoose": "^8.11.0"
+  }
+}

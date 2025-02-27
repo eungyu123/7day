@@ -3,7 +3,7 @@ const router = express.Router();
 
 const main = require("../lib/main");
 
-router.get("/test", (req, res) => {
+router.get("/test", async (req, res) => {
   console.log("test");
   main.test(req, res);
 });

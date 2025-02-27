@@ -1,10 +1,10 @@
-const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const express = require("express");
 
 const middleware = (app) => {
   app.use(cookieParser());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
 
   app.use((req, res, next) => {
     next();
