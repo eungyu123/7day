@@ -20,8 +20,8 @@ export default function WalkingInfo({
       <div className="walkinginfomap"></div>
       <div className="walkinginfoname">
         <div className="walkinginfotext">
-          <p className="walkinginfotext1">{walkingmapname}</p>
-          <p className="walkinginfotext2">{walkingmapkm}</p>
+          <p className="walkinginfotextlg">{walkingmapname}</p>
+          <p className="walkinginfotextsm">{walkingmapkm}</p>
         </div>
       </div>
     </div>

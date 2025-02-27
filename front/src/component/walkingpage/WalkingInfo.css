@@ -27,11 +27,12 @@
   margin-left: 10px;
   margin-top: 5px;
 }
-.walkinginfotext1 {
+.walkinginfotextlg {
   margin: 0;
-  font-size: larger;
+  font-size: var(--font-lg);
   margin-right: 10px;
 }
-.walkinginfotext2 {
-  font-size: x-small;
+.walkinginfotextsm {
+  margin-top: 10px;
+  font-size: var(--font-xs);
 }
