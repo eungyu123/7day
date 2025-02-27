@@ -15,6 +15,7 @@ import HatcheryPage from "./page/hatchery/HatcheryPage";
 import SettingPage from "./page/Setting/SettingPage";
 import Inventory from "./page/inventory/Inventory";
 import FriendPage from "./page/friend/FriendPage";
+import StepAnalysisPage from "./page/stepAnalysisPage/stepAnalysisPage";
 
 import { useScrollToTop } from "./hook/useScrollToTop";
 
@@ -37,8 +38,9 @@ function App() {
           <Route path="/HatcheryPage" element={<HatcheryPage />} />
           <Route path="/ProfilePage" element={<ProfilePage />} />
           <Route path="/SettingPage" element={<SettingPage />} />
-          <Route path="/Inventory" element={<Inventory />} />
           <Route path="/FriendPage" element={<FriendPage />} />
+          <Route path="/InventoryPage" element={<Inventory />} />
+          <Route path="/StepAnalysisPage" element={<StepAnalysisPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>

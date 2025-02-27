@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--toss-background);
+}
+.container {
+  width: 100vw;
+  height: auto;
+  background-color: var(--toss-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.step-analysis-container {
+  width: 85%;
+  height: 375px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.step-analysis-header {
+  color: var(--toss-gray);
+  font-weight: 600;
+  font-size: var(--font-lg);
+}
+
+.step-analysis-header > p > span {
+  color: var(--toss-blue);
+}
+.week-step-graph-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 280px;
+}
+.week-step-graph-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30px;
+}
+.week-step-numberOfSteps {
+  color: var(--toss-gray);
+  margin-bottom: 8px;
+  font-size: var(--font-sm);
+}
+.week-step-graph {
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(var(--toss-light-gray), var(--toss-background));
+  transition: height 0.5s ease-out;
+}
+.week-step-day-label {
+  margin-top: 4px;
+  color: var(--toss-gray);
+  font-size: var(--font-sm);
+}

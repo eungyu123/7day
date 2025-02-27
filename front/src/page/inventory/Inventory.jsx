@@ -4,8 +4,8 @@ import "../../index.css";
 import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
-// import RewardModal from "../../component/modal/RewardModal";
-import VisitModal from "../../component/modal/VisitModal";
+import RewardModal from "../../component/modal/RewardModal";
+// import VisitModal from "../../component/modal/VisitModal";
 
 export default function Inventory() {
   const [selectedTab, setSelectedTab] = useState("character");
@@ -44,7 +44,7 @@ export default function Inventory() {
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
         />
-        <div className="inventoryMain">
+        <div className="inventory-main">
           {inventoryItems
             .filter((item) => item.type === selectedTab)
             .map((item) => (
@@ -59,7 +59,7 @@ export default function Inventory() {
 
       {/* 임시 모달 확인 버튼 */}
       <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
-      <VisitModal
+      <RewardModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         goal={"3000보"}
