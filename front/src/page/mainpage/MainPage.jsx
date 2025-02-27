@@ -7,7 +7,6 @@ import BasicButton from "../../component/common/button/BasicButton";
 import MainMap from "../../component/mainpage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
-import Inventory from "../inventory/Inventory";
 import { PAGE_URLS } from "../../constant/constant";
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();

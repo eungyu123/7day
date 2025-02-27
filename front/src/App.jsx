@@ -14,7 +14,7 @@ import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
 import HatcheryPage from "./page/hatchery/HatcheryPage";
 import SettingPage from "./page/Setting/SettingPage";
 import Inventory from "./page/inventory/Inventory";
-
+import LoginPage from "./page/login/LoginPage";
 import { useScrollToTop } from "./hook/useScrollToTop";
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
       <appContext.Provider value={providerState}>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="LoginPage" element={<LoginPage />} />
           <Route path="/MissonPage" element={<MissonPage />} />
           <Route path="/WalkingPage" element={<WalkingPage />} />
           <Route path="/WalkingCoursePage" element={<WalkingCoursePage />} />

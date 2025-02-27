@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const MONGO_URI =
   "mongodb+srv://menteehubb:zPw5HzlAC3bSqKqR@cluster0.j1khp.mongodb.net/blog";
 
-export const connectDB = async () => {
+const connectDB = async () => {
   try {
     await mongoose.connect(MONGO_URI, {});
     console.log("✅ MongoDB Connected");
@@ -12,3 +12,5 @@ export const connectDB = async () => {
     process.exit(1);
   }
 };
+
+module.exports = connectDB;
