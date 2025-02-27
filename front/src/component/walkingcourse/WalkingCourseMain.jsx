@@ -50,7 +50,11 @@ export default function WalkingCourseMain() {
         </div>
       </div>
       <div className="walkingcoursemainbtncontainer">
-        <div className="walkingcoursemainbtn" onClick={handleStartNavigation}>
+        <div
+          className={`walkingcoursemainbtn ${isChecked ? "active" : ""}`}
+          onClick={handleStartNavigation}
+          disabled={!isChecked}
+        >
           네비게이션 시작
         </div>
       </div>
