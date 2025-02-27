@@ -6,7 +6,7 @@ const Inventory = require("../db/models/Inventory"); // require로 가져오기
 const Walk = require("../db/models/walk_data"); // require로 가져오기
 
 const kakaomap = require("../utils/kakaomap");
-const redis = require("../db/redis");
+// const redis = require("../db/redis");
 
 module.exports = {
   getUsers: async (req, res) => {

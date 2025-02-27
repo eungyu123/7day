@@ -1,12 +1,12 @@
 // redisClient.js
-const Redis = require("ioredis");
+// const Redis = require("ioredis");
 
-const redis = new Redis(); // Redis 인스턴스 생성
+// const redis = new Redis(); // Redis 인스턴스 생성
 
-redis.on("connect", () => console.log("✅ Redis 연결됨!"));
-redis.on("error", (err) => console.error("❌ Redis 오류:", err));
+// redis.on("connect", () => console.log("✅ Redis 연결됨!"));
+// redis.on("error", (err) => console.error("❌ Redis 오류:", err));
 
-module.exports = redis;
+// module.exports = redis;
 
 // 레디스 문법
 // async function testRedis() {
