@@ -11,7 +11,9 @@ const middleware = require("./middleware/middleware");
 middleware(app);
 
 const mainRouter = require("./router/mainRouter");
+const authRouter = require("./router/authRouter");
 app.use("/api/main", mainRouter);
+app.use("/api/auth", authRouter);
 
 // 서버 실행
 app.listen(port, () => {

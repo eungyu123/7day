@@ -8,6 +8,7 @@ redis.on("error", (err) => console.error("❌ Redis 오류:", err));
 
 module.exports = redis;
 
+// 레디스 문법
 // async function testRedis() {
 //   try {
 //     // 1️⃣ 데이터 저장 (SET)

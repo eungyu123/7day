@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-
+import "./LoginPage.css";
+import Container from "../../component/common/Container";
+import { googleSignIn, googleSignOut } from "../../api/authApi";
 const LoginPage = () => {
   useEffect(() => {
     // Google API 스크립트 로드
@@ -11,7 +13,7 @@ const LoginPage = () => {
     script.onload = () => {
       window.google?.accounts.id.initialize({
         client_id:
-          "671783874321-non3vj4e8e19mm0k4hqre52beg03lpaf.apps.googleusercontent.com",
+          "967990155440-6kdar6oaceqj6fk04s469nebhdfe90d2.apps.googleusercontent.com",
         callback: handleCredentialResponse,
       });
 
@@ -29,31 +31,21 @@ const LoginPage = () => {
     const token = response.credential;
     console.log("Google Token:", token);
 
-    try {
-      const res = await fetch("http://localhost:3000/api/main/googleSignin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ credential: token }),
-      });
-
-      const data = await res.json();
-      console.log("서버 응답:", data);
-
-      if (data.type === "success") {
-        window.location.href = "http://localhost:3000/";
-      }
-    } catch (error) {
-      console.error("에러 발생:", error);
-    }
+    await googleSignIn(token);
   };
 
+  googleSignOut();
+
   return (
-    <div className="container">
-      <div className="title">7day walk</div>
-      <div id="google-login-btn"></div>
-    </div>
+    <Container>
+      <div className="login-container">
+        <div id="google-login-btn"></div>
+        <br />
+        <div className="" onClick={() => signOut()}>
+          로그아웃
+        </div>
+      </div>
+    </Container>
   );
 };
 

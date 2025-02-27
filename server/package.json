@@ -13,15 +13,18 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@tanstack/react-query": "^5.66.9",
     "body-parser": "^1.20.3",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "ioredis": "^5.5.0",
-    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
     "middleware": "^1.0.0",
-    "mongoose": "^8.11.0"
+    "mongoose": "^8.11.0",
+    "nodemon": "^3.1.9"
   }
 }
