@@ -1,6 +1,6 @@
 import "./MissionList.css";
 
-export default function MissionList({ MissionContent, IsComplete }) {
+export default function MissionList({ MissionContent, IsComplete = false }) {
   return (
     <div className="missionlistcontainer">
       <p className="emojifont font-2xl">🎯</p>
