@@ -3,7 +3,7 @@ import MissionList from "./MissionList";
 
 export default function MissionMain() {
   const missions = [
-    { MissionContent: "토스 광고 보긴" },
+    { MissionContent: "토스 광고 보기" },
     { MissionContent: "1000보 걷기", IsComplete: true },
     { MissionContent: "5000보 걷기" },
     { MissionContent: "10000보 걷기" },
