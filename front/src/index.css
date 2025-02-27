@@ -25,6 +25,10 @@
   --font-2xl: 28px;
   /* 패딩 */
   --main-padding: 12px;
+
+  /* radius */
+  --button-radius: 10px;
+  --modal-radius: 15px;
 }
 
 /* body {
