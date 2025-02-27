@@ -17,7 +17,7 @@ export default function NicknamePage() {
   };
   return (
     <>
-      <Header />
+      <Header BackNavigate="/ProfilePage" />
       <div className="nicknamepagecontainer">
         <div className="nicknamepagesettingcontainer">
           <p className="nicknamepagetextlg">닉네임을 설정해주세요.</p>
