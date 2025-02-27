@@ -13,7 +13,7 @@ import WalkingPage from "./page/walkingpage/WalkingPage";
 import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
 import HatcheryPage from "./page/hatchery/HatcheryPage";
 import SettingPage from "./page/Setting/SettingPage";
-import Inventory from "./page/inventory/Inventory";
+// import Inventory from "./page/inventory/Inventory";
 import FriendPage from "./page/friend/FriendPage";
 
 import { useScrollToTop } from "./hook/useScrollToTop";
@@ -37,7 +37,7 @@ function App() {
           <Route path="/HatcheryPage" element={<HatcheryPage />} />
           <Route path="/ProfilePage" element={<ProfilePage />} />
           <Route path="/SettingPage" element={<SettingPage />} />
-          <Route path="/Inventory" element={<Inventory />} />
+          {/* <Route path="/Inventory" element={<Inventory />} /> */}
           <Route path="/FriendPage" element={<FriendPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
