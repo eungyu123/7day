@@ -3,9 +3,9 @@ const router = express.Router();
 
 const main = require("../lib/main");
 
-router.get("/test", async (req, res) => {
-  console.log("test");
-  main.test(req, res);
+router.get("/users", async (req, res) => {
+  console.log("getUsers");
+  main.getUsers(req, res);
 });
 
 router.post("/walkUpdate", async (req, res) => {
