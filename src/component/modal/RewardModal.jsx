@@ -8,7 +8,7 @@ export default function RewardModal({ isOpen, setIsOpen, goal }) {
       <Dialog.Content className="modal-content">
         <div className="modal-header">
           <Dialog.Close asChild>
-            <button className="close-button">X</button>
+            <button className="modal-close-button">X</button>
           </Dialog.Close>
         </div>
         <div className="modal-body">
@@ -16,7 +16,7 @@ export default function RewardModal({ isOpen, setIsOpen, goal }) {
           <p className="modal-message">축하합니다!</p>
           <p className="modal-message">{goal}를 달성하셨습니다!</p>
           <Dialog.Close asChild>
-            <button className="reward-button">보상받기</button>
+            <button className="modal-reward-button">보상받기</button>
           </Dialog.Close>
         </div>
       </Dialog.Content>

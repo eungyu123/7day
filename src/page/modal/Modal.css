@@ -16,10 +16,9 @@
   justify-content: flex-end;
 }
 
-.close-button {
+.modal-close-button {
   background: none;
   border: none;
-  cursor: pointer;
   color: var(--toss-gray);
 }
 
@@ -42,7 +41,7 @@
   margin-bottom: 3px;
 }
 
-.reward-button {
+.modal-reward-button {
   width: 100%;
   background: var(--toss-blue);
   color: white;
