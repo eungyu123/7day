@@ -7,6 +7,7 @@ import BasicButton from "../../component/common/button/BasicButton";
 import MainMap from "../../component/mainpage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
+import Inventory from "../inventory/Inventory";
 import { PAGE_URLS } from "../../constant/constant";
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
@@ -15,7 +16,7 @@ export default function MainPage() {
     {
       icon: "📦",
       description: "캐릭터와 펫을 보관중이에요!",
-      href: PAGE_URLS.not,
+      href: PAGE_URLS.Inventory,
     },
     {
       icon: "🥚",
