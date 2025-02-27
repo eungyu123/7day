@@ -1,11 +1,12 @@
 export const PAGE_URLS = {
-  MissonPage: "/MissonPage",
+  MissionPage: "/MissionPage",
   WalkingPage: "/WalkingPage",
   WalkingCoursePage: "/WalkingCoursePage",
   HatcheryPage: "/HatcheryPage",
   ProfilePage: "/ProfilePage",
   SettingPage: "/SettingPage",
-  Inventory: "/Inventory",
-  LoginPage: "/LoginPage",
+
+  InventoryPage: "/InventoryPage",
+  StepAnalysisPage: "/StepAnalysisPage",
   not: "not",
 };

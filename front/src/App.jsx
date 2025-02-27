@@ -7,7 +7,7 @@ import { Routes, Route } from "react-router-dom";
 
 import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
-import MissonPage from "./page/missonpage/Missonpage";
+import MissionPage from "./page/missionpage/MissionPage";
 import ProfilePage from "./page/profilepage/ProfilePage";
 import WalkingPage from "./page/walkingpage/WalkingPage";
 import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
@@ -15,6 +15,9 @@ import HatcheryPage from "./page/hatchery/HatcheryPage";
 import SettingPage from "./page/Setting/SettingPage";
 import Inventory from "./page/inventory/Inventory";
 import LoginPage from "./page/login/LoginPage";
+import FriendPage from "./page/friend/FriendPage";
+import StepAnalysisPage from "./page/stepAnalysisPage/stepAnalysisPage";
+
 import { useScrollToTop } from "./hook/useScrollToTop";
 
 function App() {
@@ -31,13 +34,15 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="LoginPage" element={<LoginPage />} />
-          <Route path="/MissonPage" element={<MissonPage />} />
+          <Route path="/MissionPage" element={<MissionPage />} />
           <Route path="/WalkingPage" element={<WalkingPage />} />
           <Route path="/WalkingCoursePage" element={<WalkingCoursePage />} />
           <Route path="/HatcheryPage" element={<HatcheryPage />} />
           <Route path="/ProfilePage" element={<ProfilePage />} />
           <Route path="/SettingPage" element={<SettingPage />} />
-          <Route path="/Inventory" element={<Inventory />} />
+          <Route path="/FriendPage" element={<FriendPage />} />
+          <Route path="/InventoryPage" element={<Inventory />} />
+          <Route path="/StepAnalysisPage" element={<StepAnalysisPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>

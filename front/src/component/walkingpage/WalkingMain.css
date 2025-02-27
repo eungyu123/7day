@@ -1,8 +1,9 @@
 .walkingmaincontainer {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
+  overflow-y: auto;
 }
 body {
   margin: 0;
@@ -12,8 +13,6 @@ body {
 .walkingmaininfolist {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  overflow-y: auto;
 }
 .walkingmaininfo {
   display: flex;
@@ -23,12 +22,12 @@ body {
 }
 .walkingmaininfotext1 {
   margin: 0;
-  font-size: larger;
+  font-size: var(--font-xl);
   font-weight: 500;
 }
 .walkingmaininfotext2 {
   margin: 0;
-  font-size: small;
+  font-size: var(--font-sm);
   color: gray;
   margin-top: 5px;
 }
@@ -36,7 +35,7 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 600px;
+  height: 200px;
   margin-bottom: 15px;
   margin-top: 15px;
 }
