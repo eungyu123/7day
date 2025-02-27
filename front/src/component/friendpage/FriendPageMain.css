@@ -1,0 +1,35 @@
+.friendmaincontainer {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+  overflow-y: auto;
+}
+.friendmaininfocontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 15%;
+  margin-bottom: 10px;
+}
+.friendmaininfotext {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.friendmaininfotextlg {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: var(--font-xl);
+  font-weight: 500;
+}
+.friendmaininfotextsm {
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-sm);
+}

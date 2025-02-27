@@ -72,3 +72,7 @@ button {
 .font-2xl {
   font-size: var(--font-2xl);
 }
+
+.emojifont {
+  font-family: tossface;
+}
