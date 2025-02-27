@@ -4,7 +4,7 @@ import { useAppContext } from "../../context/context";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import HalfBasicButton from "../../component/common/button/HalfBasicButton";
 import BasicButton from "../../component/common/button/BasicButton";
-import MainMap from "../../component/mainpage/kakaomap/MainMap";
+import MainMap from "../../component/mainPage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
 import { PAGE_URLS } from "../../constant/constant";
@@ -27,7 +27,7 @@ export default function MainPage() {
       icon: "🎯",
       description: `미션을 달성했어요 ! 
                     지금바로 확인하세요`,
-      href: PAGE_URLS.MissonPage,
+      href: PAGE_URLS.MissionPage,
     },
     {
       icon: "📦",

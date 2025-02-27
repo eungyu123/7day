@@ -7,12 +7,13 @@ import { Routes, Route } from "react-router-dom";
 
 import MainPage from "./page/mainpage/MainPage";
 import NotFound from "./page/notfound/NotFound";
-import MissonPage from "./page/missonpage/Missonpage";
+import MissionPage from "./page/missionpage/MissionPage";
 import ProfilePage from "./page/profilepage/ProfilePage";
 import WalkingPage from "./page/walkingpage/WalkingPage";
 import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
 import HatcheryPage from "./page/hatchery/HatcheryPage";
 import SettingPage from "./page/Setting/SettingPage";
+import FriendPage from "./page/friend/FriendPage";
 
 import { useScrollToTop } from "./hook/useScrollToTop";
 
@@ -29,12 +30,13 @@ function App() {
       <appContext.Provider value={providerState}>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/MissonPage" element={<MissonPage />} />
+          <Route path="/MissionPage" element={<MissionPage />} />
           <Route path="/WalkingPage" element={<WalkingPage />} />
           <Route path="/WalkingCoursePage" element={<WalkingCoursePage />} />
           <Route path="/HatcheryPage" element={<HatcheryPage />} />
           <Route path="/ProfilePage" element={<ProfilePage />} />
           <Route path="/SettingPage" element={<SettingPage />} />
+          <Route path="/FriendPage" element={<FriendPage />} />
           <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
         </Routes>
       </appContext.Provider>

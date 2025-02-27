@@ -1,0 +1,19 @@
+.missionlistcontainer {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  width: 85%;
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.missioncomplete {
+  font-size: var(--font-lg);
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+.missionincomplete {
+  font-size: var(--font-lg);
+  margin-left: 10px;
+}

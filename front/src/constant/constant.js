@@ -1,5 +1,5 @@
 export const PAGE_URLS = {
-  MissonPage: "/MissonPage",
+  MissionPage: "/MissionPage",
   WalkingPage: "/WalkingPage",
   WalkingCoursePage: "/WalkingCoursePage",
   HatcheryPage: "/HatcheryPage",
