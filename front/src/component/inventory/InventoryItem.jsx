@@ -4,7 +4,7 @@ import "../../index.css";
 export default function InventoryItem({ isSelected, onClick }) {
   return (
     <div
-      className={`InventoryItem ${isSelected ? "selected" : ""}`}
+      className={`Inventory-item ${isSelected ? "selected" : ""}`}
       onClick={onClick}
     ></div>
   );

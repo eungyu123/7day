@@ -6,16 +6,16 @@ const tossBlue = rootStyles.getPropertyValue("--toss-blue").trim();
 
 export default function InventoryTabs({ selectedTab, setSelectedTab }) {
   return (
-    <div className="inventoryHeader">
+    <div className="inventory-header">
       <div
-        className="inventorySelect"
+        className="inventory-select"
         onClick={() => setSelectedTab("character")}
         style={{ color: selectedTab === "character" ? tossBlue : "#666666" }}
       >
         캐릭터
       </div>
       <div
-        className="inventorySelect"
+        className="inventory-select"
         onClick={() => setSelectedTab("pet")}
         style={{ color: selectedTab === "pet" ? tossBlue : "#666666" }}
       >
