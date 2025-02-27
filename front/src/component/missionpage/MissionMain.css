@@ -1,0 +1,41 @@
+.missionmaincontainer {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+}
+.missioninfocontainer {
+  display: flex;
+  width: 80%;
+  height: 10%;
+}
+.missioninfotext {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.missioninfotextlg {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: var(--font-xl);
+  font-weight: 500;
+}
+.missioninfotextsm {
+  margin: 0;
+  padding: 0;
+  color: gray;
+  font-size: var(--font-sm);
+}
+.missionmainlist {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  width: 85%;
+  height: 90%;
+}
