@@ -5,5 +5,7 @@ export const PAGE_URLS = {
   HatcheryPage: "/HatcheryPage",
   ProfilePage: "/ProfilePage",
   SettingPage: "/SettingPage",
+  InventoryPage: "/InventoryPage",
+  StepAnalysisPage: "/StepAnalysisPage",
   not: "not",
 };

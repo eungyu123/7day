@@ -1,7 +1,7 @@
 .container {
   width: 100vw;
   height: 100vh;
-  background-color: #f3f4f6;
+  background-color: var(--toss-background);
   display: flex;
   flex-direction: column;
 }
