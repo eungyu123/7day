@@ -1,15 +1,15 @@
-const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const MONGO_URI =
   "mongodb+srv://menteehubb:zPw5HzlAC3bSqKqR@cluster0.j1khp.mongodb.net/blog";
 const SECRET_KEY = "4322f881aceb9230d36d703f5cc2d953";
+const express = require("express");
 
 const middleware = (app) => {
   app.use(cookieParser());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
 
   // 세션스토어
   app.use(

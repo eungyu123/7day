@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true },
+    //_id
+    nickname: { type: String, required: true },
+    friend_list: [{ freind_id: { type: String } }],
+    user_point: { type: Number, required: true },
   },
   { timestamps: true }
 );

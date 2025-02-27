@@ -8,4 +8,9 @@ router.post("/googleSignin", (req, res) => {
   main.googleSignin(req, res);
 });
 
+router.get("/test", async (req, res) => {
+  console.log("test");
+  main.test(req, res);
+});
+
 module.exports = router;
