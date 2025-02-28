@@ -15,8 +15,10 @@ app.use("/api", nameRouter);
 
 const mainRouter = require("./router/mainRouter");
 const authRouter = require("./router/authRouter");
+const nameRouter = require("./router/nameRouter");
 app.use("/api/main", mainRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/name", nameRouter);
 
 // 서버 실행
 app.listen(port, () => {

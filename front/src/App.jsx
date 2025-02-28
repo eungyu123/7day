@@ -28,37 +28,33 @@ function App() {
     <>
       {/* 에러  */}
       <QueryClientProvider client={queryClient}>
-        <ErrorBoundary FallbackComponent={() => <ErrorPage />}>
-          {/* 로딩 */}
-          <Suspense fallback={<LoadingPage />}>
-            <appContext.Provider value={providerState}>
-              <Routes>
-                <Route path={PAGE_URLS.MainPage} element={<MainPage />} />
-                <Route path={PAGE_URLS.LoginPage} element={<LoginPage />} />
-                <Route path={PAGE_URLS.MissionPage} element={<MissionPage />} />
-                <Route path={PAGE_URLS.WalkingPage} element={<WalkingPage />} />
-                <Route
-                  path={PAGE_URLS.WalkingCoursePage}
-                  element={<WalkingCoursePage />}
-                />
-                <Route
-                  path={PAGE_URLS.HatcheryPage}
-                  element={<HatcheryPage />}
-                />
-                <Route path={PAGE_URLS.ProfilePage} element={<ProfilePage />} />
-                <Route path={PAGE_URLS.SettingPage} element={<SettingPage />} />
-                <Route path={PAGE_URLS.FriendPage} element={<FriendPage />} />
-                <Route path={PAGE_URLS.InventoryPage} element={<Inventory />} />
-                <Route
-                  path={PAGE_URLS.StepAnalysisPage}
-                  element={<StepAnalysisPage />}
-                />
-                <Route path="*" element={<NotFound />} />{" "}
-                {/* 없는 페이지 처리 */}
-              </Routes>
-            </appContext.Provider>
-          </Suspense>
-        </ErrorBoundary>
+        {/* <ErrorBoundary FallbackComponent={() => <ErrorPage />}> */}
+        {/* 로딩 */}
+        <Suspense fallback={<LoadingPage />}>
+          <appContext.Provider value={providerState}>
+            <Routes>
+              <Route path={PAGE_URLS.MainPage} element={<MainPage />} />
+              <Route path={PAGE_URLS.LoginPage} element={<LoginPage />} />
+              <Route path={PAGE_URLS.MissionPage} element={<MissionPage />} />
+              <Route path={PAGE_URLS.WalkingPage} element={<WalkingPage />} />
+              <Route
+                path={PAGE_URLS.WalkingCoursePage}
+                element={<WalkingCoursePage />}
+              />
+              <Route path={PAGE_URLS.HatcheryPage} element={<HatcheryPage />} />
+              <Route path={PAGE_URLS.ProfilePage} element={<ProfilePage />} />
+              <Route path={PAGE_URLS.SettingPage} element={<SettingPage />} />
+              <Route path={PAGE_URLS.FriendPage} element={<FriendPage />} />
+              <Route path={PAGE_URLS.InventoryPage} element={<Inventory />} />
+              <Route
+                path={PAGE_URLS.StepAnalysisPage}
+                element={<StepAnalysisPage />}
+              />
+              <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
+            </Routes>
+          </appContext.Provider>
+        </Suspense>
+        {/* </ErrorBoundary> */}
       </QueryClientProvider>
     </>
   );

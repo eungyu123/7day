@@ -16,8 +16,8 @@ export default function MainPage() {
   const { appState, dispatch } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const { data: users } = useFetchUsers(); // 데이터 받기
-  console.log("users", users);
+  // const { data: users } = useFetchUsers(); // 데이터 받기
+  // console.log("users", users);
 
   const buttonsProp = [
     {
