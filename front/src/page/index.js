@@ -1,0 +1,14 @@
+export { default as MainPage } from "./mainpage/MainPage";
+export { default as NotFound } from "./notfound/NotFound";
+export { default as MissionPage } from "./missionpage/MissionPage";
+export { default as ProfilePage } from "./profilepage/ProfilePage";
+export { default as WalkingPage } from "./walkingpage/WalkingPage";
+export { default as WalkingCoursePage } from "./walkingcoursepage/WalkingCoursePage";
+export { default as HatcheryPage } from "./hatchery/HatcheryPage";
+export { default as SettingPage } from "./Setting/SettingPage";
+export { default as Inventory } from "./inventory/Inventory";
+export { default as LoginPage } from "./login/LoginPage";
+export { default as FriendPage } from "./friend/FriendPage";
+export { default as StepAnalysisPage } from "./stepAnalysisPage/stepAnalysisPage";
+export { default as LoadingPage } from "./loading/LoadingPage";
+export { default as ErrorPage } from "./error/ErrorPage";

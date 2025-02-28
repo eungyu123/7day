@@ -7,7 +7,7 @@ const WalkSchema = new mongoose.Schema(
     steps: { type: Number },
     date: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true, collection: "walkdatas" }
 );
 
 const Walk = mongoose.model("Walk_data", WalkSchema);

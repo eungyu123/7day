@@ -8,7 +8,9 @@ const InventorySchema = new mongoose.Schema(
     pet: { type: String },
     egg: { type: String },
   },
-  { timestamps: true }
+  // imestamps: true => 자동 createdAt, updateAt 추가
+  // collection: "Inventories" => 컬렉션(테이블)이름 강제 지정
+  { timestamps: true, collection: "Inventories" }
 );
 
 const Inventory = mongoose.model("Inventory", InventorySchema);

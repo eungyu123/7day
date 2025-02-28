@@ -8,7 +8,7 @@ const RewardSchema = new mongoose.Schema(
     content: { type: String },
     icon: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true, collection: "rewards" }
 );
 
 const Reward = mongoose.model("Reward", RewardSchema);
