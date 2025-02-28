@@ -20,6 +20,18 @@ export function appReducer(state, action) {
         count: action.payload.count,
       };
     }
+    case actionType.setCharacter: {
+      return {
+        ...state,
+        character: action.payload.character,
+      };
+    }
+    case actionType.setPet: {
+      return {
+        ...state,
+        pet: action.payload.pet,
+      };
+    }
     default:
       return state;
   }

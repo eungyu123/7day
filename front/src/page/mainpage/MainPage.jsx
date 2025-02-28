@@ -16,8 +16,8 @@ export default function MainPage() {
   const { appState, dispatch } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const { data: users } = useFetchUsers(); // 데이터 받기
-  console.log("users", users);
+  // const { data: users } = useFetchUsers(); // 데이터 받기
+  // console.log("users", users);
 
   const buttonsProp = [
     {
@@ -86,6 +86,9 @@ export default function MainPage() {
           />
         ))}
       </ButtonWrapper>
+      <div>
+        현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
+      </div>
     </Container>
   );
 }

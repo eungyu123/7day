@@ -12,6 +12,8 @@ export const PAGE_URLS = {
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   not: "not",
+  LoadingPag: "/LoadingPage",
+  ErrorPage: "/ErrorPage",
 };
 
 export const API_BASE_URL = "http://localhost:3000/api";

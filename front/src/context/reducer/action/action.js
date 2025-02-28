@@ -18,3 +18,17 @@ export function setCount({ count }) {
     payload: { count },
   };
 }
+
+export function setCharacter({ character }) {
+  return {
+    type: actionType.setCharacter,
+    payload: { character },
+  };
+}
+
+export function setPet({ pet }) {
+  return {
+    type: actionType.setPet,
+    payload: { pet },
+  };
+}

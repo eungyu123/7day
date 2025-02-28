@@ -1,0 +1,55 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+.errorContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  color: var(--toss-gray);
+}
+.error-icon {
+  font-family: tossface;
+  font-size: var(--font-2xl);
+}
+
+.error-header > p {
+  font-size: var(--font-lg);
+}
+
+.error-main {
+  margin-top: 7px;
+  display: flex;
+  position: relative;
+}
+
+.error-main-bar {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  margin-left: 2px;
+  background-color: #f3cb17;
+}
+
+.error-main-message {
+  margin-left: 15px;
+}
+
+.error-return-button {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  height: 40px;
+  background-color: var(--toss-blue);
+  color: white;
+  border-radius: var(--button-radius);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

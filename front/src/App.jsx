@@ -60,6 +60,9 @@ function App() {
                 />
                 <Route path="*" element={<NotFound />} />{" "}
                 {/* 없는 페이지 처리 */}
+                {/* 임시 에러페이지, 로딩페이지 */}
+                <Route path={PAGE_URLS.ErrorPage} element={<ErrorPage />} />
+                <Route path={PAGE_URLS.LoadingPage} element={<LoadingPage />} />
               </Routes>
             </appContext.Provider>
           </Suspense>
