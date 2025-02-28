@@ -12,7 +12,7 @@ export const PAGE_URLS = {
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   not: "not",
-  LoadingPag: "/LoadingPage",
+  LoadingPage: "/LoadingPage",
   ErrorPage: "/ErrorPage",
 };
 
