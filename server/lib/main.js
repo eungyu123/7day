@@ -1,9 +1,9 @@
 // 구글 로그인 + 닉네임 설정
 
 const User = require("../db/models/User"); // require로 가져오기
-const Reward = require("../db/models/reward"); // require로 가져오기
+const Reward = require("../db/models/Reward"); // require로 가져오기
 const Inventory = require("../db/models/Inventory"); // require로 가져오기
-const Walk = require("../db/models/walk_data"); // require로 가져오기
+const Walk = require("../db/models/WalkData"); // require로 가져오기
 
 const kakaomap = require("../utils/kakaomap");
 // const redis = require("../db/redis");
