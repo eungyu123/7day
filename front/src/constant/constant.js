@@ -1,11 +1,17 @@
 export const PAGE_URLS = {
-  MissonPage: "/MissonPage",
+  MainPage: "/",
+  LoginPage: "/LoginPage",
+  MissionPage: "/MissionPage",
   WalkingPage: "/WalkingPage",
   WalkingCoursePage: "/WalkingCoursePage",
   HatcheryPage: "/HatcheryPage",
   ProfilePage: "/ProfilePage",
   SettingPage: "/SettingPage",
+  FriendPage: "/FriendPage",
   InventoryPage: "/InventoryPage",
   StepAnalysisPage: "/StepAnalysisPage",
+  NicknamePage: "/NicknamePage",
   not: "not",
 };
+
+export const API_BASE_URL = "http://localhost:3000/api";

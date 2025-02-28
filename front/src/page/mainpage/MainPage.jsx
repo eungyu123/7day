@@ -5,16 +5,20 @@ import { useAppContext } from "../../context/context";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import HalfBasicButton from "../../component/common/button/HalfBasicButton";
 import BasicButton from "../../component/common/button/BasicButton";
-import MainMap from "../../component/mainpage/kakaomap/MainMap";
+import MainMap from "../../component/mainPage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
 import VisitModal from "../../component/modal/VisitModal";
-
 import { PAGE_URLS } from "../../constant/constant";
+import { useFetchUsers } from "../../hook/useUser";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const { data: users } = useFetchUsers(); // 데이터 받기
+  console.log("users", users);
+
   const buttonsProp = [
     {
       icon: "📦",
@@ -31,7 +35,7 @@ export default function MainPage() {
       icon: "🎯",
       description: `미션을 달성했어요 ! 
                     지금바로 확인하세요`,
-      href: PAGE_URLS.MissonPage,
+      href: PAGE_URLS.MissionPage,
     },
     {
       icon: "📦",

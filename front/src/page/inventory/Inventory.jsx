@@ -5,7 +5,7 @@ import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
-// import VisitModal from "../../component/modal/VisitModal";
+//import VisitModal from "../../component/modal/VisitModal";
 
 export default function Inventory() {
   const [selectedTab, setSelectedTab] = useState("character");

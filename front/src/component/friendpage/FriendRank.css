@@ -1,0 +1,46 @@
+.friendrankcontainer {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  width: 85%;
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.friendrankcontainerme {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  width: 85%;
+  height: 60px;
+  border: 2px solid var(--toss-blue);
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.friendprofile {
+  display: flex;
+  height: 80%;
+  aspect-ratio: 1/1;
+  background-color: gray;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.friendrankinfo {
+  display: flex;
+  flex-direction: column;
+}
+.friendranknamemedal {
+  display: flex;
+  flex-direction: row;
+}
+.friendrankname {
+  font-size: var(--font-md);
+}
+.friendrankwalk {
+  color: gray;
+  font-size: var(--font-sm);
+}

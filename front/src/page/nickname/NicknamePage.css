@@ -1,0 +1,66 @@
+.nicknamepagecontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+}
+.nicknamepagesettingcontainer {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nicknamepagetextlg {
+  font-size: var(--font-xl);
+  font-weight: 500;
+}
+.nicknamepagetextsm {
+  font-size: var(--font-sm);
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nicknamepageinputcontainer {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.nicknamepageinput {
+  width: 100%;
+  height: 40px;
+  font-size: var(--font-xl);
+  font-weight: 500;
+  border: none;
+  border-bottom: 2px solid gray;
+  outline: none;
+  padding: 5px;
+}
+.nicknamepageinput:focus {
+  border-bottom: 3px solid var(--toss-blue);
+}
+.nicknamebtncontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  bottom: 20px;
+}
+.nicknamebtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
+  background-color: gray;
+  color: white;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+.nicknamebtn.active {
+  background-color: var(--toss-blue); /* 입력 시 파란색 */
+}

@@ -60,7 +60,7 @@ export default function KaKaoMapComponent() {
 
   return (
     <>
-      {/* useLocation이 setInterval로 5초마다 현재위치로 지도 이동시킴,  현재위치가 안바뀌면 지도 이동 없음 
+      {/* useLocation이 setInterval로 5초마다 현재위치로 지도 이동시킴,  현재위치가 안바뀌면 지도 이동 없음
           지도 이동빼고 내 위치만 이동시키고  내 위치가 많이 이동하면 그때 지도 조금 이동시키게 해도됨 */}
       <Map
         center={location || defaultLocation}
