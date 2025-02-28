@@ -1,5 +1,6 @@
 import "./MainPage.css";
 
+import { useState } from "react";
 import { useAppContext } from "../../context/context";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import HalfBasicButton from "../../component/common/button/HalfBasicButton";
@@ -7,16 +8,22 @@ import BasicButton from "../../component/common/button/BasicButton";
 import MainMap from "../../component/mainPage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
-// import Inventory from "../inventory/Inventory";
+import VisitModal from "../../component/modal/VisitModal";
 import { PAGE_URLS } from "../../constant/constant";
+import { useFetchUsers } from "../../hook/useUser";
+
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const { data: users } = useFetchUsers(); // 데이터 받기
+  console.log("users", users);
 
   const buttonsProp = [
     {
       icon: "📦",
       description: "캐릭터와 펫을 보관중이에요!",
-      href: PAGE_URLS.not,
+      href: PAGE_URLS.InventoryPage,
     },
     {
       icon: "🥚",
@@ -39,7 +46,7 @@ export default function MainPage() {
     {
       icon: "👟",
       description: "내 걸음을 분석해보세요",
-      href: PAGE_URLS.not,
+      href: PAGE_URLS.StepAnalysisPage,
     },
     {
       icon: "⚙️",
@@ -50,6 +57,12 @@ export default function MainPage() {
 
   return (
     <Container>
+      <VisitModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        goal={"3000보"}
+      />
+
       <MainMap />
       {/* 캐릭터 있는곳  */}
       <div className="main-character-wrapper">

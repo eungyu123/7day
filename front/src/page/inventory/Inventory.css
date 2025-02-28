@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
 }
-.characterViewer {
+.character-viewer {
   width: 100%;
   height: 350px;
 }
@@ -17,22 +17,23 @@
   display: flex;
   flex-direction: column;
 }
-.inventoryHeader {
+.inventory-header {
   height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.inventorySelect {
+.inventory-select {
   flex: 1;
   text-align: center;
   margin-top: 15px;
   color: var(--toss-gray);
   font-weight: 600;
   font-size: 17px;
+  transition: all 0.3s ease;
 }
-.inventoryMain {
+.inventory-main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -40,18 +41,19 @@
 
   overflow-y: auto;
 }
-.InventoryItem {
+.Inventory-item {
   background-color: var(--toss-light-gray);
   width: 60px;
   height: 60px;
   border-radius: 8px;
-  margin: 15px;
+  margin: 13px;
+  transition: all 0.3s ease;
 }
-.InventoryItem:hover {
+.Inventory-item:hover {
   outline: 3.5px solid var(--toss-gray);
   outline-offset: -3.5px;
 }
-.InventoryItem.selected {
+.Inventory-item.selected {
   outline: 3.5px solid var(--toss-blue);
   outline-offset: -3.5px;
 }

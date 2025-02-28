@@ -1,23 +1,20 @@
 import "./App.css";
-import { useReducer } from "react";
+import { useReducer, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { initialState } from "./context/constant";
 import { appReducer } from "./context/reducer/reducer";
 import { appContext } from "./context/context";
 import { Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import MainPage from "./page/mainpage/MainPage";
-import NotFound from "./page/notfound/NotFound";
-import MissionPage from "./page/missionpage/MissionPage";
-import ProfilePage from "./page/profilepage/ProfilePage";
-import WalkingPage from "./page/walkingpage/WalkingPage";
-import WalkingCoursePage from "./page/walkingcoursepage/WalkingCoursePage";
-import HatcheryPage from "./page/hatchery/HatcheryPage";
-import SettingPage from "./page/Setting/SettingPage";
-// import Inventory from "./page/inventory/Inventory";
-import FriendPage from "./page/friend/FriendPage";
-import NicknamePage from "./page/nickname/NickNamePage";
+// prettier-ignore
+import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
+         HatcheryPage, SettingPage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage} from "./page";
 
+import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
+
+const queryClient = new QueryClient();
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
@@ -29,21 +26,40 @@ function App() {
 
   return (
     <>
-      <appContext.Provider value={providerState}>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/MissionPage" element={<MissionPage />} />
-          <Route path="/WalkingPage" element={<WalkingPage />} />
-          <Route path="/WalkingCoursePage" element={<WalkingCoursePage />} />
-          <Route path="/HatcheryPage" element={<HatcheryPage />} />
-          <Route path="/ProfilePage" element={<ProfilePage />} />
-          <Route path="/SettingPage" element={<SettingPage />} />
-          {/* <Route path="/Inventory" element={<Inventory />} /> */}
-          <Route path="/FriendPage" element={<FriendPage />} />
-          <Route path="/NicknamePage" element={<NicknamePage />} />
-          <Route path="*" element={<NotFound />} /> {/* 없는 페이지 처리 */}
-        </Routes>
-      </appContext.Provider>
+      {/* 에러  */}
+      <QueryClientProvider client={queryClient}>
+        <ErrorBoundary FallbackComponent={() => <ErrorPage />}>
+          {/* 로딩 */}
+          <Suspense fallback={<LoadingPage />}>
+            <appContext.Provider value={providerState}>
+              <Routes>
+                <Route path={PAGE_URLS.MainPage} element={<MainPage />} />
+                <Route path={PAGE_URLS.LoginPage} element={<LoginPage />} />
+                <Route path={PAGE_URLS.MissionPage} element={<MissionPage />} />
+                <Route path={PAGE_URLS.WalkingPage} element={<WalkingPage />} />
+                <Route
+                  path={PAGE_URLS.WalkingCoursePage}
+                  element={<WalkingCoursePage />}
+                />
+                <Route
+                  path={PAGE_URLS.HatcheryPage}
+                  element={<HatcheryPage />}
+                />
+                <Route path={PAGE_URLS.ProfilePage} element={<ProfilePage />} />
+                <Route path={PAGE_URLS.SettingPage} element={<SettingPage />} />
+                <Route path={PAGE_URLS.FriendPage} element={<FriendPage />} />
+                <Route path={PAGE_URLS.InventoryPage} element={<Inventory />} />
+                <Route
+                  path={PAGE_URLS.StepAnalysisPage}
+                  element={<StepAnalysisPage />}
+                />
+                <Route path="*" element={<NotFound />} />{" "}
+                {/* 없는 페이지 처리 */}
+              </Routes>
+            </appContext.Provider>
+          </Suspense>
+        </ErrorBoundary>
+      </QueryClientProvider>
     </>
   );
 }
