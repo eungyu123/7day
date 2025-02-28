@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // prettier-ignore
 import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
          HatcheryPage, SettingPage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage} from "./page";
+import NicknamePage from "./page/nickname/NicknamePage";
 
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
@@ -52,6 +53,10 @@ function App() {
                 <Route
                   path={PAGE_URLS.StepAnalysisPage}
                   element={<StepAnalysisPage />}
+                />
+                <Route
+                  path={PAGE_URLS.NicknamePage}
+                  element={<NicknamePage />}
                 />
                 <Route path="*" element={<NotFound />} />{" "}
                 {/* 없는 페이지 처리 */}

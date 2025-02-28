@@ -10,6 +10,7 @@ export const PAGE_URLS = {
   FriendPage: "/FriendPage",
   InventoryPage: "/InventoryPage",
   StepAnalysisPage: "/StepAnalysisPage",
+  NicknamePage: "/NicknamePage",
   not: "not",
 };
 
