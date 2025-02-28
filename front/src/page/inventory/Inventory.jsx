@@ -8,6 +8,7 @@ import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
+import Header from "../../component/common/header/Header";
 
 export default function Inventory() {
   const { appState, dispatch } = useAppContext();
@@ -46,41 +47,44 @@ export default function Inventory() {
   ];
 
   return (
-    <div className="container">
-      <CharacterViewer />
-      <div className="inventory">
-        <InventoryTabs
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-        />
-        <div className="inventory-main">
-          {selectedTab === "character"
-            ? characterItems.map((item) => (
-                <InventoryItem
-                  key={item.itemName}
-                  isSelected={appState.character === item.itemName}
-                  onClick={() =>
-                    dispatch(setCharacter({ character: item.itemName }))
-                  }
-                />
-              ))
-            : petItems.map((item) => (
-                <InventoryItem
-                  key={item.itemName}
-                  isSelected={appState.pet === item.itemName}
-                  onClick={() => dispatch(setPet({ pet: item.itemName }))}
-                />
-              ))}
+    <>
+      <Header PageName={"보관함"} />
+      <div className="container">
+        <CharacterViewer />
+        <div className="inventory">
+          <InventoryTabs
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+          />
+          <div className="inventory-main">
+            {selectedTab === "character"
+              ? characterItems.map((item) => (
+                  <InventoryItem
+                    key={item.itemName}
+                    isSelected={appState.character === item.itemName}
+                    onClick={() =>
+                      dispatch(setCharacter({ character: item.itemName }))
+                    }
+                  />
+                ))
+              : petItems.map((item) => (
+                  <InventoryItem
+                    key={item.itemName}
+                    isSelected={appState.pet === item.itemName}
+                    onClick={() => dispatch(setPet({ pet: item.itemName }))}
+                  />
+                ))}
+          </div>
         </div>
-      </div>
 
-      {/* 임시 모달 확인 버튼 */}
-      <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
-      <RewardModal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        goal={"3000보"}
-      />
-    </div>
+        {/* 임시 모달 확인 버튼 */}
+        <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
+        <RewardModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          goal={"3000보"}
+        />
+      </div>
+    </>
   );
 }
