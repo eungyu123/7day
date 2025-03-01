@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const InventorySchema = new mongoose.Schema(
   {
     //_id
-    user_id: { type: String, required: true },
+    googleId: { type: String, required: true },
     character: { type: String },
     pet: { type: String },
     egg: { type: String },
@@ -13,6 +13,6 @@ const InventorySchema = new mongoose.Schema(
   { timestamps: true, collection: "Inventories" }
 );
 
-const Inventory = mongoose.model("Inventory", InventorySchema);
+const Inventory = mongoose.model("Inventories", InventorySchema);
 
 module.exports = Inventory;

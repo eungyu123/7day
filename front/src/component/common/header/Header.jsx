@@ -14,7 +14,7 @@ function Header({ PageName, BackNavigate = "/" }) {
         className="commonheader-left-section"
         onClick={() => navigate(BackNavigate)}
       >
-        <span class="material-symbols-outlined">chevron_left</span>
+        <span className="material-symbols-outlined">chevron_left</span>
       </div>
       <div className="commonheader-center-section">
         <p className="commonheader-text">{PageName}</p>

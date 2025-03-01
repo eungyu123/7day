@@ -1,25 +1,7 @@
 import { actionType } from "./action/actionType";
 
-export function appReducer(state, action) {
+export async function appReducer(state, action) {
   switch (action.type) {
-    case actionType.decreaseCount: {
-      return {
-        ...state,
-        count: state.count - 1,
-      };
-    }
-    case actionType.increseCount: {
-      return {
-        ...state,
-        count: state.count + 1,
-      };
-    }
-    case actionType.setCount: {
-      return {
-        ...state,
-        count: action.payload.count,
-      };
-    }
     case actionType.setCharacter: {
       return {
         ...state,
@@ -30,6 +12,12 @@ export function appReducer(state, action) {
       return {
         ...state,
         pet: action.payload.pet,
+      };
+    }
+    case actionType.checkAuth: {
+      return {
+        ...state,
+        isAuthenticated: action.payload.isAuthenticated,
       };
     }
     default:

@@ -11,10 +11,10 @@ import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWra
 import VisitModal from "../../component/modal/VisitModal";
 import { PAGE_URLS } from "../../constant/constant";
 import { useFetchUsers } from "../../hook/useUser";
+import { Link } from "react-router-dom";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
-  const [isModalOpen, setIsModalOpen] = useState(true);
 
   // const { data: users } = useFetchUsers(); // 데이터 받기
   // console.log("users", users);
@@ -57,17 +57,11 @@ export default function MainPage() {
 
   return (
     <Container>
-      <VisitModal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        goal={"3000보"}
-      />
-
       <MainMap />
       {/* 캐릭터 있는곳  */}
-      <div className="main-character-wrapper">
+      <Link to="/ProfilePage" className="main-character-wrapper">
         <div className=""></div>
-      </div>
+      </Link>
 
       <HalfButtonWrapper>
         <HalfBasicButton

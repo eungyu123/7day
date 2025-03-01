@@ -4,6 +4,7 @@ import { useLocation } from "../../../hook/useLocation";
 import { Map, CustomOverlayMap, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useKakaoLoader } from "react-kakao-maps-sdk";
 import ReactLogo from "../../../assets/react.svg";
+import LocationError from "./LocationError";
 
 const kakaoMapKey = import.meta.env.VITE_KAKAOMAP_KEY; // Vite의 환경 변수 접근 방식
 
@@ -55,8 +56,7 @@ export default function KaKaoMapComponent() {
     }, 1000);
   }
 
-  if (loading) return <div>Loading...</div>;
-  if (locationError) return <div>{locationError}</div>;
+  if (locationError) return <LocationError des={locationError} />;
 
   return (
     <>

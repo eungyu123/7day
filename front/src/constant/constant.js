@@ -15,5 +15,9 @@ export const PAGE_URLS = {
   LoadingPag: "/LoadingPage",
   ErrorPage: "/ErrorPage",
 };
+// prettier-ignore
 
-export const API_BASE_URL = "http://localhost:3000/api";
+// https 로 변경
+export const API_BASE_URL = "https://localhost:3000/api";
+
+export const googleId = localStorage.getItem("googleId");

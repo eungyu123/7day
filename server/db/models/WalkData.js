@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const WalkSchema = new mongoose.Schema(
   {
     //_id
-    user_id: { type: String, required: true },
+    googleId: { type: String, required: true },
     steps: { type: Number },
     date: { type: Date },
   },
   { timestamps: true, collection: "walkdatas" }
 );
 
-const Walk = mongoose.model("WalkData", WalkSchema);
+const Walk = mongoose.model("walkdatas", WalkSchema);
 
 module.exports = Walk;

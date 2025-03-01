@@ -1,5 +1,5 @@
 export const initialState = {
-  count: 0,
+  isAuthenticated: true,
   character: "character1",
   pet: "pet1",
 };

@@ -8,10 +8,10 @@ router.get("/users", async (req, res) => {
   main.getUsers(req, res);
 });
 
-router.post("/walkUpdate", async (req, res) => {
-  console.log("walkUpdate");
-  const { user_id, walk } = req.body;
-  main.walkUpdate(user_id, walk, res);
+router.put("/users/:googleId", async (req, res) => {
+  console.log("req.body", req.body);
+  console.log("req.params", req.params);
+  main.UpdateUser(req, res);
 });
 
 module.exports = router;

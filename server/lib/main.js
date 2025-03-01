@@ -20,33 +20,35 @@ module.exports = {
       });
     } catch (error) {
       console.error("Error fetching data:", error);
-      return res.status(500).json({ error: "Failed to fetch data" });
+      return res.status(500).json({ error: "" });
     }
   },
-  walkUpdate: async (user_id, walk, res) => {
-    console.log("walkUpdate");
+
+  UpdateUser: async (req, res) => {
     try {
-      // DB에서 해당 유저 데이터를 가져오기
-      const user = await User.findById(user_id);
+      const { googleId } = req.params;
+      const { newUserName } = req.body;
+      console.log(req.body);
+      if (!newUserName) {
+        return res
+          .status(400)
+          .json({ type: "error", message: " 닉네임이 입력되지않았습니다." });
+      }
+      const user = await User.findOne({ googleId });
       if (!user) {
-        return res.status(400).json({ error: "User not found" });
+        return res
+          .status(404)
+          .json({ type: "error", message: "유저를 찾을수 없습니다." });
       }
-      // DB에서 해당 유저의 걸음 데이터를 가져오기
-      const userWalk = await Walk.findOne({ user_id: user_id });
-      if (!userWalk) {
-        return res.status(400).json({ error: "Walk data not found" });
-      }
-      // 걸음 데이터 업데이트
-      userWalk.walk = walk;
-      await userWalk.save();
-      // 모든 데이터를 포함하여 응답
-      return res.status(200).json({
-        message: "Walk updated",
-        user: user,
+      user.nickname = newUserName;
+      await user.save();
+      res.status(200).json({
+        type: "success",
+        message: "닉네임이 성공적으로 변경되었습니다.",
       });
     } catch (error) {
-      console.error("Error updating walk:", error);
-      return res.status(500).json({ error: "Failed to update walk" });
+      console.log(error.message);
+      res.status(500).json({ type: "error", message: "서버 오류" });
     }
   },
 };

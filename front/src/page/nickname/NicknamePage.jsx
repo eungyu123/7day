@@ -1,18 +1,26 @@
 import Header from "../../component/common/header/Header";
 import "./NicknamePage.css";
 import { useState } from "react";
+import { updateUserName } from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 export default function NicknamePage() {
   const [nickname, setNickname] = useState(""); // nickname 상태 추가
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setNickname(e.target.value); // 입력값 상태 업데이트
   };
-  const handleNicknameSet = () => {
+
+  const handleNicknameSet = async () => {
     if (!nickname) {
       alert("닉네임을 입력해주세요.");
     } else {
-      alert("닉네임이 설정되었습니다!");
+      const data = await updateUserName(nickname);
+      alert(data.message);
+      if (data.type == "success") {
+        navigate("/");
+      }
     }
   };
   return (
