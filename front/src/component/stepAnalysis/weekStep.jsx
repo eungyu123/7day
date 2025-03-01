@@ -1,29 +1,25 @@
 import "../../page/stepAnalysisPage/stepAnalysisPage.css";
 import "../../index.css";
-import { useState, useEffect } from "react";
+import { useGetWeekWalkDataByGoogleId } from "../../hook/useUser";
+const Week = ["일", "월", "화", "수", "목", "금", "토"];
 
 export default function CharacterViewer() {
-  const [mounted, setMounted] = useState(false);
+  const { data } = useGetWeekWalkDataByGoogleId();
 
-  // 임시 일주일 데이터
-  const weekData = [
-    { day: "금", step: 7967 },
-    { day: "토", step: 1401 },
-    { day: "일", step: 959 },
-    { day: "월", step: 4650 },
-    { day: "화", step: 5595 },
-    { day: "수", step: 6262 },
-    { day: "오늘", step: 1594 },
-  ];
+  const weekData = data.map((v) => {
+    const date = new Date(v.date);
+    const dayIndex = date.getDay(); // 0~6 일~토
+    const todayIndex = new Date().getDay();
+    return {
+      day: dayIndex == todayIndex ? "오늘" : Week[dayIndex],
+      step: v.steps,
+    };
+  });
 
   const averageStep = Math.round(
     weekData.reduce((acc, curr) => acc + curr.step, 0) / 7
   );
   const maxStep = Math.max(...weekData.map((item) => item.step));
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <div className="step-analysis-container">
@@ -44,7 +40,7 @@ export default function CharacterViewer() {
               <div
                 className="week-step-graph"
                 style={{
-                  height: mounted ? `${(item.step / maxStep) * 200}px` : 0,
+                  height: `${(item.step / maxStep) * 200}px`,
                 }}
               ></div>
 

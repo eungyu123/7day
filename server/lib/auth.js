@@ -107,7 +107,6 @@ module.exports = {
     try {
       const decoded = jwt.verify(token, TOKEN_SECRET_KEY);
       const user = await User.findOne({ googleId: decoded.id });
-      console.log("user", user);
       return res.status(200).json({
         type: "success",
         isAuthenticated: true,

@@ -2,6 +2,7 @@ import "./FriendPageMain.css";
 import FriendRank from "./FriendRank";
 
 export default function FriendPageMain() {
+  // 친구데이터 넣기
   const friendrecord = [
     { FriendName: "조유민", FriendWalk: 14000 },
     { FriendName: "백은규", FriendWalk: 12000 },

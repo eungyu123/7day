@@ -2,6 +2,7 @@ import "./MissionMain.css";
 import MissionList from "./MissionList";
 
 export default function MissionMain() {
+  // 미션 데이터 넣기
   const missions = [
     { MissionContent: "토스 광고 보기" },
     { MissionContent: "1000보 걷기", IsComplete: true },

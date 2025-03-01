@@ -1,7 +1,7 @@
 import Header from "../../component/common/header/Header";
 import "./NicknamePage.css";
 import { useState } from "react";
-import { updateUserName } from "../../api/userApi";
+import { updateUserName } from "../../api/allApi";
 import { useNavigate } from "react-router-dom";
 
 export default function NicknamePage() {

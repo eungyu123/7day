@@ -1,41 +1,48 @@
 import "../../page/stepAnalysisPage/calendar.css";
 // import "react-calendar/dist/Calendar.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { getWalkDataByGoogleId } from "../../api/allApi";
+// 리액트 쿼리 안쓰고 직접 패치한거
 
 const Calendar = () => {
-  const [currentMonth, setCurrentMonth] = useState(1); // 임시 현재 달: 2월
+  const today = new Date();
+  const todayStr = today.toISOString().split("T")[0]; //2025-02-18 와 같은 형식
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth()); // 현재 월 (0~11)
+  const [currentYear, setCurrentYear] = useState(today.getFullYear()); // 2025
   const [data, setData] = useState({});
 
   useEffect(() => {
-    const dummyData = {
-      "2025-02-18": 6947,
-      "2025-02-19": 4061,
-      "2025-02-20": 5932,
-      "2025-02-21": 7967,
-      "2025-02-22": 1401,
-      "2025-02-23": 959,
-      "2025-02-24": 4650,
-      "2025-02-25": 5595,
-      "2025-02-26": 6262,
-      "2025-02-27": 2755,
+    const fetchWalkdata = async () => {
+      const data = await getWalkDataByGoogleId();
+      console.log("data", data);
+      const objectedData = data.reduce((acc, walkdata) => {
+        acc[walkdata.date.split("T")[0]] = walkdata.steps;
+        return acc;
+      }, {});
+      console.log("objectedData", objectedData);
+      setData(objectedData);
     };
-    setData(dummyData);
+    fetchWalkdata();
   }, []);
 
-  const months = [
-    { value: 10, label: "11월" },
-    { value: 11, label: "12월" },
-    { value: 0, label: "1월" },
-    { value: 1, label: "2월" },
-  ];
+  const months = useMemo(() => {
+    const currentMonth = today.getMonth(); // 현재 월 (0~11)
+
+    return Array(4)
+      .fill()
+      .map((_, i) => {
+        const monthValue = (currentMonth - (3 - i) + 12) % 12;
+        return { value: monthValue, label: `${monthValue + 1}월` };
+      });
+  }, []);
 
   const days = ["일", "월", "화", "수", "목", "금", "토"];
 
   const getMonthData = (year, month) => {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
     const startDayOfWeek = firstDay.getDay();
+    const daysInMonth = lastDay.getDate();
 
     const monthData = [];
     let dayCounter = 1;
@@ -56,7 +63,7 @@ const Calendar = () => {
           weekData.push({
             day: dayCounter,
             steps: steps,
-            isToday: month === 1 && dayCounter === 27, // (임시)현재 27일이 오늘
+            isToday: dateStr == todayStr,
           });
           dayCounter++;
         }
@@ -68,15 +75,18 @@ const Calendar = () => {
     return monthData;
   };
 
-  const getYear = (month) => {
-    return month <= 1 ? 2025 : 2024; // 년도 선택(?)은 작년, 오늘만 가능
-  };
-
+  //prettier-ignore
   const handleMonthChange = (month) => {
+    if ([0, 1, 2].includes(currentMonth) && [9, 10, 11].includes(month)) {
+      setCurrentYear(currentYear - 1);
+    } else if ([9, 10, 11].includes(currentMonth) && [0, 1, 2].includes(month)) {
+      setCurrentYear(currentYear + 1);
+    }
     setCurrentMonth(month);
   };
 
-  const monthData = getMonthData(getYear(currentMonth), currentMonth);
+  // currentYear 또는 currentMonth가 바뀔때 실행
+  const monthData = getMonthData(currentYear, currentMonth);
 
   return (
     <div className="calendar-container">

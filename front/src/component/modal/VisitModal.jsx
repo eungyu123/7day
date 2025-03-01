@@ -11,6 +11,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
 
   const progress = Math.min(100, (currentSteps / goalSteps) * 100);
 
+  // 달력기준으로 한주의 데이터를 받기
   const weekRecordItems = [
     { day: "월", step: 3000 },
     { day: "화", step: currentSteps },

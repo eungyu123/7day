@@ -8,6 +8,9 @@ const app = express();
 const connectDB = require("./db/connectDB");
 connectDB();
 
+const seed = require("./db/seed");
+seed.seedDummyWalks();
+
 const middleware = require("./middleware/middleware");
 middleware(app);
 

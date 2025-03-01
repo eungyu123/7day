@@ -9,6 +9,7 @@ const kakaomap = require("../utils/kakaomap");
 // const redis = require("../db/redis");
 
 module.exports = {
+  // Users 관련
   getUsers: async (req, res) => {
     try {
       // DB에서 모든 유저 데이터를 가져오기
@@ -24,7 +25,7 @@ module.exports = {
     }
   },
 
-  UpdateUser: async (req, res) => {
+  UpdateUserName: async (req, res) => {
     try {
       const { googleId } = req.params;
       const { newUserName } = req.body;
@@ -41,6 +42,7 @@ module.exports = {
           .json({ type: "error", message: "유저를 찾을수 없습니다." });
       }
       user.nickname = newUserName;
+      user.nicknameEdit = true;
       await user.save();
       res.status(200).json({
         type: "success",
@@ -48,6 +50,49 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
+      res.status(500).json({ type: "error", message: "서버 오류" });
+    }
+  },
+
+  // WalkData 관련
+  getWalkDataByGoogleId: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const walkdatas = await Walk.find({ googleId });
+
+      const result = walkdatas.map((walkdatas) => {
+        return {
+          steps: walkdatas.steps,
+          date: walkdatas.date,
+        };
+      });
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ type: "error", message: "서버 오류" });
+    }
+  },
+  getWeekWalkDataByGoogleId: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const walkdatas = await Walk.find({ googleId });
+      const today = new Date();
+
+      //prettier-ignore
+      const result = Array(7) .fill().map((_,i) => {
+          const currentDay = new Date(today); 
+          currentDay.setDate(today.getDate() - i);
+          const dateStr = currentDay.toISOString().split("T")[0]; 
+          
+          const walkData = walkdatas.find(walk => walk.date.toISOString().split("T")[0] === dateStr);
+
+          return {
+            steps: walkData.steps || 0 ,
+            date: dateStr,
+          };
+        });
+
+      res.status(200).json(result);
+    } catch (error) {
       res.status(500).json({ type: "error", message: "서버 오류" });
     }
   },

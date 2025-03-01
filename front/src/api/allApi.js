@@ -13,7 +13,7 @@ export const fetchUsers = async () => {
       throw new Error(`서버 오류: ${res.status} ${res.statusText}`);
     }
 
-    return await res.json();
+    return res.json();
   } catch (error) {
     console.error("fetchUsers 요청 실패:", error);
     throw error; // 에러바운드리에서 이걸 받음
@@ -32,10 +32,40 @@ export const updateUserName = async (newUserName) => {
       credentials: "include",
     });
 
-    return await res.json();
+    return res.json();
   } catch (error) {
     throw error; // 네트워크 오류 또는 CORS 오류
   }
 };
 
-// app.put('/users/:id', updateUser);
+// walkdata
+
+export const getWalkDataByGoogleId = async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/main/walkdatas/${googleId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getWeekWalkDataByGoogleId = async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/main/weekWalkdatas/${googleId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
