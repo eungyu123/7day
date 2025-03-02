@@ -1,6 +1,6 @@
 import "../../page/stepAnalysisPage/stepAnalysisPage.css";
 import "../../index.css";
-import { useGetWeekWalkDataByGoogleId } from "../../hook/useUser";
+import { useGetWeekWalkDataByGoogleId } from "../../hook/useAPI";
 const Week = ["일", "월", "화", "수", "목", "금", "토"];
 
 export default function CharacterViewer() {

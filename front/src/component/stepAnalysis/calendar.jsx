@@ -1,7 +1,7 @@
 import "../../page/stepAnalysisPage/calendar.css";
 // import "react-calendar/dist/Calendar.css";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { getWalkDataByGoogleId } from "../../api/allApi";
+import { getWalkData } from "../../api/allApi";
 // 리액트 쿼리 안쓰고 직접 패치한거
 
 const Calendar = () => {
@@ -13,7 +13,7 @@ const Calendar = () => {
 
   useEffect(() => {
     const fetchWalkdata = async () => {
-      const data = await getWalkDataByGoogleId();
+      const data = await getWalkData();
       console.log("data", data);
       const objectedData = data.reduce((acc, walkdata) => {
         acc[walkdata.date.split("T")[0]] = walkdata.steps;

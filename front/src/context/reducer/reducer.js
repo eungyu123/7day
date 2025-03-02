@@ -1,6 +1,6 @@
 import { actionType } from "./action/actionType";
 
-export async function appReducer(state, action) {
+export function appReducer(state, action) {
   switch (action.type) {
     case actionType.setCharacter: {
       return {
@@ -18,6 +18,24 @@ export async function appReducer(state, action) {
       return {
         ...state,
         isAuthenticated: action.payload.isAuthenticated,
+      };
+    }
+    case actionType.setItems: {
+      return {
+        ...state,
+        items: action.payload.items,
+      };
+    }
+    case actionType.setLocation: {
+      return {
+        ...state,
+        location: { lat: action.payload.lat, lng: action.payload.lng },
+      };
+    }
+    case actionType.setlocationError: {
+      return {
+        ...state,
+        locationError: action.payload.locationError,
       };
     }
     default:

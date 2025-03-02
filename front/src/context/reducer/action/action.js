@@ -20,3 +20,24 @@ export function checkAuth({ isAuthenticated }) {
     payload: { isAuthenticated },
   };
 }
+
+export function setItems({ items }) {
+  return {
+    type: actionType.setItems,
+    payload: { items },
+  };
+}
+
+export function setLocation({ lat, lng }) {
+  return {
+    type: actionType.setLocation,
+    payload: { lat, lng },
+  };
+}
+
+export function setlocationError({ locationError }) {
+  return {
+    type: actionType.setlocationError,
+    payload: { locationError },
+  };
+}

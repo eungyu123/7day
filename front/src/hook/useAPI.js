@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchUsers } from "../api/allApi";
-import { getWeekWalkDataByGoogleId } from "../api/allApi";
+import { getWeekWalkData } from "../api/allApi";
 
 export const useFetchUsers = () => {
   return useSuspenseQuery({
@@ -13,7 +13,7 @@ export const useFetchUsers = () => {
 export const useGetWeekWalkDataByGoogleId = () => {
   return useSuspenseQuery({
     queryKey: ["userWeekWalk"],
-    queryFn: getWeekWalkDataByGoogleId,
+    queryFn: getWeekWalkData,
     staleTime: 0, // 기본값 0
   });
 };

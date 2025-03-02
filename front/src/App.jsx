@@ -15,6 +15,10 @@ import NicknamePage from "./page/nickname/NicknamePage";
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
 import { useAuthRedirect } from "./hook/useAuthRedirect";
+import { useLocationTracker } from "./hook/useLocationTracker";
+import { useUpdateUserCoord } from "./hook/useUpdateUserCoord";
+import { useFetchItems } from "./hook/useFetchItems";
+
 import useAuth from "./hook/useAuth";
 
 const queryClient = new QueryClient();
@@ -22,13 +26,16 @@ const queryClient = new QueryClient();
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
   const providerState = {
-    appState,
-    dispatch,
+    appState: appState,
+    dispatch: dispatch,
   };
 
   useScrollToTop();
-  useAuth({ appState, dispatch });
-  useAuthRedirect({ appState, dispatch });
+  useAuth({ dispatch });
+  useAuthRedirect({ appState });
+  useLocationTracker({ dispatch });
+  useUpdateUserCoord(appState.location);
+  // useFetchItems(dispatch);
 
   return (
     // prettier-ignore

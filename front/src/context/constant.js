@@ -1,5 +1,8 @@
 export const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: null,
+  items: null,
+  location: null,
+  locationError: true,
   character: "character1",
   pet: "pet1",
 };

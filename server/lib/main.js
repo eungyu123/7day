@@ -10,21 +10,6 @@ const kakaomap = require("../utils/kakaomap");
 
 module.exports = {
   // Users 관련
-  getUsers: async (req, res) => {
-    try {
-      // DB에서 모든 유저 데이터를 가져오기
-      const users = await User.find();
-      // 모든 데이터를 포함하여 응답
-      console.log(users);
-      return res.status(200).json({
-        users,
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return res.status(500).json({ error: "" });
-    }
-  },
-
   UpdateUserName: async (req, res) => {
     try {
       const { googleId } = req.params;
@@ -59,7 +44,11 @@ module.exports = {
     try {
       const { googleId } = req.params;
       const walkdatas = await Walk.find({ googleId });
-
+      if (!walkdatas) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "데이터를 찾을 수 없음" });
+      }
       const result = walkdatas.map((walkdatas) => {
         return {
           steps: walkdatas.steps,
@@ -75,6 +64,11 @@ module.exports = {
     try {
       const { googleId } = req.params;
       const walkdatas = await Walk.find({ googleId });
+      if (!walkdatas) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "데이터를 찾을 수 없음" });
+      }
       const today = new Date();
 
       //prettier-ignore
@@ -96,4 +90,86 @@ module.exports = {
       res.status(500).json({ type: "error", message: "서버 오류" });
     }
   },
+
+  // 지도 관련
+  updateUserCoord: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const { lng, lat } = req.body;
+
+      const user = await User.findOne({ googleId });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "데이터를 찾을 수 없음" });
+      }
+
+      user.location = {
+        type: "Point",
+        coordinates: [lng, lat],
+      };
+
+      const lastGeneratedAt = user.lastItemGeneratedAt
+        ? new Date(user.lastItemGeneratedAt).getTime()
+        : 0;
+      const oneHourAgo = Date.now() - 60 * 60 * 1000; // 1시간 전 Date.now() ==  new Date().getTime()
+
+      // 아이템을 생성한적이 없거나 생성한지 한시간이 지났으면
+      if (lastGeneratedAt == 0 || lastGeneratedAt < oneHourAgo) {
+        const items = await generateItems({ lat, lng, googleId });
+        if (!items) {
+          return res
+            .status(404)
+            .json({ type: "error", message: "데이터를 찾을 수 없음" });
+        }
+        user.lastItemGeneratedAt = new Date();
+      }
+
+      await user.save();
+      return res.status(200).json({
+        type: "success",
+        message: "유저 좌표 업데이트 및 아이템 생성 완료",
+      });
+    } catch (error) {
+      res.status(500).json({ type: "error", message: "서버 오류" });
+    }
+  },
+
+  getItems: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const user = await User.findOne({ googleId });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "데이터를 찾을 수 없습니다." });
+      }
+
+      const items = user.items || [];
+
+      return res.status(200).json({ type: "success", items });
+    } catch (error) {
+      res.status(500).json({ type: "error", message: "서버 오류" });
+    }
+  },
+
+  // 산책로 관련
 };
+
+async function generateItems({ lat, lng, googleId }) {
+  const user = await User.findOne({ googleId });
+  if (!user) return null;
+  const count = 5;
+  const items = new Array(count).fill(0).map(() => ({
+    item: "item", // 생성하는 아이템
+    reward: Math.floor(Math.random() * 5) + 1, // 1~5원 보상
+    lat: lat + (Math.random() - 0.5) / 10, // -0.005 ~ +0.005
+    lng: lng + (Math.random() - 0.5) / 10, // -0.005 ~ +0.005
+  }));
+
+  // 기존 아이템 전부 삭제하고 새로운 아이템으로 교체
+  user.items = items;
+
+  user.save();
+  return items;
+}

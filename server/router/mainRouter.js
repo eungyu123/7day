@@ -3,24 +3,27 @@ const router = express.Router();
 
 const main = require("../lib/main");
 
-// users 관련
-router.get("/users", async (req, res) => {
-  console.log("getUsers");
-  main.getUsers(req, res);
-});
-
+// users
 router.put("/users/:googleId", async (req, res) => {
   console.log("UpdateUserName");
   main.UpdateUserName(req, res);
 });
 
-// walkdata 관련
+// walkdata
 router.get("/walkdatas/:googleId", async (req, res) => {
   console.log("getWalkDataByGoogleId");
   main.getWalkDataByGoogleId(req, res);
 });
 
 router.get("/weekWalkdatas/:googleId", async (req, res) => {
+  console.log("getWeekWalkDataByGoogleId");
   main.getWeekWalkDataByGoogleId(req, res);
 });
+
+// 지도
+router.put("/userCoord/:googleId", async (req, res) => {
+  console.log("updateUserCoord");
+  main.updateUserCoord(req, res);
+});
+
 module.exports = router;

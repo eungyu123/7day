@@ -13,8 +13,6 @@ import { PAGE_URLS } from "../../constant/constant";
 import { Link } from "react-router-dom";
 
 export default function MainPage() {
-  const { appState, dispatch } = useAppContext();
-
   const buttonsProp = [
     {
       icon: "📦",
@@ -68,17 +66,15 @@ export default function MainPage() {
         <HalfBasicButton title="🏪상점" des=" " rightIcon="chevron_right" />
       </HalfButtonWrapper>
       <ButtonWrapper>
-        {buttonsProp.map((button) => (
+        {buttonsProp.map((button, i) => (
           <BasicButton
+            key={i}
             icon={button.icon}
             description={button.description}
             href={button.href}
           />
         ))}
       </ButtonWrapper>
-      <div>
-        현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
-      </div>
     </Container>
   );
 }
