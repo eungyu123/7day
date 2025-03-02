@@ -1,8 +1,7 @@
 // 구글 로그인 + 닉네임 설정
 
-const User = require("../db/models/User"); // require로 가져오기
+const UserController = require("../db/controllers/UserController"); // require로 가져오기
 const Reward = require("../db/models/Reward"); // require로 가져오기
-const Inventory = require("../db/models/Inventory"); // require로 가져오기
 const Walk = require("../db/models/WalkData"); // require로 가져오기
 
 const kakaomap = require("../utils/kakaomap");
@@ -12,15 +11,21 @@ module.exports = {
   getUsers: async (req, res) => {
     try {
       // DB에서 모든 유저 데이터를 가져오기
-      const users = await User.find();
-      // 모든 데이터를 포함하여 응답
-      console.log(users);
-      return res.status(200).json({
-        users,
-      });
+      const users = await UserController.getUsers();
+      res.status(200).json(users);
     } catch (error) {
       console.error("Error fetching data:", error);
       return res.status(500).json({ error: "Failed to fetch data" });
+    }
+  },
+  removeUser: async (req, res) => {
+    try {
+      // DB에서 해당 유저 데이터를 삭제
+      await UserController.deleteUser(req, res);
+      res.status(200).json({ message: "User deleted" });
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      return res.status(500).json({ error: "Failed to delete data" });
     }
   },
   walkUpdate: async (user_id, walk, res) => {

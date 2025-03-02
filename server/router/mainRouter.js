@@ -7,7 +7,10 @@ router.get("/users", async (req, res) => {
   console.log("getUsers");
   main.getUsers(req, res);
 });
-
+router.delete("/users/:id", async (req, res) => {
+  console.log("deleteUser");
+  main.removeUser(req, res);
+});
 router.post("/walkUpdate", async (req, res) => {
   console.log("walkUpdate");
   const { user_id, walk } = req.body;
