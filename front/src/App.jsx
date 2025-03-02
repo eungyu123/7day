@@ -35,7 +35,7 @@ function App() {
   useAuthRedirect({ appState });
   useLocationTracker({ dispatch });
   useUpdateUserCoord(appState.location);
-  // useFetchItems(dispatch);
+  useFetchItems({ items: appState.items, dispatch });
 
   return (
     // prettier-ignore

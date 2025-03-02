@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { checkAuthApi } from "../api/authApi";
 import { checkAuth } from "../context/reducer/action/action";
-
+// 로그인 여부 확인 훅
 export default function useAuth({ dispatch }) {
   useEffect(() => {
     const fetchAuth = async () => {

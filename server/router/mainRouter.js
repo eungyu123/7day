@@ -26,4 +26,14 @@ router.put("/userCoord/:googleId", async (req, res) => {
   main.updateUserCoord(req, res);
 });
 
+// 아이템
+router.get("/items/:googleId", async (req, res) => {
+  console.log("getItems");
+  main.getItems(req, res);
+});
+
+router.post("/removeItems/:googleId", async (req, res) => {
+  console.log("removeItems");
+  main.removeItems(req, res);
+});
 module.exports = router;

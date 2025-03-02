@@ -97,35 +97,41 @@ module.exports = {
       const { googleId } = req.params;
       const { lng, lat } = req.body;
 
+      // 유저 데이터 찾기
       const user = await User.findOne({ googleId });
       if (!user) {
         return res
           .status(404)
-          .json({ type: "error", message: "데이터를 찾을 수 없음" });
+          .json({ type: "error", message: "유저를 찾을 수 없음" });
       }
 
-      user.location = {
-        type: "Point",
-        coordinates: [lng, lat],
-      };
-
+      const oneHourAgo = Date.now() - 60 * 60 * 1000; // 1시간 전 Date.now() ==  new Date().getTime()
       const lastGeneratedAt = user.lastItemGeneratedAt
         ? new Date(user.lastItemGeneratedAt).getTime()
         : 0;
-      const oneHourAgo = Date.now() - 60 * 60 * 1000; // 1시간 전 Date.now() ==  new Date().getTime()
-
-      // 아이템을 생성한적이 없거나 생성한지 한시간이 지났으면
+      let newItems = [];
       if (lastGeneratedAt == 0 || lastGeneratedAt < oneHourAgo) {
-        const items = await generateItems({ lat, lng, googleId });
-        if (!items) {
+        console.log("아이템 생성");
+        newItems = await generateItems({ lat, lng, googleId });
+        if (!newItems) {
           return res
             .status(404)
             .json({ type: "error", message: "데이터를 찾을 수 없음" });
         }
-        user.lastItemGeneratedAt = new Date();
       }
 
-      await user.save();
+      const updateUser = await User.findOneAndUpdate(
+        { googleId },
+        {
+          $set: {
+            location: { type: "Point", coordinates: [lng, lat] },
+            lastItemGeneratedAt:
+              newItems.length > 0 ? new Date() : user.lastItemGeneratedAt,
+          },
+        },
+        { new: true }
+      );
+
       return res.status(200).json({
         type: "success",
         message: "유저 좌표 업데이트 및 아이템 생성 완료",
@@ -152,14 +158,57 @@ module.exports = {
       res.status(500).json({ type: "error", message: "서버 오류" });
     }
   },
+  removeItems: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const { itemId } = req.body;
 
+      const user = await User.findOne({ googleId });
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "사용자를 찾을 수 없음" });
+      }
+      const itemToRemove = user.items.find(
+        (item) => item._id.toString() === itemId
+      );
+
+      if (!itemToRemove) {
+        return res.status(404).json({
+          type: "error",
+          message: "아이템을 찾을 수 없음",
+        });
+      }
+
+      const updateUser = await User.findOneAndUpdate(
+        { googleId },
+        {
+          $pull: { items: { _id: itemId } },
+          $inc: { userPoint: itemToRemove.reward }, // increase
+        },
+        { new: true } // ✅ 업데이트 후 변경된 데이터 반환
+      );
+
+      if (!updateUser) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "업데이트 실패" });
+      }
+
+      res.status(200).json({ type: "success", message: "아이템 삭제 완료 " });
+    } catch {
+      res.status(500).json({ type: "error", messgae: "서버 오류" });
+    }
+  },
   // 산책로 관련
 };
 
+// 아이템 생성
 async function generateItems({ lat, lng, googleId }) {
   const user = await User.findOne({ googleId });
   if (!user) return null;
-  const count = 5;
+  const count = 10;
   const items = new Array(count).fill(0).map(() => ({
     item: "item", // 생성하는 아이템
     reward: Math.floor(Math.random() * 5) + 1, // 1~5원 보상

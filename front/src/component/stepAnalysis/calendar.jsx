@@ -14,12 +14,12 @@ const Calendar = () => {
   useEffect(() => {
     const fetchWalkdata = async () => {
       const data = await getWalkData();
-      console.log("data", data);
+
       const objectedData = data.reduce((acc, walkdata) => {
         acc[walkdata.date.split("T")[0]] = walkdata.steps;
         return acc;
       }, {});
-      console.log("objectedData", objectedData);
+
       setData(objectedData);
     };
     fetchWalkdata();

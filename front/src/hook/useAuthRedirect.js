@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { checkAuth } from "../context/reducer/action/action";
 import { checkAuthApi } from "../api/authApi";
+// 리다이렉션훅
 export const useAuthRedirect = ({ appState }) => {
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로 확인

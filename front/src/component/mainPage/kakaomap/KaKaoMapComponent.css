@@ -17,6 +17,31 @@
     transform: translateY(0) rotateY(0deg);
   }
   100% {
-    transform: translateY(-50px) rotateY(360deg);
+    transform: translateY(-30px) rotateY(360deg);
   }
+}
+
+.map-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.map-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: var(--modal-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
 }

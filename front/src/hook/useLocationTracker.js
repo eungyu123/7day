@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import {
   setlocationError,
   setLocation,
+  setlocationLoading,
 } from "../context/reducer/action/action";
 
 /** 위치 추적 훅 */
@@ -15,6 +16,7 @@ export const useLocationTracker = ({ dispatch }) => {
           locationError: "Geolocation은 현재 브라우저에서 지원되지 않습니다.",
         })
       );
+      dispatch(setlocationLoading({ locationLoading: false }));
       return;
     }
 
@@ -31,6 +33,7 @@ export const useLocationTracker = ({ dispatch }) => {
 
           prevLocation = newLocation;
           dispatch(setLocation(newLocation));
+          dispatch(setlocationLoading({ locationLoading: false }));
           dispatch(setlocationError({ locationError: false }));
         },
         () => {
@@ -39,12 +42,12 @@ export const useLocationTracker = ({ dispatch }) => {
               locationError: "위치 정보를 가져올 수 없습니다.",
             })
           );
+          dispatch(setlocationLoading({ locationLoading: false }));
         }
       );
     };
-
-    const interval = setInterval(fetchLocation, 5000);
     fetchLocation();
+    const interval = setInterval(fetchLocation, 15000);
 
     return () => clearInterval(interval);
   }, []);

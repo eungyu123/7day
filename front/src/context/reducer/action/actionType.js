@@ -5,4 +5,6 @@ export const actionType = {
   setItems: "setItems",
   setLocation: "setLocation",
   setlocationError: "setlocationError",
+  setlocationLoading: "setlocationLoading",
+  removeItem: "removeItem",
 };

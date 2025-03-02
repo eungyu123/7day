@@ -1,27 +1,24 @@
 import { API_BASE_URL } from "../constant/constant";
 import { googleId } from "../constant/constant";
 
-export const fetchUsers = async () => {
+/* =====================
+ * User Data Section
+ * ===================== */
+
+export const getUser = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/main/users`, {
+    const res = await fetch(`${API_BASE_URL}/main/users/${googleId}`, {
       method: "GET",
+      header: { "Content-Type": "application/json" },
       credentials: "include",
     });
-
-    // 에러바운드리에서 이걸 받음
-    if (!res.ok) {
-      throw new Error(`서버 오류: ${res.status} ${res.statusText}`);
-    }
-
     return res.json();
   } catch (error) {
-    console.error("fetchUsers 요청 실패:", error);
-    throw error; // 에러바운드리에서 이걸 받음
+    throw error;
   }
 };
 
 export const updateUserName = async (newUserName) => {
-  console.log(newUserName, googleId);
   try {
     const res = await fetch(`${API_BASE_URL}/main/users/${googleId}`, {
       method: "PUT",
@@ -99,6 +96,22 @@ export const getItems = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const removeItemAPI = async ({ itemId }) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/main/removeItems/${googleId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ itemId }),
       credentials: "include",
     });
     return res.json();

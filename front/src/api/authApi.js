@@ -12,7 +12,6 @@ export const googleSignIn = async (token) => {
     });
 
     const data = await res.json();
-    console.log(data);
 
     if (data.type === "success") {
       localStorage.setItem("googleId", data.googleId);

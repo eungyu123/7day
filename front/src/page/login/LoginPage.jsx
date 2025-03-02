@@ -29,7 +29,6 @@ const LoginPage = () => {
 
   const handleCredentialResponse = async (response) => {
     const token = response.credential;
-    console.log("Google Token:", token);
 
     await googleSignIn(token);
   };

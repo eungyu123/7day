@@ -41,3 +41,17 @@ export function setlocationError({ locationError }) {
     payload: { locationError },
   };
 }
+
+export function setlocationLoading({ locationLoading }) {
+  return {
+    type: actionType.setlocationLoading,
+    payload: { locationLoading },
+  };
+}
+
+export function removeItem({ itemId }) {
+  return {
+    type: actionType.removeItem,
+    payload: { itemId },
+  };
+}

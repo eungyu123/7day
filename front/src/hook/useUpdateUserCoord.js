@@ -8,7 +8,6 @@ export const useUpdateUserCoord = (location) => {
     const updateLocation = async () => {
       try {
         const data = await updateUserCoord(location);
-        console.log(data);
       } catch (error) {
         console.error("위치 업데이트 실패:", error);
       }
@@ -18,5 +17,5 @@ export const useUpdateUserCoord = (location) => {
     updateLocation();
 
     return () => clearInterval(interval);
-  }, [location]);
+  }, [location]); //location을 추가하면 위치 바뀔떄마다 업데이트
 };

@@ -38,6 +38,21 @@ export function appReducer(state, action) {
         locationError: action.payload.locationError,
       };
     }
+    case actionType.setlocationLoading: {
+      return {
+        ...state,
+        locationLoading: action.payload.setlocationLoading,
+      };
+    }
+    case actionType.removeItem: {
+      console.log(
+        state.items.filter((item) => item._id !== action.payload.itemId)
+      );
+      return {
+        ...state,
+        items: state.items.filter((item) => item._id !== action.payload.itemId),
+      };
+    }
     default:
       return state;
   }
