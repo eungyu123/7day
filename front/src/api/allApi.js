@@ -54,6 +54,22 @@ export const getWalkData = async () => {
   }
 };
 
+export const getTodayWalkData = async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/main/todayWalkdata/${googleId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getWeekWalkData = async () => {
   try {
     const res = await fetch(`${API_BASE_URL}/main/weekWalkdatas/${googleId}`, {
@@ -64,6 +80,21 @@ export const getWeekWalkData = async () => {
       credentials: "include",
     });
     return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateWalkData = ({ steps }) => {
+  try {
+    fetch(`${API_BASE_URL}/main/todayWalkdata/${googleId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ steps }),
+      credentials: "include",
+    });
   } catch (error) {
     throw error;
   }

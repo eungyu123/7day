@@ -3,7 +3,6 @@ import Container from "../../component/common/Container";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import SettingButton from "../../component/common/button/SettingButton";
 import SettingToggle from "../../component/setting/SettingToggle";
-import BasicToggle from "../../component/common/toggle/BasicToggle";
 import { googleSignOut } from "../../api/authApi";
 
 export default function SettingPage() {
@@ -27,7 +26,7 @@ export default function SettingPage() {
     {
       title: "로그아웃",
       href: "",
-      onclick: googleSignOut(),
+      onClick: () => googleSignOut(),
     },
   ];
   return (
@@ -35,7 +34,13 @@ export default function SettingPage() {
       <Header PageName="설정" />
       <ButtonWrapper>
         {settings.map((setting) => {
-          return <SettingButton title={setting.title} />;
+          return (
+            <SettingButton
+              key={setting.title}
+              title={setting.title}
+              onClick={setting.onClick}
+            />
+          );
         })}
         <SettingToggle title="걸음수 측정" />
       </ButtonWrapper>

@@ -1,7 +1,21 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getWeekWalkData } from "../api/allApi";
+import { getTodayWalkData, getUser, getWeekWalkData } from "../api/allApi";
 
-export const useGetWeekWalkDataByGoogleId = () => {
+export const useGetUser = () => {
+  return useSuspenseQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+  });
+};
+
+export const useGetTodayWalk = () => {
+  return useSuspenseQuery({
+    queryKey: ["todayWalk"],
+    queryFn: getTodayWalkData,
+  });
+};
+
+export const useGetWeekWalkData = () => {
   return useSuspenseQuery({
     queryKey: ["userWeekWalk"],
     queryFn: getWeekWalkData,

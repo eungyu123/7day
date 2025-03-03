@@ -55,3 +55,10 @@ export function removeItem({ itemId }) {
     payload: { itemId },
   };
 }
+
+export function setUser({ user }) {
+  return {
+    type: actionType.setUser,
+    payload: { user },
+  };
+}

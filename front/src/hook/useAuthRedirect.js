@@ -9,10 +9,13 @@ export const useAuthRedirect = ({ appState }) => {
 
   useEffect(() => {
     const redirectToLogin = async () => {
-      if (!appState.isAuthenticated && location.pathname !== "/LoginPage") {
+      if (
+        appState.isAuthenticated == false &&
+        location.pathname !== "/LoginPage"
+      ) {
         navigate("/LoginPage", { replace: true }); // replace: true 라면 뒤로 가기 히스토리를 수정
       } else if (
-        appState.isAuthenticated &&
+        appState.isAuthenticated == true &&
         location.pathname == "/LoginPage"
       ) {
         navigate("/");

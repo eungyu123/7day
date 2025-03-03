@@ -11,7 +11,7 @@ import { setCharacter, setPet } from "../../context/reducer/action/action";
 import Header from "../../component/common/header/Header";
 
 export default function Inventory() {
-  // const { appState, dispatch } = useAppContext();
+  const { appState, dispatch } = useAppContext();
 
   const [selectedTab, setSelectedTab] = useState("character");
   const [selectedCharacter, setSelectedCharacter] = useState(null);

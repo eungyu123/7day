@@ -10,6 +10,25 @@ const kakaomap = require("../utils/kakaomap");
 
 module.exports = {
   // Users 관련
+  getUser: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const user = await User.findOne({ googleId }); // await 추가
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "유저를 찾을 수 없습니다." });
+      }
+
+      res.json({ type: "success", result: user }); // 유저 정보 반환
+    } catch (error) {
+      res
+        .status(500)
+        .json({ type: "error", message: "서버 오류가 발생했습니다." });
+    }
+  },
+
   UpdateUserName: async (req, res) => {
     try {
       const { googleId } = req.params;
@@ -40,6 +59,54 @@ module.exports = {
   },
 
   // WalkData 관련
+  getTodayWalkDataByGoogleId: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const today = new Date().toISOString().split("T")[0];
+
+      const walkdatas = await Walk.find({ googleId });
+      const result =
+        walkdatas.find(
+          (walkdata) => walkdata.date.toISOString().split("T")[0] === today
+        ) || null;
+
+      if (!result) {
+        return res
+          .status(404)
+          .json({ type: "error", message: "데이터를 찾을 수 없음" });
+      }
+
+      res.status(200).json({ type: "success", result });
+    } catch (error) {
+      res.status(500).json({ type: "error", message: "서버 오류" });
+    }
+  },
+  updateTodayWalkData: async (req, res) => {
+    try {
+      const { googleId } = req.params;
+      const { steps } = req.body;
+
+      const today = new Date().toISOString().split("T")[0];
+
+      // 기존 데이터를 찾음
+      const existingWalkData = await Walk.findOne({ googleId, date: today });
+
+      const updatedSteps = existingWalkData
+        ? existingWalkData.steps + steps
+        : steps;
+
+      const result = await Walk.findOneAndUpdate(
+        { googleId, date: today }, // 조건: googleId + 오늘 날짜
+        { $set: { steps: updatedSteps } }, // steps 업데이트
+        { new: true, upsert: true } // 없으면 새로 생성
+      );
+
+      res.status(200).json({ type: "success", result });
+    } catch (error) {
+      res.status(500).json({ type: "error", message: "서버 오류" });
+    }
+  },
+
   getWalkDataByGoogleId: async (req, res) => {
     try {
       const { googleId } = req.params;
@@ -55,11 +122,12 @@ module.exports = {
           date: walkdatas.date,
         };
       });
-      res.status(200).json(result);
+      res.status(200).json({ type: "success", result });
     } catch (error) {
       res.status(500).json({ type: "error", message: "서버 오류" });
     }
   },
+
   getWeekWalkDataByGoogleId: async (req, res) => {
     try {
       const { googleId } = req.params;
@@ -78,14 +146,13 @@ module.exports = {
           const dateStr = currentDay.toISOString().split("T")[0]; 
           
           const walkData = walkdatas.find(walk => walk.date.toISOString().split("T")[0] === dateStr);
-
           return {
-            steps: walkData.steps || 0 ,
+            steps: walkData?.steps ? walkData.steps : 0 ,
             date: dateStr,
           };
         });
 
-      res.status(200).json(result);
+      res.status(200).json({ type: "success", result });
     } catch (error) {
       res.status(500).json({ type: "error", message: "서버 오류" });
     }
@@ -206,19 +273,23 @@ module.exports = {
 
 // 아이템 생성
 async function generateItems({ lat, lng, googleId }) {
-  const user = await User.findOne({ googleId });
-  if (!user) return null;
-  const count = 10;
-  const items = new Array(count).fill(0).map(() => ({
-    item: "item", // 생성하는 아이템
-    reward: Math.floor(Math.random() * 5) + 1, // 1~5원 보상
-    lat: lat + (Math.random() - 0.5) / 10, // -0.005 ~ +0.005
-    lng: lng + (Math.random() - 0.5) / 10, // -0.005 ~ +0.005
-  }));
+  try {
+    const user = await User.findOne({ googleId });
+    if (!user) return null;
+    const count = 10;
+    const items = new Array(count).fill(0).map(() => ({
+      item: "item", // 생성하는 아이템
+      reward: Math.floor(Math.random() * 5) + 1, // 1~5원 보상
+      lat: lat + (Math.random() - 0.5) / 10, // -0.005 ~ +0.005
+      lng: lng + (Math.random() - 0.5) / 10, // -0.005 ~ +0.005
+    }));
 
-  // 기존 아이템 전부 삭제하고 새로운 아이템으로 교체
-  user.items = items;
+    // 기존 아이템 전부 삭제하고 새로운 아이템으로 교체
+    user.items = items;
 
-  user.save();
-  return items;
+    await user.save();
+    return items;
+  } catch (error) {
+    console.error("아이템 생성 중 에러 발생:", error);
+  }
 }

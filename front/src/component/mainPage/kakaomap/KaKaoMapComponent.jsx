@@ -2,11 +2,11 @@ import "./KaKaoMapComponent.css";
 import { useEffect, useState, useRef } from "react";
 import { Map, CustomOverlayMap, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useKakaoLoader } from "react-kakao-maps-sdk"; // 카카오 로더 훅 로딩, 에러 처리시에 편리하다.
-import ReactLogo from "../../../assets/react.svg";
 import LocationError from "./LocationError";
 import { useAppContext } from "../../../context/context";
 import { removeItem } from "../../../context/reducer/action/action";
 import { removeItemAPI } from "../../../api/allApi";
+import { calculateDistance } from "../../../utils/utils";
 
 export default function KaKaoMapComponent() {
   const itemsRef = useRef({});
@@ -20,13 +20,24 @@ export default function KaKaoMapComponent() {
 
   function deleteItem(itemId) {
     const currentItem = itemsRef.current[itemId];
+
+    const distance = calculateDistance({
+      point1: location,
+      point2: { lat: currentItem.dataset.lat, lng: currentItem.dataset.lng },
+    });
+    // 거리차이가 15m 이상이라면 아이템 먹기 불가능
+    if (Math.floor(distance) > 15) {
+      console.log("너무 멉니다");
+      return;
+    }
+    //애니메이션
     if (currentItem) {
       currentItem.classList.add("fade-y-out-rotate");
     }
 
     removeItemAPI({ itemId });
     setNewReward(currentItem.dataset.reward);
-    console.log(currentItem.dataset.reward);
+    console.log("currentItem.dataset.reward", currentItem.dataset.reward);
     setTimeout(() => {
       dispatch(removeItem({ itemId }));
       setIsOpen(true);
@@ -66,12 +77,7 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            <div className="imgWrapper">
-              <img
-                src={ReactLogo}
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              />
-            </div>
+            <div className="imgWrapper"></div>
           </CustomOverlayMap>
         )}
         {/* 지도 확대하면 보임  */}
@@ -95,6 +101,8 @@ export default function KaKaoMapComponent() {
                       deleteItem(item._id);
                     }}
                     data-reward={item.reward}
+                    data-lat={item.lat}
+                    data-lng={item.lng}
                     ref={(el) => (itemsRef.current[item._id] = el)} // itemsRef.current는 객체임
                   >
                     🎁

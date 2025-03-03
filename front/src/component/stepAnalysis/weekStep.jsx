@@ -1,24 +1,28 @@
 import "../../page/stepAnalysisPage/stepAnalysisPage.css";
 import "../../index.css";
-import { useGetWeekWalkDataByGoogleId } from "../../hook/useAPI";
+import { useGetWeekWalkData } from "../../hook/useAPI";
 const Week = ["일", "월", "화", "수", "목", "금", "토"];
 
 export default function CharacterViewer() {
-  const { data } = useGetWeekWalkDataByGoogleId();
+  const { data } = useGetWeekWalkData();
+  const weekData = data.result
+    .map((v) => {
+      const date = new Date(v.date);
+      const dayIndex = date.getDay(); // 0~6 일~토
+      const todayIndex = new Date().getDay();
+      return {
+        dayIndex,
+        day: dayIndex == todayIndex ? "오늘" : Week[dayIndex],
+        step: v.steps,
+      };
+    })
+    .sort((a, b) => b.dayIndex - a.dayIndex);
 
-  const weekData = data.map((v) => {
-    const date = new Date(v.date);
-    const dayIndex = date.getDay(); // 0~6 일~토
-    const todayIndex = new Date().getDay();
-    return {
-      day: dayIndex == todayIndex ? "오늘" : Week[dayIndex],
-      step: v.steps,
-    };
-  });
-
+  console.log(weekData);
   const averageStep = Math.round(
     weekData.reduce((acc, curr) => acc + curr.step, 0) / 7
   );
+
   const maxStep = Math.max(...weekData.map((item) => item.step));
 
   return (

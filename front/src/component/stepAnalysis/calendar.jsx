@@ -15,7 +15,7 @@ const Calendar = () => {
     const fetchWalkdata = async () => {
       const data = await getWalkData();
 
-      const objectedData = data.reduce((acc, walkdata) => {
+      const objectedData = data.result.reduce((acc, walkdata) => {
         acc[walkdata.date.split("T")[0]] = walkdata.steps;
         return acc;
       }, {});

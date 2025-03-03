@@ -45,12 +45,16 @@ export function appReducer(state, action) {
       };
     }
     case actionType.removeItem: {
-      console.log(
-        state.items.filter((item) => item._id !== action.payload.itemId)
-      );
       return {
         ...state,
         items: state.items.filter((item) => item._id !== action.payload.itemId),
+      };
+    }
+
+    case actionType.setUser: {
+      return {
+        ...state,
+        user: action.payload.user,
       };
     }
     default:

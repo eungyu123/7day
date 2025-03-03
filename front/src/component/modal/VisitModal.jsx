@@ -2,31 +2,58 @@ import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import "../../page/modal/Modal.css";
 import "../../page/modal/VisitModal.css";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { useGetWeekWalkData } from "../../hook/useAPI";
+import {
+  getKaclFromSteps,
+  getKmFromSteps,
+  getMaxConsecutiveDays,
+  getWeekDatesUntilToday,
+} from "../../utils/utils";
 
 export default function VisitModal({ isOpen, setIsOpen }) {
-  const [currentSteps, setCurrentSteps] = useState(5020);
+  const { data } = useGetWeekWalkData();
   const [goalSteps, setGoalSteps] = useState(10000);
-  const [calories, setCalories] = useState(300);
-  const [distance, setDistance] = useState(3.01);
-
-  const progress = Math.min(100, (currentSteps / goalSteps) * 100);
 
   // 달력기준으로 한주의 데이터를 받기
   const weekRecordItems = [
-    { day: "월", step: 3000 },
-    { day: "화", step: currentSteps },
+    { day: "월", step: null },
+    { day: "화", step: null },
     { day: "수", step: null },
     { day: "목", step: null },
-    { day: "금", step: 123 },
+    { day: "금", step: null },
     { day: "토", step: null },
-    { day: "일", step: 7896 },
+    { day: "일", step: null },
   ];
+
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
+  const WeekDatesUntileToday = getWeekDatesUntilToday();
+  data.result.forEach((item, i) => {
+    if (WeekDatesUntileToday.includes(item.date)) {
+      const itemDay = new Date(item.date).getDay();
+      const weekRecordItem = weekRecordItems.find(
+        (item) => item.day == week[itemDay]
+      );
+      weekRecordItem.step = item.steps;
+    }
+  });
+  const todayData = data.result.find(
+    (v) => v.date == new Date().toISOString().split("T")[0]
+  );
+
+  const maxDay = getMaxConsecutiveDays(weekRecordItems);
+  const distance = getKmFromSteps(todayData.steps);
+  const calories = getKaclFromSteps(todayData.steps);
+  const progress = Math.min(100, (todayData.steps / goalSteps) * 100);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="visit-modal-content">
+        <VisuallyHidden>
+          <Dialog.DialogTitle />
+        </VisuallyHidden>
         <div className="visit-modal-header">
-          <div className="visit-modal-title">연속 방문 3일차</div>
+          <div className="visit-modal-title">연속 방문 {maxDay}일차</div>
           <Dialog.Close asChild>
             <button className="modal-close-button">X</button>
           </Dialog.Close>
@@ -37,7 +64,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
           </p>
           <div className="visit-modal-pedometer">
             <p className="visit-modal-current-step">
-              <span>{currentSteps}</span> 걸음<span>&nbsp;/&nbsp;</span>{" "}
+              <span>{todayData.steps}</span> 걸음<span>&nbsp;/&nbsp;</span>{" "}
               <span>{goalSteps}</span> 걸음
               <div className="visit-modal-step-info">
                 {calories}kcal | {distance}km
@@ -51,7 +78,11 @@ export default function VisitModal({ isOpen, setIsOpen }) {
             </div>
           </div>
           <div className="visit-modal-week-record">
-            <div>2월 25일 화요일</div>
+            <div>
+              {todayData.date.split("-")[1]}월&nbsp;
+              {todayData.date.split("-")[2]}일&nbsp;
+              {week[new Date(todayData.date).getDay()]}요일
+            </div>
 
             <div className="visit-modal-week-record-list">
               {weekRecordItems.map((item) => (
@@ -61,8 +92,8 @@ export default function VisitModal({ isOpen, setIsOpen }) {
               ))}
             </div>
             <div className="visit-modal-week-record-steps">
-              {weekRecordItems.map((item) => (
-                <div className="visit-modal-week-record-step" key={item.step}>
+              {weekRecordItems.map((item, i) => (
+                <div className="visit-modal-week-record-step" key={i}>
                   <p>{item.step}</p>
                 </div>
               ))}

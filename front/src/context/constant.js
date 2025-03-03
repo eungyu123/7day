@@ -6,4 +6,5 @@ export const initialState = {
   locationError: null,
   character: "character1",
   pet: "pet1",
+  user: null,
 };

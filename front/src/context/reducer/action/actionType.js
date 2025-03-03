@@ -7,4 +7,5 @@ export const actionType = {
   setlocationError: "setlocationError",
   setlocationLoading: "setlocationLoading",
   removeItem: "removeItem",
+  setUser: "setUser",
 };
