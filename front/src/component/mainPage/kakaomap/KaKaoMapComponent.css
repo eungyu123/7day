@@ -7,9 +7,12 @@
 .fade-y-out-rotate {
   animation: fade-y-out-rotate 1s ease-in-out forwards;
 }
+
 .imgWrapper {
-  width: 60px;
-  height: 60px;
+  background: url("../../../assets/characters.png") no-repeat -27px -20px;
+  background-size: 250px 250px;
+  width: 27px;
+  height: 40px;
 }
 
 @keyframes fade-y-out-rotate {

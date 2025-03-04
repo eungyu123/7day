@@ -9,7 +9,7 @@ export default function Container({ children }) {
         flexFlow: "row wrap",
         justifyContent: "center",
         backgroundColor: "#fff",
-        height: "100dvh",
+        // height: "100dvh",
         minHeight: "100dvh",
       }}
     >

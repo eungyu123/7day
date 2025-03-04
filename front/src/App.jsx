@@ -24,45 +24,41 @@ function App() {
     dispatch,
   };
   useScrollToTop();
-
+  // useAuth({ dispatch });
+  // useAuthRedirect({ appState });
+  // useLocationTracker({ dispatch });
+  // useFetch({});
   return (
     <>
       {/* 에러  */}
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary FallbackComponent={() => <ErrorPage />}>
-          {/* 로딩 */}
           <Suspense fallback={<LoadingPage />}>
             <appContext.Provider value={providerState}>
               <Routes>
-                <Route path={PAGE_URLS.MainPage} element={<MainPage />} />
-                <Route path={PAGE_URLS.LoginPage} element={<LoginPage />} />
-                <Route path={PAGE_URLS.MissionPage} element={<MissionPage />} />
-                <Route path={PAGE_URLS.WalkingPage} element={<WalkingPage />} />
+                <Route path="/" element={<MainPage />} />
+                <Route path="/LoginPage" element={<LoginPage />} />
+                <Route path="/MissionPage" element={<MissionPage />} />
+                <Route path="/WalkingPage" element={<WalkingPage />} />
                 <Route
-                  path={PAGE_URLS.WalkingCoursePage}
+                  path="/WalkingCoursePage"
                   element={<WalkingCoursePage />}
                 />
+                <Route path="/HatcheryPage" element={<HatcheryPage />} />
+                <Route path="/ProfilePage" element={<ProfilePage />} />
+                <Route path="/SettingPage" element={<SettingPage />} />
+                <Route path="/FriendPage" element={<FriendPage />} />
+                <Route path="/InventoryPage" element={<Inventory />} />
                 <Route
-                  path={PAGE_URLS.HatcheryPage}
-                  element={<HatcheryPage />}
-                />
-                <Route path={PAGE_URLS.ProfilePage} element={<ProfilePage />} />
-                <Route path={PAGE_URLS.SettingPage} element={<SettingPage />} />
-                <Route path={PAGE_URLS.FriendPage} element={<FriendPage />} />
-                <Route path={PAGE_URLS.InventoryPage} element={<Inventory />} />
-                <Route
-                  path={PAGE_URLS.StepAnalysisPage}
+                  path="/StepAnalysisPage"
                   element={<StepAnalysisPage />}
                 />
-                <Route
-                  path={PAGE_URLS.NicknamePage}
-                  element={<NicknamePage />}
-                />
+                <Route path="/NicknamePage" element={<NicknamePage />} />
                 <Route path="*" element={<NotFound />} />{" "}
                 {/* 없는 페이지 처리 */}
                 {/* 임시 에러페이지, 로딩페이지 */}
-                <Route path={PAGE_URLS.ErrorPage} element={<ErrorPage />} />
-                <Route path={PAGE_URLS.LoadingPage} element={<LoadingPage />} />
+                <Route path="/ErrorPage" element={<ErrorPage />} />
+                <Route path="/LoadingPage" element={<LoadingPage />} />
               </Routes>
             </appContext.Provider>
           </Suspense>
