@@ -3,16 +3,16 @@ import "./MainPage.css";
 import { useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
-import HalfBasicButton from "../../component/common/button/HalfBasicButton";
 import BasicButton from "../../component/common/button/BasicButton";
 import MainMap from "../../component/mainPage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
-import VisitModal from "../../component/modal/VisitModal";
 import { PAGE_URLS } from "../../constant/constant";
 import { Link } from "react-router-dom";
 import { setUser } from "../../context/reducer/action/action";
 import { useGetUser } from "../../hook/useAPI";
+import PointButton from "../../component/mainPage/PointButton";
+import StoreButton from "../../component/mainPage/StoreButton";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
@@ -31,12 +31,8 @@ export default function MainPage() {
       </Link>
 
       <HalfButtonWrapper>
-        <HalfBasicButton
-          title="💎포인트"
-          des={`${appState?.user?.userPoint}원`}
-          rightIcon="chevron_right"
-        />
-        <HalfBasicButton title="🏪상점" des=" " rightIcon="chevron_right" />
+        <PointButton title="💎포인트" des={`${appState?.user?.userPoint}원`} />
+        <StoreButton title="🏪상점" />
       </HalfButtonWrapper>
       <ButtonWrapper>
         {buttonsProp.map((button, i) => (

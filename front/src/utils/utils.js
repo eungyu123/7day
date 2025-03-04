@@ -57,3 +57,9 @@ export function getKaclFromSteps(steps) {
 export function getKmFromSteps(steps) {
   return steps * 0.0007;
 }
+
+export function getDecimalPlaces(num) {
+  const str = num.toString();
+  const parts = str.split(".");
+  return parts.length === 2 ? parts[1].length : 0;
+}

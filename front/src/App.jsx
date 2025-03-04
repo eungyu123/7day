@@ -12,14 +12,12 @@ import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
          HatcheryPage, SettingPage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage} from "./page";
 import NicknamePage from "./page/nickname/NicknamePage";
 
-import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
 import { useAuthRedirect } from "./hook/useAuthRedirect";
 import { useLocationTracker } from "./hook/useLocationTracker";
 import { useUpdateUserCoord } from "./hook/useUpdateUserCoord";
 import { useFetchItems } from "./hook/useFetchItems";
-
-import useAuth from "./hook/useAuth";
+import { useAuth } from "./hook/useAuth";
 
 const queryClient = new QueryClient();
 
@@ -31,11 +29,11 @@ function App() {
   };
 
   useScrollToTop();
-  useAuth({ dispatch });
-  useAuthRedirect({ appState });
-  useLocationTracker({ dispatch });
-  useUpdateUserCoord(appState.location);
-  useFetchItems({ items: appState.items, dispatch });
+  // useAuth({ dispatch });
+  // useAuthRedirect({ appState });
+  // useLocationTracker({ dispatch });
+  // useUpdateUserCoord(appState.location);
+  // useFetchItems({ items: appState.items, dispatch });
 
   return (
     // prettier-ignore
@@ -48,7 +46,7 @@ function App() {
             <appContext.Provider value={providerState}>
               <Routes>
                 {/* 개별 Suspense 적용 예시 */}
-                <Route path="/" element={ <Suspense fallback={<LoadingPage />}><MainPage /></Suspense> } />
+                <Route path="/" element={ <MainPage />}/>
                 <Route path="/LoginPage" element={<LoginPage />} />
                 <Route path="/MissionPage" element={<MissionPage />} />
                 <Route path="/WalkingPage"  element={<WalkingPage />} />

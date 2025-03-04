@@ -1,4 +1,5 @@
-import "./SettingToggle.css";
+import "./SettingButton.css";
+
 // div 링크로 변경, href props 추가
 import BasicToggle from "../common/toggle/BasicToggle";
 export default function SettingToggle({ title }) {

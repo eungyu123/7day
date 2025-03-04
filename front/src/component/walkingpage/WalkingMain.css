@@ -4,6 +4,7 @@
   height: 90vh;
   width: 100vw;
   overflow-y: auto;
+  margin-top: 12px;
 }
 body {
   margin: 0;

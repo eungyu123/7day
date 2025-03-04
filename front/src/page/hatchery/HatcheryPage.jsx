@@ -5,33 +5,18 @@ import Container from "../../component/common/Container";
 import Header from "../../component/common/header/Header";
 
 export default function HatcheryPage() {
-  const buttonsProp = [
-    {
-      icon: "🥚",
-      description: `12개의 알을 모왔어요.
-                    부화장으로 가보세요`,
-    },
-    {
-      icon: "🥚",
-      description: `12개의 알을 모왔어요.
-                    부화장으로 가보세요`,
-    },
-    {
-      icon: "🥚",
-      description: `12개의 알을 모왔어요.
-                    부화장으로 가보세요`,
-    },
-    {
-      icon: "🥚",
-      description: `12개의 알을 모왔어요.
-                    부화장으로 가보세요`,
-    },
-  ];
+  const w = "30%";
 
   return (
     <Container>
       <Header PageName="부화장" />
       <div className="hatchery-container">
+        <div className="hatchery-progress-bar-wrapper">
+          <div
+            className="hatchery-progress-bar"
+            style={{ width: `${w}` }}
+          ></div>
+        </div>
         <div className="hatchery-container-egg-count">🥚12개</div>
       </div>
       <ButtonWrapper>
@@ -44,3 +29,22 @@ export default function HatcheryPage() {
     </Container>
   );
 }
+
+const buttonsProp = [
+  {
+    icon: "🥚",
+    description: `아기 공룡을 획득했어요`,
+  },
+  {
+    icon: "🥚",
+    description: `아기 공룡을 획득했어요`,
+  },
+  {
+    icon: "🥚",
+    description: `아기 공룡을 획득했어요`,
+  },
+  {
+    icon: "🥚",
+    description: `아기 공룡을 획득했어요`,
+  },
+];
