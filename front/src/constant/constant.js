@@ -17,7 +17,7 @@ export const PAGE_URLS = {
 };
 // prettier-ignore
 
-// https 로 변경
-export const API_BASE_URL = "https://localhost:3000/api";
+// export const API_BASE_URL = "https://localhost:3000/api";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const googleId = localStorage.getItem("googleId");
