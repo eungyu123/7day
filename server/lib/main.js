@@ -60,4 +60,21 @@ module.exports = {
       return res.status(500).json({ error: "Failed to update walk" });
     }
   },
+  getFriends: async (req, res) => {
+    try {
+      // DB에서 해당 유저의 친구 데이터를 가져오기
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(400).json({ error: "User not found" });
+      }
+      // 친구 데이터를 가져와서 응답
+      return res.status(200).json({
+        message: "Friends fetched",
+        friends: user.friends,
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return res.status(500).json({ error: "Failed to fetch data" });
+    }
+  },
 };

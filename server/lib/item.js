@@ -8,7 +8,9 @@ module.exports = {
       const inventory = {
         character: User.character,
         pet: User.pet,
-        egg: User.egg,
+        characters: User.characterList,
+        pets: User.petList,
+        eggs: User.eggList,
       };
       res.status(200).json(inventory);
     } catch (error) {

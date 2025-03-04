@@ -4,8 +4,8 @@ const UserSchema = new mongoose.Schema(
   {
     //_id
     nickname: { type: String, required: true },
-    friend_list: [{ freind_id: { type: String } }],
-    user_point: { type: Number, required: true },
+    friendList: [{ freind_id: { type: String } }],
+    userPoint: { type: Number, required: true },
     googleId: { type: String, required: true },
     character: { type: String },
     pet: { type: String },

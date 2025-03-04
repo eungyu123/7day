@@ -1,6 +1,5 @@
 const WalkData = require("../models/WalkData");
 
-
 module.exports = {
   createWalkData: async (req, res) => {
     const walkData = new WalkData(req.body);
@@ -75,5 +74,14 @@ module.exports = {
       console.error("Error fetching data:", error);
       return res.status(500).json({ error: "Failed to fetch data" });
     }
+  },
+  updateWalkData: async (req, res) => {
+    const walkData = await WalkData.findOneAndUpdate(
+      { userId: req.params.id, date: req.body.date },
+      { walk: req.body.walk },
+      { new: true }
+    );
+
+    return walkData;
   },
 };
