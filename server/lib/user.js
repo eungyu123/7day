@@ -3,6 +3,10 @@ const {
   updateUser,
   createUser,
 } = require("../db/controllers/UserController");
+const {
+  generateRandomGifts,
+  generateRandomEggs,
+} = require("../utils/kakaomap");
 
 module.exports = {
   getUser: async (req, res) => {
@@ -59,6 +63,56 @@ module.exports = {
       res.status(500).json({
         type: "error",
         message: "fetching friends failed",
+      });
+    }
+  },
+
+  generateGift: async (req, res) => {
+    try {
+      const user = await getUser(req, res);
+      if (!user) {
+        return res.status(404).json({
+          type: "error",
+          message: "User not found",
+        });
+      }
+
+      // 마지막 생성시간이 4시간보다 클때 생성
+      const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
+      if (
+        Date.now() - new Date(lastGeneratedAt).getTime() >
+        4 * 60 * 60 * 1000
+      ) {
+        const gifts = generateRandomGifts();
+        user.gifts = gifts;
+        user.lastGiftsGeneratedAt = new Date();
+        await user.save();
+        return res.status(200).json({
+          type: "success",
+          message: "",
+          data: gifts,
+        });
+      } else {
+        return res.status(200).json({ type: "success", message: "" });
+      }
+    } catch (error) {
+      res.status(500).json({
+        type: "error",
+        message: " generateGift failed",
+      });
+    }
+  },
+
+  removeGift: async (req, res) => {
+    try {
+      const { giftId } = req.body;
+      const user = await getUser();
+      const gift = user.gifts.find((v) => (v._id = giftId));
+      user.userPoint += gift;
+    } catch (error) {
+      res.status(500).json({
+        type: "error",
+        message: " generateGift failed",
       });
     }
   },

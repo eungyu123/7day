@@ -20,7 +20,7 @@ export const updateUserName = async (newUserName) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ newUserName: newUserName }),
+      body: JSON.stringify({ nickname: newUserName }),
       credentials: "include",
     });
 
@@ -32,12 +32,14 @@ export const updateUserName = async (newUserName) => {
 
 export const updateUserCoord = async ({ lng, lat }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/coord/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/user/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ lng, lat }),
+      body: JSON.stringify({
+        location: { type: "Point", coordinates: [lng, lat] },
+      }),
       credentials: "include",
     });
     return res.json();
