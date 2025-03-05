@@ -8,6 +8,8 @@ export const PAGE_URLS = {
   ProfilePage: "/ProfilePage",
   SettingPage: "/SettingPage",
   FriendPage: "/FriendPage",
+  BadgePage: "/BadgePage",
+  BadgeGoalPage: "/BadgeGoalPage",
   InventoryPage: "/InventoryPage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
