@@ -10,14 +10,14 @@ export default function RouletteModal({ isOpen, setIsOpen }) {
   const [selectedItem, setSelectedItem] = useState(null); // 결과
   const [canSpin, setCanSpin] = useState(true); //돌렸는지 확인
   const prizes = [
-    "보상1",
-    "보상2",
-    "보상3",
-    "보상4",
-    "보상5",
-    "보상6",
-    "보상7",
-    "보상8",
+    { prize: "1포인트" },
+    { prize: "골드알 1개" },
+    { prize: "10포인트" },
+    { prize: "5포인트" },
+    { prize: "기본알 1개" },
+    { prize: "100포인트" },
+    { prize: "50포인트" },
+    { prize: "3포인트" },
   ];
 
   const handleClick = () => {
@@ -54,17 +54,21 @@ export default function RouletteModal({ isOpen, setIsOpen }) {
               className={`roulette ${spinning ? "spinning" : ""}`}
               style={{ transform: `rotate(${rotate}deg)` }}
             >
-              {prizes.map((prize, i) => (
-                <div
-                  key={i}
-                  className="roulette-item"
-                  style={{ transform: `rotate(${i * 45}deg)` }}
-                >
-                  {prize}
-                </div>
-              ))}
+              <div className="roulette-wheel">
+                {prizes.map((item, index) => (
+                  <div
+                    key={index}
+                    className="roulette-item"
+                    style={{
+                      transform: `rotate(${index * 45}deg)`,
+                    }}
+                  >
+                    {item.prize}
+                  </div>
+                ))}
+              </div>
               {/* 선 추가 */}
-              {[...Array(6)].map((_, index) => (
+              {prizes.map((_, index) => (
                 <div
                   key={index}
                   className="roulette-line"
@@ -87,7 +91,7 @@ export default function RouletteModal({ isOpen, setIsOpen }) {
             <RouletteRewardModal
               isOpen={true}
               setIsOpen={() => setSelectedItem(null)}
-              prize={prizes[selectedItem]}
+              prize={prizes[selectedItem].prize}
             />
           )}
         </div>
