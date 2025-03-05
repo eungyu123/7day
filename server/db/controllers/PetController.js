@@ -11,13 +11,17 @@ module.exports = {
     return pets;
   },
   updatePet: async (req, res) => {
-    const pet = await Pet.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    });
+    const pet = await Pet.findOneAndUpdate(
+      { _id: req.params.userId },
+      req.body,
+      {
+        new: true,
+      }
+    );
     return pet;
   },
   deletePet: async (req, res) => {
-    await Pet.findOneAndDelete({ _id: req.params.id });
+    await Pet.findOneAndDelete({ _id: req.params.userId });
     return { message: "Pet deleted" };
   },
 };

@@ -21,7 +21,7 @@ module.exports = {
     return mission;
   },
   deleteMission: async (req, res) => {
-    await Mission.findOneAndDelete({ _id: req.params.id });
+    await Mission.findOneAndDelete({ _id: req.params.userId });
     return { message: "Mission deleted" };
   },
 };

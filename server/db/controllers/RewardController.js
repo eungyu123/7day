@@ -23,7 +23,7 @@ module.exports = {
     return reward;
   },
   deleteReward: async (req, res) => {
-    await Reward.findOneAndDelete({ _id: req.params.id });
+    await Reward.findOneAndDelete({ _id: req.params.userId });
     return { message: "Reward deleted" };
   },
 };

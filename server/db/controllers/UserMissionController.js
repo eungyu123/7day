@@ -12,14 +12,14 @@ module.exports = {
   },
   updateUserMission: async (req, res) => {
     const userMission = await UserMission.findOneAndUpdate(
-      { _id: req.params.id },
+      { userId: req.params.userId },
       req.body,
       { new: true }
     );
     return userMission;
   },
   deleteUserMission: async (req, res) => {
-    await UserMission.findOneAndDelete({ _id: req.params.id });
+    await UserMission.findOneAndDelete({ userId: req.params.userId });
     return { message: "UserMission deleted" };
   },
 };

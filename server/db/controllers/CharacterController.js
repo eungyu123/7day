@@ -12,7 +12,7 @@ module.exports = {
   },
   updateCharacter: async (req, res) => {
     const character = await Character.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: req.params.userId },
       req.body,
       {
         new: true,
@@ -21,7 +21,7 @@ module.exports = {
     return character;
   },
   deleteCharacter: async (req, res) => {
-    await Character.findOneAndDelete({ _id: req.params.id });
+    await Character.findOneAndDelete({ _id: req.params.userId });
     return { message: "Character deleted" };
   },
 };

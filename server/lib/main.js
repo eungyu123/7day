@@ -11,7 +11,7 @@ module.exports = {
     try {
       const user = await createUser(req, res);
       const now = new Date();
-      req.params.id = user._id;
+      req.params.userId = user._id;
       req.body.date = now.toLocaleDateString("ko-KR");
       const walkData = await createWalkData(req, res);
       res.status(200).json({

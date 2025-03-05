@@ -3,7 +3,7 @@ const WalkData = require("../models/WalkData");
 module.exports = {
   createWalkData: async (req, res) => {
     const walkData = new WalkData({
-      userId: req.params.id,
+      userId: req.params.userId,
       date: req.body.date,
       steps: 0,
     });
@@ -41,7 +41,7 @@ module.exports = {
   },
   deleteWalkData: async (req, res) => {
     await WalkData.findOneAndDelete({
-      userId: req.params.id,
+      userId: req.params.userId,
       date: req.body.date,
     });
     return { message: "WalkData deleted" };

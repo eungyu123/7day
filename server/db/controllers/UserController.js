@@ -15,13 +15,13 @@ module.exports = {
     return user;
   },
   updateUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
       new: true,
     });
     return user;
   },
   deleteUser: async (req, res) => {
-    await User.findByIdAndDelete(req.params.id);
+    await User.findByIdAndDelete(req.params.userId);
     return { message: "User deleted" };
   },
 };

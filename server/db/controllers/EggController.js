@@ -11,13 +11,17 @@ module.exports = {
     return eggs;
   },
   updateEgg: async (req, res) => {
-    const egg = await Egg.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    });
+    const egg = await Egg.findOneAndUpdate(
+      { _id: req.params.userId },
+      req.body,
+      {
+        new: true,
+      }
+    );
     return egg;
   },
   deleteEgg: async (req, res) => {
-    await Egg.findOneAndDelete({ _id: req.params.id });
+    await Egg.findOneAndDelete({ _id: req.params.userId });
     return { message: "Egg deleted" };
   },
 };

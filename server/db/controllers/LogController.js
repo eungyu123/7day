@@ -11,13 +11,17 @@ module.exports = {
     return logs;
   },
   updateLog: async (req, res) => {
-    const log = await Log.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    });
+    const log = await Log.findOneAndUpdate(
+      { _id: req.params.userId },
+      req.body,
+      {
+        new: true,
+      }
+    );
     return log;
   },
   deleteLog: async (req, res) => {
-    await Log.findOneAndDelete({ _id: req.params.id });
+    await Log.findOneAndDelete({ _id: req.params.userId });
     return { message: "Log deleted" };
   },
 };
