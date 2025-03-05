@@ -7,7 +7,7 @@ export const getUser = async () => {
       header: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    return res.json();
+    return res.json(); // {type, message, data: user}
   } catch (error) {
     throw error;
   }
