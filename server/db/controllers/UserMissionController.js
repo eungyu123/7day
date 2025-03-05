@@ -1,10 +1,24 @@
 const UserMission = require("../models/UserMission");
+const Mission = require("../models/Mission");
 
 module.exports = {
   createUserMission: async (req, res) => {
-    const userMission = new UserMission(req.body);
-    await userMission.save();
-    return userMission;
+    const userId = req.params.userId;
+    const Missions = await Mission.find();
+    const userMissions = await Promise.all(
+      Missions.map(async (mission) => {
+        const userMission = new UserMission({
+          userId: userId,
+          missionId: mission._id,
+          state: "incomplete",
+          completedAt: null,
+          rewardId: mission.rewardId,
+        });
+        return await userMission.save();
+      })
+    );
+
+    return userMissions;
   },
   getUserMissions: async (req, res) => {
     const userMissions = await UserMission.find();
@@ -14,7 +28,7 @@ module.exports = {
     const userMission = await UserMission.findOneAndUpdate(
       { userId: req.params.userId },
       req.body,
-      { new: true }
+      { new: true, upsert: true }
     );
     return userMission;
   },

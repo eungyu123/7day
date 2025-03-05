@@ -7,8 +7,8 @@ router.put("/dailywalkdata/:userId", async (req, res) => {
   Walkdata.updateStep(req, res);
 });
 
-router.get("/:userId", async (req, res) => {
-  Walkdata.getWalkdata(req, res);
+router.post("/:userId", async (req, res) => {
+  Walkdata.getStep(req, res);
 });
 
 module.exports = router;
