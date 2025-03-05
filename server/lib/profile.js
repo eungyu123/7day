@@ -1,5 +1,5 @@
 const User = require("../db/models/User"); // require로 가져오기
-const Reward = require("../db/models/reward"); // require로 가져오기
+const Reward = require("../db/models/Reward"); // require로 가져오기
 
 module.exports = {
   profile: async (id, res) => {

@@ -10,6 +10,6 @@ const WalkSchema = new mongoose.Schema(
   { timestamps: true, collection: "walkdatas" }
 );
 
-const Walk = mongoose.model("Walk_data", WalkSchema);
+const Walk = mongoose.model("WalkData", WalkSchema);
 
 module.exports = Walk;

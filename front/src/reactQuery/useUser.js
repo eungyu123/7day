@@ -1,10 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { fetchUsers } from "../api/userApi";
+import { getUser } from "../api/userApi";
 
-export const useFetchUsers = () => {
+export const useFetchUser = () => {
   return useSuspenseQuery({
     queryKey: ["users"],
-    queryFn: fetchUsers,
+    queryFn: getUser,
     staleTime: 1000 * 60 * 5, // 5분 동안 데이터 유지
   });
 };

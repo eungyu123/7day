@@ -10,7 +10,11 @@ export const PAGE_URLS = {
   FriendPage: "/FriendPage",
   InventoryPage: "/InventoryPage",
   StepAnalysisPage: "/StepAnalysisPage",
+  NicknamePage: "/NicknamePage",
   not: "not",
+  LoadingPag: "/LoadingPage",
+  ErrorPage: "/ErrorPage",
 };
 
-export const API_BASE_URL = "http://localhost:3000  ";
+export const API_BASE_URL = "http://localhost:3000/api";
+export const userId = localStorage.getItem("userId");

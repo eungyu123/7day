@@ -2,24 +2,68 @@ import { actionType } from "./action/actionType";
 
 export function appReducer(state, action) {
   switch (action.type) {
-    case actionType.decreaseCount: {
+    case actionType.setCharacter: {
       return {
         ...state,
-        count: state.count - 1,
+        character: action.payload.character,
       };
     }
-    case actionType.increseCount: {
+    case actionType.setPet: {
       return {
         ...state,
-        count: state.count + 1,
+        pet: action.payload.pet,
       };
     }
-    case actionType.setCount: {
+
+    case actionType.checkAuth: {
       return {
         ...state,
-        count: action.payload.count,
+        isAuthenticated: action.payload.isAuthenticated,
       };
     }
+
+    case actionType.setLocation: {
+      return {
+        ...state,
+        location: { lat: action.payload.lat, lng: action.payload.lng },
+      };
+    }
+
+    case actionType.setlocationError: {
+      return {
+        ...state,
+        locationError: action.payload.locationError,
+      };
+    }
+
+    case actionType.setlocationLoading: {
+      return {
+        ...state,
+        locationLoading: action.payload.setlocationLoading,
+      };
+    }
+
+    case actionType.setGifts: {
+      return {
+        ...state,
+        gifts: action.payload.gifts,
+      };
+    }
+
+    case actionType.removeGift: {
+      return {
+        ...state,
+        gifts: state.gifts.filter((gift) => gift._id !== action.payload.giftId),
+      };
+    }
+
+    case actionType.setUser: {
+      return {
+        ...state,
+        user: action.payload.user,
+      };
+    }
+
     default:
       return state;
   }
