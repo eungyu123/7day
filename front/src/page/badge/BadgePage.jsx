@@ -1,9 +1,23 @@
+import { useNavigate } from "react-router-dom";
 import Container from "../../component/common/Container";
 import Header from "../../component/common/header/Header";
 import "./BadgePage.css";
 import BadgeImg from "./tempBadge.png";
+import OverlappingBadges from "../../component/badge/OverlappingBadges";
 
 export default function BadgePage() {
+  const navigate = useNavigate();
+
+  const navigateToBadgeGoalPage = () => {
+    navigate("/BadgeGoalPage");
+  };
+
+  const navigateToBadgeListPage = () => {
+    navigate("/BadgeListPage");
+  };
+
+  const tempBadges = [BadgeImg, BadgeImg, BadgeImg, BadgeImg];
+
   return (
     <>
       <Header PageName={"배지"} />
@@ -22,14 +36,19 @@ export default function BadgePage() {
               </p>
             </div>
           </div>
-          <div className="badge-view-all">모두 보기</div>
+          <div className="badge-view-all" onClick={navigateToBadgeGoalPage}>
+            모두 보기
+          </div>
         </div>
         <div className="badge-container badge-get">
           <p className="badge-title">획득한 배지</p>
           <div className="badge-container-main">
-            <div className="badge-yourbadges"></div>
+            <OverlappingBadges badges={tempBadges} />
           </div>
-          <div className="badge-view-all"> 모두 보기</div>
+          <div className="badge-view-all" onClick={navigateToBadgeListPage}>
+            {" "}
+            모두 보기
+          </div>
         </div>
       </div>
     </>

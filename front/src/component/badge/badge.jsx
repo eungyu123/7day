@@ -6,7 +6,7 @@ export default function badge({ name, progressStatus, image }) {
   return (
     <>
       <div className="badge-goal-item">
-        <img src={image}></img>
+        <img src={image} style={{ filter: "grayscale(100%)" }}></img>
         <p className="badge-goal-name">{name}</p>
         <div
           style={{

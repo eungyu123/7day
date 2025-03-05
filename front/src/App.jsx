@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // prettier-ignore
 import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
          HatcheryPage, SettingPage, BadgePage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage,
-         BadgeGoalPage} from "./page";
+         BadgeGoalPage, BadgeListPage} from "./page";
 import NicknamePage from "./page/nickname/NicknamePage";
 
 import { PAGE_URLS } from "./constant/constant";
@@ -54,6 +54,10 @@ function App() {
                 <Route
                   path={PAGE_URLS.BadgeGoalPage}
                   element={<BadgeGoalPage />}
+                />
+                <Route
+                  path={PAGE_URLS.BadgeListPage}
+                  element={<BadgeListPage />}
                 />
                 <Route path={PAGE_URLS.InventoryPage} element={<Inventory />} />
                 <Route

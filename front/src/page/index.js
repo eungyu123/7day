@@ -11,6 +11,7 @@ export { default as LoginPage } from "./login/LoginPage";
 export { default as FriendPage } from "./friend/FriendPage";
 export { default as BadgePage } from "./badge/BadgePage";
 export { default as BadgeGoalPage } from "./badge/BadgeGoalPage";
+export { default as BadgeListPage } from "./badge/BadgeListPage";
 export { default as StepAnalysisPage } from "./stepAnalysisPage/stepAnalysisPage";
 export { default as LoadingPage } from "./loading/LoadingPage";
 export { default as ErrorPage } from "./error/ErrorPage";

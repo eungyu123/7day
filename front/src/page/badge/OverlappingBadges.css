@@ -1,0 +1,13 @@
+.badge-yourbadges {
+  display: flex;
+  position: relative;
+  height: 30px;
+}
+
+.badge-overlap-item {
+  position: absolute;
+}
+
+.badge-overlap-item-img {
+  width: 50px;
+}

@@ -29,7 +29,7 @@
 }
 
 .badge-get {
-  height: 165px;
+  height: 140px;
 }
 
 .badge-title {
@@ -47,6 +47,10 @@
 }
 
 .badge-container-main {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+
   display: flex;
   justify-content: space-between;
 }
@@ -65,17 +69,31 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
+  cursor: pointer;
 }
 
 .badge-goal-main {
-  max-width: 400px;
+  width: 360px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 .badge-goal-main > div {
-  padding: 15px;
+  margin-top: 40px;
+}
+
+.badge-goal-item {
+  margin-top: 30px;
+  text-align: center;
+  width: 120px;
+}
+
+.badge-goal-item > img {
+  width: 80px;
+  padding: 0px;
+  transition: transform 0.25s ease;
+  transform-origin: center;
 }
 
 .badge-goal-progressbar {
@@ -83,12 +101,10 @@
   height: 20px;
 }
 
-.badge-goal-item {
-  margin-top: 30px;
-  text-align: center;
+.badge-my-item:hover {
+  transform: scale(0.96);
 }
 
-.badge-goal-item > img {
-  width: 80px;
-  filter: grayscale(100%);
+.badge-my-item:selected {
+  transform: scale(1);
 }
