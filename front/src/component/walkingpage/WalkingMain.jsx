@@ -57,7 +57,7 @@ export default function WalkingMain() {
             </div>
           ))
         ) : (
-          <p>No routes found.</p>
+          <p>Loading...</p>
         )}
         {/* <div className="walkingmaininfocontainer2">
           <WalkingInfo

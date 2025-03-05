@@ -1,4 +1,4 @@
-import Header from "../../component/common/header/header";
+import Header from "../../component/common/header/Header";
 import Container from "../../component/common/Container";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import SettingButton from "../../component/common/button/SettingButton";

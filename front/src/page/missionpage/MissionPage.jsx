@@ -5,7 +5,7 @@ import "./MissionPage.css";
 export default function MissionPage() {
   return (
     <div className="missioncontainer">
-      <Header />
+      <Header PageName={"미션페이지"} />
       <MissionMain />
     </div>
   );

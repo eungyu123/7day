@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Inventory.css";
 import "../../index.css";
+import Header from "../../component/common/header/Header";
 import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
