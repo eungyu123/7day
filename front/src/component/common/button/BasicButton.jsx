@@ -7,7 +7,9 @@ export default function BasicButton({ icon, description, href }) {
 
   return (
     <Component to={href} className="common-basic-btn">
-      <div className="common-basic-btn-img-wrapper font-xl">{icon}</div>
+      <div className="common-basic-btn-img-wrapper font-xl emojifont">
+        {icon}
+      </div>
       <div className="common-basic-btn-des">{description}</div>
       <div className="common-basic-btn-icon">
         <span className="material-symbols-outlined font-xl">chevron_right</span>

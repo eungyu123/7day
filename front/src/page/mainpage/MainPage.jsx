@@ -49,6 +49,11 @@ export default function MainPage() {
       href: PAGE_URLS.StepAnalysisPage,
     },
     {
+      icon: "🧿",
+      description: "목표를 달성하고 배지를 모아보세요",
+      href: PAGE_URLS.BadgePage,
+    },
+    {
       icon: "⚙️",
       description: "설정을 바꿀수 있어요",
       href: PAGE_URLS.SettingPage,
@@ -71,11 +76,17 @@ export default function MainPage() {
 
       <HalfButtonWrapper>
         <HalfBasicButton
-          title="💎포인트"
+          icon="💎"
+          title="포인트"
           des="1000원"
           rightIcon="chevron_right"
         />
-        <HalfBasicButton title="🏪상점" des=" " rightIcon="chevron_right" />
+        <HalfBasicButton
+          icon="🏪"
+          title="상점"
+          des=" "
+          rightIcon="chevron_right"
+        />
       </HalfButtonWrapper>
       <ButtonWrapper>
         {buttonsProp.map((button) => (
