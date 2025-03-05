@@ -7,6 +7,7 @@ export { default as WalkingCoursePage } from "./walkingcoursepage/WalkingCourseP
 export { default as HatcheryPage } from "./hatchery/HatcheryPage";
 export { default as SettingPage } from "./Setting/SettingPage";
 export { default as Inventory } from "./inventory/Inventory";
+export { default as Store } from "./inventory/store";
 export { default as LoginPage } from "./login/LoginPage";
 export { default as FriendPage } from "./friend/FriendPage";
 export { default as BadgePage } from "./badge/BadgePage";

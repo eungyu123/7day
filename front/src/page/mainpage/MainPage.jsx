@@ -86,6 +86,7 @@ export default function MainPage() {
           title="상점"
           des=" "
           rightIcon="chevron_right"
+          href={PAGE_URLS.StorePage}
         />
       </HalfButtonWrapper>
       <ButtonWrapper>

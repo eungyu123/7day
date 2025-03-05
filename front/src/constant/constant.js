@@ -12,6 +12,7 @@ export const PAGE_URLS = {
   BadgeGoalPage: "/BadgeGoalPage",
   BadgeListPage: "/BadgeListPage",
   InventoryPage: "/InventoryPage",
+  StorePage: "/StorePage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   not: "not",
