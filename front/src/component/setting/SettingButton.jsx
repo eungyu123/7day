@@ -1,13 +1,11 @@
 import "./SettingComp.css";
-
 // div 링크로 변경, href props 추가
-import BasicToggle from "../common/toggle/BasicToggle";
-export default function SettingToggle({ title }) {
+export default function SettingButton({ title, onClick }) {
   return (
-    <div className="common-setting-btn">
+    <div className="common-setting-btn" onClick={onClick}>
       <div className="common-setting-btn-img-wrapper font-lg">{title}</div>
       <div className="common-setting-btn-icon">
-        <BasicToggle />
+        <span className="material-symbols-outlined font-xl">chevron_right</span>
       </div>
     </div>
   );

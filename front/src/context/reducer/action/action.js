@@ -1,24 +1,5 @@
 import { actionType } from "./actionType";
 
-export function increseCount() {
-  return {
-    type: actionType.increseCount,
-  };
-}
-
-export function decreaseCount() {
-  return {
-    type: actionType.decreaseCount,
-  };
-}
-
-export function setCount({ count }) {
-  return {
-    type: actionType.setCount,
-    payload: { count },
-  };
-}
-
 export function setCharacter({ character }) {
   return {
     type: actionType.setCharacter,
@@ -30,5 +11,54 @@ export function setPet({ pet }) {
   return {
     type: actionType.setPet,
     payload: { pet },
+  };
+}
+
+export function checkAuth({ isAuthenticated }) {
+  return {
+    type: actionType.checkAuth,
+    payload: { isAuthenticated },
+  };
+}
+
+export function setLocation({ lat, lng }) {
+  return {
+    type: actionType.setLocation,
+    payload: { lat, lng },
+  };
+}
+
+export function setlocationError({ locationError }) {
+  return {
+    type: actionType.setlocationError,
+    payload: { locationError },
+  };
+}
+
+export function setlocationLoading({ locationLoading }) {
+  return {
+    type: actionType.setlocationLoading,
+    payload: { locationLoading },
+  };
+}
+
+export function setGifts({ gifts }) {
+  return {
+    type: actionType.setGifts,
+    payload: { gifts },
+  };
+}
+
+export function removeGift({ giftId }) {
+  return {
+    type: actionType.removeGift,
+    payload: { giftId },
+  };
+}
+
+export function setUser({ user }) {
+  return {
+    type: actionType.setUser,
+    payload: { user },
   };
 }
