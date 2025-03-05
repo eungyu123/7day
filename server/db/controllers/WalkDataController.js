@@ -2,86 +2,48 @@ const WalkData = require("../models/WalkData");
 
 module.exports = {
   createWalkData: async (req, res) => {
-    const walkData = new WalkData(req.body);
+    const walkData = new WalkData({
+      userId: req.params.id,
+      date: req.body.date,
+      steps: 0,
+    });
     await walkData.save();
     return walkData;
   },
-  getTodayWalkData: async (req, res) => {
-    try {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const todayWalkData = await WalkData.findOne({
-        userId: req.params.id,
-        date: { $gte: today },
-      });
-      if (!todayWalkData) {
-        return res.status(400).json({ error: "Walk data not found" });
-      }
-      return todayWalkData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return res.status(500).json({ error: "Failed to fetch data" });
-    }
-  },
-  getWeekWalkData: async (req, res) => {
-    try {
-      const today = new Date();
-      const firstDayOfWeek = new Date(today);
-      firstDayOfWeek.setDate(today.getDate() - today.getDay()); // 이번 주 첫째 날 (일요일)
-      firstDayOfWeek.setHours(0, 0, 0, 0);
-      const lastDayOfWeek = new Date(now);
-      lastDayOfWeek.setDate(now.getDate() + (6 - now.getDay())); // 이번 주 마지막 날 (토요일)
-      lastDayOfWeek.setHours(23, 59, 59, 999);
-      const weekWalkData = await WalkData.find({
-        userId: req.params.id,
-        date: { $gte: weekAgo, $lte: lastDayOfWeek },
-      });
-      if (!weekWalkData) {
-        return res.status(400).json({ error: "Walk data not found" });
-      }
-      return weekWalkData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return res.status(500).json({ error: "Failed to fetch data" });
-    }
-  },
-  getMonthWalkData: async (req, res) => {
-    try {
-      const today = new Date();
-      const firstDayOfMonth = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        1
-      );
-      const lastDayOfMonth = new Date(
-        now.getFullYear(),
-        now.getMonth() + 1,
-        0,
-        23,
-        59,
-        59
-      ); // 이번 달 마지막 날
-
-      const monthWalkData = await WalkData.find({
-        userId: req.params.id,
-        date: { $gte: firstDayOfMonth, $lte: lastDayOfMonth },
-      });
-      if (!monthWalkData) {
-        return res.status(400).json({ error: "Walk data not found" });
-      }
-      return monthWalkData;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return res.status(500).json({ error: "Failed to fetch data" });
-    }
+  getWalkData: async (req, res) => {
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const walkData = await WalkData.find(
+      {
+        userId: req.params.userId,
+        date: { $gte: startDate, $lte: endDate },
+      },
+      { _id: 0, __v: 0 }
+    );
+    return walkData;
   },
   updateWalkData: async (req, res) => {
-    const walkData = await WalkData.findOneAndUpdate(
-      { userId: req.params.id, date: req.body.date },
-      { walk: req.body.walk },
-      { new: true }
-    );
-
-    return walkData;
+    try {
+      const walkData = await WalkData.findOneAndUpdate(
+        {
+          userId: req.params.userId,
+          date: req.body.date,
+        },
+        { steps: req.body.steps },
+        {
+          new: true,
+        }
+      );
+      return walkData;
+    } catch (error) {
+      return res.status(400).send({ message: "WalkData not found" });
+    }
+  },
+  deleteWalkData: async (req, res) => {
+    await WalkData.findOneAndDelete({
+      userId: req.params.id,
+      date: req.body.date,
+    });
+    return { message: "WalkData deleted" };
   },
 };

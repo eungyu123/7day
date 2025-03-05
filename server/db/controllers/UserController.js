@@ -11,7 +11,7 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     return user;
   },
   updateUser: async (req, res) => {

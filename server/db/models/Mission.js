@@ -9,3 +9,7 @@ const MissionSchema = new mongoose.Schema(
   },
   { timestamps: true, collection: "missions" }
 );
+
+const Mission = mongoose.model("Mission", MissionSchema);
+
+module.exports = Mission;

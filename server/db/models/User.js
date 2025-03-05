@@ -14,7 +14,13 @@ const UserSchema = new mongoose.Schema(
     eggList: [{ eggId: { type: String } }],
     rewardList: [{ rewardId: { type: String } }],
     gifts: [{ giftId: { type: String } }],
-    location: { type: GeoJSON },
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+      },
+      coordinates: [Number],
+    },
     lastitemGeneratedAt: { type: Date },
   },
   { timestamps: true, collection: "users" }
