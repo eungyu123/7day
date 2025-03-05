@@ -73,12 +73,7 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            <div className="imgWrapper">
-              <img
-                src={ReactLogo}
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              />
-            </div>
+            <div className="imgWrapper"></div>
           </CustomOverlayMap>
         )}
         {/* 지도 확대하면 보임  */}

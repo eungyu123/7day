@@ -1,5 +1,10 @@
 export const actionType = {
-  increseCount: "increseCount",
-  decreaseCount: "decreaseCount",
-  setCount: "setCount",
+  setCharacter: "setCharacter",
+  setPet: "setPet",
+  setLocation: "setLocation",
+  setlocationError: "setlocationError",
+  setlocationLoading: "setlocationLoading",
+  setGifts: "setGifts",
+  removeGift: "removeGift",
+  setUser: "setUser",
 };
