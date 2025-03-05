@@ -13,6 +13,9 @@ const UserSchema = new mongoose.Schema(
     characterList: [{ characterId: { type: String } }],
     eggList: [{ eggId: { type: String } }],
     rewardList: [{ rewardId: { type: String } }],
+    gifts: [{ giftId: { type: String } }],
+    location: { type: GeoJSON },
+    lastitemGeneratedAt: { type: Date },
   },
   { timestamps: true, collection: "users" }
 );

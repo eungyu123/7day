@@ -7,6 +7,7 @@ const RewardSchema = new mongoose.Schema(
     enterpriseName: { type: String },
     content: { type: String },
     icon: { type: String },
+    rewardType: { type: Number },
   },
   { timestamps: true, collection: "rewards" }
 );
