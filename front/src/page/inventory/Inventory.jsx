@@ -9,7 +9,6 @@ import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
-import Header from "../../component/common/header/Header";
 
 export default function Inventory() {
   const { appState, dispatch } = useAppContext();
