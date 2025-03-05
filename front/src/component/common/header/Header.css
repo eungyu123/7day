@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  background-color: white;
+  background-color: none;
   height: 50px;
   margin: 0;
   padding: 0;
@@ -30,7 +30,7 @@
 .commonheader-headertext {
   display: flex;
   align-items: center;
-  font-size: x-large;
+  font-size: var(--font-xl);
   height: 100%;
 }
 .material-symbols-outlined {

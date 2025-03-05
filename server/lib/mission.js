@@ -20,6 +20,7 @@ module.exports = {
       });
     }
   },
+
   updateUserMission: async (req, res) => {
     try {
       const userMission = await updateUserMission(req, res);
