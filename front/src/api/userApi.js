@@ -91,3 +91,30 @@ export const removeGifts = async ({ giftId }) => {
     throw error;
   }
 };
+
+export const getUserFriend = async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/friend/${userId}`, {
+      method: "GET",
+      header: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserFriend = async ({ friendid }) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/updateFriend/${userId}`, {
+      method: "GET",
+      header: { "Content-Type": "application/json" },
+      body: JSON.stringify({ friendid }),
+      credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
