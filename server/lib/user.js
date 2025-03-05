@@ -1,3 +1,4 @@
+const User = require("../db/models/User");
 const {
   getUser,
   updateUser,
@@ -12,6 +13,7 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const user = await getUser(req, res);
+      // console.log(user);
       res.status(200).json({
         type: "success",
         message: "User found",
@@ -70,23 +72,25 @@ module.exports = {
   generateGift: async (req, res) => {
     try {
       const user = await getUser(req, res);
-      if (!user) {
-        return res.status(404).json({
-          type: "error",
-          message: "User not found",
-        });
-      }
 
       // 마지막 생성시간이 4시간보다 클때 생성
+
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
       if (
         Date.now() - new Date(lastGeneratedAt).getTime() >
-        4 * 60 * 60 * 1000
+        1000 * 60 * 10
+        // 4 * 60 * 60 * 1000
       ) {
-        const gifts = generateRandomGifts();
+        if (!user?.location?.coordinates) {
+          return res.status(400).json({ type: "error" });
+        }
+
+        const [lng, lat] = user.location.coordinates; // [lng,lat] 순서 지키기
+        const gifts = generateRandomGifts({ lat, lng });
         user.gifts = gifts;
         user.lastGiftsGeneratedAt = new Date();
         await user.save();
+
         return res.status(200).json({
           type: "success",
           message: "",
@@ -96,6 +100,7 @@ module.exports = {
         return res.status(200).json({ type: "success", message: "" });
       }
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         type: "error",
         message: " generateGift failed",
@@ -106,10 +111,18 @@ module.exports = {
   removeGift: async (req, res) => {
     try {
       const { giftId } = req.body;
-      const user = await getUser();
-      const gift = user.gifts.find((v) => (v._id = giftId));
-      user.userPoint += gift;
+      const user = await getUser(req, res);
+
+      const gift = user.gifts.find((v) => v._id == giftId);
+
+      user.userPoint += gift.reward; // number
+      user.gifts = user.gifts.filter((v) => v.id != giftId);
+
+      await user.save();
+
+      return res.status(200).json({ type: "success" });
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         type: "error",
         message: " generateGift failed",

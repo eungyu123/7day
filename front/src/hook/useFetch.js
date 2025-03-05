@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { userId } from "../constant/constant";
 import { setGifts, setUser } from "../context/reducer/action/action";
 import { googleSignOut } from "../api/authApi";
-import { updateUserCoord, getGifts, getUser } from "../api/userApi";
+import {
+  updateUserCoord,
+  getGifts,
+  getUser,
+  generateGift,
+} from "../api/userApi";
 
 export const useFetch = ({ appState, dispatch }) => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +16,6 @@ export const useFetch = ({ appState, dispatch }) => {
     const fetchData = async () => {
       const user = await getUser();
       dispatch(setUser({ user: user.data }));
-
       setLoading(false);
     };
     fetchData();

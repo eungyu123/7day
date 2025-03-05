@@ -18,8 +18,6 @@ const middleware = (app) => {
   app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
   app.use((req, res, next) => {
-    console.log(req.url);
-
     next();
   });
 };
