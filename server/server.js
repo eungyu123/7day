@@ -14,14 +14,26 @@ connectDB();
 const middleware = require("./middleware/middleware");
 middleware(app);
 
-const nameRouter = require("./router/nameRouter");
-app.use("/api", nameRouter);
-
-const profileRouter = require("./router/profileRouter");
-app.use("/api/profile", profileRouter);
-
 const mainRouter = require("./router/mainRouter");
-app.use("/api/main", mainRouter);
+app.use("/", mainRouter);
+
+const userRouter = require("./router/userRouter");
+app.use("/user", userRouter);
+
+const inventoryRouter = require("./router/inventoryRouter");
+app.use("/inventory", inventoryRouter);
+
+const logRouter = require("./router/logRouter");
+app.use("/log", logRouter);
+
+const missionRouter = require("./router/missionRouter");
+app.use("/mission", missionRouter);
+
+const storeRouter = require("./router/storeRouter");
+app.use("/store", storeRouter);
+
+const walkdataRouter = require("./router/walkdataRouter");
+app.use("/walkdatas", walkdataRouter);
 
 app.listen(port, () => {
   console.log(`✅ server running on port ${port}`);

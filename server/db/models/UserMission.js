@@ -11,3 +11,7 @@ const UserMissionSchema = new mongoose.Schema(
   },
   { timestamps: true, collection: "usermissions" }
 );
+
+const UserMission = mongoose.model("UserMission", UserMissionSchema);
+
+module.exports = UserMission;
