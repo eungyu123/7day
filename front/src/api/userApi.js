@@ -109,11 +109,11 @@ export const getUserFriend = async () => {
 
 export const updateUserFriend = async ({ friendid }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/updateFriend/${userId}`, {
-      method: "GET",
-      header: { "Content-Type": "application/json" },
+    const res = await fetch(`${API_BASE_URL}/user/updatefriend/${userId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ friendid }),
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {

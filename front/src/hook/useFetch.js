@@ -7,6 +7,8 @@ import {
   getGifts,
   getUser,
   generateGift,
+  getUserFriend,
+  updateUserFriend,
 } from "../api/userApi";
 
 export const useFetch = ({ appState, dispatch }) => {
@@ -16,6 +18,10 @@ export const useFetch = ({ appState, dispatch }) => {
     const fetchData = async () => {
       const user = await getUser();
       dispatch(setUser({ user: user.data }));
+      // user사용하는 문에
+      // const user = await getUser();
+      //dispatch(setUser({ user: user.data }));
+      // 추가
       setLoading(false);
     };
     fetchData();
