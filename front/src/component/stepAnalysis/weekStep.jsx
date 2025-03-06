@@ -23,8 +23,6 @@ export default function WeekStep() {
 
         const response = await getWalkData(startDate, endDate);
 
-        console.log("response, " + response.stepRecords);
-
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
 
@@ -43,6 +41,7 @@ export default function WeekStep() {
           });
 
           setWeekData(formattedData);
+          console.log("일주일치 데이터", formattedData);
         } else {
           console.error(response.message || "데이터를 불러오는데 실패함");
         }
@@ -53,17 +52,6 @@ export default function WeekStep() {
     };
     fetchWalkData();
   }, []);
-
-  // 임시 일주일 데이터
-  const dummyData = [
-    { day: "금", step: 7967 },
-    { day: "토", step: 1401 },
-    { day: "일", step: 959 },
-    { day: "월", step: 4650 },
-    { day: "화", step: 5595 },
-    { day: "수", step: 6262 },
-    { day: "오늘", step: 1594 },
-  ];
 
   const averageStep =
     weekData.length > 0
