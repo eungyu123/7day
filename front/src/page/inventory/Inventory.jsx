@@ -62,16 +62,18 @@ export default function Inventory() {
                   <InventoryItem
                     key={item.itemName}
                     isSelected={appState.character === item.itemName}
-                    onClick={() =>
-                      dispatch(setCharacter({ character: item.itemName }))
-                    }
+                    onClick={() => {
+                      dispatch(setCharacter({ character: item.itemName }));
+                    }}
                   />
                 ))
               : petItems.map((item) => (
                   <InventoryItem
                     key={item.itemName}
                     isSelected={appState.pet === item.itemName}
-                    onClick={() => dispatch(setPet({ pet: item.itemName }))}
+                    onClick={() => {
+                      dispatch(setPet({ pet: item.itemName }));
+                    }}
                   />
                 ))}
           </div>

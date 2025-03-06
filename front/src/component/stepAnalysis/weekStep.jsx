@@ -2,11 +2,44 @@ import "../../page/stepAnalysisPage/stepAnalysisPage.css";
 import "../../index.css";
 import { useState, useEffect } from "react";
 
-export default function CharacterViewer() {
+import { getWalkData } from "../../api/walkApi";
+
+export default function WeekStep() {
   const [mounted, setMounted] = useState(false);
+  const [weekData, setWeekData] = useState([]);
+
+  // 일주일 데이터 가져오기
+  useEffect(()=> {
+    const fetchWalkData = async () => {
+      try {
+        const response = await getWalkData();
+
+        if(response.type === "success") {
+          const stepRecords = response.data.stepRecords || [];
+
+          const dayNames = ["일","월","화","수","목","금","토"];
+
+          const today = new Date();
+          today.setHours(0,0,0,0);
+
+          const formattedDate = stepRecords.map(record => {
+            const recordDate = new Date(record.date);
+            recordDate.setHours(0,0,0,0);
+          })
+
+          const isToday = recordDate.getTime() === today.getTime();
+
+          return {
+            day: isToday ? "오늘" : dayNames[recordDate.getDay()],
+              step: record.steps
+          }
+        }
+      }
+    }
+  })
 
   // 임시 일주일 데이터
-  const weekData = [
+  const dummyData = [
     { day: "금", step: 7967 },
     { day: "토", step: 1401 },
     { day: "일", step: 959 },
@@ -17,9 +50,9 @@ export default function CharacterViewer() {
   ];
 
   const averageStep = Math.round(
-    weekData.reduce((acc, curr) => acc + curr.step, 0) / 7
+    dummyData.reduce((acc, curr) => acc + curr.step, 0) / 7
   );
-  const maxStep = Math.max(...weekData.map((item) => item.step));
+  const maxStep = Math.max(...dummyData.map((item) => item.step));
 
   useEffect(() => {
     setMounted(true);
@@ -35,7 +68,7 @@ export default function CharacterViewer() {
       </div>
       <div className="week-step-main">
         <div className="week-step-graph-container">
-          {weekData.map((item, index) => (
+          {dummyData.map((item, index) => (
             <div className="week-step-graph-item" key={index}>
               {/* 걸음수 */}
               <div className="week-step-numberOfSteps">{item.step}</div>
