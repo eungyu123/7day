@@ -1,6 +1,5 @@
 export const initialState = {
   isAuthenticated: null,
-  gifts: null,
   location: null,
   locationLoading: true,
   locationError: null,

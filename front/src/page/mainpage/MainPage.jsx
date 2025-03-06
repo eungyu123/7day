@@ -28,12 +28,13 @@ export default function MainPage() {
         <div className=""></div>
       </div>
       <HalfButtonWrapper>
-        <PointButton title="💎포인트" des={`5원`} />
+        <PointButton title="💎포인트" des={appState.user.userPoint} />
         <StoreButton title="🏪상점" />
       </HalfButtonWrapper>
       <ButtonWrapper>
         {buttonsProp.map((button) => (
           <BasicButton
+            key={button.description}
             icon={button.icon}
             description={button.description}
             href={button.href}

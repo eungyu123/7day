@@ -9,13 +9,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // prettier-ignore
 import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
-         HatcheryPage, SettingPage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage} from "./page";
+         HatcheryPage, SettingPage, BadgePage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage,
+         BadgeGoalPage, BadgeListPage,
+         Store} from "./page";
 import NicknamePage from "./page/nickname/NicknamePage";
 
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
 import { useFetch } from "./hook/useFetch";
-
+import { useLocationTracker } from "./hook/useLocationTracker";
 const queryClient = new QueryClient();
 
 function App() {
@@ -27,9 +29,9 @@ function App() {
   useScrollToTop();
   // useAuth({ dispatch });
   // useAuthRedirect({ appState });
-  // useLocationTracker({ dispatch });
+  useLocationTracker({ dispatch });
   const loading = useFetch({ appState, dispatch });
-  if (loading) return <LoadingPage />;
+  if (loading) return <div className="">Loading Page useFetch</div>;
 
   return (
     <>
