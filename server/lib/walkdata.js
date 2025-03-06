@@ -26,6 +26,7 @@ module.exports = {
       const endOfDay = new Date();
       endOfDay.setHours(23, 59, 59, 999); // 오늘의 끝 시간 (23:59:59)
       req.body.endDay = endOfDay;
+      //오늘 날짜인 walkdata 업데이트
       const walkData = await updateWalkData(req, res);
       res.status(200).json({
         type: "success",

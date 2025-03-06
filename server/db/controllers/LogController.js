@@ -3,11 +3,23 @@ const Log = require("../models/Log");
 module.exports = {
   createLog: async (req, res) => {
     const log = new Log(req.body);
+    if (!log) {
+      return res.status(400).json({
+        type: "error",
+        message: "Log searching failed",
+      });
+    }
     await log.save();
     return log;
   },
   getLogs: async (req, res) => {
     const logs = await Log.find();
+    if (!logs) {
+      return res.status(400).json({
+        type: "error",
+        message: "Log searching failed",
+      });
+    }
     return logs;
   },
   updateLog: async (req, res) => {
@@ -18,10 +30,22 @@ module.exports = {
         new: true,
       }
     );
+    if (!log) {
+      return res.status(400).json({
+        type: "error",
+        message: "Log searching failed",
+      });
+    }
     return log;
   },
   deleteLog: async (req, res) => {
-    await Log.findOneAndDelete({ _id: req.params.userId });
+    const result = await Log.findOneAndDelete({ _id: req.params.userId });
+    if (!result) {
+      return res.status(400).json({
+        type: "error",
+        message: "Log searching failed",
+      });
+    }
     return { message: "Log deleted" };
   },
 };

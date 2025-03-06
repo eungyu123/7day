@@ -46,8 +46,10 @@ module.exports = {
     try {
       const user = await getUser(req, res);
       const friends = user.friends;
+      //user의 friends배열에 있는 각각의 friend의 정보를 찾기
       const friendDataList = await Promise.all(
         friends.map(async (friendId) => {
+          //각각의 friend 정보 찾는 함수
           const friend = await getUser({ params: { userId: friendId } });
           return {
             friendId: friend._id,
