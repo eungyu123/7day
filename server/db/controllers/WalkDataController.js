@@ -12,9 +12,12 @@ module.exports = {
     return walkData;
   },
   getWalkData: async (req, res) => {
-    // const startDate = req.body.startDate;
-    // const endDate = req.body.endDate;
-    const { startDate, endDate } = req.query;
+    const startDate = req.body.startDate;
+    let endDate = req.body.endDate;
+
+    // endDate를 23:59:59로 설정
+    endDate = new Date(endDate);
+    endDate.setHours(23, 59, 59, 999); // 23:59:59.999로 설정
 
     //date가 startDate와 endDate 사이에 있는 walkdata를 반환
     const walkData = await WalkData.find(
