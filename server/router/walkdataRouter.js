@@ -3,9 +3,9 @@ const router = express.Router();
 
 const Walkdata = require("../lib/walkdata");
 
-router.put("/dailywalkdata/:userId", async (req, res) => {
-  console.log("updateStep");
-  Walkdata.updateStep(req, res);
+router.put("/:userId", async (req, res) => {
+  console.log("updateDailyWalkData");
+  Walkdata.updateDailyWalkData(req, res);
 });
 
 router.post("/:userId", async (req, res) => {

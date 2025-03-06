@@ -23,7 +23,7 @@
 
 .hatchery-modal-Hatchery-img {
   position: absolute;
-  top: 70%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: url("../../assets/hatchery.png") no-repeat;
@@ -32,25 +32,44 @@
   height: 150px;
 }
 
-.hatchery-modal-egg-img1 {
+.hatchery-modal-egg-img {
   position: absolute;
-  top: 5%;
-  left: 88%;
-  transform: translate(-50%, -50%);
 }
 
-.hatchery-modal-egg-img2 {
+.hatchery-modal-progress-bar-wrapper {
   position: absolute;
-  top: 12%;
-  left: 88%;
-  transform: translate(-50%, -50%);
-}
-
-.droped {
-  position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
+  width: 70%;
+
+  height: 20px;
+  background-color: #b7b7b7;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: none;
 }
+
+.hatchery-modal-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--toss-blue);
+  transition: all 2s ease-in-out;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+/* @keyframes progressBarAnimation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+} */
+
+/* full-width 클래스를 추가하면 애니메이션 시작 */
+/* .hatchery-modal-progress-bar.full-width {
+  animation: progressBarAnimation 2s ease-in-out forwards; 
+} */

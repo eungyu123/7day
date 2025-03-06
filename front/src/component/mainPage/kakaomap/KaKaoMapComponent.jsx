@@ -16,7 +16,7 @@ export default function KaKaoMapComponent() {
   const { appState, dispatch } = useAppContext();
   const { location, locationError, locationLoading, user } = appState;
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenHatchery, setIsOpenHatchery] = useState(false);
+  const [isOpenHatchery, setIsOpenHatchery] = useState(true);
 
   const [newReward, setNewReward] = useState(null);
 
@@ -43,7 +43,6 @@ export default function KaKaoMapComponent() {
     }
 
     async function setTimeOutfetch() {
-      console.log("1초 후 실행");
       setNewReward(currentGift.dataset.reward);
       await delay(1000);
       await removeGiftsAPI({ giftId });
@@ -56,8 +55,7 @@ export default function KaKaoMapComponent() {
 
     setTimeout(() => {
       setIsOpen(false);
-      setNewReward(null);
-    }, 5000);
+    }, 4000);
   }
 
   async function openHatchery(hatcheryId) {
