@@ -20,8 +20,7 @@ module.exports = {
   },
   updateStep: async (req, res) => {
     try {
-      const now = new Date();
-      req.body.date = now.tolocaleDateString("ko-KR");
+      req.body.date = new Date().toISOString();
       const walkData = await updateWalkData(req, res);
       res.status(200).json({
         type: "success",
