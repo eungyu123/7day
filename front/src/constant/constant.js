@@ -8,13 +8,22 @@ export const PAGE_URLS = {
   ProfilePage: "/ProfilePage",
   SettingPage: "/SettingPage",
   FriendPage: "/FriendPage",
+  BadgePage: "/BadgePage",
+  BadgeGoalPage: "/BadgeGoalPage",
+  BadgeListPage: "/BadgeListPage",
   InventoryPage: "/InventoryPage",
+  StorePage: "/StorePage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   not: "not",
-  LoadingPag: "/LoadingPage",
+  LoadingPage: "/LoadingPage",
   ErrorPage: "/ErrorPage",
 };
 
-export const API_BASE_URL = "http://localhost:3000/api";
-export const userId = localStorage.getItem("userId");
+export const API_BASE_URL = "http://localhost:3000";
+// export const userId = localStorage.getItem("userId");
+export const userId = "67c7ab335f743adc8dc272a3";
+
+// 67c7ab335f743adc8dc272a3,
+// 67c7ab445f743adc8dc272a5
+// 67c7ab4b5f743adc8dc272a7

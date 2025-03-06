@@ -6,6 +6,7 @@ import {
 } from "../context/reducer/action/action";
 import { calculateDistance, getSteps } from "../utils/utils";
 import { updateWalkData } from "../api/walkApi";
+import { updateUserCoord } from "../api/userApi";
 
 /** 위치 추적 훅 시간으로 계산 */
 export const useLocationTracker = ({ dispatch }) => {
@@ -27,7 +28,6 @@ export const useLocationTracker = ({ dispatch }) => {
         (position) => {
           const { latitude, longitude } = position.coords;
           const newLocation = { lat: latitude, lng: longitude };
-
           if (prevLocation) {
             const distance = calculateDistance({
               point1: prevLocation,
@@ -35,7 +35,8 @@ export const useLocationTracker = ({ dispatch }) => {
             });
 
             const steps = getSteps(distance); // 60cm당 한 걸음
-            updateWalkData({ steps: steps });
+            // updateWalkData({ steps: steps });
+            updateUserCoord(newLocation);
           }
 
           prevLocation = newLocation;
@@ -54,7 +55,7 @@ export const useLocationTracker = ({ dispatch }) => {
       );
     };
     fetchLocation();
-    const interval = setInterval(fetchLocation, 100000);
+    const interval = setInterval(fetchLocation, 10000);
 
     return () => clearInterval(interval);
   }, []);

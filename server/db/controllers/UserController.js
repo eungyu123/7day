@@ -11,17 +11,17 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     return user;
   },
   updateUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
       new: true,
     });
     return user;
   },
   deleteUser: async (req, res) => {
-    await User.findByIdAndDelete(req.params.id);
+    await User.findByIdAndDelete(req.params.userId);
     return { message: "User deleted" };
   },
 };

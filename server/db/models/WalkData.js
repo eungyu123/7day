@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const WalkSchema = new mongoose.Schema(
   {
     //_id
-    user_id: { type: String, required: true },
+    userId: { type: String, required: true },
     steps: { type: Number },
     date: { type: Date },
   },
