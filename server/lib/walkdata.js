@@ -7,14 +7,16 @@ module.exports = {
   getStep: async (req, res) => {
     try {
       const walkData = await getWalkData(req, res);
+
       res.status(200).json({
         type: "success",
         message: "WalkData found",
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
+        // startDate: req.body.startDate,
+        // endDate: req.body.endDate,
         stepRecords: walkData,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: "Failed to fetch data" });
     }
   },
