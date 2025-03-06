@@ -8,6 +8,12 @@ module.exports = {
   },
   getCharacters: async (req, res) => {
     const characters = await Character.find();
+    if (!characters) {
+      return res.status(400).json({
+        type: "error",
+        message: "Character searching failed",
+      });
+    }
     return characters;
   },
   updateCharacter: async (req, res) => {
@@ -18,10 +24,22 @@ module.exports = {
         new: true,
       }
     );
+    if (!character) {
+      return res.status(400).json({
+        type: "error",
+        message: "Character searching failed",
+      });
+    }
     return character;
   },
   deleteCharacter: async (req, res) => {
-    await Character.findOneAndDelete({ _id: req.params.userId });
+    const result = await Character.findOneAndDelete({ _id: req.params.userId });
+    if (!result) {
+      return res.status(400).json({
+        type: "error",
+        message: "Character searching failed",
+      });
+    }
     return { message: "Character deleted" };
   },
 };
