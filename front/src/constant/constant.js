@@ -8,11 +8,15 @@ export const PAGE_URLS = {
   ProfilePage: "/ProfilePage",
   SettingPage: "/SettingPage",
   FriendPage: "/FriendPage",
+  BadgePage: "/BadgePage",
+  BadgeGoalPage: "/BadgeGoalPage",
+  BadgeListPage: "/BadgeListPage",
   InventoryPage: "/InventoryPage",
+  StorePage: "/StorePage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   not: "not",
-  LoadingPag: "/LoadingPage",
+  LoadingPage: "/LoadingPage",
   ErrorPage: "/ErrorPage",
 };
 

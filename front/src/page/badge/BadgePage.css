@@ -1,0 +1,110 @@
+.badge-container {
+  width: 85%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.badge-goal-container {
+  width: 85%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.badge-notget {
+  height: 355px;
+}
+
+.badge-get {
+  height: 140px;
+}
+
+.badge-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.badge-big-badge {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.badge-big-badge > img {
+  width: 180px;
+}
+
+.badge-container-main {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.badge-goal-info {
+  margin-top: 15px;
+}
+
+.badge-goal-info-achievement {
+  font-size: var(--font-sm);
+}
+
+.badge-view-all {
+  font-size: var(--font-sm);
+  color: var(--toss-blue);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.badge-goal-main {
+  width: 360px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.badge-goal-main > div {
+  margin-top: 40px;
+}
+
+.badge-goal-item {
+  margin-top: 30px;
+  text-align: center;
+  width: 120px;
+}
+
+.badge-goal-item > img {
+  width: 80px;
+  padding: 0px;
+  transition: transform 0.25s ease;
+  transform-origin: center;
+}
+
+.badge-goal-progressbar {
+  width: 100px;
+  height: 20px;
+}
+
+.badge-my-item:hover {
+  transform: scale(0.96);
+}
+
+.badge-my-item:selected {
+  transform: scale(1);
+}

@@ -1,0 +1,39 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.loading-container {
+  margin-top: 30px;
+  left:
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--toss-gray);
+}
+.loading-header {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  position: absolute;
+  left: 30px;
+}
+.loading-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150px;
+}
+.loading-cycle {
+  width: 150px;
+  height: 150px;
+  border: 7px solid white;
+  border-radius: 50%;
+  border-top-color: var(--toss-blue);
+  animation: spin 0.8s infinite ease-in-out;
+}
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./HalfBasicButton.css";
+import { useNavigate } from "react-router-dom";
 // div 링크로 변경, href props 추가
 export default function StoreButton({ title, href }) {
   return (
