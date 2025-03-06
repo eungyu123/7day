@@ -57,9 +57,15 @@ export function removeGift({ giftId }) {
 }
 
 export function setUser({ user }) {
-  console.log("user", user);
   return {
     type: actionType.setUser,
     payload: { user },
+  };
+}
+
+export function setHatchery({ hatchery }) {
+  return {
+    type: actionType.setHatchery,
+    payload: { hatchery },
   };
 }

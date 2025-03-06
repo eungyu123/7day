@@ -1,41 +1,28 @@
 import WalkingInfo from "./WalkingInfo";
 import "./WalkingMain.css";
 import { useState, useEffect } from "react";
-
+import { useFetchTrail, useFetchUserTrail } from "../../reactQuery/useTrails";
 export default function WalkingMain() {
-  const [walkingRoutes, setWalkingRoutes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const { data } = useFetchTrail();
+  console.log(data);
 
   return (
     <div className="walkingmaincontainer">
       <div className="walkingmaininfocontainer1">
         <div className="walkingmaininfo">
           <p className="walkingmaininfotext1">산책로 추천</p>
-          <p className="walkingmaininfotext2">매일 다른 산책로가 추천돼요</p>
+          <p className="walkingmaininfotext2">이곳저곳 둘러보세요!</p>
         </div>
       </div>
       <div className="walkingmaininfolist">
-        <div className="walkingmaininfocontainer2">
-          <WalkingInfo
-            walkingmapnavigate="/WalkingCoursePage"
-            walkingmapname="산책로1"
-            walkingmapkm="1.4km"
-          />
-        </div>
-        <div className="walkingmaininfocontainer2">
-          <WalkingInfo
-            walkingmapnavigate="/WalkingCoursePage"
-            walkingmapname="산책로2"
-            walkingmapkm="1.3km"
-          />
-        </div>
-        <div className="walkingmaininfocontainer2">
-          <WalkingInfo
-            walkingmapnavigate="/WalkingCoursePage"
-            walkingmapname="산책로3"
-            walkingmapkm="2.6km"
-          />
-        </div>
+        {/*  */}
+        {data.map((TrailItem) => {
+          return (
+            <div className="walkingmaininfocontainer2">
+              <WalkingInfo TrailItem={TrailItem} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -6,9 +6,12 @@
 }
 .walkingcourselist {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
   width: 100%;
   height: 90%;
+  gap: 12px;
 }
 .walkingcoursediv {
   display: flex;

@@ -40,6 +40,14 @@
   height: 40px;
 }
 
+.imgWrapperHatchery {
+  background: url("../../../assets/hatchery.png") no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
 @keyframes fade-y-out-rotate {
   0% {
     transform: translateY(0) rotateY(0deg);

@@ -35,7 +35,7 @@ export const useLocationTracker = ({ dispatch }) => {
             });
 
             const steps = getSteps(distance); // 60cm당 한 걸음
-            // updateWalkData({ steps: steps });
+            updateWalkData({ steps: steps });
             updateUserCoord(newLocation);
           }
 
@@ -55,7 +55,7 @@ export const useLocationTracker = ({ dispatch }) => {
       );
     };
     fetchLocation();
-    const interval = setInterval(fetchLocation, 10000);
+    const interval = setInterval(fetchLocation, 100000);
 
     return () => clearInterval(interval);
   }, []);

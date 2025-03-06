@@ -6,6 +6,7 @@ export const initialState = {
 
   user: null,
   egg: null,
+  hatchery: null,
 
   character: "character1",
   pet: "pet1",

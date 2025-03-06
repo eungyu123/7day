@@ -32,7 +32,7 @@ module.exports = {
             $lte: req.body.endDay,
           },
         },
-        { steps: req.body.steps },
+        { $inc: { steps: req.body.steps } },
         {
           new: true,
         }

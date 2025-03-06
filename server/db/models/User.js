@@ -12,7 +12,6 @@ const UserSchema = new mongoose.Schema(
     petList: [{ petId: { type: String } }],
     character: { type: String },
     characterList: [{ characterId: { type: String } }],
-    eggList: [{ eggId: { type: String } }],
     rewardList: [{ rewardId: { type: String } }],
     gifts: [
       {

@@ -18,12 +18,11 @@ export default function MainPage() {
   const [isRouletteModalOpen, setIsRouletteModalOpen] = useState(false);
 
   useEffect(() => {
-    setIsRouletteModalOpen(true);
+    setIsRouletteModalOpen(false);
   }, []);
   return (
     <Container>
       <MainMap />
-      {/* 캐릭터 있는곳  */}
       <div className="main-character-wrapper">
         <div className=""></div>
       </div>
