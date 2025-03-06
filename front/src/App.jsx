@@ -15,7 +15,7 @@ import NicknamePage from "./page/nickname/NicknamePage";
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
 import { useFetch } from "./hook/useFetch";
-
+import { useLocationTracker } from "./hook/useLocationTracker";
 const queryClient = new QueryClient();
 
 function App() {
@@ -27,9 +27,9 @@ function App() {
   useScrollToTop();
   // useAuth({ dispatch });
   // useAuthRedirect({ appState });
-  // useLocationTracker({ dispatch });
+  useLocationTracker({ dispatch });
   const loading = useFetch({ appState, dispatch });
-  if (loading) return <LoadingPage />;
+  if (loading) return <div className="">Loading Page useFetch</div>;
 
   return (
     <>
