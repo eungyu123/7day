@@ -16,7 +16,7 @@ export default function WeekStep() {
         today.setHours(0, 0, 0, 0);
 
         const sevenDaysAgo = new Date(today);
-        sevenDaysAgo.setDate(today.getDate() - 6);
+        sevenDaysAgo.setDate(today.getDate() - 7);
 
         const startDate = sevenDaysAgo.toISOString().split("T")[0];
         const endDate = today.toISOString().split("T")[0];
@@ -28,9 +28,13 @@ export default function WeekStep() {
 
           const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
+          console.log("stepRecords: ", stepRecords);
+
           const formattedData = stepRecords.map((record) => {
             const recordDate = new Date(record.date);
             const dayIndex = recordDate.getDay(); // 0(일)~6(토)
+
+            console.log("recordDate: " + recordDate);
 
             const isToday =
               new Date(record.date).toDateString() === today.toDateString();
