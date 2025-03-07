@@ -45,11 +45,9 @@ const Calendar = () => {
 
   // 달력 데이터 생성
   const generateCalendarData = (year, month, stepRecords) => {
-    console.log("달력 month ", month);
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
-    console.log("달력 firstDay: ", firstDay);
-    console.log("달력 lastDay:", lastDay);
+
     const daysInMonth = lastDay.getDate();
     const startDayOfWeek = firstDay.getDay();
 

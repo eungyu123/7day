@@ -16,32 +16,62 @@ export default function WeekStep() {
         today.setHours(0, 0, 0, 0);
 
         const sevenDaysAgo = new Date(today);
-        sevenDaysAgo.setDate(today.getDate() - 7);
+        sevenDaysAgo.setDate(today.getDate() - 6);
 
-        const startDate = sevenDaysAgo.toISOString().split("T")[0];
-        const endDate = today.toISOString().split("T")[0];
+        const formatDate = (date) => {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0"); // 월을 2자리로
+          const day = String(date.getDate()).padStart(2, "0"); // 일을 2자리로
+          return `${year}-${month}-${day}`;
+        };
+
+        const startDate = formatDate(sevenDaysAgo);
+        const endDate = formatDate(today);
 
         const response = await getWalkData(startDate, endDate);
 
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
-          stepRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
+          stepRecords.sort((a, b) => new Date(a.date) - new Date(b.date)); // 걸음수 기록 날짜 순서대로 정렬
+          console.log("걸음수 기록!!!! ", stepRecords);
 
           const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
-          console.log("stepRecords: ", stepRecords);
+          // 일주일 날짜 범위 생성
+          const getDateRange = (start, end) => {
+            const dates = [];
+            let currentDate = new Date(start);
 
-          const formattedData = stepRecords.map((record) => {
-            const recordDate = new Date(record.date);
-            const dayIndex = recordDate.getDay(); // 0(일)~6(토)
+            while (currentDate <= end) {
+              dates.push(new Date(currentDate)); // 배열에 날짜 추가
+              currentDate.setDate(currentDate.getDate() + 1); // 다음날로
+            }
+            return dates;
+          };
 
-            console.log("recordDate: " + recordDate);
+          const start = new Date(startDate);
+          const end = new Date(endDate);
+          const allDates = getDateRange(start, end); // 일주일치 날짜 배열
+          console.log("allDates: ", allDates);
 
-            const isToday =
-              new Date(record.date).toDateString() === today.toDateString();
+          // 날짜로 걸음수 매핑
+          const stepsMap = new Map(
+            stepRecords.map((record) => [
+              record.date.split("T")[0],
+              record.steps,
+            ])
+          );
+          console.log("stepsMap: ", stepsMap);
+
+          const formattedData = allDates.map((date) => {
+            const dateString = date.toISOString().split("T")[0];
+            const steps = stepsMap.get(dateString) || 0; // 기록 없는 날은 0으로 설정
+            const dayIndex = date.getDay(); // 요일 인덱스: 0(일)~6(토)
+
+            const isToday = date.toDateString() === new Date().toDateString();
             return {
               day: isToday ? "오늘" : dayNames[dayIndex],
-              steps: record.steps,
+              steps: steps,
             };
           });
 
