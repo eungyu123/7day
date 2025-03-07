@@ -2,18 +2,26 @@
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  width: 85%;
+  width: 100%;
   height: 60px;
   margin-top: 10px;
   margin-bottom: 10px;
   align-items: center;
+  position: relative;
+  background: white;
 }
 .missioncomplete {
   font-size: var(--font-lg);
   text-decoration: line-through;
+  color: gray;
   margin-left: 10px;
 }
 .missionincomplete {
   font-size: var(--font-lg);
   margin-left: 10px;
+}
+.gift-box {
+  font-size: var(--font-2xl);
+  margin-bottom: 5px;
+  margin-left: 5%;
 }

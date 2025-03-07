@@ -15,12 +15,19 @@ module.exports = {
         stepRecords: walkData,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: "Failed to fetch data" });
     }
   },
   updateStep: async (req, res) => {
     try {
-      req.body.date = new Date().toISOString();
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0); // 오늘의 시작 시간 (00:00:00)
+      req.body.startDay = startOfDay;
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999); // 오늘의 끝 시간 (23:59:59)
+      req.body.endDay = endOfDay;
+      //오늘 날짜인 walkdata 업데이트
       const walkData = await updateWalkData(req, res);
       res.status(200).json({
         type: "success",

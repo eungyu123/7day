@@ -8,6 +8,12 @@ module.exports = {
   },
   getPets: async (req, res) => {
     const pets = await Pet.find();
+    if (!pets) {
+      return res.status(400).json({
+        type: "error",
+        message: "Pet searching failed",
+      });
+    }
     return pets;
   },
   updatePet: async (req, res) => {
@@ -18,10 +24,22 @@ module.exports = {
         new: true,
       }
     );
+    if (!pet) {
+      return res.status(400).json({
+        type: "error",
+        message: "Pet searching failed",
+      });
+    }
     return pet;
   },
   deletePet: async (req, res) => {
-    await Pet.findOneAndDelete({ _id: req.params.userId });
+    const result = await Pet.findOneAndDelete({ _id: req.params.userId });
+    if (!result) {
+      return res.status(400).json({
+        type: "error",
+        message: "Pet searching failed",
+      });
+    }
     return { message: "Pet deleted" };
   },
 };

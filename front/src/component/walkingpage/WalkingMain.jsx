@@ -1,7 +1,11 @@
 import WalkingInfo from "./WalkingInfo";
 import "./WalkingMain.css";
+import { useState, useEffect } from "react";
 
 export default function WalkingMain() {
+  const [walkingRoutes, setWalkingRoutes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+
   return (
     <div className="walkingmaincontainer">
       <div className="walkingmaininfocontainer1">

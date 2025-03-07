@@ -80,8 +80,3 @@
 .walkingcoursemainbtn.active {
   background-color: var(--toss-blue); /* 선택 시 파란색 */
 }
-
-.walkingcoursemainbtn:disabled {
-  background-color: gray;
-  /* cursor: not-allowed; 비활성화 시 커서 모양 */
-}

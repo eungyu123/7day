@@ -5,9 +5,9 @@ export const getUser = async () => {
     const res = await fetch(`${API_BASE_URL}/user/${userId}`, {
       method: "GET",
       header: { "Content-Type": "application/json" },
-      credentials: "include",
+      // credentials: "include",
     });
-    return res.json();
+    return res.json(); // {type, message, data: user}
   } catch (error) {
     throw error;
   }
@@ -20,8 +20,8 @@ export const updateUserName = async (newUserName) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ newUserName: newUserName }),
-      credentials: "include",
+      body: JSON.stringify({ nickname: newUserName }),
+      // credentials: "include",
     });
 
     return res.json();
@@ -30,30 +30,31 @@ export const updateUserName = async (newUserName) => {
   }
 };
 
-export const updateUserCoord = async ({ lng, lat }) => {
+export const updateUserCoord = ({ lng, lat }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/coord/${userId}`, {
+    fetch(`${API_BASE_URL}/user/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ lng, lat }),
-      credentials: "include",
+      body: JSON.stringify({
+        location: { type: "Point", coordinates: [lng, lat] },
+      }),
+      // credentials: "include",
     });
-    return res.json();
   } catch (error) {
     throw error;
   }
 };
 
-export const generateGifts = async ({}) => {
+export const generateGift = async () => {
   try {
     const res = await fetch(`${API_BASE_URL}/user/generateGift/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {
@@ -68,6 +69,36 @@ export const getGifts = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      // credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const removeGiftsAPI = async ({ giftId }) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/removeGift/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ giftId }),
+      // credentials: "include",
+    });
+    return res.json();
+    //이거 disfetch하는것도 좋을듯
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserFriend = async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/friend/${userId}`, {
+      method: "GET",
+      header: { "Content-Type": "application/json" },
       credentials: "include",
     });
     return res.json();
@@ -76,14 +107,12 @@ export const getGifts = async () => {
   }
 };
 
-export const removeGifts = async ({ giftId }) => {
+export const updateUserFriend = async ({ friendid }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/removeItems/${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ giftId }),
+    const res = await fetch(`${API_BASE_URL}/user/updateFriend/${userId}`, {
+      method: "GET",
+      header: { "Content-Type": "application/json" },
+      body: JSON.stringify({ friendid }),
       credentials: "include",
     });
     return res.json();

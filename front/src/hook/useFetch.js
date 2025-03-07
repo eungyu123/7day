@@ -1,28 +1,30 @@
-import { useEffect } from "react";
-import { setGifts } from "../context/reducer/action/action";
+import { useEffect, useState } from "react";
+import { userId } from "../constant/constant";
+import { setGifts, setUser } from "../context/reducer/action/action";
 import { googleSignOut } from "../api/authApi";
-import { updateUserCoord, getGifts } from "../api/userApi";
+import {
+  updateUserCoord,
+  getGifts,
+  getUser,
+  generateGift,
+} from "../api/userApi";
 
-export const useFetchItems = ({ appState, dispatch }) => {
+export const useFetch = ({ appState, dispatch }) => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    const fetchData = async () => {
+      const user = await getUser();
+      dispatch(setUser({ user: user.data }));
+      setLoading(false);
+    };
+    fetchData();
+
     // 로컬스토리지에 userId 없으면 로그아웃 시키기
-    if (!localStorage.getItem("userId")) {
-      googleSignOut();
-    }
-
-    const fetchItems = async () => {
-      const gifts = await getGifts();
-      dispatch(setGifts({ gifts: gifts.gifts }));
-    };
-
-    const updateLocation = async () => {
-      try {
-        const data = await updateUserCoord(location);
-      } catch (error) {
-        console.error("위치 업데이트 실패:", error);
-      }
-    };
-    updateLocation();
-    fetchItems();
+    // if (!localStorage.getItem("userId")) {
+    //   googleSignOut();
+    // }
   }, []);
+
+  return loading;
 };

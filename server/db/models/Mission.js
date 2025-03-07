@@ -6,6 +6,7 @@ const MissionSchema = new mongoose.Schema(
     missionContent: { type: String },
     missionGoal: { type: Number },
     missionName: { type: String },
+    rewardId: { type: String },
   },
   { timestamps: true, collection: "missions" }
 );

@@ -18,6 +18,7 @@
 
 .error-header > p {
   font-size: var(--font-lg);
+  font-weight: 600;
 }
 
 .error-main {

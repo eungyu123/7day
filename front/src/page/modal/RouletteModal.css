@@ -1,0 +1,129 @@
+.roulette-modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: var(--modal-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: var(--toss-gray);
+  z-index: 1050;
+}
+
+.roulette-modal-header {
+  display: flex;
+  margin-bottom: 10px;
+}
+.roulette-modal-title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.roulette-modal-title-text {
+  display: flex;
+  margin-left: 5%;
+  font-weight: bold;
+  font-size: var(--font-lg);
+}
+.roulette-modal-exit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.roulette-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.roulettePin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: var(--toss-gray);
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+}
+.rouletteOuter {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 10px solid var(--toss-blue);
+  overflow: hidden;
+  margin-top: 10px;
+}
+.roulette {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: transform 3s ease-out;
+}
+
+.roulette-wheel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+.roulette-item {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  padding-top: 10px;
+  font-size: var(--font-sm);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: black;
+  z-index: 2;
+}
+
+.spinning .roulette {
+  animation: spin 3s ease-out;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(var(--final-rotation, 1440deg));
+  }
+}
+
+.roulette-line {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background-color: var(--toss-blue);
+  transform-origin: center center;
+  margin-left: -1px;
+  z-index: 1;
+}
+.rouletteBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: var(--toss-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.rouletteBtn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}

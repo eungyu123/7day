@@ -46,14 +46,23 @@ export function appReducer(state, action) {
     case actionType.setGifts: {
       return {
         ...state,
-        gifts: action.payload.gifts,
+        user: {
+          ...state.user,
+          gifts: action.payload.gifts,
+        },
       };
     }
 
     case actionType.removeGift: {
+      console.log(state.user.gifts);
       return {
         ...state,
-        gifts: state.gifts.filter((gift) => gift._id !== action.payload.giftId),
+        user: {
+          ...state.user,
+          gifts: state.user.gifts.filter(
+            (gift) => gift._id !== action.payload.giftId
+          ),
+        },
       };
     }
 

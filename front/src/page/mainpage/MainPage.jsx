@@ -1,6 +1,6 @@
 import "./MainPage.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import BasicButton from "../../component/common/button/BasicButton";
@@ -11,10 +11,15 @@ import VisitModal from "../../component/modal/VisitModal";
 import { PAGE_URLS } from "../../constant/constant";
 import PointButton from "../../component/mainPage/PointButton";
 import StoreButton from "../../component/mainPage/StoreButton";
+import RouletteModal from "../../component/modal/RouletteModal";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
+  const [isRouletteModalOpen, setIsRouletteModalOpen] = useState(false);
 
+  useEffect(() => {
+    setIsRouletteModalOpen(true);
+  }, []);
   return (
     <Container>
       <MainMap />
@@ -23,12 +28,13 @@ export default function MainPage() {
         <div className=""></div>
       </div>
       <HalfButtonWrapper>
-        <PointButton title="💎포인트" des={`5원`} />
+        <PointButton title="💎포인트" des={appState.user.userPoint} />
         <StoreButton title="🏪상점" />
       </HalfButtonWrapper>
       <ButtonWrapper>
         {buttonsProp.map((button) => (
           <BasicButton
+            key={button.description}
             icon={button.icon}
             description={button.description}
             href={button.href}
@@ -38,6 +44,10 @@ export default function MainPage() {
       <div>
         현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
       </div>
+      <RouletteModal
+        isOpen={isRouletteModalOpen}
+        setIsOpen={setIsRouletteModalOpen}
+      />
     </Container>
   );
 }

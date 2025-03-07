@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useAppContext } from "../../context/context";
 import "./Inventory.css";
 import "../../index.css";
+import Header from "../../component/common/header/Header";
 import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
-import Header from "../../component/common/header/Header";
 
 export default function Inventory() {
   const { appState, dispatch } = useAppContext();
@@ -62,16 +62,18 @@ export default function Inventory() {
                   <InventoryItem
                     key={item.itemName}
                     isSelected={appState.character === item.itemName}
-                    onClick={() =>
-                      dispatch(setCharacter({ character: item.itemName }))
-                    }
+                    onClick={() => {
+                      dispatch(setCharacter({ character: item.itemName }));
+                    }}
                   />
                 ))
               : petItems.map((item) => (
                   <InventoryItem
                     key={item.itemName}
                     isSelected={appState.pet === item.itemName}
-                    onClick={() => dispatch(setPet({ pet: item.itemName }))}
+                    onClick={() => {
+                      dispatch(setPet({ pet: item.itemName }));
+                    }}
                   />
                 ))}
           </div>

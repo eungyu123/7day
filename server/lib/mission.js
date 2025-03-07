@@ -1,6 +1,7 @@
 const {
   getUserMissions,
   updateUserMission,
+  createUserMission,
 } = require("../db/controllers/UserMissionController");
 const { getReward } = require("../db/controllers/RewardController");
 module.exports = {
@@ -19,6 +20,7 @@ module.exports = {
       });
     }
   },
+
   updateUserMission: async (req, res) => {
     try {
       const userMission = await updateUserMission(req, res);
@@ -35,6 +37,21 @@ module.exports = {
       res.status(500).json({
         type: "error",
         message: "UserMission update failed",
+      });
+    }
+  },
+  createUserMission: async (req, res) => {
+    try {
+      const userMission = await createUserMission(req, res);
+      res.status(200).json({
+        type: "success",
+        message: "UserMission created",
+        data: userMission,
+      });
+    } catch (error) {
+      res.status(500).json({
+        type: "error",
+        message: "UserMission creation failed",
       });
     }
   },

@@ -8,6 +8,12 @@ module.exports = {
   },
   getEggs: async (req, res) => {
     const eggs = await Egg.find();
+    if (!eggs) {
+      return res.status(400).json({
+        type: "error",
+        message: "Egg searching failed",
+      });
+    }
     return eggs;
   },
   updateEgg: async (req, res) => {
@@ -18,10 +24,22 @@ module.exports = {
         new: true,
       }
     );
+    if (!egg) {
+      return res.status(400).json({
+        type: "error",
+        message: "Egg searching failed",
+      });
+    }
     return egg;
   },
   deleteEgg: async (req, res) => {
-    await Egg.findOneAndDelete({ _id: req.params.userId });
+    const result = await Egg.findOneAndDelete({ _id: req.params.userId });
+    if (!result) {
+      return res.status(400).json({
+        type: "error",
+        message: "Egg searching failed",
+      });
+    }
     return { message: "Egg deleted" };
   },
 };

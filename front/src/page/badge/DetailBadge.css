@@ -1,0 +1,33 @@
+.badge-detail-background {
+}
+
+.badge-detail {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  transform: translate(-50%, -50%);
+
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.badge-detail > div > p {
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.badge-rotating-badge {
+  width: 300px;
+  animation: rotate-axis 3.5s linear infinite;
+}
+@keyframes rotate-axis {
+  from {
+    transform: perspective(800px) rotateY(0deg);
+  }
+  to {
+    transform: perspective(800px) rotateY(360deg);
+  }
+}

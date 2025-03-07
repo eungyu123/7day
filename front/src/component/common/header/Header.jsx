@@ -17,7 +17,7 @@ function Header({ PageName, BackNavigate = "/" }) {
         <span class="material-symbols-outlined">chevron_left</span>
       </div>
       <div className="commonheader-center-section">
-        <p className="commonheader-text">{PageName}</p>
+        <p className="commonheader-headertext">{PageName}</p>
       </div>
       <div className="commonheader-right-section"></div>
     </div>
