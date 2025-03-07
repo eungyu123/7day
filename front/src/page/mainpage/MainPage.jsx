@@ -27,8 +27,8 @@ export default function MainPage() {
         <div className=""></div>
       </div>
       <HalfButtonWrapper>
-        <PointButton title="💎포인트" des={appState.user.userPoint} />
-        <StoreButton title="🏪상점" />
+        <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />
+        <StoreButton icon="🏪" title="상점" href={PAGE_URLS.StorePage} />
       </HalfButtonWrapper>
       <ButtonWrapper>
         {buttonsProp.map((button) => (
@@ -79,6 +79,11 @@ const buttonsProp = [
     icon: "👟",
     description: "내 걸음을 분석해보세요",
     href: PAGE_URLS.StepAnalysisPage,
+  },
+  {
+    icon: "🧿",
+    description: "목표를 달성하고 배지를 모아보세요",
+    href: PAGE_URLS.BadgePage,
   },
   {
     icon: "⚙️",

@@ -53,6 +53,10 @@ function App() {
                 <Route path="/SettingPage" element={<SettingPage />} />
                 <Route path="/FriendPage" element={<FriendPage />} />
                 <Route path="/InventoryPage" element={<Inventory />} />
+                <Route path="/StorePage" element={<Store />} />
+                <Route path="/BadgePage" element={<BadgePage />} />
+                <Route path="/BadgeListPage" element={<BadgeListPage />} />
+                <Route path="/BadgeGoalPage" element={<BadgeGoalPage />} />
                 <Route
                   path="/StepAnalysisPage"
                   element={<StepAnalysisPage />}
