@@ -69,3 +69,10 @@ export function setHatchery({ hatchery }) {
     payload: { hatchery },
   };
 }
+
+export function setTrailLocation({ trailLocation }) {
+  return {
+    type: actionType.setTrailLocation,
+    payload: { trailLocation },
+  };
+}

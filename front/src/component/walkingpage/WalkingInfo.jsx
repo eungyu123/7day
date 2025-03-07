@@ -5,8 +5,9 @@ import { PAGE_URLS } from "../../constant/constant";
 import { useState } from "react";
 
 export default function WalkingInfo({ TrailItem }) {
-  const navigate = useNavigate();
   const [imageIndex, setImgageIndex] = useState(0);
+
+  const navigate = useNavigate();
 
   const WalkingcourseClick = () => {
     // state로 정보를 전달

@@ -7,6 +7,7 @@ export const initialState = {
   user: null,
   egg: null,
   hatchery: null,
+  trailLocation: null,
 
   character: "character1",
   pet: "pet1",

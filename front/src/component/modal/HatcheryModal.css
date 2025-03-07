@@ -41,6 +41,7 @@
 
 .hatchery-modal-egg-img {
   position: absolute;
+  user-select: none;
 }
 
 .hatchery-modal-progress-bar-wrapper {

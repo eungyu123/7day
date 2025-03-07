@@ -78,6 +78,14 @@ export function appReducer(state, action) {
         hatchery: action.payload.hatchery,
       };
     }
+
+    case actionType.setTrailLocation: {
+      return {
+        ...state,
+        trailLocation: action.payload.trailLocation,
+      };
+    }
+
     default:
       return state;
   }

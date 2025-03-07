@@ -8,4 +8,5 @@ export const actionType = {
   removeGift: "removeGift",
   setUser: "setUser",
   setHatchery: "setHatchery",
+  setTrailLocation: "setTrailLocation",
 };

@@ -43,6 +43,7 @@
 
 .hatchery-page-egg-img {
   position: absolute;
+  user-select: none;
 }
 
 .hatchery-page-progress-bar-static {
@@ -59,6 +60,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 82px;
+  user-select: none;
 }
 
 .rotate-egg {
