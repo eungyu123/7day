@@ -5,15 +5,14 @@ export const getWalkData = async (startDate, endDate) => {
     let apiUrl = `${API_BASE_URL}/WalkDatas/${userId}`;
 
     // startDate와 endDate가 제공된 경우 쿼리 매개변수로 추가
-    if (startDate && endDate) {
-      apiUrl += `?startDate=${startDate}&endDate=${endDate}`;
-    }
 
     const res = await fetch(apiUrl, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ startDate, endDate }),
+
       // credentials: "include",
     });
 
