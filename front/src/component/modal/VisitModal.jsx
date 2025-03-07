@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import "../../page/modal/Modal.css";
 import "../../page/modal/VisitModal.css";
+import { getKaclFromSteps, getKmFromSteps } from "../../utils/utils";
 
 import { getWalkData } from "../../api/walkApi";
 
 export default function VisitModal({ isOpen, setIsOpen }) {
   const [currentSteps, setCurrentSteps] = useState(5020);
+  const [visitCount, setVisitCount] = useState(1);
+  const [todayIndex, setTodayIndex] = useState(0);
   const [goalSteps, setGoalSteps] = useState(10000);
   const [calories, setCalories] = useState(0);
   const [distance, setDistance] = useState(3.01);
@@ -93,12 +96,14 @@ export default function VisitModal({ isOpen, setIsOpen }) {
             ])
           );
 
+          // 일주일 걸음 데이터
           const formattedData = allDates.map((date) => {
             const dateString = date.toISOString().split("T")[0];
             const steps = stepsMap.get(dateString) || 0; // 기록 없는 날은 0으로 설정
             const dayIndex = date.getDay(); // 요일 인덱스: 0(일)~6(토)
 
             const isToday = date.toDateString() === new Date().toDateString();
+            if (isToday) setTodayIndex(dayIndex);
             return {
               day: isToday ? "오늘" : dayNames[dayIndex],
               steps: steps,
@@ -106,6 +111,16 @@ export default function VisitModal({ isOpen, setIsOpen }) {
           });
 
           setWeekData(formattedData);
+          setCalories(getKaclFromSteps(currentSteps));
+          setDistance(getKmFromSteps(currentSteps));
+
+          // 연속 방문 횟수
+          let count = 0;
+          for (let i = todayIndex; i >= 0; i--) {
+            if (formattedData[i].steps >= 0) count++;
+            else break;
+          }
+          setVisitCount(count);
         } else {
           console.error(response.message || "데이터를 불러오는데 실패함");
         }
@@ -120,14 +135,16 @@ export default function VisitModal({ isOpen, setIsOpen }) {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="visit-modal-content">
         <div className="visit-modal-header">
-          <div className="visit-modal-title">연속 방문 3일차</div>
+          <div className="visit-modal-title">연속 방문 {visitCount}일차</div>
           <Dialog.Close asChild>
             <button className="modal-close-button">X</button>
           </Dialog.Close>
         </div>
         <div className="visit-modal-body">
           <p className="visit-modal-small-text">
-            조금만 더 걸어서 목표치를 채우세요! {temp}
+            {currentSteps > 10000
+              ? "만보를 달성했습니다!"
+              : "조금만 더 걸어서 목표치를 채우세요!"}
           </p>
           <div className="visit-modal-pedometer">
             <p className="visit-modal-current-step">
