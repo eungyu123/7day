@@ -52,7 +52,6 @@ export default function WeekStep() {
           const start = new Date(startDate);
           const end = new Date(endDate);
           const allDates = getDateRange(start, end); // 일주일치 날짜 배열
-          console.log("allDates: ", allDates);
 
           // 날짜로 걸음수 매핑
           const stepsMap = new Map(
