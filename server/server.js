@@ -20,7 +20,7 @@ const seed = require("./db/seed");
 // seed.createSampleData1();
 // seed.createRandomHatcheries();
 const seedEgg = require("./db/seedEgg");
-// seedEgg.seedEggData();
+//seedEgg.seedEggData();
 //
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);

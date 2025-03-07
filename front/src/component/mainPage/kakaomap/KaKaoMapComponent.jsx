@@ -16,7 +16,7 @@ export default function KaKaoMapComponent() {
   const { appState, dispatch } = useAppContext();
   const { location, locationError, locationLoading, user } = appState;
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenHatchery, setIsOpenHatchery] = useState(true);
+  const [isOpenHatchery, setIsOpenHatchery] = useState(false);
 
   const [newReward, setNewReward] = useState(null);
 

@@ -8,6 +8,11 @@ router.get("/hatch", async (req, res) => {
   await egg.getHatchery(req, res);
 });
 
+router.put("/state/:userId", async (req, res) => {
+  console.log("updateEggState");
+  await egg.updateEggState(req, res);
+});
+
 router.get("/:userId", async (req, res) => {
   console.log("getEgg");
   await egg.getEgg(req, res);
