@@ -20,25 +20,6 @@ function ThreeScene() {
     const model = GLTFModel();
     scene.add(model);
 
-    // HDRi 이미지 로딩
-    const hdrLoader = new RGBELoader();
-    hdrLoader.load(
-      "/Three/background/HDR_029_Sky_Cloudy_Env.hdr",
-      (hdrTexture) => {
-        // HDR 이미지를 환경 맵으로 설정
-        const pmremGenerator = new THREE.PMREMGenerator(hdrTexture);
-        const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
-
-        // 씬 배경으로 설정
-        scene.background = envMap;
-        // 씬의 환경 맵 설정 (반사 및 조명 효과)
-        scene.environment = envMap;
-
-        // HDR 텍스처는 불필요한 경우 자동으로 정리해주는 것이 좋습니다
-        hdrTexture.dispose();
-        pmremGenerator.dispose();
-      }
-    );
     //카메라 설정
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -53,6 +34,12 @@ function ThreeScene() {
 
     // 렌더러 생성
     const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; // 🔥 HDR toneMapping 추가
+    renderer.toneMappingExposure = 1.0; // 🔥 적절한 노출 설정
+    renderer.outputEncoding = THREE.sRGBEncoding; // 🔥 색상 인코딩 설정
+    renderer.setSize(initialWidth, initialHeight);
+
     rendererRef.current = renderer;
     if (mountRef.current) {
       mountRef.current.appendChild(renderer.domElement);
@@ -65,6 +52,25 @@ function ThreeScene() {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
+
+    // 🌟 HDRi 배경 적용
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+
+    const hdrLoader = new RGBELoader();
+    hdrLoader.load(
+      "/Three/background/HDR_029_Sky_Cloudy_Ref.hdr",
+      (hdrTexture) => {
+        const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
+
+        scene.background = envMap; // 🔥 HDR 배경 적용
+        scene.environment = envMap; // 🔥 조명 환경 적용
+        hdrTexture.dispose();
+        pmremGenerator.dispose();
+
+        renderer.render(scene, camera); // 🔥 HDR 적용 후 즉시 렌더링
+      }
+    );
 
     scene.background = new THREE.Color(0xadd8e6); // lightblue 색상
 
