@@ -43,6 +43,7 @@ export const updateUserCoord = ({ lng, lat }) => {
       // credentials: "include",
     });
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
@@ -99,7 +100,7 @@ export const getUserFriend = async () => {
     const res = await fetch(`${API_BASE_URL}/user/friend/${userId}`, {
       method: "GET",
       header: { "Content-Type": "application/json" },
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {
@@ -113,7 +114,7 @@ export const updateUserFriend = async ({ friendid }) => {
       method: "GET",
       header: { "Content-Type": "application/json" },
       body: JSON.stringify({ friendid }),
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {

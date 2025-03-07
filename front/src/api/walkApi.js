@@ -25,15 +25,14 @@ export const getWalkData = async (startDate, endDate) => {
 
 export const updateWalkData = ({ steps }) => {
   try {
-    const res = fetch(`${API_BASE_URL}/main/todayWalkdata/${userId}`, {
+    fetch(`${API_BASE_URL}/walkdatas/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ steps }),
-      credentials: "include",
+      // credentials: "include",
     });
-    return res.json();
   } catch (error) {
     throw error;
   }

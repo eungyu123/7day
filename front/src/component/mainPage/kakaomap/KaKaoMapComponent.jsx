@@ -6,54 +6,78 @@ import { useAppContext } from "../../../context/context";
 import LocationErrorComp from "./LocationErrorComp";
 import { calculateDistance } from "../../../utils/utils";
 import { removeGiftsAPI } from "../../../api/userApi";
-import { removeGift } from "../../../context/reducer/action/action";
 import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
+import HatcheryModal from "../../modal/HatcheryModal";
 
 export default function KaKaoMapComponent() {
-  const itemsRef = useRef({});
+  const giftsRef = useRef({});
+  const hatcheryRef = useRef({});
   const { appState, dispatch } = useAppContext();
   const { location, locationError, locationLoading, user } = appState;
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenHatchery, setIsOpenHatchery] = useState(true);
+
   const [newReward, setNewReward] = useState(null);
 
   if (locationError) return <LocationErrorComp des={locationError} />;
   if (locationLoading) return;
 
   async function deleteItem(giftId) {
-    const currentItem = itemsRef.current[giftId];
+    const currentGift = giftsRef.current[giftId];
 
     const distance = calculateDistance({
       point1: location,
-      point2: { lat: currentItem.dataset.lat, lng: currentItem.dataset.lng },
+      point2: { lat: currentGift.dataset.lat, lng: currentGift.dataset.lng },
     });
 
     if (Math.floor(distance) > 15) {
       // return;
     }
 
-    if (currentItem) {
-      currentItem.classList.add("fade-y-out-rotate");
+    if (currentGift) {
+      currentGift.classList.add("fade-y-out-rotate");
+    }
+    function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    // 서버로삭제 요청
-    removeGiftsAPI({ giftId });
-    const user = await getUser();
-    dispatch(setUser({ user: user.data }));
-
-    setNewReward(currentItem.dataset.reward);
-    setTimeout(() => {
+    async function setTimeOutfetch() {
+      setNewReward(currentGift.dataset.reward);
+      await delay(1000);
+      await removeGiftsAPI({ giftId });
+      const user = await getUser();
+      dispatch(setUser({ user: user.data }));
       setIsOpen(true);
-    }, 1000);
+    }
+
+    await setTimeOutfetch();
 
     setTimeout(() => {
       setIsOpen(false);
-      setNewReward(null);
-    }, 5000);
+    }, 4000);
+  }
+
+  async function openHatchery(hatcheryId) {
+    const currHatchery = hatcheryRef.current[hatcheryId];
+
+    const distance = calculateDistance({
+      point1: location,
+      point2: { lat: currHatchery.dataset.lat, lng: currHatchery.dataset.lng },
+    });
+
+    if (distance > 15) {
+      // return;
+    }
+
+    setIsOpenHatchery(true);
   }
 
   return (
     <>
+      {isOpenHatchery && (
+        <HatcheryModal setIsOpenHatchery={setIsOpenHatchery} />
+      )}
       {isOpen && (
         <div
           className="map-modal-wrapper"
@@ -103,7 +127,7 @@ export default function KaKaoMapComponent() {
                     data-reward={gift.reward}
                     data-lat={gift.lat}
                     data-lng={gift.lng}
-                    ref={(el) => (itemsRef.current[gift._id] = el)} // itemsRef.current는 객체임
+                    ref={(el) => (giftsRef.current[gift._id] = el)} // giftsRef.current는 객체임
                   >
                     🎁
                   </div>
@@ -111,6 +135,26 @@ export default function KaKaoMapComponent() {
               );
             })}
         </MarkerClusterer>
+        {appState.hatchery.map((hatchery) => {
+          return (
+            <CustomOverlayMap
+              position={{
+                lat: hatchery.location.coordinates[1],
+                lng: hatchery.location.coordinates[0],
+              }}
+            >
+              <div
+                className="imgWrapperHatchery"
+                onClick={() => {
+                  openHatchery(hatchery._id);
+                }}
+                data-lat={hatchery.location.coordinates[1]}
+                data-lng={hatchery.location.coordinates[0]}
+                ref={(el) => (hatcheryRef.current[hatchery._id] = el)}
+              ></div>
+            </CustomOverlayMap>
+          );
+        })}
       </Map>
     </>
   );

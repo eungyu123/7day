@@ -54,7 +54,6 @@ export function appReducer(state, action) {
     }
 
     case actionType.removeGift: {
-      console.log(state.user.gifts);
       return {
         ...state,
         user: {
@@ -73,6 +72,12 @@ export function appReducer(state, action) {
       };
     }
 
+    case actionType.setHatchery: {
+      return {
+        ...state,
+        hatchery: action.payload.hatchery,
+      };
+    }
     default:
       return state;
   }

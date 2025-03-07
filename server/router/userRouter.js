@@ -10,7 +10,7 @@ router.get("/:userId", async (req, res) => {
 
 // 유저 좌표 닉네임 한번에 가능
 router.put("/:userId", async (req, res) => {
-  console.log("updateUser");
+  // console.log("updateUser");
   User.updateUser(req, res);
 });
 

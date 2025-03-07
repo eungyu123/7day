@@ -5,7 +5,7 @@ export const getUserMisson = async () => {
     const res = await fetch(`${API_BASE_URL}/user/misson/${userId}`, {
       method: "GET",
       header: { "Content-Type": "application/json" },
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {
@@ -23,7 +23,7 @@ export const updateUserMission = async ({
       method: "GET",
       header: { "Content-Type": "application/json" },
       body: JSON.stringify({ missionId, Success, completedAt }),
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {

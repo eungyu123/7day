@@ -3,12 +3,16 @@ import BasicButton from "../../component/common/button/BasicButton";
 import "./HatcheryPage.css";
 import Container from "../../component/common/Container";
 import Header from "../../component/common/header/Header";
+import { useFetchEgg } from "../../reactQuery/useEgg";
 
 export default function HatcheryPage() {
   const w = "30%";
+  const { data } = useFetchEgg();
+
+  console.log(data);
 
   return (
-    <Container>
+    <div className=".hatchery-container-wrapper">
       <Header PageName="부화장" />
       <div className="hatchery-container">
         <div className="hatchery-progress-bar-wrapper">
@@ -19,14 +23,14 @@ export default function HatcheryPage() {
         </div>
         <div className="hatchery-container-egg-count">🥚12개</div>
       </div>
-      <ButtonWrapper>
+      {/* <ButtonWrapper>
         {buttonsProp.map((button) => {
           return (
             <BasicButton icon={button.icon} description={button.description} />
           );
         })}
-      </ButtonWrapper>
-    </Container>
+      </ButtonWrapper> */}
+    </div>
   );
 }
 
