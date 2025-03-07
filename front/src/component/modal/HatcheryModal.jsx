@@ -14,11 +14,13 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   const [finished, setFinished] = useState(false);
   const [timeFinished, setTimeFinished] = useState(false);
 
+  const { data } = useFetchEgg();
+
+  console.log("data", data);
   useEffect(() => {
     const styles = [];
     for (let i = 0; i < 30; i++) {
       styles.push({
-        color: `${colors[Math.floor(Math.random() * colors.length)]}`,
         top: `${randomPositionTop()}%`, // top 위치
         left: `${randomPositionLeft()}%`, // left 위치
         transform: `rotate(${randomRotate()}deg) translate(80%, 50%)`, // 회전 및 이동
@@ -68,7 +70,6 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   const handleDrop = (e, i) => {
     e.preventDefault();
     const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
-    // let data = e.dataTransfer.getData("text").split(',');
     console.log("set2", progress);
 
     if (timeFinished == true) {
@@ -85,13 +86,80 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
     }
   };
 
-  const { data } = useFetchEgg();
+  const renderEggs = () => {
+    return data.data
+      .filter((v) => v.state == "unhatched")
+      .map((egg, i) => (
+        <div
+          key={i}
+          ref={(el) => (eggRef.current[i] = el)}
+          data-eggId={egg._id}
+          draggable="true"
+          onDragStart={(e) => handleDragStart(e, i)}
+          onDragEnd={(e) => handleDragEnd(e, i)}
+          className="hatchery-modal-egg-img"
+          style={{
+            position: "absolute",
+            top: eggStyles[i].top, // top 위치
+            left: eggStyles[i].left, // left 위치
+            transform: eggStyles[i].transform,
+          }}
+        >
+          <span
+            ref={(el) => (iconEggRef.current[i] = el)}
+            className="material-symbols-outlined"
+            style={{
+              fontVariationSettings: "'FILL' 1",
+              color: colors[Number(egg.eggType) - 1],
+              fontSize: "36px",
+            }}
+          >
+            egg
+          </span>
+        </div>
+      ));
+  };
   if (loading) return null;
 
   return (
     <>
       {isHatching ? (
-        <div></div>
+        <div
+          className="hatchery-modal-wrapper"
+          onClick={() => setIsOpenHatchery(false)}
+        >
+          <div
+            className="hatchery-modal-Hatchery"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="hatchery-modal-Hatchery-title">순조롭게 부화중</div>
+            <div
+              className="hatchery-modal-progress-bar-wrapper"
+              style={{ display: "block" }}
+              ref={barWrapperRef}
+            >
+              <div
+                className="hatchery-modal-progress-bar-static "
+                style={{ width: "80%" }} // 진행 상태에 따라 width가 변화
+                ref={progressBarRef}
+              ></div>
+            </div>
+            <div className="hatchery-modal-Hatchery-img"></div>
+            <div className="hatchery-modal-egg-img-droped rotate-egg">
+              <span
+                className="material-symbols-outlined"
+                style={{
+                  fontVariationSettings: "'FILL' 1",
+                  color: colors[1],
+                  fontSize: "82px",
+                }}
+              >
+                egg
+              </span>
+            </div>
+            {renderEggs()}
+          </div>
+        </div>
       ) : (
         <div
           className="hatchery-modal-wrapper"
@@ -116,38 +184,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
               onDrop={handleDrop}
               className="hatchery-modal-Hatchery-img"
             ></div>
-            {Array(5)
-              .fill()
-              .map((v, i) => {
-                return (
-                  <div
-                    key={i}
-                    ref={(el) => (eggRef.current[i] = el)}
-                    draggable="true"
-                    onDragStart={(e) => handleDragStart(e, i)}
-                    onDragEnd={(e) => handleDragEnd(e, i)}
-                    className="hatchery-modal-egg-img"
-                    style={{
-                      position: "absolute",
-                      top: eggStyles[i].top, // top 위치
-                      left: eggStyles[i].left, // left 위치
-                      transform: eggStyles[i].transform,
-                    }}
-                  >
-                    <span
-                      ref={(el) => (iconEggRef.current[i] = el)}
-                      className="material-symbols-outlined"
-                      style={{
-                        fontVariationSettings: "'FILL' 1",
-                        color: eggStyles[i].color,
-                        fontSize: "36px",
-                      }}
-                    >
-                      egg
-                    </span>
-                  </div>
-                );
-              })}
+            {renderEggs()}
           </div>
         </div>
       )}

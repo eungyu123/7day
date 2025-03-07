@@ -21,6 +21,13 @@
   z-index: 50;
 }
 
+.hatchery-modal-Hatchery-title {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .hatchery-modal-Hatchery-img {
   position: absolute;
   top: 65%;
@@ -60,16 +67,31 @@
   z-index: 100;
 }
 
-/* @keyframes progressBarAnimation {
+.hatchery-modal-progress-bar-static {
+  height: 100%;
+  width: 0%;
+  background-color: var(--toss-blue);
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.hatchery-modal-egg-img-droped {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 82px;
+}
+
+.rotate-egg {
+  animation: shake 1s ease-in-out infinite alternate;
+}
+
+@keyframes shake {
   0% {
-    width: 0%;
+    transform: translate(-50%, -50%) rotate(-10deg);
   }
   100% {
-    width: 100%;
+    transform: translate(-50%, -50%) rotate(10deg);
   }
-} */
-
-/* full-width 클래스를 추가하면 애니메이션 시작 */
-/* .hatchery-modal-progress-bar.full-width {
-  animation: progressBarAnimation 2s ease-in-out forwards; 
-} */
+}

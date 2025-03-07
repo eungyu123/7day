@@ -18,6 +18,28 @@ module.exports = {
   },
 
   // 🥚 특정 UserEgg의 걸음 수 업데이트
+  updateEggState: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { eggId } = req.body;
+
+      const userEgg = await UserEgg.findOne({ userId, eggId });
+
+      if (userEgg.currentStep > userEgg.goalWalk) {
+        userEgg.state = "hatched";
+      } else {
+        userEgg.state = "incubating";
+      }
+      const updatedUserEgg = await userEgg.save();
+      res.json({
+        type: "success",
+        message: "Egg updated",
+        data: updatedUserEgg,
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  },
   updateEgg: async (req, res) => {
     try {
       const { userId } = req.params;
