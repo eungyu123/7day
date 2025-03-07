@@ -2,8 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useAppContext } from "../../context/context";
 import { updateUserTrail } from "../../api/trailAPi";
-import { setTrailLocation } from "../../context/reducer/action/action";
-
+import {
+  setTrailIndex,
+  setTrailLocation,
+} from "../../context/reducer/action/action";
 export default function WalkingKaKaoMap({ TrailItem }) {
   const markersRef = useRef({});
   const { appState, dispatch } = useAppContext();
@@ -13,8 +15,10 @@ export default function WalkingKaKaoMap({ TrailItem }) {
   if (locationError) return;
   if (locationLoading) return;
 
-  const moveToTrail = ({ location }) => {
+  const moveToTrail = ({ location, idx }) => {
+    console.log(location, idx);
     dispatch(setTrailLocation({ trailLocation: location }));
+    dispatch(setTrailIndex({ trailIndex: idx }));
   };
 
   return (
@@ -67,7 +71,9 @@ export default function WalkingKaKaoMap({ TrailItem }) {
                 },
               }}
               ref={(el) => (markersRef.current[Trail._id] = el)}
-              onClick={() => moveToTrail({ locaion: Trail.location })}
+              onClick={() => {
+                moveToTrail({ location: Trail.location, idx });
+              }}
             />
           );
         })}

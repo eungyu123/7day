@@ -76,3 +76,10 @@ export function setTrailLocation({ trailLocation }) {
     payload: { trailLocation },
   };
 }
+
+export function setTrailIndex({ trailIndex }) {
+  return {
+    type: actionType.setTrailIndex,
+    payload: { trailIndex },
+  };
+}

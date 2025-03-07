@@ -10,7 +10,6 @@ export default function WalkingMain() {
 
   const cardsRef = useRef();
   const cardSort = useRef({});
-  const [seletCardIdx, setSelectCardIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -74,12 +73,7 @@ export default function WalkingMain() {
         {data.map((TrailItem, idx) => {
           return (
             <>
-              <WalkingCard
-                TrailItem={TrailItem}
-                idx={idx}
-                seletCardIdx={seletCardIdx}
-                setSelectCardIdx={setSelectCardIdx}
-              />
+              <WalkingCard TrailItem={TrailItem} idx={idx} />
             </>
           );
         })}

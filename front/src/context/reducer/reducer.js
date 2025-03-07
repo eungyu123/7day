@@ -85,7 +85,13 @@ export function appReducer(state, action) {
         trailLocation: action.payload.trailLocation,
       };
     }
-
+    case actionType.setTrailIndex: {
+      console.log(action.payload.trailIndex);
+      return {
+        ...state,
+        trailIndex: action.payload.trailIndex,
+      };
+    }
     default:
       return state;
   }

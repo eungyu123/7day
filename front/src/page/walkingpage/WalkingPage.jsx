@@ -9,10 +9,8 @@ export default function WalkingPage() {
 
   return (
     <Container column={true}>
-      <div className="walkingcontainer">
-        <Header />
-        <WalkingMain />
-      </div>
+      <Header />
+      <WalkingMain />
     </Container>
   );
 }

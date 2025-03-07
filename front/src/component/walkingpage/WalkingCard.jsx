@@ -1,16 +1,16 @@
 import { useAppContext } from "../../context/context";
 import "./WalkingMain.css";
-import { setTrailLocation } from "../../context/reducer/action/action";
+import {
+  setTrailIndex,
+  setTrailLocation,
+} from "../../context/reducer/action/action";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URLS } from "../../constant/constant";
 
-export default function WalkingCard({
-  TrailItem,
-  idx,
-  seletCardIdx,
-  setSelectCardIdx,
-}) {
+export default function WalkingCard({ TrailItem, idx }) {
+  const { appState, dispatch } = useAppContext();
+
   const navigate = useNavigate();
 
   const WalkingcourseClick = () => {
@@ -21,17 +21,17 @@ export default function WalkingCard({
   };
 
   const moveToMarker = () => {
-    if (seletCardIdx === idx) {
-      setSelectCardIdx(null);
+    if (appState?.trailIndex === idx) {
+      dispatch(setTrailIndex({ trailIndex: null }));
     } else {
-      setSelectCardIdx(idx);
+      dispatch(setTrailIndex({ trailIndex: idx }));
     }
     dispatch(setTrailLocation({ trailLocation: TrailItem.location }));
   };
 
   return (
     <div
-      className={`wm-card-wrapper ${seletCardIdx == idx && "seleted"}`}
+      className={`wm-card-wrapper ${appState?.trailIndex == idx && "seleted"}`}
       onClick={() => WalkingcourseClick()}
     >
       <div
