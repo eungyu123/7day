@@ -1,7 +1,7 @@
 import "./MissionList.css";
 import { motion } from "framer-motion";
 
-export default function MissionList({ MissionContent, IsComplete = false }) {
+export default function MissionList({ MissionContent, IsComplete }) {
   return (
     <>
       <div className="missionlistcontainer">
