@@ -7,4 +7,5 @@ export const actionType = {
   setGifts: "setGifts",
   removeGift: "removeGift",
   setUser: "setUser",
+  setMission: "setMission",
 };

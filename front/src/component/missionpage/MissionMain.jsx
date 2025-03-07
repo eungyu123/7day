@@ -2,18 +2,16 @@ import "./MissionMain.css";
 import MissionList from "./MissionList";
 
 import { useState, useEffect } from "react";
-import { getUser } from "../../api/userApi";
 import { useAppContext } from "../../context/context";
-import { setUser } from "../../context/reducer/action/action";
-import {
-  createUserMission,
-  getUserMission,
-  updateUserMission,
-} from "../../api/missionApi";
+import { setMission } from "../../context/reducer/action/action";
+import { createUserMission, getUserMission } from "../../api/missionApi";
 
 export default function MissionMain() {
   const { dispatch } = useAppContext();
+  // const [loading, setLoading] = useState(true);
+
   const [missions, setMissions] = useState({});
+  let userMissions;
   // const missions = [
   //   { MissionContent: "토스 광고 보기" },
   //   { MissionContent: "1000보 걷기", IsComplete: true },
@@ -25,18 +23,26 @@ export default function MissionMain() {
   useEffect(() => {
     const fetchMissions = async () => {
       try {
-        await createUserMission(); // 한 번만 생성
-        const userMissions = await getUserMission();
-        console.log(userMissions);
-        setMissions(userMissions); // 가져온 데이터를 상태에 저장
+        userMissions = await getUserMission();
+        console.log("userMissions:", userMissions);
 
-        // dispatch(updateUserMission({ user: user.data }));
+        if (!userMissions || userMissions.length === 0) {
+          console.log("미션 생성");
+          await createUserMission();
+          userMissions = await getUserMission();
+        }
+        console.log("get mission ");
+        setMissions(userMissions); // 가져온 데이터를 상태에 저장
+        console.log("setmission까지 완료");
+        dispatch(setMission({ missions: userMissions.data }));
       } catch (error) {
         console.error("미션을 가져오는 데 실패했습니다:", error);
       }
     };
     fetchMissions();
-  }, []);
+  }, [dispatch]);
+
+  // dispatch(setMission({ missions: missions }));
 
   return (
     <div className="missionmaincontainer">
@@ -47,14 +53,24 @@ export default function MissionMain() {
         </div>
       </div>
       <div className="missionmainlist">
-        {Array.isArray(missions.missions) &&
-          missions.missions.map((mission, index) => (
-            <MissionList
-              key={index}
-              MissionContent={mission.missionGoal}
-              IsComplete={mission.state === "complete"}
-            />
-          ))}
+        {missions && Array.isArray(missions) && missions.length > 0 ? (
+          missions.map((mission, index) => {
+            console.log(
+              "Mission Reward:",
+              mission.missionId?.rewardId?.content
+            );
+            return (
+              <MissionList
+                key={index}
+                MissionContent={mission.missionId.missionContent}
+                MissionReward={mission.missionId.rewardId.content}
+                IsComplete={mission.success}
+              />
+            );
+          })
+        ) : (
+          <p>미션이 없습니다.</p>
+        )}
       </div>
     </div>
   );

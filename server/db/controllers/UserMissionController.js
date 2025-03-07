@@ -12,9 +12,9 @@ module.exports = {
         const userMission = new UserMission({
           userId: userId,
           missionId: mission._id,
-          state: "incomplete",
+          success: false,
           completedAt: null,
-          rewardId: mission.rewardId,
+          // rewardId: mission.rewardId,
         });
         return await userMission.save();
       })
@@ -25,17 +25,24 @@ module.exports = {
   getUserMission: async (req, res) => {
     console.log("getusermission controller 진입");
     const userId = req.params.userId;
+    console.log(userId);
     // const userMissions = await UserMission.find({ userId });
     // return userMissions;
     try {
       // 해당 사용자의 미션 데이터 가져오기
-      const userMissions = await UserMission.find({ userId })
-        .populate("missionId", "missionGoal") // missionId에 해당하는 Mission에서 missionGoal만 가져오기
+      const userMissions = await UserMission.find({ userId: userId.toString() })
+        .populate({
+          path: "missionId", // missionId 필드를 populate
+          select: "missionContent rewardId", // missionId에서 missionContent와 rewardId 가져오기
+          populate: {
+            path: "rewardId", // missionId 안의 rewardId 필드를 populate
+            select: "content", // rewardId의 content만 가져오기
+          },
+        })
         .exec();
 
-      if (!userMissions || userMissions.length === 0) {
-        return res.status(404).json({ message: "미션을 찾을 수 없습니다." }); // 응답을 한 번만 보냄
-      }
+      console.log(userMissions);
+
       // 미션 데이터를 반환
       return res.json(userMissions);
     } catch (error) {

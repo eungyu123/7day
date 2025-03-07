@@ -1,7 +1,18 @@
 import "./MissionList.css";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
+import { useState } from "react";
 
-export default function MissionList({ MissionContent, IsComplete }) {
+export default function MissionList({
+  MissionContent,
+  MissionReward,
+  IsComplete,
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const HandleRewardOpen = () => {
+    setIsOpen(true);
+  };
+
   return (
     <>
       <div className="missionlistcontainer">
@@ -9,10 +20,21 @@ export default function MissionList({ MissionContent, IsComplete }) {
         <p
           className={`${IsComplete ? "missioncomplete" : "missionincomplete"}`}
         >
-          {MissionContent}{" "}
+          {MissionContent} {MissionReward}{" "}
         </p>
-        {IsComplete && <p className="emojifont gift-box">🎁</p>}
+        {IsComplete && (
+          <p className="emojifont gift-box" onClick={HandleRewardOpen}>
+            🎁
+          </p>
+        )}
       </div>
+      {isOpen && (
+        <RouletteRewardModal
+          isOpen={isOpen}
+          setIsOpen={false}
+          prize={MissionReward}
+        />
+      )}
     </>
   );
 }
