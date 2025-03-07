@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getWalkData } from "../../api/walkApi";
 
 export default function CharacterViewer() {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [pedometerCount, setPedometerCount] = useState(0);
 
@@ -16,11 +16,19 @@ export default function CharacterViewer() {
 
   const fetchPedometerCount = async () => {
     try {
-      const firstDay = new Date(currentYear, currentMonth - 1, 1);
-      const lastDay = new Date(currentYear, currentMonth, 0);
+      console.log("currentMonth: ", currentMonth);
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
 
-      const startDate = firstDay.toISOString().split("T")[0];
-      const endDate = lastDay.toISOString().split("T")[0];
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // 월을 2자리로
+        const day = String(date.getDate()).padStart(2, "0"); // 일을 2자리로
+        return `${year}-${month}-${day}`;
+      };
+
+      const startDate = formatDate(firstDay);
+      const endDate = formatDate(lastDay);
 
       const response = await getWalkData(startDate, endDate);
 
@@ -30,6 +38,7 @@ export default function CharacterViewer() {
         );
 
         const count = pedometerDays.length;
+        console.log("pedometerDays: ", pedometerDays);
         setPedometerCount(count);
       } else {
         console.error("데이터 불러오기 실패");
@@ -48,7 +57,8 @@ export default function CharacterViewer() {
     <div className="step-analysis-container">
       <div className="step-analysis-header">
         <p>
-          {currentMonth}월에는 만보를 <span>{pedometerCount}번</span> 채웠어요
+          {currentMonth + 1}월에는 만보를 <span>{pedometerCount}번</span>{" "}
+          채웠어요
         </p>
         <p>조금만 더 힘내세요!</p>
       </div>

@@ -25,6 +25,7 @@ export default function WeekStep() {
 
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
+          stepRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
 
           const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
