@@ -9,6 +9,7 @@ import { removeGiftsAPI } from "../../../api/userApi";
 import { removeGift } from "../../../context/reducer/action/action";
 import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
+import ThreeDModel from "./ThreeModel";
 
 export default function KaKaoMapComponent() {
   const itemsRef = useRef({});
@@ -51,13 +52,6 @@ export default function KaKaoMapComponent() {
       setNewReward(null);
     }, 5000);
   }
-  useEffect(() => {
-    if (location) {
-      // 위치를 기준으로 3D 모델 추가
-      const container = document.createElement("div");
-      add3DModelToMap(location.lat, location.lng, container);
-    }
-  }, [location]);
   return (
     <>
       {isOpen && (
@@ -83,7 +77,7 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            <div className="imgWrapper"></div>
+            <ThreeDModel location={location} />
           </CustomOverlayMap>
         )}
 
