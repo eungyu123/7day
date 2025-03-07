@@ -16,23 +16,26 @@ export default function WeekStep() {
         today.setHours(0, 0, 0, 0);
 
         const sevenDaysAgo = new Date(today);
-        sevenDaysAgo.setDate(today.getDate() - 6);
+        sevenDaysAgo.setDate(today.getDate() - 7);
 
         const startDate = sevenDaysAgo.toISOString().split("T")[0];
         const endDate = today.toISOString().split("T")[0];
 
         const response = await getWalkData(startDate, endDate);
 
-        console.log("response, " + response.stepRecords);
-
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
+          stepRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
 
           const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+
+          console.log("stepRecords: ", stepRecords);
 
           const formattedData = stepRecords.map((record) => {
             const recordDate = new Date(record.date);
             const dayIndex = recordDate.getDay(); // 0(일)~6(토)
+
+            console.log("recordDate: " + recordDate);
 
             const isToday =
               new Date(record.date).toDateString() === today.toDateString();
@@ -43,6 +46,7 @@ export default function WeekStep() {
           });
 
           setWeekData(formattedData);
+          console.log("일주일치 데이터", formattedData);
         } else {
           console.error(response.message || "데이터를 불러오는데 실패함");
         }
@@ -53,17 +57,6 @@ export default function WeekStep() {
     };
     fetchWalkData();
   }, []);
-
-  // 임시 일주일 데이터
-  const dummyData = [
-    { day: "금", step: 7967 },
-    { day: "토", step: 1401 },
-    { day: "일", step: 959 },
-    { day: "월", step: 4650 },
-    { day: "화", step: 5595 },
-    { day: "수", step: 6262 },
-    { day: "오늘", step: 1594 },
-  ];
 
   const averageStep =
     weekData.length > 0

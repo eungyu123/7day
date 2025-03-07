@@ -2,43 +2,70 @@ import "../../page/stepAnalysisPage/calendar.css";
 // import "react-calendar/dist/Calendar.css";
 import React, { useState, useEffect } from "react";
 
+import { getWalkData } from "../../api/walkApi";
+
 const Calendar = () => {
-  const [currentMonth, setCurrentMonth] = useState(1); // 임시 현재 달: 2월
-  const [data, setData] = useState({});
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [monthData, setMonthData] = useState([]);
 
   useEffect(() => {
-    const dummyData = {
-      "2025-02-18": 6947,
-      "2025-02-19": 4061,
-      "2025-02-20": 5932,
-      "2025-02-21": 7967,
-      "2025-02-22": 1401,
-      "2025-02-23": 959,
-      "2025-02-24": 4650,
-      "2025-02-25": 5595,
-      "2025-02-26": 6262,
-      "2025-02-27": 2755,
-    };
-    setData(dummyData);
-  }, []);
+    fetchMonthData(currentYear, currentMonth);
+  }, [currentYear, currentMonth]);
 
-  const months = [
-    { value: 10, label: "11월" },
-    { value: 11, label: "12월" },
-    { value: 0, label: "1월" },
-    { value: 1, label: "2월" },
-  ];
+  const fetchMonthData = async (year, month) => {
+    try {
+      // 해당 달의 첫날, 마지막날 계산
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
 
-  const days = ["일", "월", "화", "수", "목", "금", "토"];
+      const startDate = firstDay.toISOString().split("T")[0];
+      const endDate = lastDay.toISOString().split("T")[0];
 
-  const getMonthData = (year, month) => {
+      const response = await getWalkData(startDate, endDate);
+
+      if (response.type === "success" && response.stepRecords) {
+        const calendarData = generateCalendarData(
+          year,
+          month,
+          response.stepRecords
+        );
+        setMonthData(calendarData);
+      } else {
+        console.error("한달치 불러오기 실패");
+        const emptyCalendarData = generateCalendarData(year, month, []);
+        setMonthData(emptyCalendarData);
+      }
+    } catch (error) {
+      console.error("걸음수 데이터 불러오기 실패");
+      const emptyCalendarData = generateCalendarData(year, month, []);
+      setMonthData(emptyCalendarData);
+    }
+  };
+
+  // 달력 데이터 생성
+  const generateCalendarData = (year, month, stepRecords) => {
+    console.log("달력 month ", month);
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
+    console.log("달력 firstDay: ", firstDay);
+    console.log("달력 lastDay:", lastDay);
     const daysInMonth = lastDay.getDate();
     const startDayOfWeek = firstDay.getDay();
 
+    const stepsMap = {};
+    stepRecords.forEach((record) => {
+      const formattedDate = record.date.split("T")[0];
+      stepsMap[formattedDate] = record.steps;
+    });
+
+    const today = new Date();
+    const isCurrentMonth =
+      today.getMonth() === month && today.getFullYear() === year;
+    const currentDate = today.getDate();
+
     const monthData = [];
-    let dayCounter = 1;
+    let dayCounter = 1; // const에서 let으로 변경
 
     for (let week = 0; week < 6; week++) {
       const weekData = [];
@@ -48,15 +75,17 @@ const Calendar = () => {
         } else if (dayCounter > daysInMonth) {
           weekData.push({ day: null, steps: 0 });
         } else {
-          const dateStr = `2025-${String(month + 1).padStart(2, "0")}-${String(
-            dayCounter
-          ).padStart(2, "0")}`;
-          const steps = data[dateStr] || 0;
+          const dateStr = `${year}-${String(month + 1).padStart(
+            2,
+            "0"
+          )}-${String(dayCounter).padStart(2, "0")}`;
+
+          const steps = stepsMap[dateStr] || 0;
 
           weekData.push({
             day: dayCounter,
             steps: steps,
-            isToday: month === 1 && dayCounter === 27, // (임시)현재 27일이 오늘
+            isToday: isCurrentMonth && dayCounter === currentDate,
           });
           dayCounter++;
         }
@@ -65,18 +94,34 @@ const Calendar = () => {
       if (dayCounter > daysInMonth) break;
     }
 
-    return monthData;
+    return monthData; // 반환문 추가
+  };
+  const getMonths = () => {
+    const months = [];
+    const today = new Date();
+
+    // 최근 4개월치만
+    for (let i = 3; i >= 0; i--) {
+      const monthDate = new Date(today);
+      monthDate.setMonth(today.getMonth() - i);
+
+      months.push({
+        value: monthDate.getMonth(),
+        year: monthDate.getFullYear(),
+        label: `${monthDate.getMonth() + 1}월`,
+      });
+    }
+
+    return months;
   };
 
-  const getYear = (month) => {
-    return month <= 1 ? 2025 : 2024; // 년도 선택(?)은 작년, 오늘만 가능
-  };
+  const months = getMonths();
+  const days = ["일", "월", "화", "수", "목", "금", "토"];
 
-  const handleMonthChange = (month) => {
+  const handleMonthChange = (month, year) => {
     setCurrentMonth(month);
+    setCurrentYear(year);
   };
-
-  const monthData = getMonthData(getYear(currentMonth), currentMonth);
 
   return (
     <div className="calendar-container">
@@ -84,11 +129,13 @@ const Calendar = () => {
       <div className="calendar-month-selector">
         {months.map((month) => (
           <div
-            key={month.value}
+            key={`${month.year}-${month.value}`}
             className={`calendar-month-item ${
-              currentMonth === month.value ? "active" : ""
+              currentMonth === month.value && currentYear === month.year
+                ? "active"
+                : ""
             }`}
-            onClick={() => handleMonthChange(month.value)}
+            onClick={() => handleMonthChange(month.value, month.year)}
           >
             {month.label}
           </div>
@@ -135,5 +182,4 @@ const Calendar = () => {
     </div>
   );
 };
-
 export default Calendar;
