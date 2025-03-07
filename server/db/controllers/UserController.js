@@ -11,7 +11,10 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
+    console.log("getuser controller 진입");
     const user = await User.findById(req.params.userId);
+    console.log(user);
+    console.log("getusercontroller 내 user");
     return user;
   },
   updateUser: async (req, res) => {

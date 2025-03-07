@@ -2,6 +2,7 @@
 const Mission = require("../models/Mission"); // Mission 모델을 불러옴
 const Reward = require("../models/Reward"); // Reward 모델을 불러옴
 const UserMission = require("../models/UserMission");
+const User = require("../models/User");
 
 // 더미 보상 데이터
 const rewardDummyData = [
@@ -22,7 +23,7 @@ const rewardDummyData = [
   {
     userId: "003",
     enterpriseName: "포인트",
-    content: "10 포인트 획득",
+    content: "15 포인트 획득",
     icon: "💎",
     rewardType: 2,
   },
@@ -76,8 +77,18 @@ const insertDummyData = async () => {
     }
 
     // 미션 데이터 삽입
-    await Mission.insertMany(missionDummyData);
+    const insertedMissions = await Mission.insertMany(missionDummyData);
     console.log("✅ 미션 데이터 삽입 완료!");
+
+    // for (let i = 0; i < insertedMissions.length; i++) {
+    //   const mission = await Mission.findById(insertedMissions[i]._id)
+    //     .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
+    //     .exec();
+
+    //   console.log(
+    //     `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
+    //   );
+    // }
   } catch (error) {
     console.error("❌ 데이터 삽입 중 오류 발생:", error);
   }
@@ -106,6 +117,19 @@ const deleteAllUserMissions = async () => {
     console.error("UserMission을 삭제하는 데 실패:", error);
   }
 };
+const deleteAllFriendLists = async () => {
+  try {
+    await User.updateMany({}, { $set: { friendList: [] } });
+    console.log("✅ 모든 친구리스트 삭제 완료!");
+  } catch (error) {
+    console.error("Friendlist 초기화 실패:", error);
+  }
+};
 
 // 실행
-module.exports = { deleteDummyData, insertDummyData, deleteAllUserMissions };
+module.exports = {
+  deleteDummyData,
+  insertDummyData,
+  deleteAllUserMissions,
+  deleteAllFriendLists,
+};
