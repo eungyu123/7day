@@ -1,11 +1,32 @@
+import {useState, useEffect} from "react";
 import "./MainMap.css";
+import { getWalkData } from "../../../api/walkApi";
+import { getKmFromSteps } from "../../../utils/utils";
+
 
 export default function Steps() {
+  const [currentSteps, setCurrentSteps] = useState(0);
+  const [distance, setDistance] = useState(0);
+
+  useEffect(()=> {
+    const fetchWalkData = async() => {
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      response = await getWalkData(today, today);
+
+      if (response.type === "success" && response.stepRecords) {
+        currentSteps(response.stepRecords);
+        currentDistnace(getKmFromSteps(currentSteps));
+      }
+    }
+  })
+
   return (
     <div className="main-map-steps-display font-xs">
-      <span className="font-sm">3.02</span>
+      <span className="font-sm">{distance}</span>
       <span className="font-xs">km</span> &nbsp;
-      <span className="font-md">5012</span> &nbsp;
+      <span className="font-md">{currentSteps}</span> &nbsp;
       <span className="font-sm">걸음</span>
     </div>
   );
