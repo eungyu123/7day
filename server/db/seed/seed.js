@@ -62,6 +62,18 @@ const missionDummyData = [
     missionName: "꾸준함의 힘",
     rewardId: null,
   },
+  {
+    missionContent: "일주일 연속 출석하기기",
+    missionGoal: 7,
+    missionName: "출석챌린지",
+    rewardId: null,
+  },
+  {
+    missionContent: "하루 200kcal 소모하기",
+    missionGoal: 200,
+    missionName: "칼로리 소모모",
+    rewardId: null,
+  },
 ];
 
 // 데이터베이스에 삽입하는 함수
@@ -80,15 +92,15 @@ const insertDummyData = async () => {
     const insertedMissions = await Mission.insertMany(missionDummyData);
     console.log("✅ 미션 데이터 삽입 완료!");
 
-    // for (let i = 0; i < insertedMissions.length; i++) {
-    //   const mission = await Mission.findById(insertedMissions[i]._id)
-    //     .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
-    //     .exec();
+    for (let i = 0; i < insertedMissions.length; i++) {
+      const mission = await Mission.findById(insertedMissions[i]._id)
+        .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
+        .exec();
 
-    //   console.log(
-    //     `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
-    //   );
-    // }
+      console.log(
+        `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
+      );
+    }
   } catch (error) {
     console.error("❌ 데이터 삽입 중 오류 발생:", error);
   }

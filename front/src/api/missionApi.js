@@ -30,14 +30,14 @@ export const getUserMission = async () => {
 
 export const updateUserMission = async ({
   missionId,
-  Success,
+  success,
   completedAt,
 }) => {
   try {
     const res = await fetch(`${API_BASE_URL}/mission/${userId}`, {
-      method: "GET",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ missionId, Success, completedAt }),
+      body: JSON.stringify({ missionId, success, completedAt }),
       // credentials: "include",
     });
     return res.json();

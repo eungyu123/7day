@@ -8,11 +8,14 @@ module.exports = {
     const userId = req.params.userId;
     const Missions = await Mission.find();
     const userMissions = await Promise.all(
-      Missions.map(async (mission) => {
+      Missions.map(async (mission, index) => {
+
+        const success = index === 1 || index === 2;
+
         const userMission = new UserMission({
           userId: userId,
           missionId: mission._id,
-          success: false,
+          success: success,
           completedAt: null,
           // rewardId: mission.rewardId,
         });
@@ -53,10 +56,21 @@ module.exports = {
     }
   },
   updateUserMission: async (req, res) => {
+    console.log("update controller");
+
+    const { missionId, success, completedAt } = req.body;
+
+    if (!missionId) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission ID is required to update",
+      });
+    }
+    
     const userMissions = await UserMission.findOneAndUpdate(
       { userId: req.params.userId },
-      req.body,
-      { new: true, upsert: true }
+      { missionId, success, completedAt },
+      { new: true}
     );
     return userMissions;
   },

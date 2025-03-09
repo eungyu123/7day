@@ -4,7 +4,7 @@ import MissionList from "./MissionList";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import { setMission } from "../../context/reducer/action/action";
-import { createUserMission, getUserMission } from "../../api/missionApi";
+import { createUserMission, getUserMission, updateUserMission } from "../../api/missionApi";
 
 export default function MissionMain() {
   const { dispatch } = useAppContext();
@@ -35,6 +35,9 @@ export default function MissionMain() {
         setMissions(userMissions); // 가져온 데이터를 상태에 저장
         console.log("setmission까지 완료");
         dispatch(setMission({ missions: userMissions.data }));
+
+         // 2번째, 4번째 미션 자동 완료 처리
+        //  handleAutoCompleteMissions(userMissions);
       } catch (error) {
         console.error("미션을 가져오는 데 실패했습니다:", error);
       }
@@ -42,7 +45,28 @@ export default function MissionMain() {
     fetchMissions();
   }, [dispatch]);
 
-  // dispatch(setMission({ missions: missions }));
+  // const handleAutoCompleteMissions = async (userMissions) => {
+  //   const missionsToUpdate = userMissions.filter((_, index) => index === 0 || index === 3);
+  //   console.log("missionstoupdate:", missionsToUpdate);
+    
+  //   for (const mission of missionsToUpdate) {
+  //     if (!mission.success && mission._id) {  // mission._id가 존재하는지 확인
+  //       console.log(`자동 완료 처리: ${mission._id}`);
+        
+  //       // updateUserMission을 호출할 때 missionId를 확실하게 전달
+  //       await updateUserMission({
+  //         missionId: mission._id,
+  //         success: true,
+  //         completedAt: new Date().toISOString(),
+  //       });
+  //     }
+  //   }
+
+  //   // 최신 미션 목록 다시 불러오기
+  //   const updatedMissions = await getUserMission();
+  //   setMissions(updatedMissions);
+  //   dispatch(setMission({ missions: updatedMissions.data}));
+//  };
 
   return (
     <div className="missionmaincontainer">

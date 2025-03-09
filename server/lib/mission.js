@@ -21,15 +21,18 @@ module.exports = {
 
   updateUserMission: async (req, res) => {
     try {
+      console.log("updateusermission 진입");
+      
       const userMission = await updateUserMission(req, res);
-      const rewardId = userMission.rewardId;
-      const reward = await getReward(rewardId, res);
+      // //const rewardId = userMission.rewardId;
+      // const reward = await getReward(rewardId, res);
+      console.log("updateusermission 컨트롤러 받음");
       res.status(200).json({
         type: "success",
         message: "UserMission updated",
         data: userMission,
-        rewardId: rewardId,
-        reward: reward,
+        // rewardId: rewardId,
+        // reward: reward,
       });
     } catch (error) {
       res.status(500).json({

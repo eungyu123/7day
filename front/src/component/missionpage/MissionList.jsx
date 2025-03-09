@@ -1,6 +1,8 @@
 import "./MissionList.css";
 // import { motion } from "framer-motion";
 import { useState } from "react";
+import RouletteRewardModal from "../modal/RouletteRewardModal";
+
 
 export default function MissionList({
   MissionContent,
@@ -8,9 +10,15 @@ export default function MissionList({
   IsComplete,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isGiftBoxVisible, setGiftBoxVisible] = useState(true);
 
   const HandleRewardOpen = () => {
     setIsOpen(true);
+    setGiftBoxVisible(false);
+  };
+
+  const HandleRewardClose = () => {
+    setIsOpen(false); // 모달을 닫을 때
   };
 
   return (
@@ -20,9 +28,9 @@ export default function MissionList({
         <p
           className={`${IsComplete ? "missioncomplete" : "missionincomplete"}`}
         >
-          {MissionContent} {MissionReward}{" "}
+          {MissionContent}{" "}
         </p>
-        {IsComplete && (
+        {IsComplete && isGiftBoxVisible && (
           <p className="emojifont gift-box" onClick={HandleRewardOpen}>
             🎁
           </p>
@@ -31,7 +39,7 @@ export default function MissionList({
       {isOpen && (
         <RouletteRewardModal
           isOpen={isOpen}
-          setIsOpen={false}
+          setIsOpen={HandleRewardClose}
           prize={MissionReward}
         />
       )}
