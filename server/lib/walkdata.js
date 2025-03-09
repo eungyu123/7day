@@ -1,6 +1,7 @@
 const {
   updateWalkData,
   getWalkData,
+  getTodayWalkData,
 } = require("../db/controllers/WalkDataController");
 
 module.exports = {
@@ -18,6 +19,22 @@ module.exports = {
       res.status(500).json({ error: "Failed to fetch data" });
     }
   },
+
+  getTodayWalkData:async (req, res) => {
+    try {
+      console.log("getTodatWalkData");
+      
+      const walkData = await getTodayWalkData(req, res);
+      res.status(200).json({
+        type: "success",
+        message: "WalkData found",
+        data: walkData,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch data" });
+    }
+  },
+
   updateStep: async (req, res) => {
     try {
       const startOfDay = new Date();

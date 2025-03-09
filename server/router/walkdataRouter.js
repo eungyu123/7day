@@ -11,4 +11,10 @@ router.post("/:userId", async (req, res) => {
   Walkdata.getStep(req, res);
 });
 
+  router.get("/todaysteps/:userId", async (req, res) => {
+    console.log("walkdatarouter 진입");
+    Walkdata.getTodayWalkData(req,res);
+  });
+  
+
 module.exports = router;

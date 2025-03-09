@@ -3,6 +3,7 @@ const Mission = require("../models/Mission"); // Mission 모델을 불러옴
 const Reward = require("../models/Reward"); // Reward 모델을 불러옴
 const UserMission = require("../models/UserMission");
 const User = require("../models/User");
+const WalkData = require("../models/WalkData");
 
 // 더미 보상 데이터
 const rewardDummyData = [
@@ -76,6 +77,34 @@ const missionDummyData = [
   },
 ];
 
+const walkDummyData=[
+  {
+    userId:"67c7ab445f743adc8dc272a5",
+    steps:5000,
+    date: new Date().toISOString(),
+  },
+{
+  userId: "67c7ab4b5f743adc8dc272a7",
+  steps:12000,
+  date: new Date().toISOString(),
+},
+{ //I
+  userId:"67c7ab335f743adc8dc272a3",
+  steps:8300,
+  date: new Date().toISOString(),
+},
+];
+
+//걸음 수 추가
+const insertWalkDummyData = async () => {
+  try{const insertWalks = await WalkData.insertMany(walkDummyData);
+  console.log("✅ 걸음 데이터 삽입 완료!");
+  }
+  catch (error) {
+    console.error("❌ 걸음 데이터 삽입 중 오류 발생:", error);
+  }
+}
+
 // 데이터베이스에 삽입하는 함수
 const insertDummyData = async () => {
   try {
@@ -144,4 +173,5 @@ module.exports = {
   insertDummyData,
   deleteAllUserMissions,
   deleteAllFriendLists,
+  insertWalkDummyData,
 };

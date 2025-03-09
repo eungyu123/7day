@@ -6,6 +6,7 @@ import { getUser } from "../../api/userApi";
 import { useAppContext } from "../../context/context";
 import { setUser } from "../../context/reducer/action/action";
 import { userId } from "../../constant/constant";
+import { getTodayWalkData } from "../../api/walkApi";
 
 export default function FriendPageMain() {
   const { appState, dispatch } = useAppContext();
@@ -24,19 +25,34 @@ export default function FriendPageMain() {
     try {
       //친구 데이터 가져오기
       const friendDataResponse = await getUserFriend(); // getUserFriend API 호출
-      const friendData = friendDataResponse.data;
+      const friendData = friendDataResponse;
+
+      const userStepData = await getTodayWalkData(); // getTodayWalkData 사용
+      const userSteps = userStepData?.steps || 0;
 
       //본인 데이터 가져오기
       const userResponse = await getUser(); // 본인 정보 가져오기
       const userdata = userResponse.data;
 
+      const friendsWithSteps = await Promise.all(
+        friendData.map(async (friend) => {
+          const friendStepData = await getTodayWalkData(friend.friendId); // 각 친구의 걸음 수 가져오기
+          return {
+            friendId: friend.friendId,
+            friendName: friend.friendName,
+            steps: friendStepData?.steps || 0, // 친구의 걸음 수
+            isSelf: false, // 친구 여부 표시
+          };
+        })
+      );
+
       // 본인데이터 친구 데이터에 추가
       const updatedFriendData = [
-        ...friendData,
+        ...friendsWithSteps,
         {
           friendId: userdata._id, // 본인의 ID
           friendName: userdata.nickname, // 본인의 닉네임
-          steps: userdata.steps ?? 0, // 본인의 걸음 수 (기본값 0)
+          steps: userSteps, // 본인의 걸음 수 (기본값 0)
           isSelf: true, // 본인 여부 표시 (UI에서 구별 가능)
         },
       ];
@@ -63,7 +79,7 @@ export default function FriendPageMain() {
 
   // 67c7ab335f743adc8dc272a3, 67c7ab445f743adc8dc272a5, 67c7ab4b5f743adc8dc272a7
 
-  const friendid = "67c7ab445f743adc8dc272a5";
+  const friendid = "67c7ab4b5f743adc8dc272a7";
 
   const handleFriendUpdate = async (friendid) => {
     try {

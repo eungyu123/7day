@@ -15,3 +15,20 @@ export const updateWalkData = ({ steps }) => {
     throw error;
   }
 };
+
+export const getTodayWalkData = async () => {
+  try {
+    console.log("walkapi진입");
+    const res = await fetch(`${API_BASE_URL}/walkdata/todaysteps/${userId}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      // credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error('Failed to fetch today\'s walk data');
+    }
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
