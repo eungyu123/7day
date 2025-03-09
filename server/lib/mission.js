@@ -1,5 +1,5 @@
 const {
-  getUserMissions,
+  getUserMission,
   updateUserMission,
   createUserMission,
 } = require("../db/controllers/UserMissionController");
@@ -7,12 +7,10 @@ const { getReward } = require("../db/controllers/RewardController");
 module.exports = {
   getUserMission: async (req, res) => {
     try {
-      const userMission = await getUserMission(req, res);
-      res.status(200).json({
-        type: "success",
-        message: "UserMission found",
-        data: userMission,
-      });
+      console.log("getusermission 진입");
+      await getUserMission(req, res);
+
+      console.log("get 성공");
     } catch (error) {
       res.status(500).json({
         type: "error",
@@ -42,12 +40,15 @@ module.exports = {
   },
   createUserMission: async (req, res) => {
     try {
+      console.log("createUser 진입");
+
       const userMission = await createUserMission(req, res);
       res.status(200).json({
         type: "success",
         message: "UserMission created",
         data: userMission,
       });
+      console.log("create 성공");
     } catch (error) {
       res.status(500).json({
         type: "error",

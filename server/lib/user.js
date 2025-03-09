@@ -14,7 +14,7 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const user = await getUser(req, res);
-      // console.log(user);
+      console.log(user);
       res.status(200).json({
         type: "success",
         message: "User found",
@@ -45,8 +45,13 @@ module.exports = {
 
   getFriends: async (req, res) => {
     try {
+      console.log("getFriends 진입");
+
       const user = await getUser(req, res);
-      const friends = user.friends;
+
+      // friendlist에서 friendid 추출
+      const friends = user.friendList.map((f) => f.friend_id);
+      console.log("친구 목록:", friends);
       const friendDataList = await Promise.all(
         friends.map(async (friendId) => {
           const friend = await getUser({ params: { userId: friendId } });

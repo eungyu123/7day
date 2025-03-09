@@ -1,11 +1,26 @@
 import { API_BASE_URL, userId } from "../constant/constant";
 
-export const getUserMisson = async () => {
+export const createUserMission = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/misson/${userId}`, {
+    const res = await fetch(
+      `${API_BASE_URL}/mission/createusermission/${userId}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        // credentials: "include",
+      }
+    );
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+export const getUserMission = async () => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/mission/${userId}`, {
       method: "GET",
-      header: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {
@@ -19,11 +34,11 @@ export const updateUserMission = async ({
   completedAt,
 }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/misson/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/mission/${userId}`, {
       method: "GET",
-      header: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ missionId, Success, completedAt }),
-      credentials: "include",
+      // credentials: "include",
     });
     return res.json();
   } catch (error) {

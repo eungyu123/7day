@@ -96,6 +96,8 @@ export const removeGiftsAPI = async ({ giftId }) => {
 
 export const getUserFriend = async () => {
   try {
+    console.log("getuserapi 진입");
+
     const res = await fetch(`${API_BASE_URL}/user/friend/${userId}`, {
       method: "GET",
       header: { "Content-Type": "application/json" },

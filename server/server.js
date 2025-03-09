@@ -9,6 +9,12 @@ const connectDB = require("./db/connectDB");
 
 connectDB();
 
+const seed = require("./db/seed/seed");
+// seed.deleteDummyData();
+// seed.insertDummyData();
+// seed.deleteAllUserMissions();
+// seed.deleteAllFriendLists();
+
 const middleware = require("./middleware/middleware");
 middleware(app);
 

@@ -63,3 +63,11 @@ export function setUser({ user }) {
     payload: { user },
   };
 }
+
+export function setMission({ missions }) {
+  console.log("missions", missions);
+  return {
+    type: actionType.setMission,
+    payload: { missions },
+  };
+}
