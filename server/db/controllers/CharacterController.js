@@ -2,6 +2,24 @@ const Character = require("../models/Character");
 const User = require("../models/User");
 
 module.exports = {
+  buyCharacter: async (userId, characterId) => {
+    try {
+      const user = await User.findById(userId);
+      const character = await Character.findById(characterId);
+
+      if(!user) throw new Error("존재X 유저");
+      if(!character) throw new Error("존재X 캐릭터");
+
+      if(user.userPoint < character.price) throw new Error("포인트 부족");
+
+      user.userPoint -= character.price;
+      user.characterList.push({characterId: character._id});
+      await user.save();
+      return user;
+    } catch(error) {
+      throw error;
+    }
+  },
   createCharacter: async (req, res) => {
     const character = new Character(req.body);
     await character.save();

@@ -16,6 +16,7 @@ export default function Store() {
   // console.log(appState, dispatch);
 
   const [selectedTab, setSelectedTab] = useState("character");
+  const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [characterItems, setCharacterItems] = useState([]);
   const [petItems, setPetItems] = useState([]);
@@ -33,33 +34,6 @@ export default function Store() {
     fetchStoreData();
   }, []);
 
-
-  // // 캐릭터, 펫 임시 데이터
-  // const characterItems = [
-  //   { type: "character", itemName: "character1" },
-  //   { type: "character", itemName: "character2" },
-  //   { type: "character", itemName: "character3" },
-  //   { type: "character", itemName: "character4" },
-  //   { type: "character", itemName: "character5" },
-  //   { type: "character", itemName: "character6" },
-  //   { type: "character", itemName: "character7" },
-  //   { type: "character", itemName: "character8" },
-  //   { type: "character", itemName: "character9" },
-  //   { type: "character", itemName: "character10" },
-  // ];
-
-  // const petItems = [
-  //   { id: 1, type: "pet", itemName: "pet1" },
-  //   { id: 2, type: "pet", itemName: "pet2" },
-  //   { id: 3, type: "pet", itemName: "pet3" },
-  //   { id: 4, type: "pet", itemName: "pet4" },
-  //   { id: 5, type: "pet", itemName: "pet5" },
-  //   { id: 6, type: "pet", itemName: "pet6" },
-  //   { id: 7, type: "pet", itemName: "pet7" },
-  //   { id: 8, type: "pet", itemName: "pet8" },
-  //   { id: 9, type: "pet", itemName: "pet9" },
-  // ];
-
   return (
     <>
       <Header PageName={"상점"} />
@@ -70,15 +44,19 @@ export default function Store() {
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
           />
+          {/* {console.log("characterItems: ",characterItems)} */}
           <div className="inventory-main">
             {selectedTab === "character"
               ? characterItems.map((item) => (
                   <InventoryItem
-                    key={item.characterName}
+                    key={item._id}
                     img={item.characterLink}
                     name={item.characterName}
                     isSelected={appState.character === item.characterName}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                      setSelectedItem({type:"character", ...item});  
+                      setIsModalOpen(true);
+                    }}
                   />
                 ))
               : petItems.map((item) => (
@@ -87,7 +65,10 @@ export default function Store() {
                     img={item.petLink}
                     name={item.petName}
                     isSelected={appState.pet === item.petName}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                      setSelectedItem({type:"pet", ...item});  
+                      setIsModalOpen(true);
+                    }}
                   />
                 ))}
           </div>
@@ -97,6 +78,7 @@ export default function Store() {
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           confirmName={"구매"}
+          selectedItem={selectedItem}
         />
       </div>
     </>
