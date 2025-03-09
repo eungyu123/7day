@@ -1,33 +1,41 @@
 import WalkingInfo from "./WalkingInfo";
 import "./WalkingMain.css";
 import { useState, useEffect, useRef } from "react";
-import { useFetchTrail, useFetchUserTrail } from "../../reactQuery/useTrails";
+import { useFetchTrail } from "../../reactQuery/useTrails";
 import { useNavigate } from "react-router-dom";
 import WalkingKaKaoMap from "./WalkingKaKaoMap";
 import WalkingCard from "./WalkingCard";
 export default function WalkingMain() {
   const { data } = useFetchTrail();
-
+  console.log("data", data);
   const cardsRef = useRef();
-  const cardSort = useRef({});
-  const [isOpen, setIsOpen] = useState(false);
+  const cardRef = useRef({});
+  const [isOpen, setIsOpen] = useState(0);
   const navigate = useNavigate();
 
-  const togglePanel = () => {
-    setIsOpen(!isOpen);
+  const handleTogglePanelClick = () => {
     if (cardsRef.current) {
-      cardsRef.current.style.height = isOpen ? "70vh" : "20vh";
+      if (isOpen === 0) {
+        setIsOpen(1);
+        cardsRef.current.style.height = "20vh";
+      } else if (isOpen === 1) {
+        setIsOpen(2);
+        cardsRef.current.style.height = "70vh";
+      } else {
+        setIsOpen(0);
+        cardsRef.current.style.height = "10vh";
+      }
     }
   };
 
   const selectAll = () => {
-    cardSort.current[0].classList.add("wm-info-header-selected");
-    cardSort.current[1].classList.remove("wm-info-header-selected");
+    cardRef.current[0].classList.add("wm-info-header-selected");
+    cardRef.current[1].classList.remove("wm-info-header-selected");
   };
 
   const selectComplete = () => {
-    cardSort.current[0].classList.remove("wm-info-header-selected");
-    cardSort.current[1].classList.add("wm-info-header-selected");
+    cardRef.current[0].classList.remove("wm-info-header-selected");
+    cardRef.current[1].classList.add("wm-info-header-selected");
   };
 
   return (
@@ -47,14 +55,14 @@ export default function WalkingMain() {
         <div
           className="wm-line"
           onClick={() => {
-            togglePanel();
+            handleTogglePanelClick();
           }}
         ></div>
 
         <div className="wm-info-header ">
           <div
             className="wm-info-header-selected"
-            ref={(el) => (cardSort.current[0] = el)}
+            ref={(el) => (cardRef.current[0] = el)}
             onClick={() => {
               selectAll();
             }}
@@ -62,7 +70,7 @@ export default function WalkingMain() {
             전체 보기
           </div>
           <div
-            ref={(el) => (cardSort.current[1] = el)}
+            ref={(el) => (cardRef.current[1] = el)}
             onClick={() => {
               selectComplete();
             }}

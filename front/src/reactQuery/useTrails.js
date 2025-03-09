@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getTrails, getUserTrail, updateUserTrail } from "../api/trailAPi";
+import { getTrails, getTrail, updateUserTrail } from "../api/trailAPi";
 import { useMutation } from "@tanstack/react-query";
 
 export const useFetchTrail = () => {
@@ -9,17 +9,21 @@ export const useFetchTrail = () => {
   });
 };
 
-export const useFetchUserTrail = () => {
+export const useFetchOneTrail = (trailId) => {
   return useSuspenseQuery({
-    queryKey: ["userTrails"],
-    queryFn: getUserTrail,
+    queryKey: ["trail", trailId],
+    queryFn: async () => {
+      const response = await getTrail({ trailId });
+      return response;
+    },
   });
 };
 
 // 데이터를 수정하는 데 사용하는 useMutation 예시
 export const useUpdateUserTrail = () => {
   return useMutation({
-    mutationFn: updateUserTrail, // 비동기 API 호출 함수
+    mutationFn: ({ trailId, landmarkId }) =>
+      updateUserTrail({ trailId, landmarkId }), // 비동기 API 호출 함수
     onSuccess: (data) => {
       console.log("User trail updated successfully", data);
     },

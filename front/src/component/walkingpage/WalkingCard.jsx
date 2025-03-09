@@ -10,13 +10,13 @@ import { PAGE_URLS } from "../../constant/constant";
 
 export default function WalkingCard({ TrailItem, idx }) {
   const { appState, dispatch } = useAppContext();
-
+  console.log("TrailItem123", TrailItem);
   const navigate = useNavigate();
 
   const WalkingcourseClick = () => {
     // state로 정보를 전달
     navigate(PAGE_URLS.WalkingCoursePage, {
-      state: { TrailItem },
+      state: { TrailItem, TrailItemId: TrailItem._id },
     });
   };
 

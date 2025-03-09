@@ -92,6 +92,12 @@ export function appReducer(state, action) {
         trailIndex: action.payload.trailIndex,
       };
     }
+    case actionType.setTrailRandmarkIndex: {
+      return {
+        ...state,
+        trailRandmarkIndex: action.payload.trailRandmarkIndex,
+      };
+    }
     default:
       return state;
   }

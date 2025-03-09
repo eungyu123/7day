@@ -48,7 +48,7 @@ body {
   height: 5px;
   min-height: 5px;
   background-color: #ddd;
-  margin-top: 16px;
+  margin-top: 10px;
   margin-bottom: 4px;
   border-radius: 200px;
   position: relative;
@@ -64,7 +64,7 @@ body {
   width: 100%;
   background-color: white;
   transition: all 0.3s ease-in-out;
-  height: 20vh;
+  height: 10vh;
   overflow-y: auto;
   z-index: 1000;
   overflow-y: auto;
@@ -78,6 +78,7 @@ body {
   justify-content: space-around;
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
+  font-size: var(--font-sm);
 }
 
 .wm-info-header div {
@@ -126,7 +127,6 @@ body {
 }
 
 .wm-card-img {
-  background-image: url("http://localhost:3000/image/bukhansan-dule-gil.jpg");
   background-size: cover;
   background-position: center;
   width: 84px;

@@ -6,7 +6,9 @@ import {
   setTrailIndex,
   setTrailLocation,
 } from "../../context/reducer/action/action";
+import { resourceUsage } from "process";
 export default function WalkingKaKaoMap({ TrailItem }) {
+  const mapRef = useRef();
   const markersRef = useRef({});
   const { appState, dispatch } = useAppContext();
   const { location, locationError, locationLoading, user, trailLocation } =
@@ -17,6 +19,11 @@ export default function WalkingKaKaoMap({ TrailItem }) {
 
   const moveToTrail = ({ location, idx }) => {
     console.log(location, idx);
+    const map = mapRef.current;
+    if (!map) return;
+
+    map.setLevel(5);
+
     dispatch(setTrailLocation({ trailLocation: location }));
     dispatch(setTrailIndex({ trailIndex: idx }));
   };
@@ -30,7 +37,8 @@ export default function WalkingKaKaoMap({ TrailItem }) {
           width: "100%",
           height: "100%",
         }}
-        level={3}
+        level={trailLocation ? 4 : 8}
+        ref={mapRef}
       >
         {TrailItem.map((Trail, idx) => {
           const SPRITE_MARKER_URL =

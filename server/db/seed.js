@@ -13,21 +13,25 @@ async function createSampleData1() {
       name: "올림픽공원",
       location: { lat: 37.5207, lng: 127.1235 },
       image: "OlympicPark.jpg",
+      address: "서울 특별시 강동구",
       distance: "3km",
       landmarks: [
         {
           name: "세계 평화의 문",
           image: "OlympicPark1.jpg",
+          description: landmarkDes,
           location: { lat: 37.5189, lng: 127.1226 },
         },
         {
           name: "나홀로 나무",
           image: "OlympicPark2.jpg",
+          description: landmarkDes,
           location: { lat: 37.5203, lng: 127.1268 },
         },
         {
           name: "올림픽 호수",
           image: "OlympicPark3.jpg",
+          description: landmarkDes,
           location: { lat: 37.5218, lng: 127.1247 },
         },
       ],
@@ -36,17 +40,19 @@ async function createSampleData1() {
       name: "봉화산 둘레길",
       location: { lat: 37.6175, lng: 127.0923 },
       image: "bonghwasan-dule-gil.jpg",
-
+      address: "서울 특별시 강동구",
       distance: "7.5km",
       landmarks: [
         {
           name: "봉화산 정상",
           image: "bonghwasan-dule-gil1.jpg",
+          description: landmarkDes,
           location: { lat: 37.6204, lng: 127.0952 },
         },
         {
           name: "둘레길 입구",
           image: "bonghwasan-dule-gil2.jpg",
+          description: landmarkDes,
           location: { lat: 37.6152, lng: 127.0895 },
         },
       ],
@@ -55,11 +61,13 @@ async function createSampleData1() {
       name: "몽촌토성",
       location: { lat: 37.5195, lng: 127.1186 },
       image: "mongchontoseong-fortress.jpg",
+      address: "서울 특별시 강동구",
       distance: "2.5km",
       landmarks: [
         {
           name: "몽촌호",
           image: "mongchontoseong-fortress1.jpg",
+          description: landmarkDes,
           location: { lat: 37.5192, lng: 127.1165 },
         },
       ],
@@ -68,16 +76,19 @@ async function createSampleData1() {
       name: "서울 둘레길 4코스",
       location: { lat: 37.5512, lng: 127.0075 },
       image: "seoul-trail-section4.jpg",
+      address: "서울 특별시 강동구",
       distance: "10km",
       landmarks: [
         {
           name: "남산골 한옥마을",
           image: "seoul-trail-section4_1.jpg",
+          description: landmarkDes,
           location: { lat: 37.5532, lng: 127.0026 },
         },
         {
           name: "한강 전망대",
           image: "seoul-trail-section4_2.jpg",
+          description: landmarkDes,
           location: { lat: 37.5442, lng: 127.0131 },
         },
       ],
@@ -97,6 +108,7 @@ async function createSampleData1() {
         landmarkId: landmark._id,
         name: landmark.name,
         image: landmark.image,
+        description: landmark.description,
         location: landmark.location,
         visited: false,
       })),
@@ -142,3 +154,6 @@ module.exports = {
   createSampleData1,
   createRandomHatcheries,
 };
+
+const landmarkDes =
+  "서울특별시 송파구 방이동에 위치한 올림픽공원 내 평화의광장에 건립된 '세계평화의문'은 3만 3600㎡(폭 80m, 길이 약 420m)의 대지면적에 세워진 철골·철근 콘크리트 구조물로서 최고 높이 24m, 폭(전·후) 37m, 전면 길이 62m(날개 정면폭) 규모이며 아름답고 장중한 외양을 지녔다. 상징조형물의 면적은 지하 1층이 248㎡, 데크층 289㎡ 등 총 927㎡였다.";

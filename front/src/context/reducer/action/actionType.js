@@ -10,4 +10,5 @@ export const actionType = {
   setHatchery: "setHatchery",
   setTrailLocation: "setTrailLocation",
   setTrailIndex: "setTrailIndex",
+  setTrailRandmarkIndex: "setTrailRandmarkIndex",
 };

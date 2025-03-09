@@ -5,7 +5,7 @@ import Container from "../../component/common/Container";
 export default function WalkingCoursePage() {
   return (
     <Container column={true}>
-      <Header PageName={"산책로"} BackNavigate="/WalkingPage" />
+      <Header BackNavigate="/WalkingPage" />
       <WalkingCourseMain />
     </Container>
   );

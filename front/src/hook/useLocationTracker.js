@@ -59,7 +59,7 @@ export const useLocationTracker = ({ dispatch }) => {
       );
     };
     fetchLocation();
-    const interval = setInterval(fetchLocation, 15000);
+    const interval = setInterval(fetchLocation, 300000);
 
     return () => clearInterval(interval);
   }, []);

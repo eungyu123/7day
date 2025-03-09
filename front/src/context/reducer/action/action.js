@@ -83,3 +83,10 @@ export function setTrailIndex({ trailIndex }) {
     payload: { trailIndex },
   };
 }
+
+export function setTrailRandmarkIndex({ trailRandmarkIndex }) {
+  return {
+    type: actionType.setTrailRandmarkIndex,
+    payload: { trailRandmarkIndex },
+  };
+}
