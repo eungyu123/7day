@@ -1,4 +1,5 @@
 const Character = require("../models/Character");
+const User = require("../models/User");
 
 module.exports = {
   createCharacter: async (req, res) => {
@@ -6,15 +7,19 @@ module.exports = {
     await character.save();
     return character;
   },
-  getCharacters: async (req, res) => {
-    const characters = await Character.find();
-    if (!characters) {
-      return res.status(400).json({
-        type: "error",
-        message: "Character searching failed",
-      });
+  getCharacters: async (userId) => {
+    try {
+      const user = await User.findById(userId);
+
+      if(!user) return [];
+
+      // const characters = await Character.find();
+      const characters = user.characterList.map((c)=> c.characterId);
+      return await Character.find({ _id: { $nin: characters } });
+    } catch (error) {
+      console.error("Error fetching characters:", error);
+      throw error;
     }
-    return characters;
   },
   updateCharacter: async (req, res) => {
     const character = await Character.findOneAndUpdate(

@@ -1,18 +1,18 @@
-const CharacterController = require("../db/controllers/CharacterController");
-const PetController = require("../db/controllers/PetController");
+const {getCharacters} = require("../db/controllers/CharacterController");
+const {getPets} = require("../db/controllers/PetController");
 
 module.exports = {
   getStore: async (req, res) => {
     try {
-      const characterList = await CharacterController.getCharacterList();
-      const petList = await PetController.getPetList();
+      const userId = req.params.userId;
+      const characters = await getCharacters(userId);
+      const pets = await getPets(userId);
+      
       res.status(200).json({
         type: "success",
         message: "Store found",
-        data: {
-          characterList,
-          petList,
-        },
+        characters: characters,
+        pets: pets,
       });
     } catch (error) {
       res.status(500).json({
