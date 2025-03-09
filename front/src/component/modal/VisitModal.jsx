@@ -13,10 +13,13 @@ export default function VisitModal({ isOpen, setIsOpen }) {
   const [goalSteps, setGoalSteps] = useState(10000);
   const [calories, setCalories] = useState(0);
   const [distance, setDistance] = useState(3.01);
+  const [today, setToday] = useState(null);
   const [weekData, setWeekData] = useState([]);
   const [temp, setTemp] = useState(null);
 
   const progress = Math.min(100, (currentSteps / goalSteps) * 100);
+
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
   useEffect(() => {
     const fetchWalkData = async () => {
@@ -25,6 +28,12 @@ export default function VisitModal({ isOpen, setIsOpen }) {
         today.setHours(0, 0, 0, 0);
 
         const dayOfWeek = today.getDay();
+
+        //오늘 날짜 String 저장(ex- 3월 9일 일요일)
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        const todayString = `${month}월 ${day}일 ${dayNames[dayOfWeek]}요일`;
+        setToday(todayString);
 
         // 월요일
         const monday = new Date(today);
@@ -48,8 +57,6 @@ export default function VisitModal({ isOpen, setIsOpen }) {
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
           stepRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-          const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
           // 오늘 걸음수 설정
           const todayString = new Date()
@@ -103,7 +110,9 @@ export default function VisitModal({ isOpen, setIsOpen }) {
             const dayIndex = date.getDay(); // 요일 인덱스: 0(일)~6(토)
 
             const isToday = date.toDateString() === new Date().toDateString();
-            if (isToday) setTodayIndex(dayIndex);
+            if (isToday) {
+              setTodayIndex(dayIndex);
+            }
             return {
               day: isToday ? "오늘" : dayNames[dayIndex],
               steps: steps,
@@ -162,11 +171,15 @@ export default function VisitModal({ isOpen, setIsOpen }) {
             </div>
           </div>
           <div className="visit-modal-week-record">
-            <div>2월 25일 화요일</div>
+            <div>{today}</div>
 
             <div className="visit-modal-week-record-list">
               {weekData.map((item) => (
-                <div className="visit-modal-week-record-item" key={item.day}>
+                <div 
+                  className="visit-modal-week-record-item" 
+                  key={item.day}
+                  style={item.day == "오늘" ? { background: "#0064ff", color: "white" } : {}}
+                  >
                   <p>{item.day}</p>
                 </div>
               ))}
