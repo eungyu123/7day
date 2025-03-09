@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { useAppContext } from "../../context/context";
 import "./WalkingMain.css";
 import {
@@ -8,10 +9,10 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URLS } from "../../constant/constant";
 
-export default function WalkingCard({ TrailItem, idx }) {
+const WalkingCard = forwardRef(({ TrailItem, idx }, ref) => {
   const { appState, dispatch } = useAppContext();
-  console.log("TrailItem123", TrailItem);
   const navigate = useNavigate();
+  const complete = TrailItem.landmarks.every((landmark) => landmark.visited);
 
   const WalkingcourseClick = () => {
     // state로 정보를 전달
@@ -33,6 +34,7 @@ export default function WalkingCard({ TrailItem, idx }) {
     <div
       className={`wm-card-wrapper ${appState?.trailIndex == idx && "seleted"}`}
       onClick={() => WalkingcourseClick()}
+      ref={ref}
     >
       <div
         className="wm-card-img"
@@ -42,7 +44,9 @@ export default function WalkingCard({ TrailItem, idx }) {
       ></div>
 
       <div className="wm-card-content">
-        <div className="wm-card-content-title">{TrailItem.name}</div>
+        <div className="wm-card-content-title">
+          {TrailItem.name} {complete && "✅"}
+        </div>
         <div className="wm-card-content-des">길이 {TrailItem.distance}</div>
       </div>
       <div
@@ -62,7 +66,9 @@ export default function WalkingCard({ TrailItem, idx }) {
       ></div>
     </div>
   );
-}
+});
 
 const SPRITE_MARKER_URL =
   "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png";
+
+export default WalkingCard;

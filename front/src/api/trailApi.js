@@ -20,7 +20,6 @@ export const getTrails = async () => {
 
 // api/getTrail.js
 export const getTrail = async ({ trailId }) => {
-  console.log("trailId", trailId);
   try {
     // http://localhost:3000/trail/67c7ab335f743adc8dc272a3
     const response = await fetch(`${API_BASE_URL}/trail/oneTrail/${userId}`, {

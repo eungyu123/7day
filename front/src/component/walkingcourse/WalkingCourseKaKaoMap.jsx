@@ -35,7 +35,7 @@ export default function WalkingCourseKaKaoMap({
           width: "100%",
           height: "100%",
         }}
-        level={4}
+        level={6}
       >
         {TrailItem.landmarks.map((landmark, landmarkIndex) => (
           <CustomOverlayMap

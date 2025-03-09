@@ -9,7 +9,7 @@ export const useFetchTrail = () => {
   });
 };
 
-export const useFetchOneTrail = (trailId) => {
+export const useFetchOneTrail = ({ trailId }) => {
   return useSuspenseQuery({
     queryKey: ["trail", trailId],
     queryFn: async () => {

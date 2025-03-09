@@ -6,17 +6,21 @@ import {
   useFetchOneTrail,
   useUpdateUserTrail,
 } from "../../reactQuery/useTrails";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function WalkingCourseMain() {
+  const queryClient = useQueryClient();
   const { mutate: updateUserTrail } = useUpdateUserTrail();
   const location = useLocation();
-  const { TrailItem, TrailItemId } = location.state || { TrailItem: null };
+  const { TrailItemId } = location.state || { TrailItemId: null };
 
-  const { data } = useFetchOneTrail({ trailId: TrailItemId });
-  console.log("data123123", data, TrailItemId);
+  const { data: TrailItem } = useFetchOneTrail({ trailId: TrailItemId });
+
   const [imageIndex, setImageIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isOpenStamp, setIsOpenStamp] = useState(false);
+
+  const complete = TrailItem.landmarks.every((landmark) => landmark.visited);
 
   const clickMarker = (landmarkIndex) => {
     setImageIndex(landmarkIndex);
@@ -40,9 +44,9 @@ export default function WalkingCourseMain() {
     setIsOpenStamp(true);
     await delay(2500);
     setIsOpenStamp(false);
+    queryClient.invalidateQueries(["trail"], TrailItemId);
   };
-  // stamp_color.png
-  console.log(TrailItem);
+
   return (
     <div className="wc-maincontainer">
       {/* Map */}
@@ -60,7 +64,9 @@ export default function WalkingCourseMain() {
       <div className="wc-content-wrapper">
         <div className="wc-info-wrapper">
           <div className="wc-info-header">{TrailItem.address}</div>
-          <div className="wc-info-title">{TrailItem.name}</div>
+          <div className="wc-info-title">
+            {TrailItem.name} {complete && "✅"}
+          </div>
           <div className="wc-info-coord">
             {TrailItem.distance}, 경도 {TrailItem.location.lat.toFixed(4)}, 위도{" "}
             {TrailItem.location.lng.toFixed(4)}
@@ -101,9 +107,9 @@ export default function WalkingCourseMain() {
             <h2 className="wc-landmark-title">
               {TrailItem.landmarks[imageIndex].name}
             </h2>
-            <div className="wc-landmark-title-stamp">
-              {TrailItem.landmarks[imageIndex].visited && "✅"}
-            </div>
+            {TrailItem.landmarks[imageIndex].visited && (
+              <div className="wc-landmark-title-stamp"></div>
+            )}
 
             <div
               className="wc-landmark-marker"

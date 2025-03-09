@@ -45,9 +45,9 @@ body {
 /* 선 */
 .wm-line {
   width: 12%;
+  background-color: #ddd;
   height: 5px;
   min-height: 5px;
-  background-color: #ddd;
   margin-top: 10px;
   margin-bottom: 4px;
   border-radius: 200px;
@@ -118,8 +118,8 @@ body {
   display: flex;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 8px;
   gap: 12px;
+  border-radius: 4px;
 }
 
 .wm-card-wrapper.seleted {

@@ -1,17 +1,21 @@
-import WalkingInfo from "./WalkingInfo";
 import "./WalkingMain.css";
 import { useState, useEffect, useRef } from "react";
 import { useFetchTrail } from "../../reactQuery/useTrails";
 import { useNavigate } from "react-router-dom";
 import WalkingKaKaoMap from "./WalkingKaKaoMap";
 import WalkingCard from "./WalkingCard";
+import { useAppContext } from "../../context/context";
 export default function WalkingMain() {
+  const { appState, dispatch } = useAppContext();
+
   const { data } = useFetchTrail();
-  console.log("data", data);
   const cardsRef = useRef();
   const cardRef = useRef({});
+  const buttonRef = useRef({});
   const [isOpen, setIsOpen] = useState(0);
-  const navigate = useNavigate();
+  const [selectCards, setSelectCards] = useState("all");
+
+  console.log("data", data);
 
   const handleTogglePanelClick = () => {
     if (cardsRef.current) {
@@ -29,14 +33,39 @@ export default function WalkingMain() {
   };
 
   const selectAll = () => {
-    cardRef.current[0].classList.add("wm-info-header-selected");
-    cardRef.current[1].classList.remove("wm-info-header-selected");
+    buttonRef.current[0].classList.add("wm-info-header-selected");
+    buttonRef.current[1].classList.remove("wm-info-header-selected");
+    setSelectCards("all");
   };
 
   const selectComplete = () => {
-    cardRef.current[0].classList.remove("wm-info-header-selected");
-    cardRef.current[1].classList.add("wm-info-header-selected");
+    buttonRef.current[0].classList.remove("wm-info-header-selected");
+    buttonRef.current[1].classList.add("wm-info-header-selected");
+    setSelectCards("complete");
   };
+
+  const scrollToCard = (index) => {
+    if (cardRef.current[index] && isOpen == 1) {
+      cardRef.current[index].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen === 1) {
+      setTimeout(() => {
+        scrollToCard(appState.trailIndex);
+      }, 250);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen === 1) {
+      scrollToCard(appState.trailIndex);
+    }
+  }, [appState.trailIndex]);
 
   return (
     <div className="wm-container">
@@ -51,6 +80,7 @@ export default function WalkingMain() {
         <WalkingKaKaoMap TrailItem={data} />
       </div>
 
+      {/* content */}
       <div className="wm-info-list" ref={cardsRef}>
         <div
           className="wm-line"
@@ -62,7 +92,7 @@ export default function WalkingMain() {
         <div className="wm-info-header ">
           <div
             className="wm-info-header-selected"
-            ref={(el) => (cardRef.current[0] = el)}
+            ref={(el) => (buttonRef.current[0] = el)}
             onClick={() => {
               selectAll();
             }}
@@ -70,7 +100,7 @@ export default function WalkingMain() {
             전체 보기
           </div>
           <div
-            ref={(el) => (cardRef.current[1] = el)}
+            ref={(el) => (buttonRef.current[1] = el)}
             onClick={() => {
               selectComplete();
             }}
@@ -78,13 +108,20 @@ export default function WalkingMain() {
             완료
           </div>
         </div>
-        {data.map((TrailItem, idx) => {
-          return (
-            <>
-              <WalkingCard TrailItem={TrailItem} idx={idx} />
-            </>
-          );
-        })}
+        {data
+          .filter(
+            (TrailItem) =>
+              selectCards === "all" ||
+              TrailItem.landmarks.every((landmark) => landmark.visited)
+          )
+          .map((TrailItem, idx) => (
+            <WalkingCard
+              key={TrailItem._id} // 고유한 key 값
+              ref={(el) => (cardRef.current[idx] = el)} // 직접 WalkingCard에 ref 추가
+              TrailItem={TrailItem}
+              idx={idx}
+            />
+          ))}
       </div>
     </div>
   );
