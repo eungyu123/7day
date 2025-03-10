@@ -130,7 +130,7 @@ async function createRandomHatcheries() {
   // 30개의 랜덤한 Hatchery 데이터 생성
   const hatcheries = [];
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 8; i++) {
     const randomLat = Math.random() * (latRange[1] - latRange[0]) + latRange[0]; // 랜덤 위도 생성
     const randomLng = Math.random() * (lngRange[1] - lngRange[0]) + lngRange[0]; // 랜덤 경도 생성
 
@@ -147,12 +147,22 @@ async function createRandomHatcheries() {
 
   // Hatchery 데이터들 저장
   const savedHatcheries = await Hatchery.insertMany(hatcheries);
-  console.log("🏠 부화장 30개 저장 완료:", savedHatcheries);
+  console.log("🏠 부화장 15개 저장 완료:", savedHatcheries);
+}
+
+async function deleteAllHatcheries() {
+  try {
+    const result = await Hatchery.deleteMany({});
+    console.log(`🗑️ 부화장 삭제 완료: ${result.deletedCount}개 삭제됨`);
+  } catch (error) {
+    console.error("❌ 부화장 삭제 중 오류 발생:", error);
+  }
 }
 
 module.exports = {
   createSampleData1,
   createRandomHatcheries,
+  deleteAllHatcheries,
 };
 
 const landmarkDes =

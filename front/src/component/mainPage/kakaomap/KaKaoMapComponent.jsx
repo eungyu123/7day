@@ -77,9 +77,9 @@ export default function KaKaoMapComponent() {
 
   return (
     <>
-      {/* {isOpenHatchery && (
+      {isOpenHatchery && (
         <HatcheryModal setIsOpenHatchery={setIsOpenHatchery} />
-      )} */}
+      )}
 
       {/* {isOpenRewardModal && (
         <RewardModal

@@ -11,18 +11,22 @@ const connectDB = require("./db/connectDB");
 
 connectDB();
 
-const seed = require("./db/seed/seed");
+//  const seed = require("./db/seed/seed");
 //  seed.deleteDummyData();
 //  seed.insertDummyData();
 //  seed.deleteAllUserMissions();
 //  seed.insertWalkDummyData();
-// seed.deleteAllFriendLists();
+//  seed.deleteAllFriendLists();
 
 const middleware = require("./middleware/middleware");
 middleware(app);
 
-//
-// const seedEgg = require("./db/seedEgg");
+const seed = require("./db/seed");
+// seed.deleteAllHatcheries();
+// seed.createRandomHatcheries();
+const seedEgg = require("./db/seedEgg");
+//seedEgg.seedEggData();
+//seedEgg.seedUserEggData();
 // seed.createSampleData1();
 // seed.createRandomHatcheries();
 // seedEgg.seedEggData();
