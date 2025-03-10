@@ -11,6 +11,8 @@ import { getWalkData } from "../../api/walkApi";
 export default function FriendPageMain() {
   const { appState, dispatch } = useAppContext();
   const [friendData, setFriendData] = useState([]);
+  const [userRank, setuserRank] = useState(null);
+  const [RankText, setRankText] = useState(null);
   // const [loading, setLoading] = useState(true);
 
   // const friendrecord = [
@@ -79,6 +81,17 @@ export default function FriendPageMain() {
       const sortedData = updatedFriendData.sort((a, b) => b.steps - a.steps);
       setFriendData(sortedData);
 
+      const userRankIndex = sortedData.findIndex((friend) => friend.isSelf);
+      const firstPlaceSteps = sortedData[0]?.steps || 0;
+      const secondPlaceSteps = sortedData[1]?.steps || 0;
+
+      if (userRankIndex != 0) {
+        setRankText(`${firstPlaceSteps - userSteps}보만 더 걸으면 1위`);
+      } else {
+        setRankText(`2위랑 ${firstPlaceSteps - secondPlaceSteps}보 차이`);
+      }
+      setuserRank(userRankIndex + 1);
+
       const user = await getUser();
       dispatch(setUser({ user: user.data }));
     } catch (error) {
@@ -121,8 +134,8 @@ export default function FriendPageMain() {
       <div className="friendmaininfocontainer">
         <div className="friendmaininfotetext">
           <p className="friendmaininfotextlg">친구</p>
-          <p className="friendmaininfotextsm">현재 3위!</p>
-          <p className="friendmaininfotextsm">4000보만 더 걸으면 1위</p>
+          <p className="friendmaininfotextsm">현재 {userRank}위!</p>
+          <p className="friendmaininfotextsm">{RankText}</p>
         </div>
         <p
           className="emojifont font-xl"
