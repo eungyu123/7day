@@ -3,7 +3,36 @@ const Mission = require("../models/Mission"); // Mission 모델을 불러옴
 const Reward = require("../models/Reward"); // Reward 모델을 불러옴
 const UserMission = require("../models/UserMission");
 const User = require("../models/User");
-const WalkData = require("../models/WalkData");
+const mongoose = require("mongoose");
+const WalkData = require("../models/WalkData"); // WalkDataSchema가 정의된 파일
+
+// 사용자 ID (예시: '67c7ab335f743adc8dc272a3')
+const userId = "67c7ab335f743adc8dc272a3";
+
+// 2025년 3월 1일의 날짜
+const date = new Date("2025-03-01"); // Date 객체로 생성
+
+// 랜덤 걸음 수 (4000 ~ 12000 사이)
+const steps = Math.floor(Math.random() * (12000 - 4000 + 1)) + 4000;
+
+// WalkData 문서 생성
+const walkData = new WalkData({
+  userId: userId,
+  steps: steps,
+  date: date,
+});
+
+mongoose
+  .connect(
+    "mongodb+srv://gudwns1423:gudwns10113@pedometer-db.hjqd5.mongodb.net/pedometer?retryWrites=true&w=majority&appName=pedometer-DB"
+  )
+  .then(async () => {
+    // 데이터 삽입
+    await walkData.save();
+    console.log("WalkData for 2025-03-01 inserted");
+    mongoose.connection.close(); // 연결 종료
+  })
+  .catch((err) => console.error(err));
 
 // 더미 보상 데이터
 const rewardDummyData = [
@@ -77,33 +106,34 @@ const missionDummyData = [
   },
 ];
 
-const walkDummyData=[
+const walkDummyData = [
   {
-    userId:"67c7ab445f743adc8dc272a5",
-    steps:5000,
+    userId: "67c7ab445f743adc8dc272a5",
+    steps: 5000,
     date: new Date().toISOString(),
   },
-{
-  userId: "67c7ab4b5f743adc8dc272a7",
-  steps:12000,
-  date: new Date().toISOString(),
-},
-{ //I
-  userId:"67c7ab335f743adc8dc272a3",
-  steps:8300,
-  date: new Date().toISOString(),
-},
+  {
+    userId: "67c7ab4b5f743adc8dc272a7",
+    steps: 12000,
+    date: new Date().toISOString(),
+  },
+  {
+    //I
+    userId: "67c7ab335f743adc8dc272a3",
+    steps: 8300,
+    date: new Date().toISOString(),
+  },
 ];
 
 //걸음 수 추가
 const insertWalkDummyData = async () => {
-  try{const insertWalks = await WalkData.insertMany(walkDummyData);
-  console.log("✅ 걸음 데이터 삽입 완료!");
-  }
-  catch (error) {
+  try {
+    const insertWalks = await WalkData.insertMany(walkDummyData);
+    console.log("✅ 걸음 데이터 삽입 완료!");
+  } catch (error) {
     console.error("❌ 걸음 데이터 삽입 중 오류 발생:", error);
   }
-}
+};
 
 // 데이터베이스에 삽입하는 함수
 const insertDummyData = async () => {

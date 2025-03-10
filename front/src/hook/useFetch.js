@@ -7,21 +7,22 @@ import {
   getGifts,
   getUser,
   generateGift,
-  getUserFriend,
-  updateUserFriend,
 } from "../api/userApi";
+import { setHatchery, setUser } from "../context/reducer/action/action";
+import { getUser, generateGift } from "../api/userApi";
+import { getHatchery } from "../api/eggApi";
 
 export const useFetch = ({ appState, dispatch }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      await generateGift();
       const user = await getUser();
       dispatch(setUser({ user: user.data }));
-      // user사용하는 문에
-      // const user = await getUser();
-      //dispatch(setUser({ user: user.data }));
-      // 추가
+      const hatchery = await getHatchery();
+      dispatch(setHatchery({ hatchery: hatchery.data }));
+
       setLoading(false);
     };
     fetchData();

@@ -54,6 +54,7 @@ module.exports = {
       console.log("친구 목록:", friends);
       const friendDataList = await Promise.all(
         friends.map(async (friendId) => {
+          //각각의 friend 정보 찾는 함수
           const friend = await getUser({ params: { userId: friendId } });
           return {
             friendId: friend._id,
@@ -128,13 +129,8 @@ module.exports = {
       const user = await getUser(req, res);
 
       // 마지막 생성시간이 4시간보다 클때 생성
-
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
-      if (
-        Date.now() - new Date(lastGeneratedAt).getTime() >
-        1000 * 60 * 10
-        // 4 * 60 * 60 * 1000
-      ) {
+      if (Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10) {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }

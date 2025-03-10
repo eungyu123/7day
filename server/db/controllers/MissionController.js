@@ -3,11 +3,23 @@ const Mission = require("../models/Mission");
 module.exports = {
   createMission: async (req, res) => {
     const mission = new Mission(req.body);
+    if (!mission) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
     await mission.save();
     return mission;
   },
   getMissions: async (req, res) => {
     const missions = await Mission.find();
+    if (!missions) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
     return missions;
   },
   updateMission: async (req, res) => {
@@ -18,10 +30,22 @@ module.exports = {
         new: true,
       }
     );
+    if (!mission) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
     return mission;
   },
   deleteMission: async (req, res) => {
-    await Mission.findOneAndDelete({ _id: req.params.userId });
+    const result = await Mission.findOneAndDelete({ _id: req.params.userId });
+    if (!result) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
     return { message: "Mission deleted" };
   },
 };

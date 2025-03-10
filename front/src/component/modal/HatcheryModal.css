@@ -1,0 +1,98 @@
+.hatchery-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.hatchery-modal-Hatchery {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: var(--modal-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 50;
+}
+
+.hatchery-modal-Hatchery-title {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hatchery-modal-Hatchery-img {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url("../../assets/hatchery.png") no-repeat;
+  background-size: contain;
+  width: 150px;
+  height: 150px;
+}
+
+.hatchery-modal-egg-img {
+  position: absolute;
+  user-select: none;
+}
+
+.hatchery-modal-progress-bar-wrapper {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+
+  height: 20px;
+  background-color: #b7b7b7;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: none;
+}
+
+.hatchery-modal-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--toss-blue);
+  transition: all 2s ease-in-out;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.hatchery-modal-progress-bar-static {
+  height: 100%;
+  width: 0%;
+  background-color: var(--toss-blue);
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.hatchery-modal-egg-img-droped {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 82px;
+}
+
+.rotate-egg {
+  animation: shake 1s ease-in-out infinite alternate;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(-50%, -50%) rotate(-10deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(10deg);
+  }
+}

@@ -6,10 +6,18 @@ module.exports = {
     console.log("createusermission controller 진입");
 
     const userId = req.params.userId;
+    //미션 찾기
     const Missions = await Mission.find();
+    //에러 처리
+    if (!Missions) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
+    //미션들과 유저 결합하기
     const userMissions = await Promise.all(
       Missions.map(async (mission, index) => {
-
         const success = index === 1 || index === 2;
 
         const userMission = new UserMission({
@@ -66,16 +74,30 @@ module.exports = {
         message: "Mission ID is required to update",
       });
     }
-    
+
     const userMissions = await UserMission.findOneAndUpdate(
       { userId: req.params.userId },
-      { missionId, success, completedAt },
-      { new: true}
+      req.body,
+      { new: true }
     );
-    return userMissions;
+    if (!userMission) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
+    return userMission;
   },
   deleteUserMission: async (req, res) => {
-    await UserMission.findOneAndDelete({ userId: req.params.userId });
+    const result = await UserMission.findOneAndDelete({
+      userId: req.params.userId,
+    });
+    if (!result) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
     return { message: "UserMission deleted" };
   },
 };

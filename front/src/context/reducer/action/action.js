@@ -71,3 +71,31 @@ export function setMission({ missions }) {
     payload: { missions },
   };
 }
+
+export function setHatchery({ hatchery }) {
+  return {
+    type: actionType.setHatchery,
+    payload: { hatchery },
+  };
+}
+
+export function setTrailLocation({ trailLocation }) {
+  return {
+    type: actionType.setTrailLocation,
+    payload: { trailLocation },
+  };
+}
+
+export function setTrailIndex({ trailIndex }) {
+  return {
+    type: actionType.setTrailIndex,
+    payload: { trailIndex },
+  };
+}
+
+export function setTrailRandmarkIndex({ trailRandmarkIndex }) {
+  return {
+    type: actionType.setTrailRandmarkIndex,
+    payload: { trailRandmarkIndex },
+  };
+}

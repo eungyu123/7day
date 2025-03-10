@@ -4,6 +4,7 @@ const {
   getTodayWalkData,
 } = require("../db/controllers/WalkDataController");
 
+const Walk = require("../db/models/WalkData");
 module.exports = {
   getStep: async (req, res) => {
     try {
@@ -16,14 +17,15 @@ module.exports = {
         stepRecords: walkData,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: "Failed to fetch data" });
     }
   },
 
-  getTodayWalkData:async (req, res) => {
+  getTodayWalkData: async (req, res) => {
     try {
       console.log("getTodatWalkData");
-      
+
       const walkData = await getTodayWalkData(req, res);
       res.status(200).json({
         type: "success",
@@ -35,25 +37,30 @@ module.exports = {
     }
   },
 
-  updateStep: async (req, res) => {
+  updateDailyWalkData: async (req, res) => {
     try {
-      const startOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0); // 오늘의 시작 시간 (00:00:00)
-      req.body.startDay = startOfDay;
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999); // 오늘의 끝 시간 (23:59:59)
-      req.body.endDay = endOfDay;
-      const walkData = await updateWalkData(req, res);
-      res.status(200).json({
-        type: "success",
-        message: "WalkData updated",
-        data: walkData,
-      });
+      const { userId } = req.params;
+      const { steps } = req.body;
+
+      if (!steps || typeof steps !== "number" || steps < 0) {
+        console.log(!steps, typeof steps !== "number", steps < 0);
+        return res
+          .status(400)
+          .json({ type: "error", message: "Invalid steps value" });
+      }
+
+      const today = new Date().setHours(0, 0, 0, 0);
+
+      const result = await Walk.findOneAndUpdate(
+        { userId: userId, date: { $gte: today } }, // 조건: googleId + 오늘 날짜
+        { $inc: { steps } }, // steps 값 증가
+        { new: true, upsert: true } // 없으면 새로 생성
+      );
+      console.log(result);
+      res.status(200).json({ type: "success", result });
     } catch (error) {
-      res.status(500).json({
-        type: "error",
-        message: "fetching update failed",
-      });
+      console.log(error);
+      res.status(500).json({ type: "error", message: "서버 오류", error });
     }
   },
 };

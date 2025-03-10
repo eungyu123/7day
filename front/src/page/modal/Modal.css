@@ -52,3 +52,36 @@
   border: none;
   border-radius: var(--button-radius);
 }
+.modal-small-button {
+  padding: 5px 10px;
+  margin: 7px;
+  margin-top: 15px;
+  border-radius: 7px;
+  color: white;
+}
+
+.modal-cancel {
+  background: red;
+}
+
+.modal-confirm {
+  background: var(--toss-blue);
+}
+
+/*
+        <Dialog.Content className="modal-content">
+          <div className="modal-body">
+            <p className="modal-message">구매하시겠습니까?</p>
+            <div className="modal-buttons">
+              <Dialog.Close asChild>
+                <button className="modal-cancel-button">취소</button>
+              </Dialog.Close>
+              <button
+                className="modal-confirm-button"
+                onClick={() => console.log("구매 완료!")}
+              >
+                {confirmName}
+              </button>
+            </div>
+          </div>
+*/

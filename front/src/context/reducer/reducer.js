@@ -73,6 +73,32 @@ export function appReducer(state, action) {
       };
     }
 
+    case actionType.setHatchery: {
+      return {
+        ...state,
+        hatchery: action.payload.hatchery,
+      };
+    }
+
+    case actionType.setTrailLocation: {
+      return {
+        ...state,
+        trailLocation: action.payload.trailLocation,
+      };
+    }
+    case actionType.setTrailIndex: {
+      console.log(action.payload.trailIndex);
+      return {
+        ...state,
+        trailIndex: action.payload.trailIndex,
+      };
+    }
+    case actionType.setTrailRandmarkIndex: {
+      return {
+        ...state,
+        trailRandmarkIndex: action.payload.trailRandmarkIndex,
+      };
+    }
     default:
       return state;
   }

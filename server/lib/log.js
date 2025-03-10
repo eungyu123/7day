@@ -8,7 +8,7 @@ const {
 module.exports = {
   createLog: async (req, res) => {
     try {
-      req.body.date = new Date();
+      req.body.date = new Date().toISOString();
       const log = await createLog(req, res);
       res.status(200).send({
         type: "success",

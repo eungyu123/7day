@@ -30,7 +30,7 @@
   transition: all 1s ease-in-out;
 }
 .fade-y-out-rotate {
-  animation: fade-y-out-rotate 1s ease-in-out forwards;
+  animation: fade-y-out-rotate 1.2s ease-in-out forwards;
 }
 
 .imgWrapper {
@@ -40,11 +40,19 @@
   height: 40px;
 }
 
+.imgWrapperHatchery {
+  background: url("../../../assets/hatchery.png") no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
 @keyframes fade-y-out-rotate {
   0% {
     transform: translateY(0) rotateY(0deg);
   }
   100% {
-    transform: translateY(-50px) rotateY(360deg);
+    transform: translateY(-30px) rotateY(420deg);
   }
 }

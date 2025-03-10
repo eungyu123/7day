@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 
+// 67c7ab335f743adc8dc272a3
 //Express 앱 생성
 const port = 3000;
 const app = express();
+const path = require("path");
 
 const connectDB = require("./db/connectDB");
 
@@ -18,6 +20,14 @@ const seed = require("./db/seed/seed");
 
 const middleware = require("./middleware/middleware");
 middleware(app);
+
+//
+app.use("/image", express.static("image"));
+const seed = require("./db/seed");
+const seedEgg = require("./db/seedEgg");
+// seed.createSampleData1();
+// seed.createRandomHatcheries();
+// seedEgg.seedEggData();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
@@ -39,6 +49,12 @@ app.use("/store", storeRouter);
 
 const walkdataRouter = require("./router/walkdataRouter");
 app.use("/walkdatas", walkdataRouter);
+
+const trailRouter = require("./router/trailRouter");
+app.use("/trail", trailRouter);
+
+const eggRouter = require("./router/eggRouter");
+app.use("/egg", eggRouter);
 
 app.listen(port, () => {
   console.log(`✅ server running on port ${port}`);
