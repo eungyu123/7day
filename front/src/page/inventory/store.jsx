@@ -44,7 +44,7 @@ export default function Store() {
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
           />
-          {/* {console.log("characterItems: ",characterItems)} */}
+          {console.log("characterItems: ", characterItems)}
           <div className="inventory-main">
             {selectedTab === "character"
               ? characterItems.map((item) => (

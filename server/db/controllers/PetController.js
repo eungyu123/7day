@@ -13,7 +13,12 @@ module.exports = {
       if (user.userPoint < pet.price) throw new Error("포인트 부족");
 
       user.userPoint -= pet.price;
-      user.petList.push({ petId: pet._id });
+      user.petList.push({
+        petId: pet._id,
+        petName: pet.petName,
+        price: pet.price,
+        petLink: pet.petLink,
+      });
       await user.save();
       return user;
     } catch (error) {
