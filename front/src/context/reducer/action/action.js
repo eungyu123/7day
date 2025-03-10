@@ -64,6 +64,14 @@ export function setUser({ user }) {
   };
 }
 
+export function setMission({ missions }) {
+  console.log("missions", missions);
+  return {
+    type: actionType.setMission,
+    payload: { missions },
+  };
+}
+
 export function setHatchery({ hatchery }) {
   return {
     type: actionType.setHatchery,
@@ -89,12 +97,5 @@ export function setTrailRandmarkIndex({ trailRandmarkIndex }) {
   return {
     type: actionType.setTrailRandmarkIndex,
     payload: { trailRandmarkIndex },
-  };
-}
-export function setMission({ missions }) {
-  console.log("missions", missions);
-  return {
-    type: actionType.setMission,
-    payload: { missions },
   };
 }

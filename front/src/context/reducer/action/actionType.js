@@ -7,9 +7,9 @@ export const actionType = {
   setGifts: "setGifts",
   removeGift: "removeGift",
   setUser: "setUser",
+  setMission: "setMission",
   setHatchery: "setHatchery",
   setTrailLocation: "setTrailLocation",
   setTrailIndex: "setTrailIndex",
   setTrailRandmarkIndex: "setTrailRandmarkIndex",
-  setMission: "setMission",
 };

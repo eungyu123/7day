@@ -48,7 +48,6 @@ module.exports = {
       console.log("getFriends 진입");
 
       const user = await getUser(req, res);
-
       // friendlist에서 friendid 추출
       const friends = user.friendList.map((f) => f.friend_id);
       console.log("친구 목록:", friends);
@@ -56,10 +55,10 @@ module.exports = {
         friends.map(async (friendId) => {
           //각각의 friend 정보 찾는 함수
           const friend = await getUser({ params: { userId: friendId } });
+          console.log("friendid로 get user", friend);
           return {
             friendId: friend._id,
-            friendName: friend.name,
-            steps: friend.steps,
+            friendName: friend.nickname,
           };
         })
       );
