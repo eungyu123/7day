@@ -7,16 +7,16 @@ module.exports = {
       const user = await User.findById(userId);
       const character = await Character.findById(characterId);
 
-      if(!user) throw new Error("존재X 유저");
-      if(!character) throw new Error("존재X 캐릭터");
+      if (!user) throw new Error("존재X 유저");
+      if (!character) throw new Error("존재X 캐릭터");
 
-      if(user.userPoint < character.price) throw new Error("포인트 부족");
+      if (user.userPoint < character.price) throw new Error("포인트 부족");
 
       user.userPoint -= character.price;
-      user.characterList.push({characterId: character._id});
+      user.characterList.push({ characterId: character._id });
       await user.save();
       return user;
-    } catch(error) {
+    } catch (error) {
       throw error;
     }
   },
@@ -29,10 +29,10 @@ module.exports = {
     try {
       const user = await User.findById(userId);
 
-      if(!user) return [];
+      if (!user) return [];
 
       // const characters = await Character.find();
-      const characters = user.characterList.map((c)=> c.characterId);
+      const characters = user.characterList.map((c) => c.characterId);
       return await Character.find({ _id: { $nin: characters } });
     } catch (error) {
       console.error("Error fetching characters:", error);

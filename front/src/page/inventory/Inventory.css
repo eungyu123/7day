@@ -6,8 +6,13 @@
   flex-direction: column;
 }
 .character-viewer {
+  position: relative;
   width: 100%;
   height: 350px;
+  max-height: 350px;
+  border: 1px solid #ccc;
+  background-color: lightblue;
+  flex-shrink: 0;
 }
 .inventory {
   height: calc(100% - 350px);

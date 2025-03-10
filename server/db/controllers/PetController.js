@@ -7,16 +7,16 @@ module.exports = {
       const user = await User.findById(userId);
       const pet = await Pet.findById(petId);
 
-      if(!user) throw new Error("존재X 유저");
-      if(!pet) throw new Error("존재X 펫펫");
+      if (!user) throw new Error("존재X 유저");
+      if (!pet) throw new Error("존재X 펫펫");
 
-      if(user.userPoint < pet.price) throw new Error("포인트 부족");
+      if (user.userPoint < pet.price) throw new Error("포인트 부족");
 
       user.userPoint -= pet.price;
-      user.petList.push({petId: pet._id});
+      user.petList.push({ petId: pet._id });
       await user.save();
       return user;
-    } catch(error) {
+    } catch (error) {
       throw error;
     }
   },
@@ -29,9 +29,9 @@ module.exports = {
     try {
       const user = await User.findById(userId);
 
-      if(!user) return [];
+      if (!user) return [];
 
-      const pets = user.petList.map((p)=> p.petId);
+      const pets = user.petList.map((p) => p.petId);
       return await Pet.find({ _id: { $nin: pets } });
     } catch (error) {
       console.error("Error fetching characters:", error);

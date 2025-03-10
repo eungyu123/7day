@@ -9,7 +9,7 @@ import ConfirmCancelModal from "../../component/modal/ConfirmCancelModal";
 
 // import { setCharacter, setPet } from "../../context/reducer/action/action";
 import Header from "../../component/common/header/Header";
-import {getStore} from "../../api/storeApi";
+import { getStore } from "../../api/storeApi";
 
 export default function Store() {
   const { appState, dispatch } = useAppContext();
@@ -21,16 +21,16 @@ export default function Store() {
   const [characterItems, setCharacterItems] = useState([]);
   const [petItems, setPetItems] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchStoreData = async () => {
       try {
         const data = await getStore();
         setCharacterItems(data.characters || []);
         setPetItems(data.pets || []);
-      } catch(error) {
+      } catch (error) {
         console.error("상점 데이터 불러오기 실패: ", error);
       }
-    } 
+    };
     fetchStoreData();
   }, []);
 
@@ -54,7 +54,7 @@ export default function Store() {
                     name={item.characterName}
                     isSelected={appState.character === item.characterName}
                     onClick={() => {
-                      setSelectedItem({type:"character", ...item});  
+                      setSelectedItem({ type: "character", ...item });
                       setIsModalOpen(true);
                     }}
                   />
@@ -66,7 +66,7 @@ export default function Store() {
                     name={item.petName}
                     isSelected={appState.pet === item.petName}
                     onClick={() => {
-                      setSelectedItem({type:"pet", ...item});  
+                      setSelectedItem({ type: "pet", ...item });
                       setIsModalOpen(true);
                     }}
                   />

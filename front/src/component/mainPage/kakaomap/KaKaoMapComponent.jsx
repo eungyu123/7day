@@ -101,7 +101,7 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            <div className="imgWrapper"></div>
+            <ThreeDModel location={location} />
           </CustomOverlayMap>
         )}
 
