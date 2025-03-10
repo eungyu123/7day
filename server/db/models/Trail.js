@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const LandmarkSchema = new mongoose.Schema({
   name: { type: String, required: true }, // 명소 이름
   image: { type: String },
+  description: { type: String },
+  address: { type: String },
   location: {
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
@@ -13,11 +15,13 @@ const LandmarkSchema = new mongoose.Schema({
 // 산책로 스키마
 const TrailSchema = new mongoose.Schema({
   name: { type: String, required: true }, // 산책로 이름
+  address: { type: String },
+  description: { type: String },
   location: {
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
   }, // 산책로 좌표 (위도, 경도)
-  distance: { type: Number },
+  distance: { type: String },
   image: { type: String }, // 산책로 이미지 URL
   landmarks: [LandmarkSchema], // 명소 마커 배열
 });
@@ -32,8 +36,15 @@ const UserTrailSchema = new mongoose.Schema({
   visitedLandmarks: [
     {
       landmarkId: { type: String }, // 명소 ID (String, Landmark 모델 참조)
-      landmarkname: { type: String },
+      name: { type: String, required: true }, // 명소 이름
+      image: { type: String },
+      description: { type: String },
+      location: {
+        lat: { type: Number, required: true },
+        lng: { type: Number, required: true },
+      }, // 명소 위치 (위도, 경도)
       visited: { type: Boolean, default: false },
+      visitedAt: { type: Date },
     },
   ], // 방문한 명소 체크
 });

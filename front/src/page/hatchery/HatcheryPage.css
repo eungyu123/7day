@@ -1,40 +1,77 @@
-.hatchery-container-wrapper {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  max-width: "767px";
-  margin: "auto";
-  background-color: "#fff";
-}
-
-.hatchery-container {
+.hatchery-page-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 400px;
-  margin-bottom: var(--margin-top-md);
-}
-
-.hatchery-container-egg-count {
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  font-size: var(--font-lg);
-  padding: 6px 12px;
+  height: 320px;
   background-color: white;
-  border-radius: 24px;
+  border: 1px solid black;
+  padding-top: 40px;
+  gap: 8px;
 }
 
-.hatchery-progress-bar-wrapper {
-  position: absolute;
-  right: 50%;
-  bottom: 75px;
-  transform: translateX(50%);
-  width: 70%;
-  height: 30px;
-  background-color: var(--toss-gray);
+.hatchery-page-progress-bar-wrapper {
+  width: 50%;
+  height: 20px;
+  background-color: #b7b7b7;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: block;
 }
 
-.hatchery-progress-bar {
+.hatchery-page-progress-bar {
   height: 100%;
+  width: 0%;
   background-color: var(--toss-blue);
+  transition: all 2s ease-in-out;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.hatchery-page-Hatchery-img {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url("../../assets/hatchery.png") no-repeat;
+  background-size: contain;
+  width: 150px;
+  height: 150px;
+}
+
+.hatchery-page-egg-img {
+  position: absolute;
+  user-select: none;
+}
+
+.hatchery-page-progress-bar-static {
+  height: 100%;
+  width: 0%;
+  background-color: var(--toss-blue);
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.hatchery-page-egg-img-droped {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 82px;
+  user-select: none;
+}
+
+.rotate-egg {
+  animation: shake 1s ease-in-out infinite alternate;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(-50%, -50%) rotate(-10deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(10deg);
+  }
 }

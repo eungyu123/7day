@@ -1,8 +1,11 @@
 import { useFetchEgg } from "../../reactQuery/useEgg";
 import "./HatcheryModal.css";
 import { useState, useEffect, useRef } from "react";
+import { updateEggState } from "../../api/eggApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function HatcheryModal({ setIsOpenHatchery }) {
+  const queryClient = useQueryClient(); // queryClient 가져오기
   const eggRef = useRef({});
   const iconEggRef = useRef({});
   const barWrapperRef = useRef(null);
@@ -16,16 +19,16 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
 
   const { data } = useFetchEgg();
 
-  console.log("data", data);
   useEffect(() => {
-    const styles = [];
-    for (let i = 0; i < 30; i++) {
-      styles.push({
-        top: `${randomPositionTop()}%`, // top 위치
-        left: `${randomPositionLeft()}%`, // left 위치
-        transform: `rotate(${randomRotate()}deg) translate(80%, 50%)`, // 회전 및 이동
-      });
+    const hatchingEgg = data.data.find((egg) => egg.state == "hatching");
+
+    if (hatchingEgg) {
+      setIsHatching(hatchingEgg.eggType);
+      setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
     }
+
+    const styles = getRandomPosition({ Count: data.data.length });
+
     setEggStyles(styles); // 상태 업데이트
     setLoading(false); // 로딩 완료 후 상태 변경
   }, []);
@@ -64,15 +67,29 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
     barWrapperRef.current.style.display = "block";
     //progressBarRef.current.classList.add("full-width"); // 클래스 추가
     setProgress(100); // 드래그하면 progress 바가 100%로 채워짐
-    console.log("set1", progress);
+    console.log("set2", eggRef.current[item]);
   };
 
   const handleDrop = (e, i) => {
     e.preventDefault();
     const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
-    console.log("set2", progress);
+    console.log(
+      "set2",
+      eggRef.current[item],
+      eggRef.current[item].dataset.eggid
+    );
+
+    const updateEgg = async () => {
+      const result = await updateEggState({
+        eggId: eggRef.current[item].dataset.eggid,
+      });
+      if (result.type == "success") {
+        queryClient.invalidateQueries("eggs");
+      }
+    };
 
     if (timeFinished == true) {
+      updateEgg();
       const draggedElement = eggRef.current[item];
       const iconEggElement = iconEggRef.current[item];
       draggedElement.style.position = "absolute";
@@ -88,12 +105,13 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
 
   const renderEggs = () => {
     return data.data
+      .slice(0, eggStyles.length)
       .filter((v) => v.state == "unhatched")
       .map((egg, i) => (
         <div
           key={i}
           ref={(el) => (eggRef.current[i] = el)}
-          data-eggId={egg._id}
+          data-eggid={egg._id}
           draggable="true"
           onDragStart={(e) => handleDragStart(e, i)}
           onDragEnd={(e) => handleDragEnd(e, i)}
@@ -107,6 +125,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
         >
           <span
             ref={(el) => (iconEggRef.current[i] = el)}
+            data-eggid={egg._id}
             className="material-symbols-outlined"
             style={{
               fontVariationSettings: "'FILL' 1",
@@ -139,8 +158,8 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
               ref={barWrapperRef}
             >
               <div
-                className="hatchery-modal-progress-bar-static "
-                style={{ width: "80%" }} // 진행 상태에 따라 width가 변화
+                className="hatchery-modal-progress-bar "
+                style={{ width: `${progress}%` }}
                 ref={progressBarRef}
               ></div>
             </div>
@@ -150,7 +169,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
                 className="material-symbols-outlined"
                 style={{
                   fontVariationSettings: "'FILL' 1",
-                  color: colors[1],
+                  color: colors[isHatching - 1],
                   fontSize: "82px",
                 }}
               >
@@ -204,4 +223,49 @@ const randomPositionLeft = () => {
 
 const randomRotate = () => {
   return Math.random() * 50 - 25; // -20도 ~ 20도 사이의 무작위 회전
+};
+function getDistance(x1, y1, x2, y2) {
+  return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+}
+
+const getRandomPosition = ({ Count }) => {
+  const styles = [];
+  const positions = [];
+  const maxAttempts = 20; // 중복 방지 최대 시도 횟수
+  const minDistance = 6; // 최소 거리 (단위: %)
+
+  for (let i = 0; i < Count; i++) {
+    let attempt = 0;
+    let top, left;
+    let isValid = false;
+
+    while (attempt < maxAttempts) {
+      top = randomPositionTop();
+      left = randomPositionLeft();
+
+      if (
+        positions.every(
+          (pos) => getDistance(pos.top, pos.left, top, left) >= minDistance
+        )
+      ) {
+        isValid = true;
+        break;
+      }
+      attempt++;
+    }
+
+    if (!isValid) {
+      break;
+    }
+
+    positions.push({ top, left });
+
+    styles.push({
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `rotate(${randomRotate()}deg) translate(80%, 50%)`,
+    });
+  }
+
+  return styles;
 };

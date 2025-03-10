@@ -30,14 +30,16 @@ export const getHatchery = async () => {
   }
 };
 
+// eggId, steps
+
 export const updateEggState = async ({ eggId }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/egg/${userId}`, {
-      method: "POST",
+    const res = await fetch(`${API_BASE_URL}/egg/state/${userId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ eggId, steps }),
+      body: JSON.stringify({ eggId }),
       // credentials: "include",
     });
     return res.json();
@@ -46,14 +48,14 @@ export const updateEggState = async ({ eggId }) => {
   }
 };
 
-export const updateEggStep = async ({ eggId, steps }) => {
+export const updateEggStep = async ({ steps }) => {
   try {
     const res = await fetch(`${API_BASE_URL}/egg/${userId}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ eggId, steps }),
+      body: JSON.stringify({ steps }),
       // credentials: "include",
     });
     return res.json(); // { eggId : string, state : string, currentStep : Number}

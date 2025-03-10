@@ -18,7 +18,7 @@ const UserEggSchema = new mongoose.Schema(
     eggType: { type: String, required: true }, //  // 1,2,3 금, 은, 동
     currentStep: { type: Number, default: 0 }, // 현재 걸음 수
     goalWalk: { type: Number }, // 목표 걸음 수
-    state: { type: String, required: true }, // 상태 (e.g., "incubating", "hatched")
+    state: { type: String, required: true }, // 상태 (e.g., "unhatched", "hatching", "hatched")
     petLink: { type: String }, // 부화 시 연결된 펫
   },
   { timestamps: true, collection: "usereggs" }
