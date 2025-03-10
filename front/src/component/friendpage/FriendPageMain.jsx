@@ -7,13 +7,14 @@ import { useAppContext } from "../../context/context";
 import { setUser } from "../../context/reducer/action/action";
 // import { userId } from "../../constant/constant";
 import { getWalkData } from "../../api/walkApi";
+import FriendAddModal from "../modal/FriendAddModal";
 
 export default function FriendPageMain() {
   const { appState, dispatch } = useAppContext();
   const [friendData, setFriendData] = useState([]);
   const [userRank, setuserRank] = useState(null);
   const [RankText, setRankText] = useState(null);
-  // const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const friendrecord = [
   //   { friendName: "조유민", steps: 14000 },
@@ -22,6 +23,7 @@ export default function FriendPageMain() {
   //   { friendName: "박형준", steps: 4000 },
   //   { friendName: "안철수", steps: 2000 },
   // ];
+
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -98,9 +100,6 @@ export default function FriendPageMain() {
       console.error("친구 목록 가져오기 실패:", error.message);
       alert("친구 목록을 가져오는 데 실패했습니다.");
     }
-    // finally {
-    //   setLoading(false); // 로딩 완료
-    // }
   };
 
   // useEffect로 컴포넌트 마운트 시 친구 목록을 가져오기
@@ -112,23 +111,6 @@ export default function FriendPageMain() {
 
   // 67c7ab335f743adc8dc272a3, 67c7ab445f743adc8dc272a5, 67c7ab4b5f743adc8dc272a7
 
-  const friendid = "67c7ab4b5f743adc8dc272a7";
-
-  const handleFriendUpdate = async (friendid) => {
-    try {
-      await updateUserFriend({ friendid });
-      const user = await getUser();
-      dispatch(setUser({ user: user.data }));
-    } catch (error) {
-      console.error("친구 업데이트 실패:", error.message);
-      alert("친구 업데이트에 실패했습니다.");
-    }
-  };
-
-  // if (loading) {
-  //   return <div>Loading...</div>; // 로딩 중일 때 화면 표시
-  // }
-
   return (
     <div className="friendmaincontainer">
       <div className="friendmaininfocontainer">
@@ -139,12 +121,17 @@ export default function FriendPageMain() {
         </div>
         <p
           className="emojifont font-xl"
-          onClick={() => {
-            handleFriendUpdate(friendid);
-          }}
+          onClick={() => setIsModalOpen(true)}
+          style={{ cursor: "pointer" }}
         >
           📩
         </p>
+        <FriendAddModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          updateUserFriend={updateUserFriend}
+          refreshFriendList={fetchFriendData}
+        />
       </div>
       {/* {friendrecord.map((friend, index) => (
         <FriendRank

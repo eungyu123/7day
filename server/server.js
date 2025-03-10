@@ -16,7 +16,7 @@ const seed = require("./db/seed/seed");
 //  seed.insertDummyData();
 //  seed.deleteAllUserMissions();
 // seed.insertWalkDummyData();
-// seed.deleteAllFriendLists();
+//seed.deleteAllFriendLists();
 
 const middleware = require("./middleware/middleware");
 middleware(app);
