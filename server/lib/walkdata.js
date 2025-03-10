@@ -22,21 +22,6 @@ module.exports = {
     }
   },
 
-  getTodayWalkData: async (req, res) => {
-    try {
-      console.log("getTodatWalkData");
-
-      const walkData = await getTodayWalkData(req, res);
-      res.status(200).json({
-        type: "success",
-        message: "WalkData found",
-        data: walkData,
-      });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch data" });
-    }
-  },
-
   updateDailyWalkData: async (req, res) => {
     try {
       const { userId } = req.params;

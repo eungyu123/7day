@@ -132,12 +132,6 @@ const walkDummyData = [
     steps: 12000,
     date: new Date().toISOString(),
   },
-  {
-    //I
-    userId: "67c7ab335f743adc8dc272a3",
-    steps: 8300,
-    date: new Date().toISOString(),
-  },
 ];
 
 //걸음 수 추가
