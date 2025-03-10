@@ -20,7 +20,13 @@ export function getKaclFromSteps(steps) {
   return steps * 0.04;
 }
 export function getKmFromSteps(steps) {
-  return steps * 0.0007;
+  const str = String(steps * 0.0007).split(".");
+
+  if (str[1] && str[1].length > 2) {
+    return parseFloat(str[0] + "." + str[1].slice(0, 2));
+  }
+
+  return parseFloat(steps * 0.0007);
 }
 
 export function getDecimalPlaces(num) {

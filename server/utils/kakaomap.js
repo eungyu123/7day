@@ -5,7 +5,6 @@ module.exports = {
   generateRandomGifts: async function ({ lat, lng }) {
     const count = 20;
     const eggs = await Egg.find();
-    console.log("lat", lat, "lng", lng);
 
     if (!eggs) {
       console.log("!eggs");
@@ -19,14 +18,6 @@ module.exports = {
         return {
           gift: "포인트",
           reward: Math.floor(Math.random() * 5) + 1,
-          lat: lat + (Math.random() - 0.5) / 100,
-          lng: lng + (Math.random() - 0.5) / 100,
-        };
-      } else {
-        const randomEgg = eggs[Math.floor(Math.random() * eggs.length)];
-        return {
-          gift: "알",
-          eggId: randomEgg._id.toString(),
           lat: lat + (Math.random() - 0.5) / 100,
           lng: lng + (Math.random() - 0.5) / 100,
         };

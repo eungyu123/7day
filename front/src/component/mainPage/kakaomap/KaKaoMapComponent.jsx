@@ -76,8 +76,6 @@ export default function KaKaoMapComponent() {
     setIsOpenHatchery(true);
   }
 
-  console.log("user.gifts", user.gifts);
-
   return (
     <>
       {/* {isOpenHatchery && (
