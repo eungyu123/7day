@@ -17,7 +17,7 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
-    console.log("getuser controller 진입");
+    console.log("get user controller 진입");
     const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(400).json({
@@ -28,17 +28,19 @@ module.exports = {
 
     return user;
   },
-  updateUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
-      new: true,
-    });
-    if (!user) {
-      return res.status(400).json({
-        type: "error",
-        message: "user searching failed",
-      });
+  updateUser: async (userId, { newCharacter, newPet }) => {
+    try {
+      const user = await User.findById(userId);
+      if (!user) throw new Error("User not found");
+
+      if (newCharacter) user.characterList.push(newCharacter);
+      if (newPet) user.petList.push(newPet);
+
+      await user.save();
+      return user;
+    } catch (error) {
+      throw error;
     }
-    return user;
   },
   deleteUser: async (req, res) => {
     const result = await User.findByIdAndDelete(req.params.userId);

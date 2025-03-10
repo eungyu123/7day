@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import "./Inventory.css";
 import "../../index.css";
@@ -9,42 +9,36 @@ import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
+import { updateInventoryData } from "../../api/inventoryApi";
 
 export default function Inventory() {
   const { appState, dispatch } = useAppContext();
   console.log(appState, dispatch);
 
   const [selectedTab, setSelectedTab] = useState("character");
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [selectedPet, setSelectedPet] = useState(null);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [characterItems, setCharacterItems] = useState([]);
+  const [petItems, setPetItems] = useState([]);
 
-  // 캐릭터, 펫 임시 데이터
-  const characterItems = [
-    { type: "character", itemName: "character1" },
-    { type: "character", itemName: "character2" },
-    { type: "character", itemName: "character3" },
-    { type: "character", itemName: "character4" },
-    { type: "character", itemName: "character5" },
-    { type: "character", itemName: "character6" },
-    { type: "character", itemName: "character7" },
-    { type: "character", itemName: "character8" },
-    { type: "character", itemName: "character9" },
-    { type: "character", itemName: "character10" },
-  ];
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const response = await updateInventoryData({
+          newCharacter: null,
+          newPet: null,
+        });
 
-  const petItems = [
-    { id: 1, type: "pet", itemName: "pet1" },
-    { id: 2, type: "pet", itemName: "pet2" },
-    { id: 3, type: "pet", itemName: "pet3" },
-    { id: 4, type: "pet", itemName: "pet4" },
-    { id: 5, type: "pet", itemName: "pet5" },
-    { id: 6, type: "pet", itemName: "pet6" },
-    { id: 7, type: "pet", itemName: "pet7" },
-    { id: 8, type: "pet", itemName: "pet8" },
-    { id: 9, type: "pet", itemName: "pet9" },
-  ];
+        if (response.type === "success") {
+          setCharacterItems(response.data.characterList || []);
+          setPetItems(response.data.petList || []);
+        }
+      } catch (error) {
+        console.error("인벤토리 불러오기 실패: ", error);
+      }
+    };
+
+    fetchInventory();
+  }, []);
 
   return (
     <>
@@ -56,11 +50,14 @@ export default function Inventory() {
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
           />
+          {console.log("유저의 캐릭터 리스트: ", characterItems)}
           <div className="inventory-main">
             {selectedTab === "character"
               ? characterItems.map((item) => (
                   <InventoryItem
-                    key={item.itemName}
+                    key={item._id}
+                    img={item.characterLink}
+                    name={item.characterName}
                     isSelected={appState.character === item.itemName}
                     onClick={() => {
                       dispatch(setCharacter({ character: item.itemName }));
@@ -69,10 +66,12 @@ export default function Inventory() {
                 ))
               : petItems.map((item) => (
                   <InventoryItem
-                    key={item.itemName}
-                    isSelected={appState.pet === item.itemName}
+                    key={item._id}
+                    img={item.petLink}
+                    name={item.petName}
+                    isSelected={appState.pet === item.petName}
                     onClick={() => {
-                      dispatch(setPet({ pet: item.itemName }));
+                      dispatch(setPet({ pet: item.petName }));
                     }}
                   />
                 ))}
