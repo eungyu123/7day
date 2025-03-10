@@ -9,9 +9,23 @@ const UserSchema = new mongoose.Schema(
     googleId: { type: String, required: true },
     userPoint: { type: Number, required: true },
     pet: { type: String },
-    petList: [{ petId: { type: String } }],
+    petList: [
+      {
+        petId: { type: String, required: true },
+        petName: { type: String, required: true },
+        price: { type: Number, required: true },
+        petLink: { type: String, required: true },
+      },
+    ],
     character: { type: String },
-    characterList: [{ characterId: { type: String } }],
+    characterList: [
+      {
+        characterId: { type: String, required: true },
+        characterName: { type: String, required: true },
+        price: { type: Number, required: true },
+        characterLink: { type: String, required: true },
+      },
+    ],
     rewardList: [{ rewardId: { type: String } }],
     gifts: [
       {

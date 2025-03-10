@@ -58,9 +58,9 @@ export default function Inventory() {
                     key={item._id}
                     img={item.characterLink}
                     name={item.characterName}
-                    isSelected={appState.character === item.itemName}
+                    isSelected={appState.character === item.characterName}
                     onClick={() => {
-                      dispatch(setCharacter({ character: item.itemName }));
+                      dispatch(setCharacter({ character: item.characterName }));
                     }}
                   />
                 ))
