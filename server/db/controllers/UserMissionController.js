@@ -80,13 +80,13 @@ module.exports = {
       req.body,
       { new: true }
     );
-    if (!userMission) {
+    if (!userMissions) {
       return res.status(400).json({
         type: "error",
         message: "Mission searching failed",
       });
     }
-    return userMission;
+    return userMissions;
   },
   deleteUserMission: async (req, res) => {
     const result = await UserMission.findOneAndDelete({

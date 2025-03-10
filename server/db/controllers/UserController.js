@@ -25,6 +25,7 @@ module.exports = {
         message: "user searching failed",
       });
     }
+
     return user;
   },
   updateUser: async (req, res) => {
