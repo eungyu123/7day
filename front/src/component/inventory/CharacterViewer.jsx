@@ -9,10 +9,7 @@ export default function CharacterViewer() {
   return (
     <div className="character-viewer">
       {/* 3D 이미지 넣을 공간 */}
-      <ThreeScene
-        character={appState.user.character}
-        pet={appState.user.character}
-      />
+      <ThreeScene character={appState.user.character} pet={appState.user.pet} />
     </div>
   );
 }

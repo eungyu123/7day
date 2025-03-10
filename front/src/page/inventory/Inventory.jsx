@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import "./Inventory.css";
 import "../../index.css";
@@ -7,6 +7,7 @@ import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
+import { getInventoryData } from "../../api/inventoryApi";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
 
@@ -18,33 +19,47 @@ export default function Inventory() {
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [selectedPet, setSelectedPet] = useState(null);
 
+  const [characterItems, setCharacterItems] = useState([]);
+  const [petItems, setPetItems] = useState([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // 캐릭터, 펫 임시 데이터
-  const characterItems = [
-    { type: "character", itemName: "character1" },
-    { type: "character", itemName: "character2" },
-    { type: "character", itemName: "character3" },
-    { type: "character", itemName: "character4" },
-    { type: "character", itemName: "character5" },
-    { type: "character", itemName: "character6" },
-    { type: "character", itemName: "character7" },
-    { type: "character", itemName: "character8" },
-    { type: "character", itemName: "character9" },
-    { type: "character", itemName: "character10" },
-  ];
+  useEffect(() => {
+    const fetchInventoryData = async () => {
+      try {
+        const data = await getInventoryData(); // API 호출
+        // setCharacterItems(data.characterItems); // 데이터를 state에 저장
+        // setPetItems(data.petItems); // 로딩 종료
+        const minItemsCount = 8;
+        console.log("data: ", data.data);
 
-  const petItems = [
-    { id: 1, type: "pet", itemName: "pet1" },
-    { id: 2, type: "pet", itemName: "pet2" },
-    { id: 3, type: "pet", itemName: "pet3" },
-    { id: 4, type: "pet", itemName: "pet4" },
-    { id: 5, type: "pet", itemName: "pet5" },
-    { id: 6, type: "pet", itemName: "pet6" },
-    { id: 7, type: "pet", itemName: "pet7" },
-    { id: 8, type: "pet", itemName: "pet8" },
-    { id: 9, type: "pet", itemName: "pet9" },
-  ];
+        // 각 아이템 배열이 최소 minItemsCount 크기를 가지도록 설정
+        const characterItemsWithDefaults = [
+          ...data.data.characterItems,
+          ...Array(minItemsCount - data.data.characterItems.length).fill({
+            characterName: "기본 캐릭터", // 기본 이름, 필요에 따라 변경
+            character: "defaultCharacter", // 기본 캐릭터 정보, 필요에 따라 변경
+          }),
+        ];
+
+        const petItemsWithDefaults = [
+          ...data.data.petItems,
+          ...Array(minItemsCount - data.data.petItems.length).fill({
+            characterName: "기본 펫", // 기본 이름, 필요에 따라 변경
+            pet: "defaultPet", // 기본 펫 정보, 필요에 따라 변경
+          }),
+        ];
+        console.log("Character Items:", characterItemsWithDefaults);
+        console.log("Pet Items:", petItemsWithDefaults);
+        setCharacterItems(characterItemsWithDefaults); // 데이터 state에 저장
+        setPetItems(petItemsWithDefaults); // 데이터 state에 저장
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchInventoryData(); // 함수 실행
+  }, []); // userId가 변경될 때마다 데이터 다시 요청
 
   return (
     <>
@@ -60,7 +75,9 @@ export default function Inventory() {
             {selectedTab === "character"
               ? characterItems.map((item) => (
                   <InventoryItem
-                    key={item.itemName}
+                    //key={item.characterName}
+                    character={item.character}
+                    pet={item.pet}
                     isSelected={appState.character === item.itemName}
                     onClick={() => {
                       dispatch(setCharacter({ character: item.itemName }));
