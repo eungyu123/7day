@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import "./Inventory.css";
 import "../../index.css";
@@ -7,8 +7,10 @@ import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
 import RewardModal from "../../component/modal/RewardModal";
+import { getInventoryData } from "../../api/inventoryApi";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
+import { updateInventoryData } from "../../api/inventoryApi";
 
 export default function Inventory() {
   const { appState, dispatch } = useAppContext();
@@ -19,32 +21,85 @@ export default function Inventory() {
   const [selectedPet, setSelectedPet] = useState(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [characterItems, setCharacterItems] = useState([]);
+  const [petItems, setPetItems] = useState([]);
 
-  // 캐릭터, 펫 임시 데이터
-  const characterItems = [
-    { type: "character", itemName: "character1" },
-    { type: "character", itemName: "character2" },
-    { type: "character", itemName: "character3" },
-    { type: "character", itemName: "character4" },
-    { type: "character", itemName: "character5" },
-    { type: "character", itemName: "character6" },
-    { type: "character", itemName: "character7" },
-    { type: "character", itemName: "character8" },
-    { type: "character", itemName: "character9" },
-    { type: "character", itemName: "character10" },
-  ];
+  // useEffect(() => {
+  //   const fetchInventory = async () => {
+  //     try {
+  //       const response = await updateInventoryData({
+  //         newCharacter: null,
+  //         newPet: null,
+  //       });
 
-  const petItems = [
-    { id: 1, type: "pet", itemName: "pet1" },
-    { id: 2, type: "pet", itemName: "pet2" },
-    { id: 3, type: "pet", itemName: "pet3" },
-    { id: 4, type: "pet", itemName: "pet4" },
-    { id: 5, type: "pet", itemName: "pet5" },
-    { id: 6, type: "pet", itemName: "pet6" },
-    { id: 7, type: "pet", itemName: "pet7" },
-    { id: 8, type: "pet", itemName: "pet8" },
-    { id: 9, type: "pet", itemName: "pet9" },
-  ];
+  //       if (response.type === "success") {
+  //         setCharacterItems(response.data.characterList || []);
+  //         setPetItems(response.data.petList || []);
+  //       }
+  //     } catch (error) {
+  //       console.error("인벤토리 불러오기 실패: ", error);
+  //     }
+  //   };
+
+  //   fetchInventory();
+  // }, []);
+
+  useEffect(() => {
+    const fetchInventoryData = async () => {
+      try {
+        const data = await getInventoryData(); // API 호출
+        // setCharacterItems(data.characterItems); // 데이터를 state에 저장
+        // setPetItems(data.petItems); // 로딩 종료
+        const minItemsCount = 8;
+        console.log("data: ", data.data);
+
+        const characterItemsWithDefaults = [
+          ...data.data.characterItems,
+          ...Array.from(
+            { length: minItemsCount - data.data.characterItems.length },
+            (_, index) => {
+              const newId = (
+                data.data.characterItems.length +
+                index +
+                1
+              ).toString(); // 1씩 증가하는 ID
+              return {
+                characterId: newId,
+                characterName: `기본 캐릭터 ${newId}`, // ID를 이름에 포함
+                price: 500,
+                characterLink: "/sampleCharacter",
+              };
+            }
+          ),
+        ];
+
+        const petItemsWithDefaults = [
+          ...data.data.petItems,
+          ...Array.from(
+            { length: minItemsCount - data.data.petItems.length },
+            (_, index) => {
+              const newId = (data.data.petItems.length + index + 1).toString(); // 1씩 증가하는 ID
+              return {
+                petId: newId,
+                petName: `기본 펫 ${newId}`, // ID를 이름에 포함
+                price: 500,
+                petLink: "/samplePet",
+              };
+            }
+          ),
+        ];
+
+        console.log("Character Items:", characterItemsWithDefaults);
+        console.log("Pet Items:", petItemsWithDefaults);
+        setCharacterItems(characterItemsWithDefaults); // 데이터 state에 저장
+        setPetItems(petItemsWithDefaults); // 데이터 state에 저장
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchInventoryData(); // 함수 실행
+  }, []);
 
   return (
     <>
@@ -56,23 +111,29 @@ export default function Inventory() {
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
           />
+          {console.log("유저의 캐릭터 리스트: ", characterItems)}
+          {console.log("유저의 펫 리스트: ", petItems)}
           <div className="inventory-main">
             {selectedTab === "character"
               ? characterItems.map((item) => (
                   <InventoryItem
-                    key={item.itemName}
-                    isSelected={appState.character === item.itemName}
+                    key={item._id}
+                    img={item.characterLink}
+                    name={item.characterName}
+                    isSelected={appState.character === item.characterName}
                     onClick={() => {
-                      dispatch(setCharacter({ character: item.itemName }));
+                      dispatch(setCharacter({ character: item.characterName }));
                     }}
                   />
                 ))
               : petItems.map((item) => (
                   <InventoryItem
-                    key={item.itemName}
-                    isSelected={appState.pet === item.itemName}
+                    key={item._id}
+                    img={item.petLink}
+                    name={item.petName}
+                    isSelected={appState.pet === item.petName}
                     onClick={() => {
-                      dispatch(setPet({ pet: item.itemName }));
+                      dispatch(setPet({ pet: item.petName }));
                     }}
                   />
                 ))}

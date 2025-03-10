@@ -9,7 +9,7 @@
 /* 캐릭터 레이아웃  */
 .main-character-wrapper {
   width: 100%;
-  height: 200px;
+  height: 300px;
   background-color: gray;
   margin-bottom: 16px;
 }

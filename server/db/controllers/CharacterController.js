@@ -13,7 +13,12 @@ module.exports = {
       if (user.userPoint < character.price) throw new Error("포인트 부족");
 
       user.userPoint -= character.price;
-      user.characterList.push({ characterId: character._id });
+      user.characterList.push({
+        characterId: character._id,
+        characterName: character.characterName,
+        price: character.price,
+        characterLink: character.characterLink,
+      });
       await user.save();
       return user;
     } catch (error) {

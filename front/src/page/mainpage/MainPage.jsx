@@ -12,6 +12,7 @@ import { PAGE_URLS } from "../../constant/constant";
 import PointButton from "../../component/mainPage/PointButton";
 import StoreButton from "../../component/mainPage/StoreButton";
 import RouletteModal from "../../component/modal/RouletteModal";
+import ThreeScene from "../../component/Three/ThreeScene";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
@@ -25,7 +26,10 @@ export default function MainPage() {
     <Container>
       <MainMap />
       <div className="main-character-wrapper">
-        <div className=""></div>
+        <ThreeScene
+          character={appState.user.character}
+          pet={appState.user.pet}
+        />
       </div>
       <HalfButtonWrapper>
         <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />

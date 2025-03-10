@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const Character = require("../models/Character");
+const Pet = require("../models/Pet");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -17,7 +19,7 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
-    console.log("getuser controller 진입");
+    console.log("get user controller 진입");
     const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(400).json({
@@ -28,17 +30,19 @@ module.exports = {
 
     return user;
   },
-  updateUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
-      new: true,
-    });
-    if (!user) {
-      return res.status(400).json({
-        type: "error",
-        message: "user searching failed",
-      });
+  updateUser: async (userId, { newCharacter, newPet }) => {
+    try {
+      const user = await User.findById(userId);
+      if (!user) throw new Error("User not found");
+
+      if (newCharacter) user.characterList.push(newCharacter);
+      if (newPet) user.petList.push(newPet);
+
+      await user.save();
+      return user;
+    } catch (error) {
+      throw error;
     }
-    return user;
   },
   deleteUser: async (req, res) => {
     const result = await User.findByIdAndDelete(req.params.userId);
@@ -61,5 +65,35 @@ module.exports = {
     console.log("친구추가성공!");
 
     return friend;
+  },
+
+  getUserCharacters: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.userId);
+
+      if (!user) return [];
+
+      // const characters = await Character.find();
+      const characters = user.characterList.map((c) => c.characterId);
+      return await Character.find({ _id: { $in: characters } });
+    } catch (error) {
+      console.error("Error fetching characters:", error);
+      throw error;
+    }
+  },
+
+  getUserPets: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.userId);
+
+      if (!user) return [];
+
+      // const characters = await Character.find();
+      const pets = user.petList.map((c) => c.petId);
+      return await Pet.find({ _id: { $in: pets } });
+    } catch (error) {
+      console.error("Error fetching characters:", error);
+      throw error;
+    }
   },
 };
