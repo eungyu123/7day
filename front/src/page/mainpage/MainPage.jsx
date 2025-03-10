@@ -17,6 +17,7 @@ export default function MainPage() {
   const { appState, dispatch } = useAppContext();
   const [isRouletteModalOpen, setIsRouletteModalOpen] = useState(false);
 
+  console.log("appState.user");
   useEffect(() => {
     setIsRouletteModalOpen(false);
   }, []);
