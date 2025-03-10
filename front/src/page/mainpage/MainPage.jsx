@@ -25,7 +25,7 @@ export default function MainPage() {
     <Container>
       <MainMap />
       <div className="main-character-wrapper">
-        <div className=""></div>
+        <ThreeScene />
       </div>
       <HalfButtonWrapper>
         <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />
