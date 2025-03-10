@@ -6,7 +6,6 @@ import {
   setTrailIndex,
   setTrailLocation,
 } from "../../context/reducer/action/action";
-import { resourceUsage } from "process";
 export default function WalkingKaKaoMap({ TrailItem }) {
   const mapRef = useRef();
   const markersRef = useRef({});
