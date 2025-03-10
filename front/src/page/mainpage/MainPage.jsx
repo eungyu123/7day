@@ -53,6 +53,16 @@ export default function MainPage() {
 
 const buttonsProp = [
   {
+    icon: "😉",
+    description: "프로필과 보상을 확인하세요!",
+    href: PAGE_URLS.ProfilePage,
+  },
+  {
+    icon: "🏆",
+    description: "획득한 뱃지를 확인하세요",
+    href: PAGE_URLS.BadgePage,
+  },
+  {
     icon: "📦",
     description: "캐릭터와 펫을 보관중이에요!",
     href: PAGE_URLS.InventoryPage,
