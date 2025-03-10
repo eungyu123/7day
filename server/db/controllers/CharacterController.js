@@ -2,7 +2,7 @@ const Character = require("../models/Character");
 const User = require("../models/User");
 
 module.exports = {
-  buyCharacter: async (userId, characterId) => {
+  purchaseCharacter: async (userId, characterId) => {
     try {
       const user = await User.findById(userId);
       const character = await Character.findById(characterId);
