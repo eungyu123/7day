@@ -5,7 +5,7 @@ import gsap from "gsap";
 import GLTFModel from "./GLTFModel";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"; // HDR 로더
 
-function ThreeScene() {
+function ThreeScene({ character, pet }) {
   const mountRef = useRef(null);
   const controlsRef = useRef(null);
   const rendererRef = useRef(null);
@@ -17,7 +17,7 @@ function ThreeScene() {
     const scene = new THREE.Scene();
 
     // GLTF 모델 추가
-    const model = GLTFModel();
+    const model = GLTFModel(character, pet);
     scene.add(model);
 
     //카메라 설정
