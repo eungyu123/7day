@@ -22,9 +22,8 @@ const middleware = require("./middleware/middleware");
 middleware(app);
 
 //
-app.use("/image", express.static("image"));
-const seed = require("./db/seed");
-const seedEgg = require("./db/seedEgg");
+// app.use("/image", express.static("image"));
+// const seedEgg = require("./db/seedEgg");
 // seed.createSampleData1();
 // seed.createRandomHatcheries();
 // seedEgg.seedEggData();
