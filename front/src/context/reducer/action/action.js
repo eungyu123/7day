@@ -91,3 +91,10 @@ export function setTrailRandmarkIndex({ trailRandmarkIndex }) {
     payload: { trailRandmarkIndex },
   };
 }
+export function setMission({ missions }) {
+  console.log("missions", missions);
+  return {
+    type: actionType.setMission,
+    payload: { missions },
+  };
+}

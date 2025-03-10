@@ -15,7 +15,13 @@ router.put("/:userId", async (req, res) => {
 });
 
 router.get("/friend/:userId", async (req, res) => {
+  console.log("getFriend");
   User.getFriends(req, res);
+});
+
+router.put("/updatefriend/:userId", async (req, res) => {
+  console.log("updateFriends 진입 전");
+  User.updateFriends(req, res);
 });
 // 선물상자 생성
 router.post("/generateGift/:userId", async (req, res) => {

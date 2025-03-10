@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema(
     //_id
     nickname: { type: String, required: true },
     nicknameEdit: { type: Boolean }, // 추가
-    friendList: [{ freind_id: { type: String } }],
+    friendList: [{ friend_id: { type: String } }],
     googleId: { type: String, required: true },
     userPoint: { type: Number, required: true },
     pet: { type: String },

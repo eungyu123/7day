@@ -1,6 +1,7 @@
 const {
   updateWalkData,
   getWalkData,
+  getTodayWalkData,
 } = require("../db/controllers/WalkDataController");
 
 const Walk = require("../db/models/WalkData");

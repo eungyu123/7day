@@ -97,6 +97,8 @@ export const removeGiftsAPI = async ({ giftId }) => {
 
 export const getUserFriend = async () => {
   try {
+    console.log("getuserapi 진입");
+
     const res = await fetch(`${API_BASE_URL}/user/friend/${userId}`, {
       method: "GET",
       header: { "Content-Type": "application/json" },
@@ -110,9 +112,9 @@ export const getUserFriend = async () => {
 
 export const updateUserFriend = async ({ friendid }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/user/updateFriend/${userId}`, {
-      method: "GET",
-      header: { "Content-Type": "application/json" },
+    const res = await fetch(`${API_BASE_URL}/user/updatefriend/${userId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ friendid }),
       // credentials: "include",
     });

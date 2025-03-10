@@ -1,7 +1,20 @@
 import { useEffect, useState } from "react";
-import { setHatchery, setUser } from "../context/reducer/action/action";
-import { getUser, generateGift } from "../api/userApi";
 import { getHatchery } from "../api/eggApi";
+import { userId } from "../constant/constant";
+import {
+  setGifts,
+  setUser,
+  setHatchery,
+} from "../context/reducer/action/action";
+import { googleSignOut } from "../api/authApi";
+import {
+  updateUserCoord,
+  getGifts,
+  generateGift,
+  getUserFriend,
+  updateUserFriend,
+  getUser,
+} from "../api/userApi";
 
 export const useFetch = ({ appState, dispatch }) => {
   const [loading, setLoading] = useState(true);

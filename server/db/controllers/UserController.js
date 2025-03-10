@@ -17,6 +17,7 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
+    console.log("getuser controller 진입");
     const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(400).json({
@@ -24,6 +25,7 @@ module.exports = {
         message: "user searching failed",
       });
     }
+
     return user;
   },
   updateUser: async (req, res) => {
@@ -47,5 +49,17 @@ module.exports = {
       });
     }
     return { message: "User deleted" };
+  },
+
+  updateFriends: async (req, res) => {
+    const { friendid } = req.body;
+    const friend = await User.findByIdAndUpdate(
+      req.params.userId,
+      { $push: { friendList: { friend_id: friendid } } }, // friendList 배열에 친구id 추가
+      { new: true } // 업데이트 후 최신 문서를 반환
+    );
+    console.log("친구추가성공!");
+
+    return friend;
   },
 };

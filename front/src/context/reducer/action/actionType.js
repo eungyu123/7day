@@ -11,4 +11,5 @@ export const actionType = {
   setTrailLocation: "setTrailLocation",
   setTrailIndex: "setTrailIndex",
   setTrailRandmarkIndex: "setTrailRandmarkIndex",
+  setMission: "setMission",
 };

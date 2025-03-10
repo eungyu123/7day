@@ -3,6 +3,7 @@ const {
   getUser,
   updateUser,
   createUser,
+  updateFriends,
 } = require("../db/controllers/UserController");
 const {
   generateRandomGifts,
@@ -13,7 +14,7 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const user = await getUser(req, res);
-      // console.log(user);
+      console.log(user);
       res.status(200).json({
         type: "success",
         message: "User found",
@@ -44,9 +45,13 @@ module.exports = {
 
   getFriends: async (req, res) => {
     try {
+      console.log("getFriends 진입");
+
       const user = await getUser(req, res);
-      const friends = user.friends;
-      //user의 friends배열에 있는 각각의 friend의 정보를 찾기
+
+      // friendlist에서 friendid 추출
+      const friends = user.friendList.map((f) => f.friend_id);
+      console.log("친구 목록:", friends);
       const friendDataList = await Promise.all(
         friends.map(async (friendId) => {
           //각각의 friend 정보 찾는 함수
@@ -67,6 +72,54 @@ module.exports = {
       res.status(500).json({
         type: "error",
         message: "fetching friends failed",
+      });
+    }
+  },
+
+  updateFriends: async (req, res) => {
+    try {
+      console.log("updateFriends 진입 성공");
+
+      const { friendid } = req.body; // friendid 값만 추출
+      console.log("추가할 친구 ID:", friendid);
+
+      const user = await User.findById(req.params.userId);
+
+      if (!user) {
+        return res.status(404).json({
+          type: "error",
+          message: "User not found",
+        });
+      }
+      console.log("User found:", user); // 사용자 확인
+
+      if (user.friendList.some((friend) => friend.friend_id === friendid)) {
+        console.log("이미 존재하는 친구");
+
+        return res.status(400).json({
+          type: "error",
+          message: "Friend already added",
+        });
+      }
+      console.log(1);
+      const friend = await updateFriends(req, res);
+      // user.friendList.push({ friend_id: friendid });
+      // console.log(2);
+
+      // await user.save();
+      // console.log(3);
+
+      return res.status(200).json({
+        type: "success",
+        message: "Friend updated",
+        data: friend,
+      });
+    } catch (error) {
+      console.log("catch error", error);
+
+      res.status(500).json({
+        type: "error",
+        message: "fetching update failed",
       });
     }
   },

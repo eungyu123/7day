@@ -35,6 +35,21 @@ module.exports = {
     }
     return walkData;
   },
+  getTodayWalkData: async (req, res) => {
+    console.log("getTodatWalkDatacontroller");
+    const today = new Date();
+    const startDate = new Date(today.setHours(0, 0, 0, 0));
+    // 오늘 날짜의 끝 시간 (23:59:59)
+    const endDate = new Date(today.setHours(23, 59, 59, 999));
+    const walkData = await WalkData.find(
+      {
+        userId: req.params.userId,
+        date: { $gte: startDate, $lte: endDate },
+      },
+      { _id: 0, __v: 0 }
+    );
+    return walkData;
+  },
   updateWalkData: async (req, res) => {
     try {
       //req에서 오늘 날짜의 startDay,endDay를 body포함하여 오늘 날짜의 walkData 업데이트
