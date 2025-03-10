@@ -7,11 +7,18 @@ export default function InventoryItem({ character, pet, isSelected, onClick }) {
   const [thumbnail, setThumbnail] = useState(null);
 
   useEffect(() => {
-    // 썸네일 이미지 생성
-    const thumbnailURL = generateThumbnail(character, pet);
-    console.log("썸네일: ", thumbnailURL);
-    setThumbnail(thumbnailURL);
-  }, [character, pet]);
+    const fetchThumbnail = async () => {
+      try {
+        const thumbnailURL = await generateThumbnail(character);
+        console.log("썸네일:", thumbnailURL);
+        setThumbnail(thumbnailURL);
+      } catch (error) {
+        console.error("썸네일 생성 오류:", error);
+      }
+    };
+
+    fetchThumbnail();
+  }, [character]);
 
   return (
     <div
