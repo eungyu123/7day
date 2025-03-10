@@ -1,5 +1,6 @@
 const User = require("../db/models/User");
-const UserEgg = require("../db/models/Egg");
+const { Egg, UserEgg } = require("../db/models/Egg");
+const Reward = require("../db/models/Reward");
 const {
   getUser,
   updateUser,
@@ -117,21 +118,16 @@ module.exports = {
 
       // 마지막 생성시간이 4시간보다 클때 생성
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
-      if (
-        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 ||
-        true
-      ) {
+      if (Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10) {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }
 
         const [lng, lat] = user.location.coordinates; // [lng,lat] 순서 지키기
-        console.log("lng", lng, "lat", lat);
-        const gifts = generateRandomGifts({ lat, lng });
+        const gifts = await generateRandomGifts({ lat, lng });
         user.gifts = gifts;
         user.lastGiftsGeneratedAt = new Date();
         await user.save();
-
         return res.status(200).json({
           type: "success",
           message: "",
@@ -152,35 +148,40 @@ module.exports = {
   removeGift: async (req, res) => {
     try {
       const { giftId } = req.body;
-      const user = await getUser(req, res);
 
+      const user = await getUser(req, res);
       const gift = user.gifts.find((v) => v._id == giftId);
 
       if (gift.gift == "포인트") {
-        user.userPoint += gift.reward; // number
+        user.userPoint += gift.reward;
+      } else if (gift.gift == "쿠폰") {
+        user.rewardList.push(gift.rewardId);
       } else if (gift.gift == "알") {
+        const egg = await Egg.findById(gift?.eggId);
         const newEgg = new UserEgg({
-          userId: user._id,
-          eggId: new mongoose.Types.ObjectId(), // 고유 ID 생성
-          eggType: gift.reward, // 보상 값이 eggType
+          userId: user._id.toString(),
+          eggId: egg._id.toString(),
+          eggType: egg.eggType,
           currentStep: 0,
-          goalWalk: 10000, // 기본 목표 걸음 수 (필요 시 수정)
-          state: "unhatched", // 초기 상태 설정
-          petLink: null,
+          goalWalk: egg.goalWalk,
+          state: "unhatched",
+          petLink: "",
         });
 
-        await newEgg.save();
+        const updatedEgg = await newEgg.save();
+        console.log(updatedEgg);
       }
       user.gifts = user.gifts.filter((v) => v.id != giftId);
+      console.log(user);
 
       await user.save();
 
       return res.status(200).json({ type: "success" });
     } catch (error) {
       console.log(error);
-      res.status(500).json({
+      return res.status(500).json({
         type: "error",
-        message: " generateGift failed",
+        message: "generateGift failed",
       });
     }
   },

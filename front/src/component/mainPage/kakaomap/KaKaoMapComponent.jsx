@@ -23,7 +23,7 @@ export default function KaKaoMapComponent() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenHatchery, setIsOpenHatchery] = useState(false);
   const [isOpenRewardModal, setIsOpenRewardModal] = useState(true);
-  const [isOpenRouletteModal, setIsOpenRouletteModal] = useState(true);
+  const [isOpenRouletteModal, setIsOpenRouletteModal] = useState(false);
 
   const [newReward, setNewReward] = useState(null);
 
@@ -50,11 +50,10 @@ export default function KaKaoMapComponent() {
     }
 
     async function setTimeOutfetch() {
+      // ._id
+      console.log("currentGift.dataset.reward", currentGift.dataset.reward);
       setNewReward(currentGift.dataset.reward);
       await delay(1000);
-      await removeGiftsAPI({ giftId });
-      const user = await getUser();
-      dispatch(setUser({ user: user.data }));
       setIsOpenRouletteModal(true);
     }
 
@@ -94,7 +93,7 @@ export default function KaKaoMapComponent() {
         <RouletteModal
           isOpen={isOpenRouletteModal}
           setIsOpen={setIsOpenRouletteModal}
-          prize={newReward}
+          gift={user.gifts[newReward]}
         />
       )}
 
@@ -118,7 +117,7 @@ export default function KaKaoMapComponent() {
           minLevel={10} // 클러스터 할 최소 지도 레벨
         >
           {user.gifts &&
-            user.gifts.map((gift) => {
+            user.gifts.map((gift, idx) => {
               return (
                 <CustomOverlayMap
                   key={gift._id}
@@ -132,7 +131,7 @@ export default function KaKaoMapComponent() {
                     onClick={() => {
                       deleteItem(gift._id);
                     }}
-                    data-reward={gift}
+                    data-reward={idx}
                     data-lat={gift.lat}
                     data-lng={gift.lng}
                     ref={(el) => (giftsRef.current[gift._id] = el)} // giftsRef.current는 객체임
