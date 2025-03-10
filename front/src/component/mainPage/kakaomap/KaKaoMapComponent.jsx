@@ -9,7 +9,7 @@ import { removeGiftsAPI } from "../../../api/userApi";
 import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
 import HatcheryModal from "../../modal/HatcheryModal";
-
+import ThreeDModel from "./ThreeModel";
 export default function KaKaoMapComponent() {
   const giftsRef = useRef({});
   const hatcheryRef = useRef({});
