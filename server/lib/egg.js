@@ -4,6 +4,17 @@ const User = require("../db/models/User");
 module.exports = {
   getEgg: async (req, res) => {
     try {
+      const { eggId } = req.body;
+      const egg = await Egg.findById(eggId);
+      console.log("egg", egg);
+      res.json({ type: "success", data: egg });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Server error", error });
+    }
+  },
+  getUserEgg: async (req, res) => {
+    try {
       const { userId } = req.params;
 
       const userEggs = await UserEgg.find({ userId });

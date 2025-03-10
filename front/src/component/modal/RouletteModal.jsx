@@ -11,8 +11,6 @@ import "../../page/modal/RouletteModal.css";
 export default function RouletteModal({ isOpen, setIsOpen, gift }) {
   const { appState, dispatch } = useAppContext();
 
-  console.log("gift123", gift);
-
   const [spinning, setSpinning] = useState(false); // 회전 상태
   const [rotate, setRotate] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null); // 결과
@@ -28,21 +26,11 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
     { prize: "💝" },
   ];
 
-  // eggId  "67ce3c9217611b23e0493d08"
-  // gift  "알"
-  // lat  37.55945917418035
-  // lng  126.96919770154157
-  // _id  "67ce8847763ed55a7f6ef865"
-
   const handleClick = async () => {
     if (!canSpin) return;
     setSpinning(true);
     setCanSpin(false);
     let itemIndex;
-
-    await removeGiftsAPI({ giftId: gift._id });
-    const user = await getUser();
-    dispatch(setUser({ user: user.data }));
 
     if (gift == "알") {
       itemIndex = prizes.findIndex((item) => item.prize == "🥚");

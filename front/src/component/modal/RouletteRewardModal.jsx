@@ -2,7 +2,7 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import "../../page/modal/RouletteRewardModal.css";
 
-export default function RouletteRewardModal({ isOpen, setIsOpen, prize }) {
+export default function RouletteRewardModal({ isOpen, setIsOpen, gift }) {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="roulette-reward-modal-content">
@@ -15,7 +15,7 @@ export default function RouletteRewardModal({ isOpen, setIsOpen, prize }) {
           <span className="roulette-reward-modal-icon">🎉</span>
           <p className="roulette-reward-modal-message">축하합니다!</p>
           <p className="roulette-reward-modal-message">
-            {prize}를 획득하셨습니다!
+            {gift}를 획득하셨습니다!
           </p>
         </div>
       </Dialog.Content>

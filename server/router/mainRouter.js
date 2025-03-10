@@ -7,4 +7,9 @@ router.get("/createuser", (req, res) => {
   main.createUser(req, res);
 });
 
+router.post("/reward", (req, res) => {
+  console.log("maingetReward");
+  main.getReward(req, res);
+});
+
 module.exports = router;

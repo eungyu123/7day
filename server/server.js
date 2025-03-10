@@ -22,6 +22,7 @@ middleware(app);
 app.use("/image", express.static("image"));
 const seedEgg = require("./db/seedEgg");
 const seed = require("./db/seed");
+// seed.seedReward();
 // seed.deleteAllHatcheries();
 // seed.createRandomHatcheries();
 //seedEgg.seedEggData();

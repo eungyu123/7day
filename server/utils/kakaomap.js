@@ -12,8 +12,8 @@ module.exports = {
       const giftType = gifts[Math.floor(Math.random() * gifts.length)];
       if (giftType === "포인트") {
         return {
-          gift: "포인트",
-          reward: Math.floor(Math.random() * 5) + 1,
+          giftType,
+          point: Math.floor(Math.random() * 5) + 1,
           lat: lat + (Math.random() - 0.5) / 10,
           lng: lng + (Math.random() - 0.5) / 10,
         };
@@ -21,7 +21,7 @@ module.exports = {
         const randomReward =
           rewards[Math.floor(Math.random() * rewards.length)];
         return {
-          gift: "쿠폰",
+          giftType,
           rewardId: randomReward._id.toString(),
           lat: lat + (Math.random() - 0.5) / 10,
           lng: lng + (Math.random() - 0.5) / 10,
@@ -29,7 +29,7 @@ module.exports = {
       } else {
         const randomEgg = eggs[Math.floor(Math.random() * eggs.length)];
         return {
-          gift: "알",
+          giftType,
           eggId: randomEgg._id.toString(),
           lat: lat + (Math.random() - 0.5) / 10,
           lng: lng + (Math.random() - 0.5) / 10,

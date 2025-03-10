@@ -159,11 +159,41 @@ async function deleteAllHatcheries() {
   }
 }
 
+const Reward = require("./models/Reward"); // Reward 모델 경로에 맞게 수정
+
+async function seedReward() {
+  await Reward.deleteMany({});
+  console.log(" 리워드 데이터 삭제");
+
+  try {
+    const rewards = [
+      {
+        enterpriseName: "burgerking",
+        content: "2000원 할인권",
+        image: "burgerking.png",
+      },
+      {
+        enterpriseName: "CU",
+        content: "1000원 쿠폰",
+        image: "CU.png",
+      },
+      {
+        enterpriseName: "lotteria",
+        content: "감자튀김",
+        image: "lotteria.png",
+      },
+    ];
+
+    const newrewards = await Reward.create(rewards);
+    console.log(newrewards);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   createSampleData1,
   createRandomHatcheries,
   deleteAllHatcheries,
+  seedReward,
 };
-
-const landmarkDes =
-  "서울특별시 송파구 방이동에 위치한 올림픽공원 내 평화의광장에 건립된 '세계평화의문'은 3만 3600㎡(폭 80m, 길이 약 420m)의 대지면적에 세워진 철골·철근 콘크리트 구조물로서 최고 높이 24m, 폭(전·후) 37m, 전면 길이 62m(날개 정면폭) 규모이며 아름답고 장중한 외양을 지녔다. 상징조형물의 면적은 지하 1층이 248㎡, 데크층 289㎡ 등 총 927㎡였다.";

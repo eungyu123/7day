@@ -124,11 +124,16 @@ module.exports = {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }
-
         const [lng, lat] = user.location.coordinates; // [lng,lat] 순서 지키기
+        if (!lng || !lat) {
+          return res.status(400).json({
+            type: "error",
+          });
+        }
         const gifts = await generateRandomGifts({ lat, lng });
         user.gifts = gifts;
         user.lastGiftsGeneratedAt = new Date();
+
         await user.save();
         return res.status(200).json({
           type: "success",
@@ -171,10 +176,10 @@ module.exports = {
         });
 
         const updatedEgg = await newEgg.save();
-        console.log(updatedEgg);
+        // console.log(updatedEgg);
       }
       user.gifts = user.gifts.filter((v) => v.id != giftId);
-      console.log(user);
+      // console.log(user);
 
       await user.save();
 
