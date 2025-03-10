@@ -10,6 +10,11 @@ import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
 import HatcheryModal from "../../modal/HatcheryModal";
 import ThreeDModel from "./ThreeModel";
+
+import RewardModal from "../../modal/RewardModal";
+import RouletteModal from "../../modal/RouletteModal";
+import RouletteRewardModal from "../../modal/RouletteRewardModal";
+
 export default function KaKaoMapComponent() {
   const giftsRef = useRef({});
   const hatcheryRef = useRef({});
@@ -17,6 +22,8 @@ export default function KaKaoMapComponent() {
   const { location, locationError, locationLoading, user } = appState;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenHatchery, setIsOpenHatchery] = useState(false);
+  const [isOpenRewardModal, setIsOpenRewardModal] = useState(true);
+  const [isOpenRouletteModal, setIsOpenRouletteModal] = useState(true);
 
   const [newReward, setNewReward] = useState(null);
 
@@ -48,14 +55,10 @@ export default function KaKaoMapComponent() {
       await removeGiftsAPI({ giftId });
       const user = await getUser();
       dispatch(setUser({ user: user.data }));
-      setIsOpen(true);
+      setIsOpenRouletteModal(true);
     }
 
     await setTimeOutfetch();
-
-    setTimeout(() => {
-      setIsOpen(false);
-    }, 4000);
   }
 
   async function openHatchery(hatcheryId) {
@@ -73,23 +76,30 @@ export default function KaKaoMapComponent() {
     setIsOpenHatchery(true);
   }
 
+  console.log("user.gifts", user.gifts);
+
   return (
     <>
-      {isOpenHatchery && (
+      {/* {isOpenHatchery && (
         <HatcheryModal setIsOpenHatchery={setIsOpenHatchery} />
+      )} */}
+
+      {/* {isOpenRewardModal && (
+        <RewardModal
+          isOpen={isOpenRewardModal}
+          setIsOpen={setIsOpenRewardModal}
+          goal={`${newReward.reward}을 획득하셨습니다.`}
+        />
+      )} */}
+
+      {isOpenRouletteModal && (
+        <RouletteModal
+          isOpen={isOpenRouletteModal}
+          setIsOpen={setIsOpenRouletteModal}
+          prize={newReward}
+        />
       )}
-      {isOpen && (
-        <div
-          className="map-modal-wrapper"
-          onClick={() => {
-            setIsOpen(false);
-          }}
-        >
-          <div className="map-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="">{newReward}원 획득!</div>
-          </div>
-        </div>
-      )}
+
       <Map
         center={location || defaultLocation}
         isPanto={true} // 부드럽게 움직이는것
@@ -124,7 +134,7 @@ export default function KaKaoMapComponent() {
                     onClick={() => {
                       deleteItem(gift._id);
                     }}
-                    data-reward={gift.reward}
+                    data-reward={gift}
                     data-lat={gift.lat}
                     data-lng={gift.lng}
                     ref={(el) => (giftsRef.current[gift._id] = el)} // giftsRef.current는 객체임

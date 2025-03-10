@@ -1,20 +1,18 @@
 const User = require("../db/models/User");
+const UserEgg = require("../db/models/Egg");
 const {
   getUser,
   updateUser,
   createUser,
   updateFriends,
 } = require("../db/controllers/UserController");
-const {
-  generateRandomGifts,
-  generateRandomEggs,
-} = require("../utils/kakaomap");
+const { generateRandomGifts } = require("../utils/kakaomap");
+const { get } = require("http");
 
 module.exports = {
   getUser: async (req, res) => {
     try {
       const user = await getUser(req, res);
-      console.log(user);
       res.status(200).json({
         type: "success",
         message: "User found",
@@ -45,13 +43,10 @@ module.exports = {
 
   getFriends: async (req, res) => {
     try {
-      console.log("getFriends 진입");
-
       const user = await getUser(req, res);
 
       // friendlist에서 friendid 추출
       const friends = user.friendList.map((f) => f.friend_id);
-      console.log("친구 목록:", friends);
       const friendDataList = await Promise.all(
         friends.map(async (friendId) => {
           //각각의 friend 정보 찾는 함수
@@ -78,8 +73,6 @@ module.exports = {
 
   updateFriends: async (req, res) => {
     try {
-      console.log("updateFriends 진입 성공");
-
       const { friendid } = req.body; // friendid 값만 추출
       console.log("추가할 친구 ID:", friendid);
 
@@ -101,13 +94,7 @@ module.exports = {
           message: "Friend already added",
         });
       }
-      console.log(1);
       const friend = await updateFriends(req, res);
-      // user.friendList.push({ friend_id: friendid });
-      // console.log(2);
-
-      // await user.save();
-      // console.log(3);
 
       return res.status(200).json({
         type: "success",
@@ -130,12 +117,16 @@ module.exports = {
 
       // 마지막 생성시간이 4시간보다 클때 생성
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
-      if (Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10) {
+      if (
+        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 ||
+        true
+      ) {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }
 
         const [lng, lat] = user.location.coordinates; // [lng,lat] 순서 지키기
+        console.log("lng", lng, "lat", lat);
         const gifts = generateRandomGifts({ lat, lng });
         user.gifts = gifts;
         user.lastGiftsGeneratedAt = new Date();
@@ -165,7 +156,21 @@ module.exports = {
 
       const gift = user.gifts.find((v) => v._id == giftId);
 
-      user.userPoint += gift.reward; // number
+      if (gift.gift == "포인트") {
+        user.userPoint += gift.reward; // number
+      } else if (gift.gift == "알") {
+        const newEgg = new UserEgg({
+          userId: user._id,
+          eggId: new mongoose.Types.ObjectId(), // 고유 ID 생성
+          eggType: gift.reward, // 보상 값이 eggType
+          currentStep: 0,
+          goalWalk: 10000, // 기본 목표 걸음 수 (필요 시 수정)
+          state: "unhatched", // 초기 상태 설정
+          petLink: null,
+        });
+
+        await newEgg.save();
+      }
       user.gifts = user.gifts.filter((v) => v.id != giftId);
 
       await user.save();

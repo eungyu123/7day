@@ -17,7 +17,6 @@ module.exports = {
     return users;
   },
   getUser: async (req, res) => {
-    console.log("getuser controller 진입");
     const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(400).json({

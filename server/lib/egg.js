@@ -48,6 +48,15 @@ module.exports = {
     }
   },
 
+  insertEgg: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { eggType } = req.body; // eggType
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  },
+
   updateEgg: async (req, res) => {
     try {
       const { userId } = req.params;
@@ -62,7 +71,7 @@ module.exports = {
 
       if (!userEgg)
         return res.status(404).json({ message: "Egg not found for user" });
-      console.log("userEgg", userEgg);
+
       res.json({ type: "success", message: "Egg updated", data: userEgg });
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
