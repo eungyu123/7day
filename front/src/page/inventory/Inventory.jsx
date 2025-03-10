@@ -20,8 +20,6 @@ export default function Inventory() {
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [selectedPet, setSelectedPet] = useState(null);
 
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [characterItems, setCharacterItems] = useState([]);
   const [petItems, setPetItems] = useState([]);
@@ -45,6 +43,8 @@ export default function Inventory() {
 
   //   fetchInventory();
   // }, []);
+
+  useEffect(() => {
     const fetchInventoryData = async () => {
       try {
         const data = await getInventoryData(); // API 호출
@@ -53,22 +53,42 @@ export default function Inventory() {
         const minItemsCount = 8;
         console.log("data: ", data.data);
 
-        // 각 아이템 배열이 최소 minItemsCount 크기를 가지도록 설정
         const characterItemsWithDefaults = [
           ...data.data.characterItems,
-          ...Array(minItemsCount - data.data.characterItems.length).fill({
-            characterName: "기본 캐릭터", // 기본 이름, 필요에 따라 변경
-            character: "defaultCharacter", // 기본 캐릭터 정보, 필요에 따라 변경
-          }),
+          ...Array.from(
+            { length: minItemsCount - data.data.characterItems.length },
+            (_, index) => {
+              const newId = (
+                data.data.characterItems.length +
+                index +
+                1
+              ).toString(); // 1씩 증가하는 ID
+              return {
+                characterId: newId,
+                characterName: `기본 캐릭터 ${newId}`, // ID를 이름에 포함
+                price: 500,
+                characterLink: "/sampleCharacter",
+              };
+            }
+          ),
         ];
 
         const petItemsWithDefaults = [
           ...data.data.petItems,
-          ...Array(minItemsCount - data.data.petItems.length).fill({
-            characterName: "기본 펫", // 기본 이름, 필요에 따라 변경
-            pet: "defaultPet", // 기본 펫 정보, 필요에 따라 변경
-          }),
+          ...Array.from(
+            { length: minItemsCount - data.data.petItems.length },
+            (_, index) => {
+              const newId = (data.data.petItems.length + index + 1).toString(); // 1씩 증가하는 ID
+              return {
+                petId: newId,
+                petName: `기본 펫 ${newId}`, // ID를 이름에 포함
+                price: 500,
+                petLink: "/samplePet",
+              };
+            }
+          ),
         ];
+
         console.log("Character Items:", characterItemsWithDefaults);
         console.log("Pet Items:", petItemsWithDefaults);
         setCharacterItems(characterItemsWithDefaults); // 데이터 state에 저장
@@ -79,7 +99,7 @@ export default function Inventory() {
     };
 
     fetchInventoryData(); // 함수 실행
-  }, []); // userId가 변경될 때마다 데이터 다시 요청
+  }, []);
 
   return (
     <>
@@ -92,18 +112,15 @@ export default function Inventory() {
             setSelectedTab={setSelectedTab}
           />
           {console.log("유저의 캐릭터 리스트: ", characterItems)}
+          {console.log("유저의 펫 리스트: ", petItems)}
           <div className="inventory-main">
             {selectedTab === "character"
               ? characterItems.map((item) => (
                   <InventoryItem
-                    // key={item._id}
-                    // img={item.characterLink}
-                    // name={item.characterName}
-                    // isSelected={appState.character === item.characterName}
-                    // //key={item.characterName}
-                    character={item.character}
-                    pet={item.pet}
-                    isSelected={appState.character === item.itemName}
+                    key={item._id}
+                    img={item.characterLink}
+                    name={item.characterName}
+                    isSelected={appState.character === item.characterName}
                     onClick={() => {
                       dispatch(setCharacter({ character: item.characterName }));
                     }}
