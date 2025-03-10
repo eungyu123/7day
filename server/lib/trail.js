@@ -49,14 +49,12 @@ module.exports = {
       if (!trail) return res.status(404).json({ message: "Trail not found" });
 
       const userTrail = await UserTrail.findOne({ userId, trailId });
-      console.log("userTrail", userTrail);
       const updatedTrails = {
         ...trail.toObject(), // 기존 산책로 정보 유지
         landmarks: userTrail?.visitedLandmarks, // 유저가 방문한 명소 목록
         image: trail.image, // 산책로 이미지 추가
         address: trail.address, // 산책로 주소 추가
       };
-      console.log("updatedTrails", updatedTrails);
       res.json({
         type: "success",
         data: updatedTrails,
@@ -73,7 +71,6 @@ module.exports = {
       const { trailId, landmarkId } = req.body;
 
       const userTrail = await UserTrail.findOne({ userId, trailId });
-      console.log(userTrail.visitedLandmarks);
 
       const landmarkIndex = userTrail.visitedLandmarks?.findIndex(
         (landmark) => landmark.landmarkId == landmarkId
@@ -85,7 +82,6 @@ module.exports = {
 
         // 업데이트 후 저장
         const updatedUserTrail = await userTrail.save();
-        console.log("updatedUserTrail", updatedUserTrail);
         return res.json({ type: "success", data: updatedUserTrail });
       } else {
         return res.status(400).json({ type: "error" });

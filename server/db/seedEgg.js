@@ -50,4 +50,4 @@ async function seedUserEggData(eggs) {
   }
 }
 
-module.exports = { seedEggData };
+module.exports = { seedEggData, seedUserEggData };
