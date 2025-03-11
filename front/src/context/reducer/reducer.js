@@ -54,7 +54,6 @@ export function appReducer(state, action) {
     }
 
     case actionType.removeGift: {
-      console.log(state.user.gifts);
       return {
         ...state,
         user: {
