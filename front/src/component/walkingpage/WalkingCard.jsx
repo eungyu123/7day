@@ -45,7 +45,7 @@ const WalkingCard = forwardRef(({ TrailItem, idx }, ref) => {
 
       <div className="wm-card-content">
         <div className="wm-card-content-title">
-          {TrailItem.name} {complete && "✅"}
+          {TrailItem.name} <span className="emojifont">{complete && "✅"}</span>
         </div>
         <div className="wm-card-content-des">길이 {TrailItem.distance}</div>
       </div>
