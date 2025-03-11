@@ -13,6 +13,11 @@ router.put("/state/:userId", async (req, res) => {
   await egg.updateEggState(req, res);
 });
 
+router.put("/insert/:userId", async (req, res) => {
+  console.log("insertEgg");
+  await egg.insertEgg(req, res);
+});
+
 router.get("/:userId", async (req, res) => {
   console.log("getEgg");
   await egg.getEgg(req, res);

@@ -1,26 +1,25 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import "./MainMap.css";
 import { getWalkData } from "../../../api/walkApi";
 import { getKmFromSteps } from "../../../utils/utils";
-
 
 export default function Steps() {
   const [currentSteps, setCurrentSteps] = useState(0);
   const [distance, setDistance] = useState(0);
 
-  useEffect(()=> {
-    const fetchWalkData = async() => {
+  useEffect(() => {
+    const fetchWalkData = async () => {
       const today = new Date();
-      today.setHours(0,0,0,0);
+      today.setHours(0, 0, 0, 0);
 
-      response = await getWalkData(today, today);
-
+      const response = await getWalkData(today, today);
       if (response.type === "success" && response.stepRecords) {
-        currentSteps(response.stepRecords);
-        currentDistnace(getKmFromSteps(currentSteps));
+        setCurrentSteps(response.stepRecords[0].steps);
+        setDistance(getKmFromSteps(response.stepRecords[0].steps));
       }
-    }
-  })
+    };
+    fetchWalkData();
+  });
 
   return (
     <div className="main-map-steps-display font-xs">

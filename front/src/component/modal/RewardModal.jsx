@@ -14,7 +14,7 @@ export default function RewardModal({ isOpen, setIsOpen, goal }) {
         <div className="modal-body">
           <span className="modal-icon">🎁</span>
           <p className="modal-message">축하합니다!</p>
-          <p className="modal-message">{goal}를 달성하셨습니다!</p>
+          <p className="modal-message">{goal}</p>
           <Dialog.Close asChild>
             <button className="reward-button">보상받기</button>
           </Dialog.Close>

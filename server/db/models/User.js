@@ -30,7 +30,9 @@ const UserSchema = new mongoose.Schema(
     gifts: [
       {
         gift: { type: String, required: true },
-        reward: { type: Number, required: true },
+        reward: { type: Number },
+        eggId: { type: String },
+        rewardId: { type: String },
         lat: { type: Number, required: true },
         lng: { type: Number, required: true },
       },

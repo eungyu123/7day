@@ -16,6 +16,8 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   const [progress, setProgress] = useState(0); // 진행 상태를 관리
   const [finished, setFinished] = useState(false);
   const [timeFinished, setTimeFinished] = useState(false);
+  const [dragTimer, setDragTimer] = useState(null);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const { data } = useFetchEgg();
 
@@ -43,6 +45,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   }, [progress]);
 
   const handleDragStart = (e, id) => {
+    if (isHatching) return;
     e.dataTransfer.setData("text", id);
     const draggedElement = eggRef.current[id];
     setTimeout(() => {
@@ -51,6 +54,8 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   };
 
   const handleDragEnd = (e, id) => {
+    if (isHatching) return;
+
     e.dataTransfer.setData("text", id);
     const draggedElement = eggRef.current[id];
     draggedElement.style.display = "block";
@@ -61,16 +66,48 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   };
 
   const handleDragOver = (e) => {
-    if (finished) return;
+    if (finished || isHatching) return;
     e.preventDefault();
-    const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
+
     barWrapperRef.current.style.display = "block";
-    //progressBarRef.current.classList.add("full-width"); // 클래스 추가
-    setProgress(100); // 드래그하면 progress 바가 100%로 채워짐
-    console.log("set2", eggRef.current[item]);
+
+    if (!isDraggingOver) {
+      setIsDraggingOver(true);
+
+      setProgress(0);
+
+      const timer = setInterval(() => {
+        setProgress((prevProgress) => {
+          const newProgress = prevProgress + 15;
+          if (newProgress >= 100) {
+            clearInterval(timer);
+            setTimeFinished(true);
+            return 100;
+          }
+          return newProgress;
+        });
+      }, 80);
+
+      setDragTimer(timer);
+    }
   };
 
-  const handleDrop = (e, i) => {
+  const handleDragLeave = (e) => {
+    if (finished || isHatching) return;
+    e.preventDefault();
+
+    if (dragTimer) {
+      clearInterval(dragTimer);
+      setDragTimer(null);
+    }
+
+    setIsDraggingOver(false);
+    barWrapperRef.current.style.display = "none";
+    setProgress(0);
+  };
+  const handleDrop = (e) => {
+    if (isHatching) return;
+
     e.preventDefault();
     const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
     console.log(
@@ -113,8 +150,9 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
           ref={(el) => (eggRef.current[i] = el)}
           data-eggid={egg._id}
           draggable="true"
-          onDragStart={(e) => handleDragStart(e, i)}
-          onDragEnd={(e) => handleDragEnd(e, i)}
+          onDragStart={(e) => handleDragStart(e)}
+          onDragEnd={(e) => handleDragEnd(e)}
+          onDragLeave={(e) => handleDragLeave(e)}
           className="hatchery-modal-egg-img"
           style={{
             position: "absolute",
