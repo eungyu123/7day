@@ -33,7 +33,10 @@ export default function ProfilePage() {
     <Container>
       <Header PageName={"프로필"} />
       <div className="profile-wrapper">
-        <div className="profile-money">💎{appState.user.userPoint}원</div>
+        <div className="profile-money">
+          <span className="emojifont">💎</span>
+          {appState.user.userPoint}원
+        </div>
         <div className="profile-steps font-xs">
           <span className="font-sm">{distance}</span>
           <span className="font-xs">km</span> &nbsp;
@@ -41,7 +44,9 @@ export default function ProfilePage() {
           <span className="font-sm">걸음</span>
         </div>
       </div>
-      <div className="profile-title">🎁보상</div>
+      <div className="profile-title">
+        <span className="emojifont">🎁</span>보상
+      </div>
       <div className="profile-rewards-wrapper">
         {rewards.data.map((reward) => {
           if (reward) {
