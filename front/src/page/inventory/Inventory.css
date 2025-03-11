@@ -72,3 +72,8 @@
   outline: 3.5px solid var(--toss-blue);
   outline-offset: -3.5px;
 }
+.inventory-img {
+  width: 100%; /* 부모 컨테이너 크기에 맞추기 */
+  height: 100%; /* 부모 컨테이너 크기에 맞추기 */
+  object-fit: cover; /* 비율을 유지하며 잘라서 맞추기 */
+}
