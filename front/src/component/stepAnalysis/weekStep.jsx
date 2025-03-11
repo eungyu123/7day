@@ -123,7 +123,7 @@ export default function WeekStep() {
                   height: mounted ? `${(item.steps / maxStep) * 200}px` : 0,
                   background:
                     item.day === "오늘"
-                      ? "linear-gradient(#d9d9d9, #0064ff)"
+                      ? "linear-gradient(#0064ff, #cadfff)"
                       : "linear-gradient(#d9d9d9, #f3f4f6)",
                 }}
               ></div>
