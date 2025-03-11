@@ -37,6 +37,10 @@
 /* 스크롤바 숨기기  */
 body {
   -ms-overflow-style: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 ::-webkit-scrollbar {

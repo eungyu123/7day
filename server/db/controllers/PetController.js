@@ -2,7 +2,7 @@ const Pet = require("../models/Pet");
 const User = require("../models/User");
 
 module.exports = {
-  buyPet: async (userId, petId) => {
+  purchasePet: async (userId, petId) => {
     try {
       const user = await User.findById(userId);
       const pet = await Pet.findById(petId);
@@ -13,7 +13,12 @@ module.exports = {
       if (user.userPoint < pet.price) throw new Error("포인트 부족");
 
       user.userPoint -= pet.price;
-      user.petList.push({ petId: pet._id });
+      user.petList.push({
+        petId: pet._id,
+        petName: pet.petName,
+        price: pet.price,
+        petLink: pet.petLink,
+      });
       await user.save();
       return user;
     } catch (error) {

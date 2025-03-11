@@ -15,7 +15,7 @@
   position: relative;
   width: 46px;
   height: 26px;
-  background-color: #e5e7eb; /* gray-200 */
+  background-color: var(--toss-blue); /* gray-200 */
   border-radius: 9999px;
   transition: background-color 0.3s ease;
 }
@@ -28,13 +28,13 @@
   width: 20px;
   height: 20px;
   background-color: white;
-  border: 1px solid #d1d5db; /* gray-300 */
+  border: 1px solid var(--toss-blue); /* gray-300 */
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
 .toggle-input:checked + .toggle-switch {
-  background-color: #2563eb; /* blue-600 */
+  background-color: var(--toss-light-gray); /* blue-600 */
 }
 
 .toggle-input:checked + .toggle-switch::after {

@@ -27,8 +27,9 @@ export default function WeekStep() {
 
         const startDate = formatDate(sevenDaysAgo);
         const endDate = formatDate(today);
-
+        console.log(startDate, endDate);
         const response = await getWalkData(startDate, endDate);
+        console.log("response", response, "response");
 
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
@@ -121,6 +122,10 @@ export default function WeekStep() {
                 className="week-step-graph"
                 style={{
                   height: mounted ? `${(item.steps / maxStep) * 200}px` : 0,
+                  background:
+                    item.day === "오늘"
+                      ? "linear-gradient(#d9d9d9, #0064ff)"
+                      : "linear-gradient(#d9d9d9, #f3f4f6)",
                 }}
               ></div>
 

@@ -7,14 +7,8 @@ import {
   setHatchery,
 } from "../context/reducer/action/action";
 import { googleSignOut } from "../api/authApi";
-import {
-  updateUserCoord,
-  getGifts,
-  generateGift,
-  getUserFriend,
-  updateUserFriend,
-  getUser,
-} from "../api/userApi";
+import { updateUserCoord, getGifts } from "../api/userApi";
+import { getUser, generateGift } from "../api/userApi";
 
 export const useFetch = ({ appState, dispatch }) => {
   const [loading, setLoading] = useState(true);

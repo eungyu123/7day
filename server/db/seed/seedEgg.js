@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Egg, UserEgg } = require("./models/Egg"); // Egg, UserEgg 모델 가져오기
+const { Egg, UserEgg } = require("../models/Egg"); // Egg, UserEgg 모델 가져오기
 
 async function seedEggData() {
   try {
@@ -50,4 +50,4 @@ async function seedUserEggData(eggs) {
   }
 }
 
-module.exports = { seedEggData };
+module.exports = { seedEggData, seedUserEggData };

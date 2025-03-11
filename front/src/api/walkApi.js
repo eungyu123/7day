@@ -1,8 +1,11 @@
 import { API_BASE_URL, userId } from "../constant/constant";
 
-export const getWalkData = async (startDate, endDate) => {
+export const getWalkData = async (startDate, endDate, insertUserId) => {
   try {
-    let apiUrl = `${API_BASE_URL}/WalkDatas/${userId}`;
+    // 입력받지 않으면 constant의 userId사용
+    const finalUserId = insertUserId || userId;
+
+    let apiUrl = `${API_BASE_URL}/WalkDatas/${finalUserId}`;
 
     // startDate와 endDate가 제공된 경우 쿼리 매개변수로 추가
 
@@ -23,9 +26,9 @@ export const getWalkData = async (startDate, endDate) => {
   }
 };
 
-export const updateWalkData = ({ steps }) => {
+export const updateWalkData = async ({ steps }) => {
   try {
-    fetch(`${API_BASE_URL}/walkdatas/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/walkdatas/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -33,22 +36,6 @@ export const updateWalkData = ({ steps }) => {
       body: JSON.stringify({ steps }),
       // credentials: "include",
     });
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getTodayWalkData = async () => {
-  try {
-    console.log("walkapi진입");
-    const res = await fetch(`${API_BASE_URL}/walkdata/todaysteps/${userId}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      // credentials: "include",
-    });
-    if (!res.ok) {
-      throw new Error('Failed to fetch today\'s walk data');
-    }
     return res.json();
   } catch (error) {
     throw error;

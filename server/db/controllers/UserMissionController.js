@@ -77,9 +77,15 @@ module.exports = {
 
     const userMissions = await UserMission.findOneAndUpdate(
       { userId: req.params.userId },
-      { missionId, success, completedAt },
+      req.body,
       { new: true }
     );
+    if (!userMissions) {
+      return res.status(400).json({
+        type: "error",
+        message: "Mission searching failed",
+      });
+    }
     return userMissions;
   },
   deleteUserMission: async (req, res) => {

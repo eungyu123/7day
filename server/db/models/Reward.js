@@ -2,12 +2,9 @@ const mongoose = require("mongoose");
 
 const RewardSchema = new mongoose.Schema(
   {
-    //_id
-    userId: { type: String, required: true },
     enterpriseName: { type: String },
     content: { type: String },
-    icon: { type: String },
-    rewardType: { type: Number },
+    image: { type: String },
   },
   { timestamps: true, collection: "rewards" }
 );

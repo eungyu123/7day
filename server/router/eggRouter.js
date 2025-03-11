@@ -8,18 +8,29 @@ router.get("/hatch", async (req, res) => {
   await egg.getHatchery(req, res);
 });
 
+router.post("/oneEgg", async (req, res) => {
+  console.log("getEgg");
+  await egg.getEgg(req, res);
+});
+
 router.put("/state/:userId", async (req, res) => {
   console.log("updateEggState");
   await egg.updateEggState(req, res);
 });
 
+router.put("/insert/:userId", async (req, res) => {
+  console.log("insertEgg");
+  await egg.insertEgg(req, res);
+});
+
 router.get("/:userId", async (req, res) => {
-  console.log("getEgg");
-  await egg.getEgg(req, res);
+  console.log("getUserEgg");
+  await egg.getUserEgg(req, res);
 });
 
 router.put("/:userId", async (req, res) => {
   console.log("updateEgg");
   await egg.updateEgg(req, res);
 });
+
 module.exports = router;

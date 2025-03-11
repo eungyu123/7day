@@ -1,5 +1,21 @@
 import { API_BASE_URL, userId } from "../constant/constant";
 
+export const getOneEgg = async (eggId) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/egg/oneEgg`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ eggId }),
+      // credentials: "include",
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getEgg = async () => {
   try {
     const res = await fetch(`${API_BASE_URL}/egg/${userId}`, {

@@ -1,31 +1,45 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import RouletteRewardModal from "./RouletteRewardModal";
+import { removeGiftsAPI } from "../../api/userApi";
+import { useAppContext } from "../../context/context";
+import { getUser } from "../../api/userApi";
+import { setUser } from "../../context/reducer/action/action";
 
 import "../../page/modal/RouletteModal.css";
 
-export default function RouletteModal({ isOpen, setIsOpen }) {
+export default function RouletteModal({ isOpen, setIsOpen, gift }) {
+  const { appState, dispatch } = useAppContext();
+
   const [spinning, setSpinning] = useState(false); // 회전 상태
   const [rotate, setRotate] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null); // 결과
   const [canSpin, setCanSpin] = useState(true); //돌렸는지 확인
   const prizes = [
-    { prize: "1포인트" },
-    { prize: "골드알 1개" },
-    { prize: "10포인트" },
-    { prize: "5포인트" },
-    { prize: "기본알 1개" },
-    { prize: "100포인트" },
-    { prize: "50포인트" },
-    { prize: "3포인트" },
+    { prize: "🎁" },
+    { prize: "🎁" },
+    { prize: "🥚" },
+    { prize: "💝" },
+    { prize: "🐣" },
+    { prize: "💝" },
+    { prize: "🥚" },
+    { prize: "💝" },
   ];
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!canSpin) return;
     setSpinning(true);
     setCanSpin(false);
+    let itemIndex;
 
-    const itemIndex = Math.floor(Math.random() * prizes.length);
+    if (gift == "알") {
+      itemIndex = prizes.findIndex((item) => item.prize == "🥚");
+    } else if (gift == "쿠폰") {
+      itemIndex = prizes.findIndex((item) => item.prize == "💝");
+    } else {
+      itemIndex = prizes.findIndex((item) => item.prize == "🎁");
+    }
+
     const randomDegree = 3600 - itemIndex * 45; // 8개 보상이므로 45도
     setRotate(randomDegree);
 

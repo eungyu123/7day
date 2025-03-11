@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { Trail, UserTrail } = require("./models/Trail"); // 위에서 만든 모델 가져오기
-const { Egg, Hatchery } = require("./models/Egg"); // Egg, Hatchery 모델 가져오기
+const { Trail, UserTrail } = require("../models/Trail"); // 위에서 만든 모델 가져오기
+const { Egg, Hatchery } = require("../models/Egg"); // Egg, Hatchery 모델 가져오기
 
 // 임의의 산책로 데이터 추가
 async function createSampleData1() {
@@ -130,7 +130,7 @@ async function createRandomHatcheries() {
   // 30개의 랜덤한 Hatchery 데이터 생성
   const hatcheries = [];
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 8; i++) {
     const randomLat = Math.random() * (latRange[1] - latRange[0]) + latRange[0]; // 랜덤 위도 생성
     const randomLng = Math.random() * (lngRange[1] - lngRange[0]) + lngRange[0]; // 랜덤 경도 생성
 
@@ -147,13 +147,53 @@ async function createRandomHatcheries() {
 
   // Hatchery 데이터들 저장
   const savedHatcheries = await Hatchery.insertMany(hatcheries);
-  console.log("🏠 부화장 30개 저장 완료:", savedHatcheries);
+  console.log("🏠 부화장 15개 저장 완료:", savedHatcheries);
+}
+
+async function deleteAllHatcheries() {
+  try {
+    const result = await Hatchery.deleteMany({});
+    console.log(`🗑️ 부화장 삭제 완료: ${result.deletedCount}개 삭제됨`);
+  } catch (error) {
+    console.error("❌ 부화장 삭제 중 오류 발생:", error);
+  }
+}
+
+const Reward = require("../models/Reward"); // Reward 모델 경로에 맞게 수정
+
+async function seedReward() {
+  await Reward.deleteMany({});
+  console.log(" 리워드 데이터 삭제");
+
+  try {
+    const rewards = [
+      {
+        enterpriseName: "burgerking",
+        content: "2000원 할인권",
+        image: "burgerking.png",
+      },
+      {
+        enterpriseName: "CU",
+        content: "1000원 쿠폰",
+        image: "CU.png",
+      },
+      {
+        enterpriseName: "lotteria",
+        content: "감자튀김",
+        image: "lotteria.png",
+      },
+    ];
+
+    const newrewards = await Reward.create(rewards);
+    console.log(newrewards);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 module.exports = {
   createSampleData1,
   createRandomHatcheries,
+  deleteAllHatcheries,
+  seedReward,
 };
-
-const landmarkDes =
-  "서울특별시 송파구 방이동에 위치한 올림픽공원 내 평화의광장에 건립된 '세계평화의문'은 3만 3600㎡(폭 80m, 길이 약 420m)의 대지면적에 세워진 철골·철근 콘크리트 구조물로서 최고 높이 24m, 폭(전·후) 37m, 전면 길이 62m(날개 정면폭) 규모이며 아름답고 장중한 외양을 지녔다. 상징조형물의 면적은 지하 1층이 248㎡, 데크층 289㎡ 등 총 927㎡였다.";

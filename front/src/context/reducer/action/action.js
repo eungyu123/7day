@@ -57,10 +57,17 @@ export function removeGift({ giftId }) {
 }
 
 export function setUser({ user }) {
-  console.log("user", user);
   return {
     type: actionType.setUser,
     payload: { user },
+  };
+}
+
+export function setMission({ missions }) {
+  console.log("missions", missions);
+  return {
+    type: actionType.setMission,
+    payload: { missions },
   };
 }
 
@@ -89,12 +96,5 @@ export function setTrailRandmarkIndex({ trailRandmarkIndex }) {
   return {
     type: actionType.setTrailRandmarkIndex,
     payload: { trailRandmarkIndex },
-  };
-}
-export function setMission({ missions }) {
-  console.log("missions", missions);
-  return {
-    type: actionType.setMission,
-    payload: { missions },
   };
 }

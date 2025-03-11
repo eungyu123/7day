@@ -1,6 +1,5 @@
 import "./KaKaoMapComponent.css";
 import { useEffect, useState, useRef } from "react";
-import { useLocation } from "../../../hook/useLocation";
 import { Map, CustomOverlayMap, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useAppContext } from "../../../context/context";
 import LocationErrorComp from "./LocationErrorComp";
@@ -8,8 +7,9 @@ import { calculateDistance } from "../../../utils/utils";
 import { removeGiftsAPI } from "../../../api/userApi";
 import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
-import HatcheryModal from "../../modal/HatcheryModal";
 import ThreeDModel from "./ThreeModel";
+import RewardModal from "../../modal/RewardModal";
+
 export default function KaKaoMapComponent() {
   const giftsRef = useRef({});
   const hatcheryRef = useRef({});
@@ -23,12 +23,13 @@ export default function KaKaoMapComponent() {
   if (locationError) return <LocationErrorComp des={locationError} />;
   if (locationLoading) return;
 
-  async function deleteItem(giftId) {
-    const currentGift = giftsRef.current[giftId];
+  async function deleteItem(gift) {
+    console.log("gift", gift);
+    const currentGift = giftsRef.current[gift._id];
 
     const distance = calculateDistance({
       point1: location,
-      point2: { lat: currentGift.dataset.lat, lng: currentGift.dataset.lng },
+      point2: { lat: gift.lat, lng: gift.lng },
     });
 
     if (Math.floor(distance) > 15) {
@@ -43,53 +44,31 @@ export default function KaKaoMapComponent() {
     }
 
     async function setTimeOutfetch() {
-      setNewReward(currentGift.dataset.reward);
+      setNewReward(gift);
       await delay(1000);
-      await removeGiftsAPI({ giftId });
-      const user = await getUser();
-      dispatch(setUser({ user: user.data }));
+      await removeGiftsAPI({ giftId: gift._id });
+      const updateduser = await getUser();
+      dispatch(setUser({ user: updateduser.data }));
       setIsOpen(true);
     }
 
     await setTimeOutfetch();
 
-    setTimeout(() => {
-      setIsOpen(false);
-    }, 4000);
-  }
-
-  async function openHatchery(hatcheryId) {
-    const currHatchery = hatcheryRef.current[hatcheryId];
-
-    const distance = calculateDistance({
-      point1: location,
-      point2: { lat: currHatchery.dataset.lat, lng: currHatchery.dataset.lng },
-    });
-
-    if (distance > 15) {
-      // return;
-    }
-
-    setIsOpenHatchery(true);
+    // setTimeout(() => {
+    //   setIsOpen(false);
+    // }, 4000);
   }
 
   return (
     <>
-      {isOpenHatchery && (
-        <HatcheryModal setIsOpenHatchery={setIsOpenHatchery} />
+      {isOpen && newReward && (
+        <RewardModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          newReward={newReward}
+        />
       )}
-      {isOpen && (
-        <div
-          className="map-modal-wrapper"
-          onClick={() => {
-            setIsOpen(false);
-          }}
-        >
-          <div className="map-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="">{newReward}원 획득!</div>
-          </div>
-        </div>
-      )}
+
       <Map
         center={location || defaultLocation}
         isPanto={true} // 부드럽게 움직이는것
@@ -101,7 +80,7 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            <ThreeDModel location={location} />
+            {/* <ThreeDModel location={location} /> */}
           </CustomOverlayMap>
         )}
 
@@ -110,7 +89,7 @@ export default function KaKaoMapComponent() {
           minLevel={10} // 클러스터 할 최소 지도 레벨
         >
           {user.gifts &&
-            user.gifts.map((gift) => {
+            user.gifts.map((gift, idx) => {
               return (
                 <CustomOverlayMap
                   key={gift._id}
@@ -122,9 +101,10 @@ export default function KaKaoMapComponent() {
                   <div
                     className="marker"
                     onClick={() => {
-                      deleteItem(gift._id);
+                      deleteItem(gift);
                     }}
-                    data-reward={gift.reward}
+                    data-reward={gift.giftType}
+                    data-giftId={idx}
                     data-lat={gift.lat}
                     data-lng={gift.lng}
                     ref={(el) => (giftsRef.current[gift._id] = el)} // giftsRef.current는 객체임
@@ -135,26 +115,6 @@ export default function KaKaoMapComponent() {
               );
             })}
         </MarkerClusterer>
-        {appState.hatchery.map((hatchery) => {
-          return (
-            <CustomOverlayMap
-              position={{
-                lat: hatchery.location.coordinates[1],
-                lng: hatchery.location.coordinates[0],
-              }}
-            >
-              <div
-                className="imgWrapperHatchery"
-                onClick={() => {
-                  openHatchery(hatchery._id);
-                }}
-                data-lat={hatchery.location.coordinates[1]}
-                data-lng={hatchery.location.coordinates[0]}
-                ref={(el) => (hatcheryRef.current[hatchery._id] = el)}
-              ></div>
-            </CustomOverlayMap>
-          );
-        })}
       </Map>
     </>
   );

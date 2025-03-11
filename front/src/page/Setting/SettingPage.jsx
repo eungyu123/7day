@@ -15,6 +15,7 @@ export default function SettingPage() {
               <SettingButton title={setting.title} rightIcon="chevron_right" />
             );
           })}
+          <SettingToggle title="알림" />
           <SettingToggle title="걸음수 측정" />
         </ButtonWrapper>
       </div>
@@ -25,10 +26,6 @@ export default function SettingPage() {
 const settings = [
   {
     title: "소리",
-    href: "",
-  },
-  {
-    title: "알림",
     href: "",
   },
   {

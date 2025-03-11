@@ -7,4 +7,14 @@ router.get("/createuser", (req, res) => {
   main.createUser(req, res);
 });
 
+router.post("/reward", (req, res) => {
+  console.log("maingetReward");
+  main.getReward(req, res);
+});
+
+router.get("/rewards/:userId", (req, res) => {
+  console.log("getRewards");
+  main.getRewards(req, res);
+});
+
 module.exports = router;
