@@ -12,7 +12,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
   const [todayIndex, setTodayIndex] = useState(0);
   const [goalSteps, setGoalSteps] = useState(10000);
   const [calories, setCalories] = useState(0);
-  const [distance, setDistance] = useState(3.01);
+  const [distance, setDistance] = useState(0);
   const [today, setToday] = useState(null);
   const [weekData, setWeekData] = useState([]);
   const [temp, setTemp] = useState(null);
@@ -75,6 +75,8 @@ export default function VisitModal({ isOpen, setIsOpen }) {
 
           if (todayRecord) {
             setCurrentSteps(todayRecord.steps);
+            setCalories(getKaclFromSteps(todayRecord.steps).toFixed(2));
+            setDistance(getKmFromSteps(todayRecord.steps).toFixed(2));
           } else {
             setCurrentSteps(0);
           }
@@ -120,12 +122,10 @@ export default function VisitModal({ isOpen, setIsOpen }) {
           });
 
           setWeekData(formattedData);
-          setCalories(getKaclFromSteps(currentSteps));
-          setDistance(getKmFromSteps(currentSteps));
 
           // 연속 방문 횟수
           let count = 0;
-          for (let i = todayIndex; i >= 0; i--) {
+          for (let i = todayIndex - 1; i >= 0; i--) {
             if (formattedData[i].steps >= 0) count++;
             else break;
           }
@@ -175,11 +175,15 @@ export default function VisitModal({ isOpen, setIsOpen }) {
 
             <div className="visit-modal-week-record-list">
               {weekData.map((item) => (
-                <div 
-                  className="visit-modal-week-record-item" 
+                <div
+                  className="visit-modal-week-record-item"
                   key={item.day}
-                  style={item.day == "오늘" ? { background: "#0064ff", color: "white" } : {}}
-                  >
+                  style={
+                    item.day == "오늘"
+                      ? { background: "#0064ff", color: "white" }
+                      : {}
+                  }
+                >
                   <p>{item.day}</p>
                 </div>
               ))}
