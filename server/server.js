@@ -11,17 +11,6 @@ const connectDB = require("./db/connectDB");
 
 connectDB();
 
-const seed = require("./db/seed/seed");
-//seed.deleteData();
-//seed.insertMission();
-// seed.deleteDummyData();
-// seed.deleteAllUserMissions();
-//seed.insertWalkDummyData(); //친구 걸음 데이터 추가
-//seed.deleteAllFriendLists();
-
-const seedTrail = require("./db/seed/seedTrail");
-// seedTrail.seedReward();
-
 const middleware = require("./middleware/middleware");
 middleware(app);
 

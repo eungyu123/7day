@@ -42,7 +42,6 @@ module.exports = {
       const { userId } = req.params; // 요청에서 userId 가져오기
       const { trailId } = req.body;
 
-      console.log(trailId);
       const trail = await Trail.findById(trailId);
       console.log("trail", trail);
 

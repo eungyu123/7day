@@ -26,9 +26,9 @@ export const getWalkData = async (startDate, endDate, insertUserId) => {
   }
 };
 
-export const updateWalkData = ({ steps }) => {
+export const updateWalkData = async ({ steps }) => {
   try {
-    fetch(`${API_BASE_URL}/walkdatas/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/walkdatas/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -36,6 +36,7 @@ export const updateWalkData = ({ steps }) => {
       body: JSON.stringify({ steps }),
       // credentials: "include",
     });
+    return res.json();
   } catch (error) {
     throw error;
   }

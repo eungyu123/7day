@@ -158,11 +158,11 @@ module.exports = {
 
       const user = await getUser(req, res);
       const gift = user.gifts.find((v) => v._id == giftId);
-      console.log(gift);
+
       if (gift.giftType == "포인트") {
         user.userPoint += Number(gift.point);
       } else if (gift.giftType == "쿠폰") {
-        user.rewardList.push(gift.rewardId);
+        user.rewardList.push(gift.rewardId.toString());
       } else if (gift.giftType == "알") {
         const egg = await Egg.findById(gift?.eggId);
         const newEgg = new UserEgg({
@@ -181,7 +181,7 @@ module.exports = {
       user.gifts = user.gifts.filter((v) => v.id != giftId);
       // console.log(user);
 
-      await user.save();
+      const updatedUser = await user.save();
 
       return res.status(200).json({ type: "success" });
     } catch (error) {

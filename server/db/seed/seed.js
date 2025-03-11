@@ -74,20 +74,20 @@ const missionDummyData = [
   },
 ];
 
-const walkDummyData = [
-  {
-    userId: "67c7ab445f743adc8dc272a5",
-    steps: 5000,
-    date: new Date().toISOString(),
-  },
-  {
-    userId: "67c7ab4b5f743adc8dc272a7",
-    steps: 12000,
-    date: new Date().toISOString(),
-  },
-];
+// const walkDummyData = [
+//   {
+//     userId: "67c7ab445f743adc8dc272a5",
+//     steps: 5000,
+//     date: new Date().toISOString(),
+//   },
+//   {
+//     userId: "67c7ab4b5f743adc8dc272a7",
+//     steps: 12000,
+//     date: new Date().toISOString(),
+//   },
+// ];
 
-//걸음 수 추가
+// //걸음 수 추가
 const insertWalkDummyData = async () => {
   try {
     const insertWalks = await WalkData.insertMany(walkDummyData);
@@ -123,17 +123,15 @@ const insertMission = async () => {
     const insertedMissions = await Mission.insertMany(updatedMissionData);
     console.log("✅ 미션 데이터 삽입 완료!");
 
-    for (let i = 0; i < insertedMissions.length; i++) {
-      const mission = await Mission.findById(insertedMissions[i]._id)
-        .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
-        .exec();
+    //     for (let i = 0; i < insertedMissions.length; i++) {
+    //       const mission = await Mission.findById(insertedMissions[i]._id)
+    //         .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
+    //         .exec();
 
-      console.log(`Mission ${mission._id}:`, mission);
-      console.log(
-        `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
-      );
-    }
-
+    console.log(`Mission ${mission._id}:`, mission);
+    console.log(
+      `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
+    );
     return insertedMissions; // 삽입된 미션 데이터를 반환
   } catch (error) {
     console.error("❌ 미션 데이터 삽입 중 오류 발생:", error);

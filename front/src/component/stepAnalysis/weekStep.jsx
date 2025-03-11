@@ -27,8 +27,9 @@ export default function WeekStep() {
 
         const startDate = formatDate(sevenDaysAgo);
         const endDate = formatDate(today);
-
+        console.log(startDate, endDate);
         const response = await getWalkData(startDate, endDate);
+        console.log("response", response, "response");
 
         if (response.type === "success" && response.stepRecords) {
           const stepRecords = response.stepRecords || [];
