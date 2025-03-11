@@ -23,8 +23,29 @@ function ThreeDModel({ location }) {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // 직사광 (태양빛 같은 빛)
     directionalLight.position.set(5, 10, 5); // 빛 위치
     scene.add(directionalLight);
+
+    const modelGroup = new THREE.Group();
+
     // 3D 모델 로드
     const loader = new GLTFLoader();
+    loader.load("/Three/pets/babyGhost.glb", (gltf) => {
+      // 추가할 모델 경로
+      const additionalModel = gltf.scene;
+      additionalModel.scale.set(0.2, 0.2, 0.2); // 크기 조정
+      additionalModel.position.set(1, 0, -1); // 위치 조정
+
+      additionalModel.traverse((child) => {
+        if (child.isMesh) {
+          child.material.needsUpdate = true;
+          child.material.metalness = 0; // 금속성 제거 (필요에 따라 조정)
+          child.material.roughness = 0.5; // 거칠기 조정 (필요에 따라 조정)
+        }
+      });
+
+      modelGroup.add(additionalModel); // 모델을 그룹에 추가
+    });
+
+    scene.add(modelGroup); // 모델 그룹을 씬에 추가
     loader.load("/Three/characters/baedal.glb", (gltf) => {
       console.log("model loaded ");
       const model = gltf.scene;
@@ -57,9 +78,6 @@ function ThreeDModel({ location }) {
       camera.position.set(center.x, center.y + 3, center.z + 1);
       camera.lookAt(center);
 
-      // 모델 위치 설정
-      const scale = 10;
-
       camera.rotation.x = -Math.PI / 2;
       scene.background = null; // lightblue 색상
       // 애니메이션 루프
@@ -71,7 +89,7 @@ function ThreeDModel({ location }) {
           const direction = new THREE.Vector3(location.x, 0, location.z); // 예시로 location에서 x, z 좌표를 사용
           const angle = Math.atan2(direction.z, direction.x); // 이동 방향에 맞는 각도 계산
 
-          model.rotation.y = angle + Math.PI / 2; // 모델이 이동 방향을 바라보도록 회전
+          modelGroup.rotation.y = angle + Math.PI / 2; // 모델이 이동 방향을 바라보도록 회전
         }
 
         // 애니메이션 업데이트
