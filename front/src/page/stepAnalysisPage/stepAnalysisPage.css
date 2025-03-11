@@ -57,7 +57,7 @@ body {
   width: 100%;
   border-radius: 8px;
   background: linear-gradient(var(--toss-light-gray), var(--toss-background));
-  transition: height 0.5s ease-out;
+  transition: height 1s linear ease-out;
 }
 .week-step-day-label {
   margin-top: 4px;

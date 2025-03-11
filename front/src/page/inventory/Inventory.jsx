@@ -139,14 +139,6 @@ export default function Inventory() {
                 ))}
           </div>
         </div>
-
-        {/* 임시 모달 확인 버튼 */}
-        <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
-        <RewardModal
-          isOpen={isModalOpen}
-          setIsOpen={setIsModalOpen}
-          goal={"3000보"}
-        />
       </div>
     </>
   );

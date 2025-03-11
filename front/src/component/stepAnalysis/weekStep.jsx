@@ -121,6 +121,7 @@ export default function WeekStep() {
                 className="week-step-graph"
                 style={{
                   height: mounted ? `${(item.steps / maxStep) * 200}px` : 0,
+                  transition: "height 1s ease-out",
                 }}
               ></div>
 
