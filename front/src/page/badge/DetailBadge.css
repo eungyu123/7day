@@ -23,10 +23,6 @@
   animation: rotate-axis 3.5s linear infinite;
 }
 
-.badge-size {
-  width: 300px;
-}
-
 @keyframes rotate-axis {
   from {
     transform: perspective(800px) rotateY(0deg);
