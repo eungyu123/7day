@@ -1,0 +1,69 @@
+.gifticon-modal-period {
+  background: var(--toss-light-gray);
+  border-radius: 20px;
+  padding: 7px;
+  font-size: var(--font-sm);
+}
+.gifticon-modal-img {
+  width: 250px;
+}
+.gifticon-modal-description {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.gifticon-modal-barcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gifticon-modal-fake-barcode {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  gap: 2px;
+}
+
+.gifticon-modal-barcode-bar {
+  background-color: black;
+  height: 100%;
+}
+
+.gifticon-modal-barcode-number {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.bar-0 {
+  width: 2px;
+}
+.bar-1 {
+  width: 4px;
+}
+.bar-2 {
+  width: 3px;
+}
+.bar-3 {
+  width: 5px;
+}
+.bar-4 {
+  width: 2px;
+}
+.bar-5 {
+  width: 6px;
+}
+.bar-6 {
+  width: 3px;
+}
+.bar-7 {
+  width: 4px;
+}
+.bar-8 {
+  width: 5px;
+}
+.bar-9 {
+  width: 2px;
+}

@@ -10,6 +10,7 @@
   padding: 20px;
   text-align: center;
   z-index: 1050;
+  outline: none;
 }
 
 .modal-header {
