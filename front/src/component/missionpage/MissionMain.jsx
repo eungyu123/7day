@@ -57,10 +57,10 @@ export default function MissionMain() {
       <div className="missionmainlist">
         {missions && Array.isArray(missions) && missions.length > 0 ? (
           missions.map((mission, index) => {
-            console.log(
-              "Mission Reward:",
-              mission.missionId?.rewardId?.content
-            );
+            // console.log(
+            //   "Mission Reward:",
+            //   mission.missionId?.rewardId?.content
+            // );
             return (
               <MissionList
                 key={index}

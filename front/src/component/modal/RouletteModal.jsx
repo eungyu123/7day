@@ -105,7 +105,7 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
             <RouletteRewardModal
               isOpen={true}
               setIsOpen={() => setSelectedItem(null)}
-              prize={prizes[selectedItem].prize}
+              gift={gift}
             />
           )}
         </div>
