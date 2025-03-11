@@ -103,8 +103,8 @@ export default function Inventory() {
 
   return (
     <>
-      <Header PageName={"보관함"} />
-      <div className="container">
+      <div className="inventory-container">
+        <Header PageName={"보관함"} />
         <CharacterViewer />
         <div className="inventory">
           <InventoryTabs
@@ -141,12 +141,12 @@ export default function Inventory() {
         </div>
 
         {/* 임시 모달 확인 버튼 */}
-        <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
+        {/* <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
         <RewardModal
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           goal={"3000보"}
-        />
+        /> */}
       </div>
     </>
   );
