@@ -4,6 +4,8 @@ import "../../page/modal/Modal.css";
 import { API_BASE_URL } from "../../constant/constant";
 import { getOneEgg } from "../../api/eggApi";
 import { getReward } from "../../api/rewardApi";
+// import { Link } from "react-router-dom";
+// import { PAGE_URLS } from "../../constant/constant";
 
 export default function RewardModal({ isOpen, setIsOpen, newReward }) {
   const [eggData, setEggData] = useState(null); // 알 데이터를 저장할 상태
@@ -72,9 +74,16 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
               <p>{couponData.content} 획득!</p>
             </>
           )}
+          {/* <span className="modal-icon">🎁</span>
+          <p className="modal-message">축하합니다!</p>
+          <p className="modal-message">
+            <strong>{goal}</strong> 미션 달성!
+          </p>
           <Dialog.Close asChild>
-            <button className="reward-button">보상받기</button>
-          </Dialog.Close>
+            <Link to={PAGE_URLS.MissionPage} className="reward-button">
+              보상받으러 가기
+            </Link>
+          </Dialog.Close> */}
         </div>
       </Dialog.Content>
     </Dialog.Root>
