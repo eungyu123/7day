@@ -33,7 +33,6 @@ module.exports = {
   getCharacters: async (userId) => {
     try {
       const user = await User.findById(userId);
-
       if (!user) return [];
 
       // const characters = await Character.find();

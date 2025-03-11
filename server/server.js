@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 
 // 67c7ab335f743adc8dc272a3
-//Express 앱 생성
 const port = 3000;
 const app = express();
 const path = require("path");
@@ -11,13 +10,7 @@ const connectDB = require("./db/connectDB");
 
 connectDB();
 
-// const seed = require("./db/seed/seed");
-// seed.deleteDummyData();
-//  seed.insertDummyData();
-//  seed.deleteAllUserMissions();
-
 const seedTrail = require("./db/seed/seedTrail");
-// seedTrail.seedReward();
 
 const middleware = require("./middleware/middleware");
 middleware(app);

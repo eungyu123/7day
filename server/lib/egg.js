@@ -1,5 +1,6 @@
-const { Egg, UserEgg, Hatchery } = require("../db/models/Egg");
-const User = require("../db/models/User");
+const models = require("../db/models");
+const { Egg, UserEgg } = models;
+const { handleDatabaseError, handleServerError } = require("../utils/utils");
 
 module.exports = {
   getEgg: async (req, res) => {
@@ -86,19 +87,6 @@ module.exports = {
       res.json({ type: "success", message: "Egg updated", data: userEgg });
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
-    }
-  },
-
-  getHatchery: async (req, res) => {
-    try {
-      const hatchery = await Hatchery.find();
-      return res.json({
-        type: "success",
-        data: hatchery,
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Server error", error });
     }
   },
 };

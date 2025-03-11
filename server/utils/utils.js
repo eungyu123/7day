@@ -1,4 +1,8 @@
-const crypto = require("crypto");
+const handleDatabaseError = (req, res) => {
+  return res.status(400).json({ type: "error" });
+};
+const handleServerError = (req, res) => {
+  return res.status(500).json({ type: "error" });
+};
 
-const secretKey = crypto.randomBytes(16).toString("hex"); // 16비트 키 생성
-console.log("🔑 비밀 키:", secretKey);
+module.exports = { handleDatabaseError, handleServerError };

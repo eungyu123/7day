@@ -1,4 +1,5 @@
-const User = require("../db/models/User"); // require로 가져오기
+const models = require("../db/models");
+const { User } = models;
 
 const { OAuth2Client } = require("google-auth-library");
 

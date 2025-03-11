@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const UserMissionSchema = new mongoose.Schema(
   {
     //_id
-    userId: { type: String },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     missionId: { type: mongoose.Schema.Types.ObjectId, ref: "Mission" }, // missionId를 ObjectId로 변경하고, 참조 설정
     success: { type: Boolean },
     completedAt: { type: Date },

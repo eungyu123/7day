@@ -2,8 +2,9 @@
 
 const { createUser } = require("../db/controllers/UserController"); // require로 가져오기
 const { createWalkData } = require("../db/controllers/WalkDataController");
-const Reward = require("../db/models/Reward");
-const User = require("../db/models/User");
+const models = require("../db/models");
+const { Trail, UserTrail, Landmark } = models;
+const { handleDatabaseError, handleServerError } = require("../utils/utils");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -29,12 +30,9 @@ module.exports = {
   getReward: async (req, res) => {
     try {
       const { rewardId } = req.body;
-      const rewards = await Reward.find();
-      console.log("rewardId", rewardId);
+      const reward = await models.Reward.findById(rewardId);
+      if (!reward) return handleDatabaseError(req, res);
 
-      console.log(rewards);
-      const reward = await Reward.findById(rewardId);
-      console.log("reward", reward);
       return res.json({ type: "success", data: reward });
     } catch (error) {
       console.log(error);
@@ -47,15 +45,14 @@ module.exports = {
   getRewards: async (req, res) => {
     try {
       const { userId } = req.params;
-      const user = await User.findById(userId);
-
-      const rewards = await Promise.all(
-        user.rewardList.map((rewardId) => Reward.findById(rewardId))
+      const userRewards = await models.UserReward.find({ userId }).populate(
+        "rewardId"
       );
+      if (!userRewards) {
+        handleDatabaseError(req, res);
+      }
 
-      // user.rewardList = [];
-      // await user.save();
-      return res.json({ type: "success", data: rewards });
+      return res.json({ type: "success", data: userRewards });
     } catch (error) {
       return res.status(500).json({ type: "error", message: error.message });
     }

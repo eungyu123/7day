@@ -4,7 +4,9 @@ const {
   getTodayWalkData,
 } = require("../db/controllers/WalkDataController");
 
-const Walk = require("../db/models/WalkData");
+const models = require("../db/models");
+const { Walk } = models;
+
 module.exports = {
   getStep: async (req, res) => {
     try {

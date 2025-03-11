@@ -1,6 +1,6 @@
-const User = require("../db/models/User");
-const { Egg, UserEgg } = require("../db/models/Egg");
-const Reward = require("../db/models/Reward");
+const models = require("../db/models");
+const { User, Egg, UserEgg, Reward } = models;
+const { handleDatabaseError, handleServerError } = require("../utils/utils");
 const {
   getUser,
   updateUser,
@@ -8,24 +8,18 @@ const {
   updateFriends,
 } = require("../db/controllers/UserController");
 const { generateRandomGifts } = require("../utils/kakaomap");
-const { get } = require("http");
 
+//prettier-ignore
 module.exports = {
   getUser: async (req, res) => {
     try {
       const user = await getUser(req, res);
-      res.status(200).json({
-        type: "success",
-        message: "User found",
-        data: user,
-      });
+      res.status(200).json({type: "success", data: user });
     } catch (error) {
-      res.status(500).json({
-        type: "error",
-        message: "fetching user failed",
-      });
+      return handleServerError(req,res); 
     }
   },
+
   updateUser: async (req, res) => {
     try {
       const user = await updateUser(req, res);
@@ -44,104 +38,97 @@ module.exports = {
 
   getFriends: async (req, res) => {
     try {
-      const user = await getUser(req, res);
-      // friendlist에서 friendid 추출
-      const friends = user.friendList.map((f) => f.friend_id);
-      const friendDataList = await Promise.all(
-        friends.map(async (friendId) => {
-          //각각의 friend 정보 찾는 함수
-          const friend = await getUser({ params: { userId: friendId } });
-          console.log("friendid로 get user", friend);
-          return {
-            friendId: friend._id,
-            friendName: friend.nickname,
-          };
-        })
-      );
-      res.status(200).json({
-        type: "success",
-        message: "Friends found",
-        data: friendDataList,
-      });
-    } catch (error) {
-      res.status(500).json({
-        type: "error",
-        message: "fetching friends failed",
-      });
-    }
-  },
+      const {userId} = req.params; 
+      const friends = await models.Friend.find({userId}).populate("friendId", "nickname"); 
 
-  updateFriends: async (req, res) => {
+      if(!friends.length) {
+        return res.res.status(404).json({ type: "error"})
+      }
+
+      const friendList = friends.map(({friendId}) => ({
+        friendId: friendId._id,
+        friendName: friendId.nickname,
+      }))
+      return res.json({type: "success", data: friendList})
+      
+      } catch(error) {
+        return handleServerError(req,res); 
+      }
+    },
+
+  insertFiend: async(req,res) => {
     try {
-      const { friendid } = req.body; // friendid 값만 추출
-      console.log("추가할 친구 ID:", friendid);
+      const { userId } = req.params; 
+      const { friendId } = req.body; 
 
-      const user = await User.findById(req.params.userId);
+      const user = await models.User.findById(userId); 
+      const friendUser =  await User.findById(friendId); 
 
-      if (!user) {
-        return res.status(404).json({
-          type: "error",
-          message: "User not found",
-        });
+      if( !user || !friendUser) {
+        return handleDatabaseError(req,res); 
       }
-      console.log("User found:", user); // 사용자 확인
 
-      if (user.friendList.some((friend) => friend.friend_id === friendid)) {
-        console.log("이미 존재하는 친구");
-
-        return res.status(400).json({
-          type: "error",
-          message: "Friend already added",
-        });
+      const existingFriend = await models.Friend.findOne({userId, friendId}); 
+      if(existingFriend) {
+        return handleDatabaseError(req,res); 
       }
-      const friend = await updateFriends(req, res);
 
-      return res.status(200).json({
-        type: "success",
-        message: "Friend updated",
-        data: friend,
-      });
-    } catch (error) {
-      console.log("catch error", error);
+      const newFriend = await models.Friend.create({userId, friendId}); 
+      const otherNewFriend = await models.Friend.create({ userId: friendId, friendId: userId });
+      return res.json({
+        type:"success", 
+        data: [newFriend, otherNewFriend]
+      })
+      } catch (error) {
+        return handleServerError(req,res); 
+      }
+    },
 
-      res.status(500).json({
-        type: "error",
-        message: "fetching update failed",
-      });
+  getGifts: async (req,res) => {
+    try {
+      const { userId } = req.params; 
+      const gifts = models.Gift.find({userId})
+      if(!gifts) {
+        return handleDatabaseError(req,res); 
+      }
+
+      return res.json({ type: "success", data: gifts }); 
+    } catch(error) {
+      return handleServerError(req,res); 
     }
-  },
 
+  }, 
   generateGift: async (req, res) => {
     try {
+      const {userId} = req.params; 
       const user = await getUser(req, res);
+      
 
-      // 마지막 생성시간이 4시간보다 클때 생성
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
       if (
-        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 ||
-        true
+        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10
       ) {
         if (!user?.location?.coordinates) {
-          return res.status(400).json({ type: "error" });
+          return handleDatabaseError(req,res); 
         }
         const [lng, lat] = user.location.coordinates; // [lng,lat] 순서 지키기
         if (!lng || !lat) {
-          return res.status(400).json({
-            type: "error",
-          });
+          return handleDatabaseError(req,res); 
         }
-        const gifts = await generateRandomGifts({ lat, lng });
-        user.gifts = gifts;
-        user.lastGiftsGeneratedAt = new Date();
 
-        await user.save();
+        const generatedgifts = await generateRandomGifts({ lat, lng });
+        const giftDocs = await Promise.all(
+          generatedgifts.map( (gift) => models.Gift.create({userId, ...gift}))
+        )
+        user.lastGeneratedAt = new Date(); 
+        await user.save(); 
+
         return res.status(200).json({
           type: "success",
-          message: "",
-          data: gifts,
+          data: giftDocs,
         });
       } else {
-        return res.status(200).json({ type: "success", message: "" });
+        return res.status(200).json({ type: "success", message: "선물 상자 생성 쿨타임" });
       }
     } catch (error) {
       console.log(error);
@@ -154,20 +141,31 @@ module.exports = {
 
   removeGift: async (req, res) => {
     try {
+      const { userId } = req.params;
       const { giftId } = req.body;
 
       const user = await getUser(req, res);
-      const gift = user.gifts.find((v) => v._id == giftId);
+      const gift = models.Gift.findById(giftId); 
+      if( !gift ) return handleDatabaseError(req, res);
 
       if (gift.giftType == "포인트") {
         user.userPoint += Number(gift.point);
+        await user.save(); 
       } else if (gift.giftType == "쿠폰") {
-        user.rewardList.push(gift.rewardId.toString());
+        // 
+        const reward = await models.Reward.findById(gift.rewardId)
+        if(reward) {
+          const newReward = await models.UserReward({
+            userId: user._id, 
+            rewardId: reward._id, 
+          })
+          await newReward.save(); 
+        }
       } else if (gift.giftType == "알") {
         const egg = await Egg.findById(gift?.eggId);
         const newEgg = new UserEgg({
-          userId: user._id.toString(),
-          eggId: egg._id.toString(),
+          userId: user._id,
+          eggId: egg._id,
           eggType: egg.eggType,
           currentStep: 0,
           goalWalk: egg.goalWalk,
@@ -175,13 +173,9 @@ module.exports = {
           petLink: "",
         });
 
-        const updatedEgg = await newEgg.save();
-        // console.log(updatedEgg);
+        await newEgg.save();
       }
-      user.gifts = user.gifts.filter((v) => v.id != giftId);
-      // console.log(user);
-
-      const updatedUser = await user.save();
+      await gift.deleteOne();
 
       return res.status(200).json({ type: "success" });
     } catch (error) {

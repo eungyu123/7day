@@ -8,9 +8,4 @@ router.get("/:userId", async (req, res) => {
   inventory.getInventory(req, res);
 });
 
-router.put("/:userId", async (req, res) => {
-  console.log("updateUser");
-  inventory.updateUser(req, res);
-});
-
 module.exports = router;

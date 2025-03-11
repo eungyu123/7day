@@ -3,7 +3,8 @@ const {
   updateUserMission,
   createUserMission,
 } = require("../db/controllers/UserMissionController");
-const { getReward } = require("../db/controllers/RewardController");
+const models = require("../db/models");
+
 module.exports = {
   getUserMission: async (req, res) => {
     try {
@@ -22,7 +23,7 @@ module.exports = {
   updateUserMission: async (req, res) => {
     try {
       console.log("updateusermission 진입");
-      
+
       const userMission = await updateUserMission(req, res);
       // //const rewardId = userMission.rewardId;
       // const reward = await getReward(rewardId, res);
