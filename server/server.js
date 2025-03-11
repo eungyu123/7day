@@ -12,8 +12,9 @@ const connectDB = require("./db/connectDB");
 connectDB();
 
 const seed = require("./db/seed/seed");
+//seed.deleteData();
+//seed.insertMission();
 // seed.deleteDummyData();
-// seed.insertDummyData();
 // seed.deleteAllUserMissions();
 //seed.insertWalkDummyData(); //친구 걸음 데이터 추가
 //seed.deleteAllFriendLists();
@@ -25,7 +26,7 @@ const middleware = require("./middleware/middleware");
 middleware(app);
 
 app.use("/image", express.static("image"));
-const seedEgg = require("./db/seedEgg");
+//const seedEgg = require("./db/seedEgg");
 // seed.deleteAllHatcheries();
 // seed.createRandomHatcheries();
 //seedEgg.seedEggData();
