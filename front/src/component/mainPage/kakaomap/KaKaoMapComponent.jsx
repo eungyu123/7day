@@ -54,9 +54,9 @@ export default function KaKaoMapComponent() {
 
     await setTimeOutfetch();
 
-    setTimeout(() => {
-      setIsOpen(false);
-    }, 4000);
+    // setTimeout(() => {
+    //   setIsOpen(false);
+    // }, 4000);
   }
 
   return (

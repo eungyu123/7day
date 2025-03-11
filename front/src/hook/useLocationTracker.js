@@ -24,42 +24,50 @@ export const useLocationTracker = ({ dispatch }) => {
       return;
     }
 
-    const fetchLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const newLocation = { lat: latitude, lng: longitude };
-          if (prevLocation) {
-            const distance = calculateDistance({
-              point1: prevLocation,
-              point2: newLocation,
-            });
-
-            const steps = getSteps(distance); // 60cm당 한 걸음
-            if (steps) {
-              updateWalkData({ steps: steps });
-              updateEggStep({ steps });
-            }
-            updateUserCoord(newLocation);
-          }
-
-          prevLocation = newLocation;
-          dispatch(setLocation(newLocation));
-          dispatch(setlocationLoading({ locationLoading: false }));
-          dispatch(setlocationError({ locationError: false }));
-        },
-        () => {
-          dispatch(
-            setlocationError({
-              locationError: "위치 정보를 가져올 수 없습니다.",
-            })
-          );
-          dispatch(setlocationLoading({ locationLoading: false }));
-        }
-      );
+    const getCurrentPosition = () => {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
     };
-    fetchLocation();
-    const interval = setInterval(fetchLocation, 10000);
+
+    const fetchLocation = async () => {
+      try {
+        const position = await getCurrentPosition();
+        const { latitude, longitude } = position.coords;
+        console.log("position", position);
+
+        const newLocation = { lat: latitude, lng: longitude };
+
+        if (prevLocation) {
+          const distance = calculateDistance({
+            point1: prevLocation,
+            point2: newLocation,
+          });
+
+          const steps = getSteps(distance);
+          if (steps) {
+            const resWalk = await updateWalkData({ steps });
+            console.log("resWalk", resWalk);
+            const updateEgg = await updateEggStep({ steps });
+          }
+          await updateUserCoord(newLocation);
+        }
+
+        prevLocation = newLocation;
+        dispatch(setLocation(newLocation));
+        dispatch(setlocationLoading({ locationLoading: false }));
+        dispatch(setlocationError({ locationError: false }));
+      } catch (error) {
+        console.log(error);
+        dispatch(
+          setlocationError({ locationError: "위치 정보를 가져올 수 없습니다." })
+        );
+        dispatch(setlocationLoading({ locationLoading: false }));
+      }
+    };
+
+    fetchLocation(); // 초기 위치 가져오기
+    const interval = setInterval(fetchLocation, 10000); // 3초마다 위치 업데이트
 
     return () => clearInterval(interval);
   }, []);

@@ -3,6 +3,7 @@
 const { createUser } = require("../db/controllers/UserController"); // require로 가져오기
 const { createWalkData } = require("../db/controllers/WalkDataController");
 const Reward = require("../db/models/Reward");
+const User = require("../db/models/User");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -40,6 +41,23 @@ module.exports = {
       res.status(500).json({
         type: "error",
       });
+    }
+  },
+
+  getRewards: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const user = await User.findById(userId);
+
+      const rewards = await Promise.all(
+        user.rewardList.map((rewardId) => Reward.findById(rewardId))
+      );
+
+      // user.rewardList = [];
+      // await user.save();
+      return res.json({ type: "success", data: rewards });
+    } catch (error) {
+      return res.status(500).json({ type: "error", message: error.message });
     }
   },
 };

@@ -12,4 +12,9 @@ router.post("/reward", (req, res) => {
   main.getReward(req, res);
 });
 
+router.get("/rewards/:userId", (req, res) => {
+  console.log("getRewards");
+  main.getRewards(req, res);
+});
+
 module.exports = router;

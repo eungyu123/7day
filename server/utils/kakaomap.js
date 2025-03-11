@@ -20,7 +20,7 @@ module.exports = {
       } else if (giftType === "쿠폰") {
         const randomReward =
           rewards[Math.floor(Math.random() * rewards.length)];
-        console.log(randomReward);
+        console.log(rewards, randomReward);
 
         return {
           giftType,

@@ -30,9 +30,9 @@ export const updateUserName = async (newUserName) => {
   }
 };
 
-export const updateUserCoord = ({ lng, lat }) => {
+export const updateUserCoord = async ({ lng, lat }) => {
   try {
-    fetch(`${API_BASE_URL}/user/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/user/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -42,6 +42,7 @@ export const updateUserCoord = ({ lng, lat }) => {
       }),
       // credentials: "include",
     });
+    return res.json();
   } catch (error) {
     console.log(error);
     throw error;
