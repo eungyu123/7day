@@ -22,13 +22,13 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
       setCouponData(reward.data); // 받은 데이터를 상태에 저장
     };
 
-    if (newReward.giftType === "알") {
-      fetchEggData();
-    }
+    // if (newReward.giftType === "알") {
+    //   fetchEggData();
+    // }
 
-    if (newReward.giftType === "쿠폰") {
-      fetchRewardData();
-    }
+    // if (newReward.giftType === "쿠폰") {
+    //   fetchRewardData();
+    // }
   }, [newReward]); // newReward가 변경될 때마다 다시 실행
 
   console.log("newReward", newReward);
@@ -41,6 +41,16 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
           </Dialog.Close>
         </div>
         <div className="modal-body">
+          {/* <span className="modal-icon">🎁</span>
+          <p className="modal-message">축하합니다!</p>
+          <p className="modal-message">
+            <strong>{goal}</strong> 미션 달성!
+          </p>
+          <Dialog.Close asChild>
+            <Link to={PAGE_URLS.MissionPage} className="reward-button">
+              보상받으러 가기
+            </Link>
+          </Dialog.Close> */}
           {newReward && newReward.giftType === "포인트" && (
             <>
               <span className="modal-icon">🎁</span>
@@ -74,16 +84,6 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
               <p>{couponData.content} 획득!</p>
             </>
           )}
-          {/* <span className="modal-icon">🎁</span>
-          <p className="modal-message">축하합니다!</p>
-          <p className="modal-message">
-            <strong>{goal}</strong> 미션 달성!
-          </p>
-          <Dialog.Close asChild>
-            <Link to={PAGE_URLS.MissionPage} className="reward-button">
-              보상받으러 가기
-            </Link>
-          </Dialog.Close> */}
         </div>
       </Dialog.Content>
     </Dialog.Root>

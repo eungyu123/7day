@@ -3,7 +3,6 @@ import "./MissionList.css";
 import { useState } from "react";
 import RouletteRewardModal from "../modal/RouletteRewardModal";
 
-
 export default function MissionList({
   MissionContent,
   MissionReward,
@@ -40,7 +39,7 @@ export default function MissionList({
         <RouletteRewardModal
           isOpen={isOpen}
           setIsOpen={HandleRewardClose}
-          prize={MissionReward}
+          gift={MissionReward}
         />
       )}
     </>
