@@ -24,4 +24,5 @@
   font-size: var(--font-2xl);
   margin-bottom: 5px;
   margin-left: 5%;
+  cursor: pointer;
 }

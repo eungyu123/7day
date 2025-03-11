@@ -99,11 +99,11 @@ const buttonsProp = [
     description: "내 걸음을 분석해보세요",
     href: PAGE_URLS.StepAnalysisPage,
   },
-  // {
-  //   icon: "🧿",
-  //   description: "목표를 달성하고 배지를 모아보세요",
-  //   href: PAGE_URLS.BadgePage,
-  // },
+  {
+    icon: "🧿",
+    description: "목표를 달성하고 배지를 모아보세요",
+    href: PAGE_URLS.BadgePage,
+  },
   {
     icon: "⚙️",
     description: "설정을 바꿀수 있어요",

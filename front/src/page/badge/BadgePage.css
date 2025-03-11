@@ -10,6 +10,24 @@
 
   position: relative;
 }
+.badge-button {
+  width: 70%;
+  background: var(--toss-blue);
+  color: white;
+  padding: 3px;
+  margin-top: 5px;
+  border: none;
+  border-radius: var(--button-radius);
+}
+.badge-no-button {
+  width: 70%;
+  background: gray;
+  color: white;
+  padding: 3px;
+  margin-top: 5px;
+  border: none;
+  border-radius: var(--button-radius);
+}
 
 .badge-goal-container {
   width: 85%;
