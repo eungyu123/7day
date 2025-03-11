@@ -49,7 +49,7 @@ export default function MainPage() {
         ))}
       </ButtonWrapper>
       <div>
-        현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
+        현재 캐릭터는 {appState.user.character}, 현재 펫은 {appState.user.pet}
       </div>
       <RewardModal
         isOpen={isRewardModalOpen}

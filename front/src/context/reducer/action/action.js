@@ -3,14 +3,14 @@ import { actionType } from "./actionType";
 export function setCharacter({ character }) {
   return {
     type: actionType.setCharacter,
-    payload: { character },
+    payload: { user: { character } },
   };
 }
 
 export function setPet({ pet }) {
   return {
     type: actionType.setPet,
-    payload: { pet },
+    payload: { user: { pet } },
   };
 }
 

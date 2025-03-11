@@ -24,26 +24,6 @@ export default function Inventory() {
   const [characterItems, setCharacterItems] = useState([]);
   const [petItems, setPetItems] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchInventory = async () => {
-  //     try {
-  //       const response = await updateInventoryData({
-  //         newCharacter: null,
-  //         newPet: null,
-  //       });
-
-  //       if (response.type === "success") {
-  //         setCharacterItems(response.data.characterList || []);
-  //         setPetItems(response.data.petList || []);
-  //       }
-  //     } catch (error) {
-  //       console.error("인벤토리 불러오기 실패: ", error);
-  //     }
-  //   };
-
-  //   fetchInventory();
-  // }, []);
-
   useEffect(() => {
     const fetchInventoryData = async () => {
       try {
@@ -51,7 +31,6 @@ export default function Inventory() {
         // setCharacterItems(data.characterItems); // 데이터를 state에 저장
         // setPetItems(data.petItems); // 로딩 종료
         const minItemsCount = 8;
-        console.log("data: ", data.data);
 
         const characterItemsWithDefaults = [
           ...data.data.characterItems,
@@ -111,8 +90,7 @@ export default function Inventory() {
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
           />
-          {console.log("유저의 캐릭터 리스트: ", characterItems)}
-          {console.log("유저의 펫 리스트: ", petItems)}
+
           <div className="inventory-main">
             {selectedTab === "character"
               ? characterItems.map((item) => (
@@ -121,9 +99,9 @@ export default function Inventory() {
                     type="characters"
                     img={item.characterLink}
                     name={item.characterName}
-                    isSelected={appState.character === item.characterName}
+                    isSelected={appState.user.character === item.characterLink}
                     onClick={() => {
-                      dispatch(setCharacter({ character: item.characterName }));
+                      dispatch(setCharacter({ character: item.characterLink }));
                     }}
                   />
                 ))
@@ -133,22 +111,14 @@ export default function Inventory() {
                     type="pets"
                     img={item.petLink}
                     name={item.petName}
-                    isSelected={appState.pet === item.petName}
+                    isSelected={appState.user.pet === item.petLink}
                     onClick={() => {
-                      dispatch(setPet({ pet: item.petName }));
+                      dispatch(setPet({ pet: item.petLink }));
                     }}
                   />
                 ))}
           </div>
         </div>
-
-        {/* 임시 모달 확인 버튼 */}
-        {/* <button onClick={() => setIsModalOpen(true)}>모달 열기</button>
-        <RewardModal
-          isOpen={isModalOpen}
-          setIsOpen={setIsModalOpen}
-          goal={"3000보"}
-        /> */}
       </div>
     </>
   );

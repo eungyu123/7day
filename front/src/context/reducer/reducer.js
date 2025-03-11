@@ -5,13 +5,19 @@ export function appReducer(state, action) {
     case actionType.setCharacter: {
       return {
         ...state,
-        character: action.payload.character,
+        user: {
+          ...state.user,
+          character: action.payload.user.character,
+        },
       };
     }
     case actionType.setPet: {
       return {
         ...state,
-        pet: action.payload.pet,
+        user: {
+          ...state.user,
+          pet: action.payload.user.pet,
+        },
       };
     }
 
