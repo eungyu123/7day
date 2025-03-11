@@ -121,7 +121,10 @@ export default function WeekStep() {
                 className="week-step-graph"
                 style={{
                   height: mounted ? `${(item.steps / maxStep) * 200}px` : 0,
-                  transition: "height 1s ease-out",
+                  background:
+                    item.day === "오늘"
+                      ? "linear-gradient(#d9d9d9, #0064ff)"
+                      : "linear-gradient(#d9d9d9, #f3f4f6)",
                 }}
               ></div>
 

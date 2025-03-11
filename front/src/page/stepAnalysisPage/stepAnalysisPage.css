@@ -5,7 +5,7 @@ body {
   height: 100%;
   background-color: var(--toss-background);
 }
-.container {
+.step-container {
   width: 100vw;
   height: auto;
   background-color: var(--toss-background);
@@ -17,7 +17,7 @@ body {
 
 .step-analysis-container {
   width: 85%;
-  height: 375px;
+  min-height: 375px;
   background-color: white;
   border-radius: 15px;
   padding: 20px;
