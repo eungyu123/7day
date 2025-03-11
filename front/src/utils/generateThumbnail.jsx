@@ -4,42 +4,49 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"; // HDR �
 import GLTFModel from "../component/Three/GLTFModel"; // GLTF로더
 
 export function generateThumbnail(character) {
-  const initialWidth = 60; // 60px로 크기 설정
-  const initialHeight = 60; // 60px로 크기 설정
-  const scene = new THREE.Scene();
+  return new Promise((resolve, reject) => {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(60, 60);
+    renderer.setClearColor(0x000000, 0);
 
-  // GLTF 모델 추가
-  const model = GLTFModel(character);
-  scene.add(model);
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight.position.set(1, 1, 1);
+    scene.add(directionalLight);
 
-  //카메라 설정
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    initialWidth / initialHeight,
-    0.01,
-    1000
-  );
-  camera.position.set(5, 0, 20); // 카메라 위치 조정
+    const loader = new GLTFLoader();
 
-  // 렌더러 생성 (2D 이미지 추출을 위한 canvas)
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(initialWidth, initialHeight); // 썸네일 크기에 맞게 설정
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; // 🔥 HDR toneMapping 추가
-  renderer.toneMappingExposure = 1.0; // 🔥 적절한 노출 설정
-  renderer.outputEncoding = THREE.sRGBEncoding; // 🔥 색상 인코딩 설정
+    loader.load(
+      characterModelPath,
+      (gltf) => {
+        const model = gltf.scene;
+        scene.add(model);
 
-  // 조명 추가
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-  scene.add(ambientLight);
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(5, 5, 5);
-  scene.add(directionalLight);
+        const box = new THREE.Box3().setFromObject(model);
+        const size = box.getSize(new THREE.Vector3());
+        const maxSize = Math.max(size.x, size.y, size.z);
 
-  // 3D 씬을 렌더링하고 이미지 캡처
-  renderer.render(scene, camera);
+        const scale = 50 / maxSize;
+        model.scale.set(scale, scale, scale);
 
-  // canvas에서 이미지 데이터 추출
-  const imageURL = renderer.domElement.toDataURL(); // 이미지 URL로 변환
+        box.getCenter(model.position);
+        model.position.multiplyScalar(-1);
 
-  return imageURL; // 이 URL을 썸네일로 사용
+        camera.position.z = 50;
+        camera.lookAt(model.position);
+
+        renderer.render(scene, camera);
+        const imageDataURL = renderer.domElement.toDataURL("image/png");
+        resolve(imageDataURL);
+      },
+      undefined,
+      (error) => {
+        console.error("모델 로드 오류:", error);
+        reject(error);
+      }
+    );
+  });
 }
