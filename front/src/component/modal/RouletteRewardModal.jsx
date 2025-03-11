@@ -15,7 +15,7 @@ export default function RouletteRewardModal({ isOpen, setIsOpen, gift }) {
           <span className="roulette-reward-modal-icon">🎉</span>
           <p className="roulette-reward-modal-message">축하합니다!</p>
           <p className="roulette-reward-modal-message">
-            {gift}를 획득하셨습니다!
+            {gift}을(를) 획득하셨습니다!
           </p>
         </div>
       </Dialog.Content>
