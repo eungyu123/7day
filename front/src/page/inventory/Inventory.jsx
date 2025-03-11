@@ -118,6 +118,7 @@ export default function Inventory() {
               ? characterItems.map((item) => (
                   <InventoryItem
                     key={item._id}
+                    type="characters"
                     img={item.characterLink}
                     name={item.characterName}
                     isSelected={appState.character === item.characterName}
@@ -129,6 +130,7 @@ export default function Inventory() {
               : petItems.map((item) => (
                   <InventoryItem
                     key={item._id}
+                    type="pets"
                     img={item.petLink}
                     name={item.petName}
                     isSelected={appState.pet === item.petName}
