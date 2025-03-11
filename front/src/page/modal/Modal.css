@@ -74,20 +74,25 @@
   object-fit: contain;
   background-repeat: no-repeat;
 }
-/*
-        <Dialog.Content className="modal-content">
-          <div className="modal-body">
-            <p className="modal-message">구매하시겠습니까?</p>
-            <div className="modal-buttons">
-              <Dialog.Close asChild>
-                <button className="modal-cancel-button">취소</button>
-              </Dialog.Close>
-              <button
-                className="modal-confirm-button"
-                onClick={() => console.log("구매 완료!")}
-              >
-                {confirmName}
-              </button>
-            </div>
-          </div>
-*/
+
+.sound-volume-bar {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: var(--toss-blue);
+  outline: none;
+  border-radius: 40px;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+.sound-volume-bar:active {
+  opacity: 0.8;
+}
+.sound-volume-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+}
