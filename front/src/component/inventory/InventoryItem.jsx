@@ -16,6 +16,10 @@ export default function InventoryItem({
     <div
       className={`Inventory-item ${isSelected ? "selected" : ""}`}
       onClick={onClick}
+      style={{
+        borderRadius: "8px",
+        overflow: "hidden",
+      }}
     >
       <img
         src={imagePath}
