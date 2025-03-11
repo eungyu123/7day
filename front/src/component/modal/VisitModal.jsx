@@ -7,7 +7,7 @@ import { getKaclFromSteps, getKmFromSteps } from "../../utils/utils";
 import { getWalkData } from "../../api/walkApi";
 
 export default function VisitModal({ isOpen, setIsOpen }) {
-  const [currentSteps, setCurrentSteps] = useState(5020);
+  const [currentSteps, setCurrentSteps] = useState(0);
   const [visitCount, setVisitCount] = useState(1);
   const [todayIndex, setTodayIndex] = useState(0);
   const [goalSteps, setGoalSteps] = useState(10000);
@@ -151,7 +151,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
         </div>
         <div className="visit-modal-body">
           <p className="visit-modal-small-text">
-            {currentSteps > 10000
+            {currentSteps > goalSteps
               ? "만보를 달성했습니다!"
               : "조금만 더 걸어서 목표치를 채우세요!"}
           </p>
