@@ -9,8 +9,10 @@ export default function badge({ name, progressStatus, image }) {
   const [isBadgeDetailOpen, setIsBadgeDetailOpen] = useState(false);
 
   const handleClaim = () => {
-    setIsClaimed(true); // 뱃지 획득 상태 변경
-    setIsBadgeDetailOpen(true); //뱃지 획득 모달
+    if (!isClaimed) {
+      setIsClaimed(true); // 뱃지 획득 상태 변경
+      setIsBadgeDetailOpen(true); // 뱃지 획득 모달 열기
+    }
   };
   return (
     <>
@@ -32,6 +34,7 @@ export default function badge({ name, progressStatus, image }) {
               isClaimed ? "badge-no-button" : "badge-button"
             }`}
             onClick={handleClaim}
+            disabled={isClaimed}
           >
             뱃지 획득
           </button>
