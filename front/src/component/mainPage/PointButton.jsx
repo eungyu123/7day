@@ -10,7 +10,7 @@ export default function PointButton({ icon, title, des, rightIcon }) {
           </div>
           {title}
         </div>
-        <div className="common-half-btn-left-des">{des}</div>
+        <div className="common-half-btn-left-des">{des} 원</div>
       </div>
     </div>
   );

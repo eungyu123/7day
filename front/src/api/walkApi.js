@@ -2,11 +2,8 @@ import { API_BASE_URL, userId } from "../constant/constant";
 
 export const getWalkData = async (startDate, endDate, insertUserId) => {
   try {
-    console.log("getwalkdata 진입");
-
     // 입력받지 않으면 constant의 userId사용
     const finalUserId = insertUserId || userId;
-    console.log("finalUserId:", finalUserId);
 
     let apiUrl = `${API_BASE_URL}/WalkDatas/${finalUserId}`;
 

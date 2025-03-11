@@ -13,23 +13,26 @@ import PointButton from "../../component/mainPage/PointButton";
 import StoreButton from "../../component/mainPage/StoreButton";
 import RouletteModal from "../../component/modal/RouletteModal";
 import ThreeScene from "../../component/Three/ThreeScene";
+import RewardModal from "../../component/modal/RewardModal";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
   const [isRouletteModalOpen, setIsRouletteModalOpen] = useState(false);
+  const [isRewardModalOpen, setIsRewardModalOpen] = useState(false);
 
-  console.log("appState.user");
+  // console.log("appState.user", appState.user);
   useEffect(() => {
     setIsRouletteModalOpen(false);
+    setIsRewardModalOpen(false);
   }, []);
   return (
     <Container>
       <MainMap />
       <div className="main-character-wrapper">
-        <ThreeScene
+        {/* <ThreeScene
           character={appState.user.character}
           pet={appState.user.pet}
-        />
+        /> */}
       </div>
       <HalfButtonWrapper>
         <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />
@@ -48,6 +51,11 @@ export default function MainPage() {
       <div>
         현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
       </div>
+      <RewardModal
+        isOpen={isRewardModalOpen}
+        setIsOpen={setIsRewardModalOpen}
+        goal={"5km 러닝 완료"}
+      />
       <RouletteModal
         isOpen={isRouletteModalOpen}
         setIsOpen={setIsRouletteModalOpen}
@@ -62,11 +70,7 @@ const buttonsProp = [
     description: "프로필과 보상을 확인하세요!",
     href: PAGE_URLS.ProfilePage,
   },
-  {
-    icon: "🏆",
-    description: "획득한 뱃지를 확인하세요",
-    href: PAGE_URLS.BadgePage,
-  },
+
   {
     icon: "📦",
     description: "캐릭터와 펫을 보관중이에요!",
@@ -95,11 +99,11 @@ const buttonsProp = [
     description: "내 걸음을 분석해보세요",
     href: PAGE_URLS.StepAnalysisPage,
   },
-  {
-    icon: "🧿",
-    description: "목표를 달성하고 배지를 모아보세요",
-    href: PAGE_URLS.BadgePage,
-  },
+  // {
+  //   icon: "🧿",
+  //   description: "목표를 달성하고 배지를 모아보세요",
+  //   href: PAGE_URLS.BadgePage,
+  // },
   {
     icon: "⚙️",
     description: "설정을 바꿀수 있어요",

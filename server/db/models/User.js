@@ -29,8 +29,8 @@ const UserSchema = new mongoose.Schema(
     rewardList: [{ rewardId: { type: String } }],
     gifts: [
       {
-        gift: { type: String, required: true },
-        reward: { type: Number },
+        giftType: { type: String, required: true },
+        point: { type: Number },
         eggId: { type: String },
         rewardId: { type: String },
         lat: { type: Number, required: true },

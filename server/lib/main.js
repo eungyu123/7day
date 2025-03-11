@@ -2,9 +2,7 @@
 
 const { createUser } = require("../db/controllers/UserController"); // require로 가져오기
 const { createWalkData } = require("../db/controllers/WalkDataController");
-
-const kakaomap = require("../utils/kakaomap");
-// const redis = require("../db/redis");
+const Reward = require("../db/models/Reward");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -23,6 +21,24 @@ module.exports = {
       res.status(500).json({
         type: "error",
         message: "fetching create failed",
+      });
+    }
+  },
+
+  getReward: async (req, res) => {
+    try {
+      const { rewardId } = req.body;
+      const rewards = await Reward.find();
+      console.log("rewardId", rewardId);
+
+      console.log(rewards);
+      const reward = await Reward.findById(rewardId);
+      console.log("reward", reward);
+      return res.json({ type: "success", data: reward });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        type: "error",
       });
     }
   },

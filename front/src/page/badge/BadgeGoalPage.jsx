@@ -9,7 +9,7 @@ export default function BadgeGoalPage() {
     {
       id: 1,
       name: "5000보 걷기",
-      progressStatus: 80,
+      progressStatus: 100,
       image: BadgeImg,
     },
     {

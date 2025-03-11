@@ -52,39 +52,29 @@ mongoose
 // 더미 보상 데이터
 const rewardDummyData = [
   {
-    userId: "001",
     enterpriseName: "쿠폰",
     content: "아메리카노 무료 쿠폰",
-    icon: "☕",
-    rewardType: 1,
+    image: "☕",
   },
   {
-    userId: "002",
     enterpriseName: "포인트",
     content: "10 포인트 획득",
-    icon: "💎",
-    rewardType: 2,
+    image: "💎",
   },
   {
-    userId: "003",
     enterpriseName: "포인트",
     content: "15 포인트 획득",
-    icon: "💎",
-    rewardType: 2,
+    image: "💎",
   },
   {
-    userId: "004",
     enterpriseName: "쿠폰",
     content: "싱글 레귤러 아이스크림",
-    icon: "🍦",
-    rewardType: 1,
+    image: "🍦",
   },
   {
-    userId: "005",
     enterpriseName: "알",
     content: "알 1개 획득",
-    icon: "🥚",
-    rewardType: 3,
+    image: "🥚",
   },
 ];
 
@@ -108,15 +98,15 @@ const missionDummyData = [
     rewardId: null,
   },
   {
-    missionContent: "일주일 연속 출석하기기",
+    missionContent: "일주일 연속 출석하기",
     missionGoal: 7,
-    missionName: "출석챌린지",
+    missionName: "출석 챌린지",
     rewardId: null,
   },
   {
     missionContent: "하루 200kcal 소모하기",
     missionGoal: 200,
-    missionName: "칼로리 소모모",
+    missionName: "칼로리 소모",
     rewardId: null,
   },
 ];
@@ -154,6 +144,7 @@ const insertDummyData = async () => {
     for (let i = 0; i < missionDummyData.length; i++) {
       missionDummyData[i].rewardId =
         insertedRewards[i % insertedRewards.length]._id; // 순서대로 rewardId 할당
+      console.log("rewardid", i, missionDummyData[i].rewardId);
     }
 
     // 미션 데이터 삽입
@@ -177,8 +168,8 @@ const insertDummyData = async () => {
 const deleteDummyData = async () => {
   try {
     // 모든 미션 데이터 삭제
-    await Mission.deleteMany({});
-    console.log("✅ 모든 미션 데이터 삭제 완료!");
+    // await Mission.deleteMany({});
+    // console.log("✅ 모든 미션 데이터 삭제 완료!");
 
     // 모든 리워드 데이터 삭제
     await Reward.deleteMany({});

@@ -124,11 +124,16 @@ module.exports = {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }
-
         const [lng, lat] = user.location.coordinates; // [lng,lat] 순서 지키기
+        if (!lng || !lat) {
+          return res.status(400).json({
+            type: "error",
+          });
+        }
         const gifts = await generateRandomGifts({ lat, lng });
         user.gifts = gifts;
         user.lastGiftsGeneratedAt = new Date();
+
         await user.save();
         return res.status(200).json({
           type: "success",
@@ -153,12 +158,12 @@ module.exports = {
 
       const user = await getUser(req, res);
       const gift = user.gifts.find((v) => v._id == giftId);
-
-      if (gift.gift == "포인트") {
-        user.userPoint += gift.reward;
-      } else if (gift.gift == "쿠폰") {
+      console.log(gift);
+      if (gift.giftType == "포인트") {
+        user.userPoint += Number(gift.point);
+      } else if (gift.giftType == "쿠폰") {
         user.rewardList.push(gift.rewardId);
-      } else if (gift.gift == "알") {
+      } else if (gift.giftType == "알") {
         const egg = await Egg.findById(gift?.eggId);
         const newEgg = new UserEgg({
           userId: user._id.toString(),
@@ -171,10 +176,10 @@ module.exports = {
         });
 
         const updatedEgg = await newEgg.save();
-        console.log(updatedEgg);
+        // console.log(updatedEgg);
       }
       user.gifts = user.gifts.filter((v) => v.id != giftId);
-      console.log(user);
+      // console.log(user);
 
       await user.save();
 

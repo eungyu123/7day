@@ -1,0 +1,67 @@
+.friend-modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: var(--modal-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  z-index: 1050;
+}
+.friend-modal-header {
+  display: flex;
+  margin-bottom: 10px;
+}
+.friend-modal-title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.friend-modal-title-text {
+  display: flex;
+  margin-left: 5%;
+  font-weight: bold;
+}
+.friend-modal-exit {
+  display: flex;
+  justify-content: flex-end;
+}
+.friend-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--toss-gray);
+}
+.friend-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friend-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.friend-add-button {
+  width: 100%;
+  background: var(--toss-blue);
+  color: white;
+  padding: 10px;
+  margin-top: 15px;
+  border: none;
+  border-radius: var(--button-radius);
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

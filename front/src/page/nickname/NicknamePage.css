@@ -56,11 +56,13 @@
   justify-content: center;
   width: 80%;
   height: 100%;
-  background-color: gray;
+  background-color: var(--toss-blue);
   color: white;
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
-.nicknamebtn.active {
-  background-color: var(--toss-blue); /* 입력 시 파란색 */
+.nickname-error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
