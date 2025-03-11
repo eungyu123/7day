@@ -1,13 +1,4 @@
-// 더미 데이터 삽입
-const Mission = require("../models/Mission"); // Mission 모델을 불러옴
-const Reward = require("../models/Reward"); // Reward 모델을 불러옴
-const UserMission = require("../models/UserMission");
-const User = require("../models/User");
-const mongoose = require("mongoose");
-const WalkData = require("../models/WalkData"); // WalkDataSchema가 정의된 파일
-// // 더미 데이터 삽입
-// const mongoose = require("mongoose");
-// const WalkData = require("../models/WalkData"); // WalkDataSchema가 정의된 파일
+const models = require("../models/index");
 
 // // 사용자 ID (예시: '67c7ab335f743adc8dc272a3')
 // const userId = "67c7ab335f743adc8dc272a3";

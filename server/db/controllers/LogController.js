@@ -1,4 +1,5 @@
-const Log = require("../models/Log");
+const models = require("../models/index");
+const { Log } = models;
 
 module.exports = {
   createLog: async (req, res) => {

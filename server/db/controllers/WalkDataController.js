@@ -1,17 +1,18 @@
-const WalkData = require("../models/WalkData");
+const models = require("../models/index");
+const { Walk } = models;
 
 module.exports = {
-  //WalkData 생성
-  createWalkData: async (req, res) => {
-    const walkData = new WalkData({
+  //Walk 생성
+  createWalk: async (req, res) => {
+    const walk = new Walk({
       userId: req.params.userId,
       date: req.body.date,
       steps: 0,
     });
-    await walkData.save();
-    return walkData;
+    await walk.save();
+    return walk;
   },
-  getWalkData: async (req, res) => {
+  getWalk: async (req, res) => {
     const startDate = req.body.startDate;
     let endDate = req.body.endDate;
 
@@ -19,26 +20,26 @@ module.exports = {
     endDate = new Date(endDate);
     endDate.setHours(23, 59, 59, 999); // 23:59:59.999로 설정
 
-    //date가 startDate와 endDate 사이에 있는 walkdata를 반환
-    const walkData = await WalkData.find(
+    //date가 startDate와 endDate 사이에 있는 Walk를 반환
+    const walk = await Walk.find(
       {
         userId: req.params.userId,
         date: { $gte: startDate, $lte: endDate },
       },
       { _id: 0, __v: 0 }
     );
-    if (!walkData) {
+    if (!walk) {
       return res.status(400).json({
         type: "error",
-        message: "walkData searching failed",
+        message: "Walk searching failed",
       });
     }
-    return walkData;
+    return walk;
   },
-  updateWalkData: async (req, res) => {
+  updateWalk: async (req, res) => {
     try {
-      //req에서 오늘 날짜의 startDay,endDay를 body포함하여 오늘 날짜의 walkData 업데이트
-      const walkData = await WalkData.findOneAndUpdate(
+      //req에서 오늘 날짜의 startDay,endDay를 body포함하여 오늘 날짜의 Walk 업데이트
+      const walk = await Walk.findOneAndUpdate(
         {
           userId: req.params.userId,
           date: {
@@ -51,24 +52,24 @@ module.exports = {
           new: true,
         }
       );
-      if (!walkData) {
+      if (!walk) {
         const now = new Date().toISOString();
-        // walkData가 없으면 새로 생성
-        const newWalkData = new WalkData({
+        // Walk가 없으면 새로 생성
+        const newWalk = new Walk({
           userId: req.params.userId,
           date: now,
           steps: req.body.steps,
         });
-        await newWalkData.save();
-        return res.status(200).json(newWalkData); // 새로 생성된 데이터 반환
+        await newWalk.save();
+        return res.status(200).json(newWalk); // 새로 생성된 데이터 반환
       }
-      return walkData;
+      return walk;
     } catch (error) {
-      return res.status(400).send({ message: "WalkData not found" });
+      return res.status(400).send({ message: "Walk not found" });
     }
   },
-  deleteWalkData: async (req, res) => {
-    const result = await WalkData.findOneAndDelete({
+  deleteWalk: async (req, res) => {
+    const result = await Walk.findOneAndDelete({
       userId: req.params.userId,
       date: req.body.date,
     });
@@ -78,6 +79,6 @@ module.exports = {
         message: "Mission searching failed",
       });
     }
-    return { message: "WalkData deleted" };
+    return { message: "Walk deleted" };
   },
 };

@@ -1,4 +1,5 @@
-const Mission = require("../models/Mission");
+const models = require("../models/index");
+const { Mission } = models;
 
 module.exports = {
   createMission: async (req, res) => {

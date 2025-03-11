@@ -8,10 +8,11 @@ const WalkSchema = new mongoose.Schema(
       required: true,
     },
     steps: { type: Number },
-    date: { type: Date },
+    date: { type: Date }, // 시간 정보는 필요없기때문에 String 사용
   },
   { timestamps: true, collection: "walkdatas" }
 );
+WalkSchema.index({ userId: 1, date: 1 }, { unique: true });
 
 const Walk = mongoose.model("Walk", WalkSchema);
 

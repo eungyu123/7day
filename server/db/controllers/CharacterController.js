@@ -1,6 +1,5 @@
-const Character = require("../models/Character");
-const User = require("../models/User");
-
+const models = require("../models/index");
+const { Character, User } = models;
 module.exports = {
   purchaseCharacter: async (userId, characterId) => {
     try {

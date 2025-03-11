@@ -1,5 +1,5 @@
-const UserMission = require("../models/UserMission");
-const Mission = require("../models/Mission");
+const models = require("../models/index");
+const { UserMission, Mission, Pet } = models;
 
 module.exports = {
   createUserMission: async (req, res) => {

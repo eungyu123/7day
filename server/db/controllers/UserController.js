@@ -1,6 +1,5 @@
-const User = require("../models/User");
-const Character = require("../models/Character");
-const Pet = require("../models/Pet");
+const models = require("../models/index");
+const { User, Character, Pet } = models;
 
 module.exports = {
   createUser: async (req, res) => {

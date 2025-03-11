@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const MONGO_URL =
-  "mongodb+srv://gudwns1423:gudwns10113@pedometer-db.hjqd5.mongodb.net/pedometer?retryWrites=true&w=majority&appName=pedometer-DB";
+  "mongodb+srv://menteehubb:9jYyK3oSHNZEIYyk@pedometer-db.j1khp.mongodb.net/?retryWrites=true&w=majority&appName=pedometer-db";
 
 const connectDB = async () => {
   try {

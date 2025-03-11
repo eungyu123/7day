@@ -15,8 +15,6 @@ const TrailSchema = new mongoose.Schema(
   { timestamps: true, collection: "trails" }
 );
 
-TrailSchema.index({ location: "2dsphere" }); // 지리공간 인덱스 설정
-
 const Trail = mongoose.model("Trail", TrailSchema);
 
 module.exports = Trail;

@@ -1,4 +1,5 @@
-const Egg = require("../models/Egg");
+const models = require("../models/index");
+const { Character, Egg } = models;
 
 module.exports = {
   createEgg: async (req, res) => {

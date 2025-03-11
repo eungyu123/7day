@@ -7,7 +7,11 @@ const UserRewardSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    rewardId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    rewardId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Reward",
+      required: true,
+    },
   },
   { timestamps: true, collection: "userrewards" }
 );

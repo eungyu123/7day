@@ -7,18 +7,10 @@ const UserSchema = new mongoose.Schema(
     nicknameEdit: { type: Boolean }, // 추가
     googleId: { type: String, required: true },
     userPoint: { type: Number, required: true },
-    pet: { type: String },
-    character: { type: String },
     lastGiftsGeneratedAt: { type: Date },
     location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        default: "Point",
-      },
-      coordinates: {
-        type: [Number], // lng, lat 순서
-      },
+      lat: { type: Number, required: true },
+      lng: { type: Number, required: true },
     },
   },
   { timestamps: true, collection: "users" }

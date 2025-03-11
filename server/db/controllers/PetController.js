@@ -1,6 +1,5 @@
-const Pet = require("../models/Pet");
-const User = require("../models/User");
-
+const models = require("../models/index");
+const { Pet, User } = models;
 module.exports = {
   purchasePet: async (userId, petId) => {
     try {

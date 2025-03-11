@@ -1,12 +1,7 @@
 const models = require("../db/models");
 const { User, Egg, UserEgg, Reward } = models;
 const { handleDatabaseError, handleServerError } = require("../utils/utils");
-const {
-  getUser,
-  updateUser,
-  createUser,
-  updateFriends,
-} = require("../db/controllers/UserController");
+const { getUser, updateUser } = require("../db/controllers/UserController");
 const { generateRandomGifts } = require("../utils/kakaomap");
 
 //prettier-ignore

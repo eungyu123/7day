@@ -1,26 +1,36 @@
-const {
-  updateWalkData,
-  getWalkData,
-  getTodayWalkData,
-} = require("../db/controllers/WalkDataController");
-
 const models = require("../db/models");
 const { Walk } = models;
+const { handleDatabaseError, handleServerError } = require("../utils/utils");
 
 module.exports = {
   getStep: async (req, res) => {
     try {
-      const walkData = await getWalkData(req, res);
+      let startDate = req.body.startDate;
+      startDate = new Date(startDate);
+      startDate.setHours(0, 0, 0, 0);
+      let endDate = req.body.endDate;
+      endDate = new Date(endDate);
+      endDate.setHours(23, 59, 59, 999);
+
+      //date가 startDate와 endDate 사이에 있는 Walk를 반환
+      const walkData = await Walk.find(
+        {
+          userId: req.params.userId,
+          date: { $gte: startDate, $lte: endDate },
+        },
+        { _id: 0, __v: 0 }
+      );
+
+      if (!walkData) {
+        return handleDatabaseError(req, res);
+      }
+
       res.status(200).json({
         type: "success",
-        message: "WalkData found",
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
         stepRecords: walkData,
       });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: "Failed to fetch data" });
+      return handleServerError(req, res);
     }
   },
 

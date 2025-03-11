@@ -19,8 +19,6 @@ const LandmarkSchema = new mongoose.Schema(
   { timestamps: true, collection: "landmarks" }
 );
 
-LandmarkSchema.index({ location: "2dsphere" }); // 지리공간 인덱스 설정
-
 const Landmark = mongoose.model("Landmark", LandmarkSchema);
 
 module.exports = Landmark;
