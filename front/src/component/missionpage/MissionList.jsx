@@ -1,7 +1,8 @@
 import "./MissionList.css";
 // import { motion } from "framer-motion";
 import { useState } from "react";
-import RouletteRewardModal from "../modal/RouletteRewardModal";
+// import RouletteRewardModal from "../modal/RouletteRewardModal";
+import RouletteModal from "../modal/RouletteModal";
 
 export default function MissionList({
   MissionContent,
@@ -36,11 +37,7 @@ export default function MissionList({
         )}
       </div>
       {isOpen && (
-        <RouletteRewardModal
-          isOpen={isOpen}
-          setIsOpen={HandleRewardClose}
-          gift={MissionReward}
-        />
+        <RouletteModal isOpen={isOpen} setIsOpen={HandleRewardClose} />
       )}
     </>
   );
