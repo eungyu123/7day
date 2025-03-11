@@ -23,7 +23,7 @@ export default function MainPage() {
   // console.log("appState.user", appState.user);
   useEffect(() => {
     setIsRouletteModalOpen(false);
-    setIsRewardModalOpen(true);
+    setIsRewardModalOpen(false);
   }, []);
   return (
     <Container>
