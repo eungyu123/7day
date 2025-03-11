@@ -28,6 +28,10 @@ module.exports = {
   getReward: async (req, res) => {
     try {
       const { rewardId } = req.body;
+      const rewards = await Reward.find();
+      console.log("rewardId", rewardId);
+
+      console.log(rewards);
       const reward = await Reward.findById(rewardId);
       console.log("reward", reward);
       return res.json({ type: "success", data: reward });

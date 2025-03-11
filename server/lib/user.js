@@ -158,12 +158,12 @@ module.exports = {
 
       const user = await getUser(req, res);
       const gift = user.gifts.find((v) => v._id == giftId);
-
-      if (gift.gift == "포인트") {
-        user.userPoint += gift.reward;
-      } else if (gift.gift == "쿠폰") {
+      console.log(gift);
+      if (gift.giftType == "포인트") {
+        user.userPoint += Number(gift.point);
+      } else if (gift.giftType == "쿠폰") {
         user.rewardList.push(gift.rewardId);
-      } else if (gift.gift == "알") {
+      } else if (gift.giftType == "알") {
         const egg = await Egg.findById(gift?.eggId);
         const newEgg = new UserEgg({
           userId: user._id.toString(),

@@ -15,6 +15,7 @@ export const getOneEgg = async (eggId) => {
     throw error;
   }
 };
+
 export const getEgg = async () => {
   try {
     const res = await fetch(`${API_BASE_URL}/egg/${userId}`, {

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { Trail, UserTrail } = require("./models/Trail"); // 위에서 만든 모델 가져오기
-const { Egg, Hatchery } = require("./models/Egg"); // Egg, Hatchery 모델 가져오기
+const { Trail, UserTrail } = require("../models/Trail"); // 위에서 만든 모델 가져오기
+const { Egg, Hatchery } = require("../models/Egg"); // Egg, Hatchery 모델 가져오기
 
 // 임의의 산책로 데이터 추가
 async function createSampleData1() {
@@ -159,7 +159,7 @@ async function deleteAllHatcheries() {
   }
 }
 
-const Reward = require("./models/Reward"); // Reward 모델 경로에 맞게 수정
+const Reward = require("../models/Reward"); // Reward 모델 경로에 맞게 수정
 
 async function seedReward() {
   await Reward.deleteMany({});

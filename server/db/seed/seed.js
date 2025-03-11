@@ -52,39 +52,29 @@ mongoose
 // 더미 보상 데이터
 const rewardDummyData = [
   {
-    userId: "001",
     enterpriseName: "쿠폰",
     content: "아메리카노 무료 쿠폰",
-    icon: "☕",
-    rewardType: 1,
+    image: "☕",
   },
   {
-    userId: "002",
     enterpriseName: "포인트",
     content: "10 포인트 획득",
-    icon: "💎",
-    rewardType: 2,
+    image: "💎",
   },
   {
-    userId: "003",
     enterpriseName: "포인트",
     content: "15 포인트 획득",
-    icon: "💎",
-    rewardType: 2,
+    image: "💎",
   },
   {
-    userId: "004",
     enterpriseName: "쿠폰",
     content: "싱글 레귤러 아이스크림",
-    icon: "🍦",
-    rewardType: 1,
+    image: "🍦",
   },
   {
-    userId: "005",
     enterpriseName: "알",
     content: "알 1개 획득",
-    icon: "🥚",
-    rewardType: 3,
+    image: "🥚",
   },
 ];
 
@@ -177,8 +167,8 @@ const insertDummyData = async () => {
 const deleteDummyData = async () => {
   try {
     // 모든 미션 데이터 삭제
-    await Mission.deleteMany({});
-    console.log("✅ 모든 미션 데이터 삭제 완료!");
+    // await Mission.deleteMany({});
+    // console.log("✅ 모든 미션 데이터 삭제 완료!");
 
     // 모든 리워드 데이터 삭제
     await Reward.deleteMany({});
