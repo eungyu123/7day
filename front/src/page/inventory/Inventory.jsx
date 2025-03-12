@@ -10,7 +10,11 @@ import RewardModal from "../../component/modal/RewardModal";
 import { getInventoryData } from "../../api/inventoryApi";
 
 import { setCharacter, setPet } from "../../context/reducer/action/action";
-import { updateInventoryData } from "../../api/inventoryApi";
+import {
+  updateInventoryData,
+  updateUserCharacter,
+  updateUserPet,
+} from "../../api/inventoryApi";
 
 export default function Inventory() {
   const { appState, dispatch } = useAppContext();
@@ -79,6 +83,31 @@ export default function Inventory() {
 
     fetchInventoryData(); // 함수 실행
   }, []);
+  const handleCharacterClick = async (item) => {
+    try {
+      // 서버에 캐릭터 업데이트 요청
+      await updateUserCharacter({ character: item.characterLink });
+
+      // 로컬 상태 업데이트
+      dispatch(setCharacter({ character: item.characterLink }));
+    } catch (error) {
+      console.error("캐릭터 업데이트 실패:", error);
+      // 에러 처리 (예: 사용자에게 알림)
+    }
+  };
+
+  const handlePetClick = async (item) => {
+    try {
+      // 서버에 펫 업데이트 요청 (updateUserPet API 필요)
+      await updateUserPet({ pet: item.petLink });
+
+      // 로컬 상태 업데이트
+      dispatch(setPet({ pet: item.petLink }));
+    } catch (error) {
+      console.error("펫 업데이트 실패:", error);
+      // 에러 처리 (예: 사용자에게 알림)
+    }
+  };
 
   return (
     <>
@@ -100,9 +129,7 @@ export default function Inventory() {
                     img={item.characterLink}
                     name={item.characterName}
                     isSelected={appState.user.character === item.characterLink}
-                    onClick={() => {
-                      dispatch(setCharacter({ character: item.characterLink }));
-                    }}
+                    onClick={() => handleCharacterClick(item)}
                   />
                 ))
               : petItems.map((item) => (
@@ -112,9 +139,7 @@ export default function Inventory() {
                     img={item.petLink}
                     name={item.petName}
                     isSelected={appState.user.pet === item.petLink}
-                    onClick={() => {
-                      dispatch(setPet({ pet: item.petLink }));
-                    }}
+                    onClick={() => handlePetClick(item)}
                   />
                 ))}
           </div>
