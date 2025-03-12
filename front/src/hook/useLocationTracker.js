@@ -4,7 +4,7 @@ import {
   setLocation,
   setlocationLoading,
 } from "../context/reducer/action/action";
-import { calculateDistance, getSteps } from "../utils/utils";
+import { calculateDistance, getSteps, calculateDirection} from "../utils/utils";
 import { updateWalkData } from "../api/walkApi";
 import { updateUserCoord } from "../api/userApi";
 import { updateEggStep } from "../api/eggApi";
@@ -36,13 +36,22 @@ export const useLocationTracker = ({ dispatch }) => {
         const { latitude, longitude } = position.coords;
         console.log("position", position);
 
-        const newLocation = { lat: latitude, lng: longitude };
+        let newLocation = { lat: latitude, lng: longitude };
 
         if (prevLocation) {
           const distance = calculateDistance({
             point1: prevLocation,
             point2: newLocation,
           });
+          const vector = calculateDirection({
+            point1: prevLocation,
+            point2: newLocation,
+          })
+
+          newLocation = {
+            ...newLocation,
+            vector: vector
+          }
 
           const steps = getSteps(distance);
           if (steps) {
@@ -52,6 +61,7 @@ export const useLocationTracker = ({ dispatch }) => {
           }
           await updateUserCoord(newLocation);
         }
+
 
         prevLocation = newLocation;
         dispatch(setLocation(newLocation));
