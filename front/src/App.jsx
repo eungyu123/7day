@@ -11,7 +11,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
          HatcheryPage, SettingPage, BadgePage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage,
          BadgeGoalPage, BadgeListPage,
-         Store} from "./page";
+         Store,
+         ShoppingOrderPage} from "./page";
 import NicknamePage from "./page/nickname/NicknamePage";
 
 import { PAGE_URLS } from "./constant/constant";
@@ -59,18 +60,19 @@ function App() {
                 <Route path="/BadgeListPage" element={<BadgeListPage />} />
                 <Route path="/BadgeGoalPage" element={<BadgeGoalPage />} />
                 <Route
+                  path="/ShoppingOrderPage"
+                  element={<ShoppingOrderPage />}
+                />
+                <Route
                   path="/StepAnalysisPage"
                   element={<StepAnalysisPage />}
                 />
                 <Route path="/NicknamePage" element={<NicknamePage />} />
-                
                 {/* 없는 페이지 처리 */}
                 {/* 임시 에러페이지, 로딩페이지 */}
                 <Route path="*" element={<NotFound />} />{" "}
                 <Route path="/ErrorPage" element={<ErrorPage />} />
                 <Route path="/LoadingPage" element={<LoadingPage />} />
-
-
               </Routes>
             </appContext.Provider>
           </Suspense>

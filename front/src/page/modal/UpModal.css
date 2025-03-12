@@ -1,0 +1,83 @@
+/*
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Content className="up-modal-content">
+        <div className="up-modal-header">배송시 요청사항을 선택해주세요</div>
+        <div className="up-modal-body"></div>
+      </Dialog.Content>
+    </Dialog.Root>
+  );
+}
+
+*/
+.up-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 어두운 반투명 배경 */
+  z-index: 1049; /* 모달보다 낮고, 다른 요소보다 높게 설정 */
+}
+
+@keyframes up-modal-open {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0%);
+    opacity: 1;
+  }
+}
+
+@keyframes up-modal-close {
+  from {
+    transform: translate(-50%, 0%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+}
+
+.up-modal-content {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, 0%);
+  background: white;
+  border-radius: 15px 15px 0 0;
+  padding: 20px;
+  z-index: 1050;
+  outline: none;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.up-modal-content[data-state="open"] {
+  animation: up-modal-open 0.2s ease-out forwards;
+}
+
+.up-modal-content[data-state="closed"] {
+  animation: up-modal-close 0.2s ease-out forwards;
+}
+
+.up-modal-header {
+  padding: 20px;
+  color: var(--toss-gray);
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.up-modal-body {
+  padding-bottom: 30px;
+}
+
+.up-modal-body-button {
+  padding: 15px 5px 15px 20px;
+}
+
+.up-modal-body-button:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
