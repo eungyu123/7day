@@ -15,6 +15,8 @@ export const PAGE_URLS = {
   StorePage: "/StorePage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
+  ShoppingPage: "/ShoppingPage",
+  ShoppingDetailPage: "/ShoppingDetailPage",
   not: "not",
   LoadingPage: "/LoadingPage",
   ErrorPage: "/ErrorPage",

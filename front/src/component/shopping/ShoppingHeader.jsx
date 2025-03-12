@@ -1,29 +1,41 @@
-import "././component/header/Header.css";
+import "./ShoppingHeader.css";
 import { useNavigate } from "react-router-dom";
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=chevron_left"
 />;
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search"
+/>;
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart"
+/>;
 
-function Header({ BackNavigate = "/" }) {
+function ShoppingHeader({ pagename, BackNavigate = "/" }) {
   const navigate = useNavigate();
 
   return (
-    <div className="commonheader-container">
+    <div className="shoppingheader-container">
       <div
-        className="commonheader-left-section"
+        className="shoppingheader-left-section"
         onClick={() => navigate(BackNavigate)}
       >
         <span className="material-symbols-outlined">chevron_left</span>
       </div>
-      <div className="commonheader-center-section">
-        <p className="commonheader-headertext">토스 쇼핑</p>
+      <div className="shoppingheader-center-section">
+        <p className="shoppingheader-headertext">{pagename}</p>
       </div>
       <div className="shoppingheader-right-section">
-        <p className="emojifont shoppingheader-icon">🔍</p>
-        <p className="emojifont">🔍</p>
+        <span class="material-symbols-outlined shoppingheader-icon">
+          search
+        </span>
+        <span class="material-symbols-outlined shoppingheader-icon">
+          shopping_cart
+        </span>
       </div>
     </div>
   );
 }
-export default Header;
+export default ShoppingHeader;
