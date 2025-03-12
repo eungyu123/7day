@@ -28,7 +28,7 @@ function ThreeDModel({ location }) {
 
     // 3D 모델 로드
     const loader = new GLTFLoader();
-    loader.load("/Three/pets/babyGhost.glb", (gltf) => {
+    loader.load("/Three/pets/peach.glb", (gltf) => {
       // 추가할 모델 경로
       const additionalModel = gltf.scene;
       additionalModel.scale.set(0.2, 0.2, 0.2); // 크기 조정
@@ -106,7 +106,7 @@ function ThreeDModel({ location }) {
         containerRef.current.removeChild(renderer.domElement);
       }
     };
-  }, [location]);
+  }, []);
 
   return <div ref={containerRef} style={{ width: "200px", height: "200px" }} />;
 }
