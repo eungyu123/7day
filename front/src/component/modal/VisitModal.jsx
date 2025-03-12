@@ -126,7 +126,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
           // 연속 방문 횟수
           let count = 0;
           for (let i = todayIndex - 1; i >= 0; i--) {
-            if (formattedData[i].steps >= 0) count++;
+            if (formattedData[i].steps >= 1) count++;
             else break;
           }
           setVisitCount(count);
