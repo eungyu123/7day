@@ -9,7 +9,7 @@ import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
 import ThreeDModel from "./ThreeModel";
 import RewardModal from "../../modal/RewardModal";
-
+import HatcheryModal from "../../modal/HatcheryModal"
 export default function KaKaoMapComponent() {
   const giftsRef = useRef({});
   const hatcheryRef = useRef({});
@@ -59,8 +59,26 @@ export default function KaKaoMapComponent() {
     // }, 4000);
   }
 
+  async function openHatchery(hatcheryId) {
+    const currHatchery = hatcheryRef.current[hatcheryId];
+
+    const distance = calculateDistance({
+      point1: location,
+      point2: { lat: currHatchery.dataset.lat, lng: currHatchery.dataset.lng },
+    });
+
+    if (distance > 15) {
+      // return;
+    }
+
+    setIsOpenHatchery(true);
+  }
+
   return (
     <>
+      {isOpenHatchery && (
+        <HatcheryModal setIsOpenHatchery={setIsOpenHatchery} />
+      )}
       {isOpen && newReward && (
         <RewardModal
           isOpen={isOpen}
@@ -115,6 +133,26 @@ export default function KaKaoMapComponent() {
               );
             })}
         </MarkerClusterer>
+        {appState.hatchery.map((hatchery) => {
+          return (
+            <CustomOverlayMap
+              position={{
+                lat: hatchery.location.coordinates[1],
+                lng: hatchery.location.coordinates[0],
+              }}
+            >
+              <div
+                className="imgWrapperHatchery"
+                onClick={() => {
+                  openHatchery(hatchery._id);
+                }}
+                data-lat={hatchery.location.coordinates[1]}
+                data-lng={hatchery.location.coordinates[0]}
+                ref={(el) => (hatcheryRef.current[hatchery._id] = el)}
+              ></div>
+            </CustomOverlayMap>
+          );
+        })}
       </Map>
     </>
   );

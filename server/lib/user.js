@@ -118,8 +118,7 @@ module.exports = {
       // 마지막 생성시간이 4시간보다 클때 생성
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
       if (
-        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 ||
-        true
+        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 
       ) {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });

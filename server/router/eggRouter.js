@@ -33,4 +33,9 @@ router.put("/:userId", async (req, res) => {
   await egg.updateEgg(req, res);
 });
 
+router.post("/hatch/:userId", async(req,res) => {
+  console.log("hatch"); 
+  await egg.hatchEgg(req,res); 
+})
+
 module.exports = router;

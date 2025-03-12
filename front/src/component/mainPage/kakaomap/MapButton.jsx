@@ -27,7 +27,7 @@ export default function MapButton() {
       lat: latitude + deltaLat, // 위도에 약간의 변화
       lng: longitude + deltaLng, // 경도에 약간의 변화
     };
-  
+    
     dispatch(setLocation(newLocation));
   };
   

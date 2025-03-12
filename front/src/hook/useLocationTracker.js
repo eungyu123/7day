@@ -63,8 +63,6 @@ export const useLocationTracker = ({ dispatch }) => {
             vector: vector
           }
 
-          console.log(newLocation); 
-
           const steps = getSteps(distance);
           if (steps) {
             const resWalk = await updateWalkData({ steps });
@@ -87,7 +85,7 @@ export const useLocationTracker = ({ dispatch }) => {
     };
 
     fetchLocation(); // 초기 위치 가져오기
-    const interval = setInterval(fetchLocation, 10000); // 3초마다 위치 업데이트
+    const interval = setInterval(fetchLocation,20000); // 3초마다 위치 업데이트
 
     return () => clearInterval(interval);
   }, []);

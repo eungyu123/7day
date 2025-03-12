@@ -1,9 +1,11 @@
 const {
   createLog,
-  getLog,
+  getLogs,
   updateLog,
   deleteLog,
 } = require("../db/controllers/LogController");
+
+const Log = require("../db/models/Log")
 
 module.exports = {
   createLog: async (req, res) => {
@@ -21,11 +23,12 @@ module.exports = {
   },
   getLog: async (req, res) => {
     try {
-      const log = await getLog(req, res);
+      const {userId} = req.params; 
+      const logs = await Log.find({userId});
       res.status(200).send({
         type: "success",
         message: "Log found",
-        data: log,
+        data: logs,
       });
     } catch (error) {
       res.status(500).send({ type: "error", message: "fetching log failed" });
