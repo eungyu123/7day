@@ -28,44 +28,44 @@ export default function Inventory() {
     const fetchInventoryData = async () => {
       try {
         const data = await getInventoryData(); // API 호출
-        // setCharacterItems(data.characterItems); // 데이터를 state에 저장
-        // setPetItems(data.petItems); // 로딩 종료
-        const minItemsCount = 8;
+        setCharacterItems(data.characterItems); // 데이터를 state에 저장
+        setPetItems(data.petItems); // 로딩 종료
+        // const minItemsCount = 8;
 
         const characterItemsWithDefaults = [
           ...data.data.characterItems,
-          ...Array.from(
-            { length: minItemsCount - data.data.characterItems.length },
-            (_, index) => {
-              const newId = (
-                data.data.characterItems.length +
-                index +
-                1
-              ).toString(); // 1씩 증가하는 ID
-              return {
-                characterId: newId,
-                characterName: `기본 캐릭터 ${newId}`, // ID를 이름에 포함
-                price: 500,
-                characterLink: `/sampleCharacter${newId}`,
-              };
-            }
-          ),
+          // ...Array.from(
+          //   { length: minItemsCount - data.data.characterItems.length },
+          //   (_, index) => {
+          //     const newId = (
+          //       data.data.characterItems.length +
+          //       index +
+          //       1
+          //     ).toString(); // 1씩 증가하는 ID
+          //     return {
+          //       characterId: newId,
+          //       characterName: `기본 캐릭터 ${newId}`, // ID를 이름에 포함
+          //       price: 500,
+          //       characterLink: `/sampleCharacter${newId}`,
+          //     };
+          //   }
+          // ),
         ];
 
         const petItemsWithDefaults = [
           ...data.data.petItems,
-          ...Array.from(
-            { length: minItemsCount - data.data.petItems.length },
-            (_, index) => {
-              const newId = (data.data.petItems.length + index + 1).toString(); // 1씩 증가하는 ID
-              return {
-                petId: newId,
-                petName: `기본 펫 ${newId}`, // ID를 이름에 포함
-                price: 500,
-                petLink: `/samplePet${newId}`,
-              };
-            }
-          ),
+          // ...Array.from(
+          //   { length: minItemsCount - data.data.petItems.length },
+          //   (_, index) => {
+          //     const newId = (data.data.petItems.length + index + 1).toString(); // 1씩 증가하는 ID
+          //     return {
+          //       petId: newId,
+          //       petName: `기본 펫 ${newId}`, // ID를 이름에 포함
+          //       price: 500,
+          //       petLink: `/samplePet${newId}`,
+          //     };
+          //   }
+          // ),
         ];
 
         console.log("Character Items:", characterItemsWithDefaults);
