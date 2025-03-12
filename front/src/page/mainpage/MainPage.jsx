@@ -29,10 +29,10 @@ export default function MainPage() {
     <Container>
       <MainMap />
       <div className="main-character-wrapper">
-        {/* <ThreeScene
+        <ThreeScene
           character={appState.user.character}
           pet={appState.user.pet}
-        /> */}
+        />
       </div>
       <HalfButtonWrapper>
         <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />
