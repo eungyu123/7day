@@ -75,25 +75,3 @@
   object-fit: contain;
   background-repeat: no-repeat;
 }
-
-.sound-volume-bar {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 25px;
-  background: var(--toss-blue);
-  outline: none;
-  border-radius: 40px;
-  opacity: 1;
-  transition: opacity 0.2s;
-}
-.sound-volume-bar:active {
-  opacity: 0.8;
-}
-.sound-volume-bar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: white;
-  cursor: pointer;
-}
