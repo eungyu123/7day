@@ -127,7 +127,8 @@ function ThreeDModel({ location }) {
 
         // 애니메이션 업데이트
         if (newMixer) {
-          newMixer.update(0.01); // 애니메이션을 계속 업데이트
+          console.log("1");
+          newMixer.update(0.009); // 애니메이션을 계속 업데이트
         }
         renderer.render(scene, camera);
       };
