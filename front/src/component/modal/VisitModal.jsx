@@ -129,6 +129,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
             if (formattedData[i].steps >= 1) count++;
             else break;
           }
+          setTemp(todayIndex);
           setVisitCount(count);
         } else {
           console.error(response.message || "데이터를 불러오는데 실패함");
@@ -138,7 +139,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
       }
     };
     fetchWalkData();
-  }, []);
+  }, [todayIndex]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
