@@ -1,3 +1,5 @@
+import { ShoppingOrderPage } from "../page";
+
 export const PAGE_URLS = {
   MainPage: "/",
   LoginPage: "/LoginPage",
@@ -13,6 +15,7 @@ export const PAGE_URLS = {
   BadgeListPage: "/BadgeListPage",
   InventoryPage: "/InventoryPage",
   StorePage: "/StorePage",
+  ShoppingOrderPage: "/ShoppingOrderPage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   not: "not",
