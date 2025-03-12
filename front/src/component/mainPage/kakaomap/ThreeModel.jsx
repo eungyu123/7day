@@ -64,7 +64,7 @@ function ThreeDModel({ location, character, pet }) {
         }
       });
       petModelRef.current = additionalModel; // 펫 모델 참조 저장 // 펫 모델 로드 후
-      petModelRef.current.position.set(0.5, 0, -0.8); // 캐릭터 기준 오른쪽에 배치
+      petModelRef.current.position.set(1, 0, -0.8); // 캐릭터 기준 오른쪽에 배치
       const petLight = new THREE.PointLight(0xffffff, 1); // 포인트 조명 생성
       petModelRef.current.add(petLight); // 펫 모델에 조명 추가
       petLight.position.set(0, 1, 5); // 조명 위치 설정
