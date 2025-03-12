@@ -26,6 +26,7 @@ export default function Store() {
       try {
         const data = await getStore();
         setCharacterItems(data.characters || []);
+        console.log(characterItems);
         setPetItems(data.pets || []);
       } catch (error) {
         console.error("상점 데이터 불러오기 실패: ", error);
@@ -50,9 +51,10 @@ export default function Store() {
               ? characterItems.map((item) => (
                   <InventoryItem
                     key={item._id}
+                    type="characters"
                     img={item.characterLink}
                     name={item.characterName}
-                    isSelected={appState.character === item.characterName}
+                    isSelected={appState.user.character === item.characterLink}
                     onClick={() => {
                       setSelectedItem({ type: "character", ...item });
                       setIsModalOpen(true);
@@ -61,10 +63,11 @@ export default function Store() {
                 ))
               : petItems.map((item) => (
                   <InventoryItem
-                    key={item.petName}
+                    key={item._id}
+                    type="pets"
                     img={item.petLink}
                     name={item.petName}
-                    isSelected={appState.pet === item.petName}
+                    isSelected={appState.user.pet === item.petLink}
                     onClick={() => {
                       setSelectedItem({ type: "pet", ...item });
                       setIsModalOpen(true);
