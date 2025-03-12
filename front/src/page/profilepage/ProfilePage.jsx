@@ -61,7 +61,6 @@ export default function ProfilePage() {
           }
         })}
       </div>
-      <div className=""></div>
     </Container>
   );
 }

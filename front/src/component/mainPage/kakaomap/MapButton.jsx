@@ -15,15 +15,22 @@ export default function MapButton() {
       navigator.geolocation.getCurrentPosition(resolve, reject);
     });
   };
+
   const fetchCurrentLocation = async () => {
     const position = await getCurrentPosition();
     const { latitude, longitude } = position.coords;
-    console.log("position", position);
+  
+    const deltaLat = Math.random() * 1 / 100000; 
+    const deltaLng = Math.random() * 1 / 100000; 
 
-    const newLocation = { lat: latitude, lng: longitude };
+    const newLocation = {
+      lat: latitude + deltaLat, // 위도에 약간의 변화
+      lng: longitude + deltaLng, // 경도에 약간의 변화
+    };
+  
     dispatch(setLocation(newLocation));
   };
-
+  
   return (
     <>
       <VisitModal
