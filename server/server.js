@@ -15,14 +15,9 @@ const middleware = require("./middleware/middleware");
 middleware(app);
 
 app.use("/image", express.static("image"));
-//const seedEgg = require("./db/seedEgg");
-// seed.deleteAllHatcheries();
-// seed.createRandomHatcheries();
-//seedEgg.seedEggData();
-//seedEgg.seedUserEggData();
-// seed.createSampleData1();
-// seed.createRandomHatcheries();
-// seedEgg.seedEggData();
+
+const seedTrail = require("./db/seed/seedTrail")
+// seedTrail.createSampleData1();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
