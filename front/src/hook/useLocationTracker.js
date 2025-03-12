@@ -9,6 +9,8 @@ import { updateWalkData } from "../api/walkApi";
 import { updateUserCoord } from "../api/userApi";
 import { updateEggStep } from "../api/eggApi";
 
+let testLat; 
+let testLng;
 /** 위치 추적 훅 시간으로 계산 */
 export const useLocationTracker = ({ dispatch }) => {
   let prevLocation = null;
@@ -36,7 +38,16 @@ export const useLocationTracker = ({ dispatch }) => {
         const { latitude, longitude } = position.coords;
         console.log("position", position);
 
-        let newLocation = { lat: latitude, lng: longitude };
+        const deltaLng = 15 / 111139
+          
+        // let newLocation = { lat: latitude, lng: longitude };
+        let newLocation
+        if(prevLocation) {
+          newLocation = { lat: prevLocation.lat, lng: prevLocation.lng+deltaLng };
+        } else {
+          newLocation = { lat: latitude, lng: longitude }
+        }
+        
 
         if (prevLocation) {
           const distance = calculateDistance({
@@ -52,6 +63,8 @@ export const useLocationTracker = ({ dispatch }) => {
             ...newLocation,
             vector: vector
           }
+
+          console.log(newLocation); 
 
           const steps = getSteps(distance);
           if (steps) {
@@ -77,7 +90,7 @@ export const useLocationTracker = ({ dispatch }) => {
     };
 
     fetchLocation(); // 초기 위치 가져오기
-    const interval = setInterval(fetchLocation, 10000); // 3초마다 위치 업데이트
+    const interval = setInterval(fetchLocation, 3000); // 3초마다 위치 업데이트
 
     return () => clearInterval(interval);
   }, []);
