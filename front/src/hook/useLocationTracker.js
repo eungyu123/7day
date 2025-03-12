@@ -4,12 +4,16 @@ import {
   setLocation,
   setlocationLoading,
 } from "../context/reducer/action/action";
-import { calculateDistance, getSteps, calculateDirection} from "../utils/utils";
+import {
+  calculateDistance,
+  getSteps,
+  calculateDirection,
+} from "../utils/utils";
 import { updateWalkData } from "../api/walkApi";
 import { updateUserCoord } from "../api/userApi";
 import { updateEggStep } from "../api/eggApi";
 
-let testLat; 
+let testLat;
 let testLng;
 /** 위치 추적 훅 시간으로 계산 */
 export const useLocationTracker = ({ dispatch }) => {
@@ -37,16 +41,18 @@ export const useLocationTracker = ({ dispatch }) => {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
 
-        const deltaLng = 15 / 111139
-          
+        const deltaLng = 15 / 111139;
+
         // let newLocation = { lat: latitude, lng: longitude };
-        let newLocation
-        if(prevLocation) {
-          newLocation = { lat: prevLocation.lat+deltaLng, lng: prevLocation.lng+deltaLng };
+        let newLocation;
+        if (prevLocation) {
+          newLocation = {
+            lat: prevLocation.lat + deltaLng,
+            lng: prevLocation.lng + deltaLng,
+          };
         } else {
-          newLocation = { lat: latitude, lng: longitude }
+          newLocation = { lat: latitude, lng: longitude };
         }
-        
 
         if (prevLocation) {
           const distance = calculateDistance({
@@ -56,14 +62,14 @@ export const useLocationTracker = ({ dispatch }) => {
           const vector = calculateDirection({
             point1: prevLocation,
             point2: newLocation,
-          })
+          });
 
           newLocation = {
             ...newLocation,
-            vector: vector
-          }
+            vector: vector,
+          };
 
-          console.log(newLocation); 
+          console.log(newLocation);
 
           const steps = getSteps(distance);
           if (steps) {

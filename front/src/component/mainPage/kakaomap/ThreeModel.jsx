@@ -11,7 +11,8 @@ function ThreeDModel({ location }) {
   const petModelRef = useRef(null); // 펫 모델 참조
   useEffect(() => {
     if (!location || !containerRef.current) return;
-
+    // 기존 씬, 카메라, 렌더러 삭제
+    modelGroup.current.clear(); // 기존 모델들 제거
     // 씬, 카메라, 렌더러 설정
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
@@ -109,8 +110,8 @@ function ThreeDModel({ location }) {
         requestAnimationFrame(animate);
 
         // 모델 회전 (이동 방향에 맞춰 회전)
-        if (location) {
-          const direction = new THREE.Vector3(location.x, 0, location.z); // 예시로 location에서 x, z 좌표를 사용
+        if (location.vector) {
+          const direction = location.vector;
           const angle = Math.atan2(direction.z, direction.x); // 이동 방향에 맞는 각도 계산
           modelGroup.current.rotation.y = angle + Math.PI / 2; // 모델이 이동 방향을 바라보도록 회전
           // 📌 펫 위치 업데이트 (캐릭터 옆에서 따라가도록)
@@ -127,7 +128,6 @@ function ThreeDModel({ location }) {
 
         // 애니메이션 업데이트
         if (newMixer) {
-          console.log("1");
           newMixer.update(0.009); // 애니메이션을 계속 업데이트
         }
         renderer.render(scene, camera);
@@ -140,7 +140,7 @@ function ThreeDModel({ location }) {
         containerRef.current.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [location]);
 
   return <div ref={containerRef} style={{ width: "200px", height: "200px" }} />;
 }
