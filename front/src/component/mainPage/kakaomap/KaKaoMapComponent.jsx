@@ -80,7 +80,7 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            {/* <ThreeDModel location={location} /> */}
+            <ThreeDModel location={location} />
           </CustomOverlayMap>
         )}
 
