@@ -96,6 +96,7 @@ function ThreeDModel({ location }) {
       const center = box.getCenter(new THREE.Vector3());
       camera.position.set(center.x, center.y + 3, center.z + 1);
       camera.lookAt(center);
+      console.log("vector:", location.vector);
 
       camera.rotation.x = -Math.PI / 2;
       scene.background = null; // lightblue 색상
@@ -111,7 +112,6 @@ function ThreeDModel({ location }) {
         if (location) {
           const direction = new THREE.Vector3(location.x, 0, location.z); // 예시로 location에서 x, z 좌표를 사용
           const angle = Math.atan2(direction.z, direction.x); // 이동 방향에 맞는 각도 계산
-
           modelGroup.current.rotation.y = angle + Math.PI / 2; // 모델이 이동 방향을 바라보도록 회전
           // 📌 펫 위치 업데이트 (캐릭터 옆에서 따라가도록)
           if (petModelRef.current) {
