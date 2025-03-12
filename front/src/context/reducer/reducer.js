@@ -31,7 +31,7 @@ export function appReducer(state, action) {
     case actionType.setLocation: {
       return {
         ...state,
-        location: { lat: action.payload.lat, lng: action.payload.lng },
+        location: { lat: action.payload.lat, lng: action.payload.lng, vector: action.payload?.vector },
       };
     }
 
