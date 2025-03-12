@@ -3,7 +3,6 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
 import GLTFModel from "./GLTFModel";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"; // HDR 로더
 
 function ThreeScene({ character, pet }) {
   const mountRef = useRef(null);
@@ -53,26 +52,12 @@ function ThreeScene({ character, pet }) {
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // 🌟 HDRi 배경 적용
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    pmremGenerator.compileEquirectangularShader();
-
-    const hdrLoader = new RGBELoader();
-    hdrLoader.load(
-      "/Three/background/HDR_029_Sky_Cloudy_Ref.hdr",
-      (hdrTexture) => {
-        const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
-
-        scene.background = envMap; // 🔥 HDR 배경 적용
-        scene.environment = envMap; // 🔥 조명 환경 적용
-        hdrTexture.dispose();
-        pmremGenerator.dispose();
-
-        renderer.render(scene, camera); // 🔥 HDR 적용 후 즉시 렌더링
-      }
-    );
-
-    scene.background = new THREE.Color(0xadd8e6); // lightblue 색상
+    // JPG 배경 적용
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load("/images/background/background.jpg", (texture) => {
+      scene.background = texture; // JPG 배경 적용
+      renderer.render(scene, camera); // 배경 적용 후 즉시 렌더링
+    });
 
     // OrbitControls 추가
     controlsRef.current = new OrbitControls(camera, renderer.domElement);
@@ -127,9 +112,17 @@ function ThreeScene({ character, pet }) {
       }
       renderer.dispose();
     };
-  }, []);
+  }, [character, pet]);
 
-  return <div ref={mountRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div
+      ref={mountRef}
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  );
 }
 
 export default ThreeScene;

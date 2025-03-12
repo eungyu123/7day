@@ -13,14 +13,17 @@ import PointButton from "../../component/mainPage/PointButton";
 import StoreButton from "../../component/mainPage/StoreButton";
 import RouletteModal from "../../component/modal/RouletteModal";
 import ThreeScene from "../../component/Three/ThreeScene";
+import RewardModal from "../../component/modal/RewardModal";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
   const [isRouletteModalOpen, setIsRouletteModalOpen] = useState(false);
+  const [isRewardModalOpen, setIsRewardModalOpen] = useState(false);
 
   // console.log("appState.user", appState.user);
   useEffect(() => {
     setIsRouletteModalOpen(false);
+    setIsRewardModalOpen(false);
   }, []);
   return (
     <Container>
@@ -45,9 +48,11 @@ export default function MainPage() {
           />
         ))}
       </ButtonWrapper>
-      <div>
-        현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
-      </div>
+      <RewardModal
+        isOpen={isRewardModalOpen}
+        setIsOpen={setIsRewardModalOpen}
+        goal={"5km 러닝 완료"}
+      />
       <RouletteModal
         isOpen={isRouletteModalOpen}
         setIsOpen={setIsRouletteModalOpen}

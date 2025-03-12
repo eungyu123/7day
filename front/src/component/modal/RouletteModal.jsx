@@ -72,7 +72,7 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
                 {prizes.map((item, index) => (
                   <div
                     key={index}
-                    className="roulette-item"
+                    className="roulette-item emojifont"
                     style={{
                       transform: `rotate(${index * 45}deg)`,
                     }}
@@ -105,7 +105,7 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
             <RouletteRewardModal
               isOpen={true}
               setIsOpen={() => setSelectedItem(null)}
-              prize={prizes[selectedItem].prize}
+              gift={gift}
             />
           )}
         </div>

@@ -63,11 +63,14 @@ function App() {
                   element={<StepAnalysisPage />}
                 />
                 <Route path="/NicknamePage" element={<NicknamePage />} />
-                <Route path="*" element={<NotFound />} />{" "}
+                
                 {/* 없는 페이지 처리 */}
                 {/* 임시 에러페이지, 로딩페이지 */}
+                <Route path="*" element={<NotFound />} />{" "}
                 <Route path="/ErrorPage" element={<ErrorPage />} />
                 <Route path="/LoadingPage" element={<LoadingPage />} />
+
+
               </Routes>
             </appContext.Provider>
           </Suspense>

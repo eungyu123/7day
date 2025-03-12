@@ -1,36 +1,34 @@
-.hatchery-page-wrapper {
-  position: relative;
+.hatchery-modal-wrapper {
+  position: fixed;
+  inset: 0;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 320px;
+  z-index: 10;
+}
+
+.hatchery-modal-Hatchery {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 400px;
+  transform: translate(-50%, -50%);
   background-color: white;
-  border: 1px solid black;
-  padding-top: 40px;
-  gap: 8px;
+  border-radius: var(--modal-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 50;
 }
 
-.hatchery-page-progress-bar-wrapper {
-  width: 50%;
-  height: 20px;
-  background-color: #b7b7b7;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  display: block;
+.hatchery-modal-Hatchery-title {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.hatchery-page-progress-bar {
-  height: 100%;
-  width: 0%;
-  background-color: var(--toss-blue);
-  transition: all 2s ease-in-out;
-  border-radius: 10px;
-  z-index: 100;
-}
-
-.hatchery-page-Hatchery-img {
+.hatchery-modal-Hatchery-img {
   position: absolute;
   top: 65%;
   left: 50%;
@@ -41,12 +39,36 @@
   height: 150px;
 }
 
-.hatchery-page-egg-img {
+.hatchery-modal-egg-img {
   position: absolute;
   user-select: none;
 }
 
-.hatchery-page-progress-bar-static {
+.hatchery-modal-progress-bar-wrapper {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+
+  height: 20px;
+  background-color: #b7b7b7;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: none;
+}
+
+.hatchery-modal-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--toss-blue);
+  transition: all 2s ease-in-out;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.hatchery-modal-progress-bar-static {
   height: 100%;
   width: 0%;
   background-color: var(--toss-blue);
@@ -54,13 +76,12 @@
   z-index: 100;
 }
 
-.hatchery-page-egg-img-droped {
+.hatchery-modal-egg-img-droped {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 82px;
-  user-select: none;
 }
 
 .rotate-egg {

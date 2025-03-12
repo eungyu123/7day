@@ -19,7 +19,7 @@ export default function Steps() {
       }
     };
     fetchWalkData();
-  });
+  }, []);
 
   return (
     <div className="main-map-steps-display font-xs">

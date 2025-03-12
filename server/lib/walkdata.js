@@ -48,7 +48,6 @@ module.exports = {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const koreanTime = new Date(today.getTime() + 9 * 60 * 60 * 1000);
-      console.log(koreanTime);
 
       const result = await Walk.findOneAndUpdate(
         { userId: userId, date: koreanTime }, // 조건: googleId + 오늘 날짜

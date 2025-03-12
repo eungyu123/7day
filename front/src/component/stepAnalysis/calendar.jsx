@@ -22,9 +22,12 @@ const Calendar = () => {
       const startDate = firstDay.toISOString().split("T")[0];
       const endDate = lastDay.toISOString().split("T")[0];
 
+      // 한달치 데이터 가져오기
       const response = await getWalkData(startDate, endDate);
 
       if (response.type === "success" && response.stepRecords) {
+        const stepRecords = response.stepRecords || [];
+        stepRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
         const calendarData = generateCalendarData(
           year,
           month,
@@ -51,6 +54,7 @@ const Calendar = () => {
     const daysInMonth = lastDay.getDate();
     const startDayOfWeek = firstDay.getDay();
 
+    console.log("stepRecord: ", stepRecords);
     const stepsMap = {};
     stepRecords.forEach((record) => {
       const formattedDate = record.date.split("T")[0];

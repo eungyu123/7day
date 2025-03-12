@@ -3,14 +3,14 @@ import { actionType } from "./actionType";
 export function setCharacter({ character }) {
   return {
     type: actionType.setCharacter,
-    payload: { character },
+    payload: { user: { character } },
   };
 }
 
 export function setPet({ pet }) {
   return {
     type: actionType.setPet,
-    payload: { pet },
+    payload: { user: { pet } },
   };
 }
 
@@ -21,10 +21,10 @@ export function checkAuth({ isAuthenticated }) {
   };
 }
 
-export function setLocation({ lat, lng }) {
+export function setLocation({ lat, lng, vector }) {
   return {
     type: actionType.setLocation,
-    payload: { lat, lng },
+    payload: { lat, lng, vector },
   };
 }
 

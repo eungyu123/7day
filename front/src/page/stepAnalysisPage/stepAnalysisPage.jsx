@@ -9,7 +9,7 @@ export default function stepAnalysisPage() {
   return (
     <>
       <Header PageName={"걸음분석"} />
-      <div className="container">
+      <div className="step-container">
         <WeekStep />
         <MonthStep />
       </div>

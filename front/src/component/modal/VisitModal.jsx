@@ -7,12 +7,12 @@ import { getKaclFromSteps, getKmFromSteps } from "../../utils/utils";
 import { getWalkData } from "../../api/walkApi";
 
 export default function VisitModal({ isOpen, setIsOpen }) {
-  const [currentSteps, setCurrentSteps] = useState(5020);
+  const [currentSteps, setCurrentSteps] = useState(0);
   const [visitCount, setVisitCount] = useState(1);
   const [todayIndex, setTodayIndex] = useState(0);
   const [goalSteps, setGoalSteps] = useState(10000);
   const [calories, setCalories] = useState(0);
-  const [distance, setDistance] = useState(3.01);
+  const [distance, setDistance] = useState(0);
   const [today, setToday] = useState(null);
   const [weekData, setWeekData] = useState([]);
   const [temp, setTemp] = useState(null);
@@ -75,6 +75,8 @@ export default function VisitModal({ isOpen, setIsOpen }) {
 
           if (todayRecord) {
             setCurrentSteps(todayRecord.steps);
+            setCalories(getKaclFromSteps(todayRecord.steps).toFixed(2));
+            setDistance(getKmFromSteps(todayRecord.steps).toFixed(2));
           } else {
             setCurrentSteps(0);
           }
@@ -120,15 +122,14 @@ export default function VisitModal({ isOpen, setIsOpen }) {
           });
 
           setWeekData(formattedData);
-          setCalories(getKaclFromSteps(currentSteps));
-          setDistance(getKmFromSteps(currentSteps));
 
           // 연속 방문 횟수
           let count = 0;
-          for (let i = todayIndex; i >= 0; i--) {
-            if (formattedData[i].steps >= 0) count++;
+          for (let i = todayIndex - 1; i >= 0; i--) {
+            if (formattedData[i].steps >= 1) count++;
             else break;
           }
+          setTemp(todayIndex);
           setVisitCount(count);
         } else {
           console.error(response.message || "데이터를 불러오는데 실패함");
@@ -138,7 +139,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
       }
     };
     fetchWalkData();
-  }, []);
+  }, [todayIndex]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -151,7 +152,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
         </div>
         <div className="visit-modal-body">
           <p className="visit-modal-small-text">
-            {currentSteps > 10000
+            {currentSteps > goalSteps
               ? "만보를 달성했습니다!"
               : "조금만 더 걸어서 목표치를 채우세요!"}
           </p>
@@ -175,11 +176,15 @@ export default function VisitModal({ isOpen, setIsOpen }) {
 
             <div className="visit-modal-week-record-list">
               {weekData.map((item) => (
-                <div 
-                  className="visit-modal-week-record-item" 
+                <div
+                  className="visit-modal-week-record-item"
                   key={item.day}
-                  style={item.day == "오늘" ? { background: "#0064ff", color: "white" } : {}}
-                  >
+                  style={
+                    item.day == "오늘"
+                      ? { background: "#0064ff", color: "white" }
+                      : {}
+                  }
+                >
                   <p>{item.day}</p>
                 </div>
               ))}

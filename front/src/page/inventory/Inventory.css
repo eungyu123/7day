@@ -1,9 +1,12 @@
-.container {
+.inventory-container {
+  padding-bottom: 0;
   width: 100vw;
   height: 100vh;
   background-color: #f3f4f6;
   display: flex;
   flex-direction: column;
+  padding-bottom: 0;
+  margin: 0;
 }
 .character-viewer {
   position: relative;
@@ -11,13 +14,13 @@
   height: 350px;
   max-height: 350px;
   border: 1px solid #ccc;
+  border-radius: 8px;
   background-color: lightblue;
   flex-shrink: 0;
 }
 .inventory {
   width: 100%;
   height: calc(100% - 350px);
-  /* height: 100%; */
   background-color: white;
   border-radius: 15px 15px 0px 0px;
   flex: 1;
@@ -40,7 +43,11 @@
   color: var(--toss-gray);
   font-weight: 600;
   font-size: 17px;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
+  transition-duration: 0.1s;
+}
+.inventory-select:active {
+  font-size: 16px;
 }
 .inventory-main {
   display: flex;
@@ -65,4 +72,9 @@
 .Inventory-item.selected {
   outline: 3.5px solid var(--toss-blue);
   outline-offset: -3.5px;
+}
+.inventory-img {
+  width: 100%; /* 부모 컨테이너 크기에 맞추기 */
+  height: 100%; /* 부모 컨테이너 크기에 맞추기 */
+  object-fit: cover; /* 비율을 유지하며 잘라서 맞추기 */
 }

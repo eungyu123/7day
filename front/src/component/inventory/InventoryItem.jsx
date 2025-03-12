@@ -1,28 +1,32 @@
 import "../../page/inventory/Inventory.css";
 import "../../index.css";
-import React, { useState, useEffect } from "react";
-import { generateThumbnail } from "../../utils/generateThumbnail"; // 함수 임포트
+import React from "react";
 
-export default function InventoryItem({ character, pet, isSelected, onClick }) {
-  const [thumbnail, setThumbnail] = useState(null);
-
-  useEffect(() => {
-    // 썸네일 이미지 생성
-    const thumbnailURL = generateThumbnail(character, pet);
-    console.log("썸네일: ", thumbnailURL);
-    setThumbnail(thumbnailURL);
-  }, [character, pet]);
-
+export default function InventoryItem({
+  type,
+  img,
+  name,
+  isSelected,
+  onClick,
+}) {
+  const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
+  const imgPath = `${imgNameWithoutExt}Head.jpg`;
+  const imagePath = `/images/${type}/${imgPath}`;
   return (
     <div
       className={`Inventory-item ${isSelected ? "selected" : ""}`}
       onClick={onClick}
+      style={{
+        borderRadius: "8px",
+        overflow: "hidden",
+      }}
     >
-      {thumbnail ? (
-        <img src={thumbnail} className="inventory-img" />
-      ) : (
-        <p>Loading thumbnail...</p>
-      )}
+      <img
+        src={imagePath}
+        className="inventory-img"
+        alt={name}
+        onError={(e) => (e.target.style.display = "none")} // 이미지가 없으면 숨김 처리
+      />
     </div>
   );
 }

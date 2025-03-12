@@ -19,6 +19,9 @@ middleware(app);
 
 app.use("/image", express.static("image"));
 
+const seedTrail = require("./db/seed/seedTrail")
+// seedTrail.createSampleData1();
+
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
 
