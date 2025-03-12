@@ -22,16 +22,15 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
       setCouponData(reward.data); // 받은 데이터를 상태에 저장
     };
 
-    // if (newReward.giftType === "알") {
-    //   fetchEggData();
-    // }
+    if (newReward && newReward.giftType === "알") {
+      fetchEggData();
+    }
 
-    // if (newReward.giftType === "쿠폰") {
-    //   fetchRewardData();
-    // }
+    if (newReward && newReward.giftType === "쿠폰") {
+      fetchRewardData();
+    }
   }, [newReward]); // newReward가 변경될 때마다 다시 실행
 
-  console.log("newReward", newReward);
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="modal-content">

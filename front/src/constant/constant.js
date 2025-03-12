@@ -22,7 +22,6 @@ export const PAGE_URLS = {
 
 export const API_BASE_URL = "http://localhost:3000";
 // export const userId = localStorage.getItem("userId");
-// export const userId = "67c7ab445f743adc8dc272a5";
 export const userId = "67c7ab335f743adc8dc272a3";
 
 // 67c7ab335f743adc8dc272a3,

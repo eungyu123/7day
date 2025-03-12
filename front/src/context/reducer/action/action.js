@@ -21,10 +21,10 @@ export function checkAuth({ isAuthenticated }) {
   };
 }
 
-export function setLocation({ lat, lng }) {
+export function setLocation({ lat, lng, vector }) {
   return {
     type: actionType.setLocation,
-    payload: { lat, lng },
+    payload: { lat, lng, vector },
   };
 }
 
