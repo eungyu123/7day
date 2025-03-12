@@ -22,7 +22,6 @@ export function checkAuth({ isAuthenticated }) {
 }
 
 export function setLocation({ lat, lng }) {
-  console.log("lat, lng 버튼 클릭 ",lat, lng )
   return {
     type: actionType.setLocation,
     payload: { lat, lng },

@@ -31,7 +31,6 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
     }
   }, [newReward]); // newReward가 변경될 때마다 다시 실행
 
-  console.log("newReward", newReward);
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="modal-content">

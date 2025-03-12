@@ -36,7 +36,6 @@ export const useLocationTracker = ({ dispatch }) => {
       try {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
-        console.log("position", position);
 
         const deltaLng = 15 / 111139
           
@@ -69,7 +68,6 @@ export const useLocationTracker = ({ dispatch }) => {
           const steps = getSteps(distance);
           if (steps) {
             const resWalk = await updateWalkData({ steps });
-            console.log("resWalk", resWalk);
             const updateEgg = await updateEggStep({ steps });
           }
           await updateUserCoord(newLocation);
@@ -90,7 +88,7 @@ export const useLocationTracker = ({ dispatch }) => {
     };
 
     fetchLocation(); // 초기 위치 가져오기
-    const interval = setInterval(fetchLocation, 3000); // 3초마다 위치 업데이트
+    const interval = setInterval(fetchLocation, 5000); // 3초마다 위치 업데이트
 
     return () => clearInterval(interval);
   }, []);
