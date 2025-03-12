@@ -3,14 +3,14 @@ import { actionType } from "./actionType";
 export function setCharacter({ character }) {
   return {
     type: actionType.setCharacter,
-    payload: { character },
+    payload: { user: { character } },
   };
 }
 
 export function setPet({ pet }) {
   return {
     type: actionType.setPet,
-    payload: { pet },
+    payload: { user: { pet } },
   };
 }
 
@@ -22,6 +22,7 @@ export function checkAuth({ isAuthenticated }) {
 }
 
 export function setLocation({ lat, lng }) {
+  console.log("lat, lng 버튼 클릭 ",lat, lng )
   return {
     type: actionType.setLocation,
     payload: { lat, lng },

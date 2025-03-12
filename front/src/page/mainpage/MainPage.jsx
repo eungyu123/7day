@@ -48,9 +48,6 @@ export default function MainPage() {
           />
         ))}
       </ButtonWrapper>
-      <div>
-        현재 캐릭터는 {appState.character}, 현재 펫은 {appState.pet}
-      </div>
       <RewardModal
         isOpen={isRewardModalOpen}
         setIsOpen={setIsRewardModalOpen}
@@ -99,11 +96,11 @@ const buttonsProp = [
     description: "내 걸음을 분석해보세요",
     href: PAGE_URLS.StepAnalysisPage,
   },
-  // {
-  //   icon: "🧿",
-  //   description: "목표를 달성하고 배지를 모아보세요",
-  //   href: PAGE_URLS.BadgePage,
-  // },
+  {
+    icon: "🧿",
+    description: "목표를 달성하고 배지를 모아보세요",
+    href: PAGE_URLS.BadgePage,
+  },
   {
     icon: "⚙️",
     description: "설정을 바꿀수 있어요",

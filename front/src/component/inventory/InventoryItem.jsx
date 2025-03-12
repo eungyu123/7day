@@ -12,11 +12,14 @@ export default function InventoryItem({
   const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
   const imgPath = `${imgNameWithoutExt}Head.jpg`;
   const imagePath = `/images/${type}/${imgPath}`;
-  console.log(imagePath);
   return (
     <div
       className={`Inventory-item ${isSelected ? "selected" : ""}`}
       onClick={onClick}
+      style={{
+        borderRadius: "8px",
+        overflow: "hidden",
+      }}
     >
       <img
         src={imagePath}

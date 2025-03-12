@@ -127,9 +127,17 @@ function ThreeScene({ character, pet }) {
       }
       renderer.dispose();
     };
-  }, []);
+  }, [character, pet]);
 
-  return <div ref={mountRef} style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div
+      ref={mountRef}
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  );
 }
 
 export default ThreeScene;

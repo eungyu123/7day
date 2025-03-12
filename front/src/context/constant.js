@@ -10,7 +10,4 @@ export const initialState = {
   trailIndex: null,
   trailLocation: null,
   trailRandmarkIndex: null,
-
-  character: "character1",
-  pet: "pet1",
 };

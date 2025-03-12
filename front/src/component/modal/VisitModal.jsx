@@ -7,7 +7,7 @@ import { getKaclFromSteps, getKmFromSteps } from "../../utils/utils";
 import { getWalkData } from "../../api/walkApi";
 
 export default function VisitModal({ isOpen, setIsOpen }) {
-  const [currentSteps, setCurrentSteps] = useState(5020);
+  const [currentSteps, setCurrentSteps] = useState(0);
   const [visitCount, setVisitCount] = useState(1);
   const [todayIndex, setTodayIndex] = useState(0);
   const [goalSteps, setGoalSteps] = useState(10000);
@@ -126,9 +126,10 @@ export default function VisitModal({ isOpen, setIsOpen }) {
           // 연속 방문 횟수
           let count = 0;
           for (let i = todayIndex - 1; i >= 0; i--) {
-            if (formattedData[i].steps >= 0) count++;
+            if (formattedData[i].steps >= 1) count++;
             else break;
           }
+          setTemp(todayIndex);
           setVisitCount(count);
         } else {
           console.error(response.message || "데이터를 불러오는데 실패함");
@@ -138,7 +139,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
       }
     };
     fetchWalkData();
-  }, []);
+  }, [todayIndex]);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -151,7 +152,7 @@ export default function VisitModal({ isOpen, setIsOpen }) {
         </div>
         <div className="visit-modal-body">
           <p className="visit-modal-small-text">
-            {currentSteps > 10000
+            {currentSteps > goalSteps
               ? "만보를 달성했습니다!"
               : "조금만 더 걸어서 목표치를 채우세요!"}
           </p>

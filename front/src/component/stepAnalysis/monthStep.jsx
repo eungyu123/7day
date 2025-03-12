@@ -16,7 +16,6 @@ export default function CharacterViewer() {
 
   const fetchPedometerCount = async () => {
     try {
-      console.log("currentMonth: ", currentMonth);
       const firstDay = new Date(currentYear, currentMonth, 1);
       const lastDay = new Date(currentYear, currentMonth + 1, 0);
 
@@ -29,6 +28,8 @@ export default function CharacterViewer() {
 
       const startDate = formatDate(firstDay);
       const endDate = formatDate(lastDay);
+      console.log("startDate: ", startDate);
+      console.log("endDate: ", endDate);
 
       const response = await getWalkData(startDate, endDate);
 

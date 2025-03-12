@@ -1,7 +1,8 @@
 import "./MissionList.css";
 // import { motion } from "framer-motion";
 import { useState } from "react";
-import RouletteRewardModal from "../modal/RouletteRewardModal";
+// import RouletteRewardModal from "../modal/RouletteRewardModal";
+import RouletteModal from "../modal/RouletteModal";
 
 export default function MissionList({
   MissionContent,
@@ -10,14 +11,27 @@ export default function MissionList({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isGiftBoxVisible, setGiftBoxVisible] = useState(true);
+  const [isRandomGift, setRandomGift] = useState("");
 
   const HandleRewardOpen = () => {
+    RandomGift();
     setIsOpen(true);
     setGiftBoxVisible(false);
   };
 
   const HandleRewardClose = () => {
     setIsOpen(false); // 모달을 닫을 때
+  };
+
+  const RandomGift = () => {
+    const randItem = Math.floor(Math.random() * 3) + 1;
+    if (randItem === 1) {
+      setRandomGift("알");
+    } else if (randItem === 2) {
+      setRandomGift("쿠폰");
+    } else {
+      setRandomGift("포인트");
+    }
   };
 
   return (
@@ -36,10 +50,10 @@ export default function MissionList({
         )}
       </div>
       {isOpen && (
-        <RouletteRewardModal
+        <RouletteModal
           isOpen={isOpen}
           setIsOpen={HandleRewardClose}
-          gift={MissionReward}
+          gift={isRandomGift}
         />
       )}
     </>
