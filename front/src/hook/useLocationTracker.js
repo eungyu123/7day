@@ -47,8 +47,8 @@ export const useLocationTracker = ({ dispatch }) => {
         let newLocation;
         if (prevLocation) {
           newLocation = {
-            lat: prevLocation.lat + deltaLng,
-            lng: prevLocation.lng + deltaLng,
+            lat: prevLocation.lat - deltaLng,
+            lng: prevLocation.lng - deltaLng,
           };
         } else {
           newLocation = { lat: latitude, lng: longitude };
