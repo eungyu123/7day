@@ -39,6 +39,8 @@
   border-radius: 40px;
   opacity: 1;
   transition: opacity 0.2s;
+  padding-left: 2.5px;
+  padding-right: 2.5px;
 }
 .sound-volume-bar:active {
   opacity: 0.8;
