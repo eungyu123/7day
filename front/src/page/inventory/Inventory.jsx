@@ -46,7 +46,7 @@ export default function Inventory() {
                 characterId: newId,
                 characterName: `기본 캐릭터 ${newId}`, // ID를 이름에 포함
                 price: 500,
-                characterLink: "/sampleCharacter",
+                characterLink: `/sampleCharacter${newId}`,
               };
             }
           ),
@@ -62,7 +62,7 @@ export default function Inventory() {
                 petId: newId,
                 petName: `기본 펫 ${newId}`, // ID를 이름에 포함
                 price: 500,
-                petLink: "/samplePet",
+                petLink: `/samplePet${newId}`,
               };
             }
           ),
