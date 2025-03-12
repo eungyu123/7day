@@ -5,7 +5,7 @@ const {
   deleteLog,
 } = require("../db/controllers/LogController");
 
-const Log = require("../db/models/Log")
+const Log = require("../db/models/Log");
 
 module.exports = {
   createLog: async (req, res) => {
@@ -23,8 +23,9 @@ module.exports = {
   },
   getLog: async (req, res) => {
     try {
-      const {userId} = req.params; 
-      const logs = await Log.find({userId});
+      const { userId } = req.params;
+      const logs = await Log.find({ userId });
+
       res.status(200).send({
         type: "success",
         message: "Log found",

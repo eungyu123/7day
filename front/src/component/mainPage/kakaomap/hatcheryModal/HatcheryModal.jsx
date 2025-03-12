@@ -1,49 +1,44 @@
-import { useFetchEgg } from "../../reactQuery/useEgg";
+import { useFetchEgg } from "../../../../reactQuery/useEgg";
 import "./HatcheryModal.css";
 import { useState, useEffect, useRef } from "react";
-import { updateEggState } from "../../api/eggApi";
+import { getEgg, updateEggState } from "../../../../api/eggApi";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function HatcheryModal({ setIsOpenHatchery }) {
   const queryClient = useQueryClient(); // queryClient 가져오기
   const eggRef = useRef({});
   const iconEggRef = useRef({});
-  const barWrapperRef = useRef(null);
-  const progressBarRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const intervalRef = useRef(null);
   const [isHatching, setIsHatching] = useState(false);
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [eggStyles, setEggStyles] = useState([]); // eggStyles 상태
   const [progress, setProgress] = useState(0); // 진행 상태를 관리
-  const [finished, setFinished] = useState(false);
-  const [timeFinished, setTimeFinished] = useState(false);
+  const [hatchingProgress, sethatchingProgress] = useState(0); // 진행 상태를 관리
 
   const { data } = useFetchEgg();
-
   useEffect(() => {
-    const hatchingEgg = data.data.find((egg) => egg.state == "hatching");
+    if (data.type == "success") {
+      const hatchingEgg = data.data.find((egg) => egg.state == "hatching");
 
-    if (hatchingEgg) {
-      setIsHatching(hatchingEgg.eggType);
-      setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
+      if (hatchingEgg) {
+        setIsHatching(hatchingEgg.eggType);
+        sethatchingProgress(
+          (hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100
+        );
+      }
+
+      const styles = getRandomPosition({ Count: data.data.length });
+
+      setEggStyles(styles); // 상태 업데이트
     }
 
-    const styles = getRandomPosition({ Count: data.data.length });
-
-    setEggStyles(styles); // 상태 업데이트
     setLoading(false); // 로딩 완료 후 상태 변경
-  }, []);
-
-  useEffect(() => {
-    if (progress == 100) {
-      const timer = setTimeout(() => {
-        setTimeFinished(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [progress]);
+  }, [data]);
 
   const handleDragStart = (e, id) => {
-    if(isHatching) return;
+    console.log("실행 1");
+    if (isHatching) return;
     e.dataTransfer.setData("text", id);
     const draggedElement = eggRef.current[id];
     setTimeout(() => {
@@ -53,73 +48,78 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   };
 
   const handleDragEnd = (e, id) => {
-    if(isHatching) return;
+    console.log("실행 2", isHatching);
+
+    if (isHatching) return;
 
     e.dataTransfer.setData("text", id);
     const draggedElement = eggRef.current[id];
     draggedElement.style.display = "block";
-    barWrapperRef.current.style.display = "none";
-    setProgress(0); // progress 바가 다시 0%로 돌아감
+    setIsVisible(false);
   };
-
 
   const handleDragOver = (e) => {
-    if (finished || isHatching) return;
+    console.log("실행 3");
+
+    if (isHatching) return;
     e.preventDefault();
-    
+
     const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
-    barWrapperRef.current.style.display = "block";
-  
-    let currentProgress = 0;
-    const interval = setInterval(() => {
-      currentProgress += 5; // 5%씩 증가
-      setProgress((prev) => Math.min(prev + 5, 100)); // 100%를 초과하지 않도록 설정
-  
+    setIsVisible(true);
+
+    if (intervalRef.current) return;
+    let currentProgress = 0; // 첫 번째 진행은 즉시 10%로 설정
+
+    intervalRef.current = setInterval(() => {
+      currentProgress += 1; // 5%씩 증가
+      setProgress((prev) => Math.min(prev + 2, 100)); // 100%를 초과하지 않도록 설정
+
       if (currentProgress >= 100) {
-        clearInterval(interval); // 100%가 되면 정지
+        clearInterval(intervalRef.current); // 100%가 되면 정지
+        intervalRef.current = null;
       }
-    }, 50); // 50ms마다 실행 (부드러운 애니메이션 효과)
+    }, 50); // 200ms마다 실행 (부드러운 애니메이션 효과)
   };
 
-  
+  const handleDragLeave = () => {
+    console.log("실행 4");
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setProgress(0);
+    setIsVisible(true);
+  };
 
   const handleDrop = (e, i) => {
-    if(isHatching) return;
-
     e.preventDefault();
-    setProgress(0)
+    setProgress(0);
+
     const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
-    console.log(
-      "set2",
-      eggRef.current[item],
-      eggRef.current[item].dataset.eggid
-    );
 
     const updateEgg = async () => {
       const result = await updateEggState({
         eggId: eggRef.current[item].dataset.eggid,
       });
+      const res = await getEgg();
+      console.log(res.data);
+
       if (result.type == "success") {
-        queryClient.invalidateQueries("eggs");
+        console.log("queryClient");
+        await queryClient.invalidateQueries("eggs");
+        await queryClient.refetchQueries("eggs", { active: true });
       }
     };
 
-    if (timeFinished == true) {
+    if (progress == 100) {
       updateEgg();
-      const draggedElement = eggRef.current[item];
-      const iconEggElement = iconEggRef.current[item];
-      draggedElement.style.position = "absolute";
-      draggedElement.style.top = "50%";
-      draggedElement.style.left = "50%";
-      draggedElement.style.transform = "translate(-50%, -50%)";
-      iconEggElement.style.fontSize = "82px";
-      setFinished(true);
-    } else {
-      setTimeFinished(false);
+      setIsHatching(true);
     }
   };
 
   const renderEggs = () => {
+    if (data.type == "error") return;
     return data.data
       .slice(0, eggStyles.length)
       .filter((v) => v.state == "unhatched")
@@ -171,12 +171,10 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
             <div
               className="hatchery-modal-progress-bar-wrapper"
               style={{ display: "block" }}
-              ref={barWrapperRef}
             >
               <div
                 className="hatchery-modal-progress-bar "
-                style={{ width: `${progress}%` }}
-                ref={progressBarRef}
+                style={{ width: `${hatchingProgress}%` }}
               ></div>
             </div>
             <div className="hatchery-modal-Hatchery-img"></div>
@@ -192,7 +190,6 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
                 egg
               </span>
             </div>
-            {renderEggs()}
           </div>
         </div>
       ) : (
@@ -206,16 +203,16 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
           >
             <div
               className="hatchery-modal-progress-bar-wrapper "
-              ref={barWrapperRef}
+              style={{ display: isVisible ? "block" : "none" }}
             >
               <div
                 className="hatchery-modal-progress-bar"
                 style={{ width: `${progress}%` }} // 진행 상태에 따라 width가 변화
-                ref={progressBarRef}
               ></div>
             </div>
             <div
               onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               className="hatchery-modal-Hatchery-img"
             ></div>

@@ -32,3 +32,5 @@ export const userId = "67c7ab445f743adc8dc272a5";
 // 67c7ab335f743adc8dc272a3,
 // 67c7ab445f743adc8dc272a5
 // 67c7ab4b5f743adc8dc272a7
+
+export const EGG_COLORS = ["#FFD700", "#C0C0C0", "#B87333"];

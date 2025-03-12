@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const { Egg, UserEgg } = require("../models/Egg"); // Egg, UserEgg 모델 가져오기
 
+const userId = "67c7ab445f743adc8dc272a5"; // 랜덤한 유저 ID 생성
+
 async function seedEggData() {
   try {
     await mongoose.connection.dropCollection("eggs").catch(() => {});
@@ -26,11 +28,11 @@ async function seedEggData() {
 
 async function seedUserEggData(eggs) {
   try {
+    await UserEgg.deleteMany({});
     const userEggs = [];
 
     for (let i = 0; i < 30; i++) {
       const randomEgg = eggs[Math.floor(Math.random() * eggs.length)]; // 랜덤한 Egg 선택
-      const userId = "67c7ab335f743adc8dc272a3"; // 랜덤한 유저 ID 생성
 
       userEggs.push({
         userId: userId.toString(),
@@ -50,4 +52,15 @@ async function seedUserEggData(eggs) {
   }
 }
 
-module.exports = { seedEggData, seedUserEggData };
+const deleteUserEgg = async () => {
+  try {
+    const userEggs = await UserEgg.find({ userId });
+    await UserEgg.deleteMany({});
+  } catch (error) {
+    console.log(error);
+  }
+};
+const seedAll = async () => {
+  await seedEggData();
+};
+module.exports = { seedAll };

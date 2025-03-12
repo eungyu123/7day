@@ -43,7 +43,7 @@ module.exports = {
       const { trailId } = req.body;
 
       const trail = await Trail.findById(trailId);
-      console.log("trail", trail);
+      console.log("trail");
 
       if (!trail) return res.status(404).json({ message: "Trail not found" });
 

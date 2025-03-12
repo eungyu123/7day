@@ -10,141 +10,94 @@ import { doHatchApi } from "../../api/eggApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchLog } from "../../reactQuery/useLog";
 import LogButton from "../../component/common/button/LogButton";
-
+import PetModal from "./petModal";
+import HatchingEgg from "./HatchingEgg";
 
 export default function HatcheryPage() {
   const [isHatching, setIsHatching] = useState(false);
-  const [eggType, setEggType] = useState(null); 
+  const [eggType, setEggType] = useState(null);
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [eggStyles, setEggStyles] = useState([]); // eggStyles 상태
   const [progress, setProgress] = useState(0); // 진행 상태를 관리
-  const [canHatch, setCanHatch] = useState(true); 
+  const [canHatch, setCanHatch] = useState(true);
 
-  const [isOpen, setIsOpen] = useState(false); 
-  const [reward, setReward] = useState(null); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [reward, setReward] = useState(null);
 
-  const queryClient = useQueryClient(); 
-
-  const eggRef = useRef(null); 
+  const queryClient = useQueryClient();
 
   const { data } = useFetchEgg();
-  const {data:logs} = useFetchLog(); 
-  console.log("logs", logs);
+  const { data: logs } = useFetchLog();
+  let hatchingEgg;
+  if (data.type == "success") {
+    hatchingEgg = data?.data?.find((egg) => egg.state == "hatching");
+    console.log("hatchingEgg", hatchingEgg);
+  }
 
-  const hatchingEgg = data.data.find((egg) => egg.state == "hatching");
-  console.log("hatchingEgg,",hatchingEgg)
-  console.log('data', data); 
   useEffect(() => {
-    if (hatchingEgg) {
-      setIsHatching(true);
-      setEggType(hatchingEgg.eggType)
-      setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
-      if((hatchingEgg.currentStep > hatchingEgg.goalWalk ||true)){
-        setCanHatch(true); 
-        console.log(eggRef); 
-        if (eggRef?.current) {
-          eggRef.current.className = "hatchery-page-egg-img-droped egg-scale"
-          eggRef.current.style.cursor = "pointer";
+    if (data.type == "success") {
+      if (hatchingEgg) {
+        setIsHatching(true);
+        setEggType(hatchingEgg.eggType);
+        setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
+        if (hatchingEgg.currentStep > hatchingEgg.goalWalk || true) {
+          setCanHatch(true);
         }
+      }
 
-      } 
+      const styles = getRandomPosition({ Count: data.data.length });
+      setEggStyles(styles); // 상태 업데이트
     }
-
-    const styles = getRandomPosition({ Count: data.data.length });
-    setEggStyles(styles); // 상태 업데이트
     setLoading(false); // 로딩 완료 후 상태 변경
   }, []);
 
   const doHatch = async () => {
-    // if(!canHatch ) return 
+    // if (!canHatch) return;
 
-    console.log("dohatch");
     console.log("hatchingEgg", hatchingEgg);
-    const data = await doHatchApi({eggId: hatchingEgg.eggId}); 
-    console.log(data);
-    if( data.type == "success"){
-      setIsOpen(true); 
-      setReward(data.data); 
-      console.log(data.data);
-      queryClient.invalidateQueries("eggs");
-
-    } 
-  }
+    const data = await doHatchApi({ eggId: hatchingEgg.eggId });
+    if (data.type == "success") {
+      setIsOpen(true);
+      setReward(data.data);
+      await queryClient.invalidateQueries("eggs");
+      await queryClient.refetchQueries("eggs");
+    }
+  };
 
   if (loading) return null;
 
   return (
     <>
       <Container column={true}>
-        {isOpen && 
-            <div className="hatchery-page-pet-modal-wrapper" onClick={() => {setIsOpen(false)}}>
-                <div className="hatchery-page-pet-modal" onClick={(e) => {e.stopPropagation()}}>
-                <div
-                  className="hatchery-page-pet-img"
-                  style={{
-                    backgroundImage: `url(/images/pets/${reward.petLink.split(".")[0]}Head.jpg)`,
-                  }}
-                ></div>
-                  <div   className="hatchery-page-pet-info">{reward.petName} 을 획득했습니다!!</div>
-              </div>
-            </div>
-         }
+        {isOpen && <PetModal setIsOpen={setIsOpen} reward={reward} />}
         <Header PageName={"부화장"} />
         {isHatching ? (
-          <div className="hatchery-page-wrapper">
-            <div className="hatchery-page-Hatchery-title">순조롭게 부화중</div>
-            <div className="hatchery-page-progress-bar-wrapper">
-              <div
-                className="hatchery-page-progress-bar "
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-            <div
-              className="hatchery-page-Hatchery"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="hatchery-page-Hatchery-img"></div>
-              <div className="hatchery-page-egg-img-droped rotate-egg" ref={eggRef} onClick={() => {
-                doHatch(); 
-              }}>
-                <span
-                  className="material-symbols-outlined"
-                  style={{
-                    fontVariationSettings: "'FILL' 1",
-                    color: colors[eggType - 1],
-                    fontSize: "82px",
-                  }}
-                >
-                  egg
-                </span>
-              </div>
-            </div>
-          </div>
+          <HatchingEgg
+            progress={progress}
+            canHatch={canHatch}
+            eggType={eggType}
+            onClick={doHatch}
+          />
         ) : (
           <div className="hatchery-page-wrapper">
-            <div
-              className="hatchery-page-Hatchery"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="hatchery-page-progress-bar-wrapper ">
-                <div
-                  className="hatchery-page-progress-bar"
-                  style={{ width: `${progress}%` }} // 진행 상태에 따라 width가 변화
-                ></div>
-              </div>
-              <div className="hatchery-page-Hatchery-img"></div>
-            </div>
+            <div className="hatchery-page-Hatchery-img"></div>
           </div>
         )}
 
-          <ButtonWrapper>
-            {logs && logs.data.map((log) => {
-              return(
-                <LogButton imgSrc={`/images/pets/${log.logContent.split(".")[0]}Head.jpg`} 
-                description={log.logContent} href={PAGE_URLS.InventoryPage}/>)
-
+        <ButtonWrapper>
+          {logs &&
+            logs.data.map((log) => {
+              return (
+                <LogButton
+                  imgSrc={`/images/pets/${
+                    log.logContent.split(".")[0]
+                  }Head.jpg`}
+                  description={log.logContent}
+                  href={PAGE_URLS.InventoryPage}
+                />
+              );
             })}
-          </ButtonWrapper>
+        </ButtonWrapper>
       </Container>
     </>
   );

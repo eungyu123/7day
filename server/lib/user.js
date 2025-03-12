@@ -84,7 +84,7 @@ module.exports = {
           message: "User not found",
         });
       }
-      console.log("User found:", user); // 사용자 확인
+      console.log("User found:"); // 사용자 확인
 
       if (user.friendList.some((friend) => friend.friend_id === friendid)) {
         console.log("이미 존재하는 친구");
@@ -117,9 +117,7 @@ module.exports = {
 
       // 마지막 생성시간이 4시간보다 클때 생성
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
-      if (
-        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 
-      ) {
+      if (Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10) {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }

@@ -1,7 +1,7 @@
 const { Egg, UserEgg, Hatchery } = require("../db/models/Egg");
 const User = require("../db/models/User");
-const Pet = require("../db/models/Pet")
-const Log = require("../db/models/Log")
+const Pet = require("../db/models/Pet");
+const Log = require("../db/models/Log");
 module.exports = {
   getEgg: async (req, res) => {
     try {
@@ -20,9 +20,14 @@ module.exports = {
 
       const userEggs = await UserEgg.find({ userId });
 
-      if (!userEggs.length)
-        return res.status(404).json({ message: "No eggs found for this user" });
-
+      if (!userEggs.length) {
+        console.log(userEggs.length);
+        return res.status(404).json({
+          type: "error",
+          message: "No eggs found for this user",
+          error: "error",
+        });
+      }
       res.json({ type: "success", data: userEggs });
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
@@ -49,7 +54,6 @@ module.exports = {
       }
 
       const updatedUserEgg = await userEgg.save();
-      console.log(updatedUserEgg);
       res.json({
         type: "success",
         message: "Egg updated",
@@ -102,56 +106,73 @@ module.exports = {
       return res.status(500).json({ message: "Server error", error });
     }
   },
-  
-  hatchEgg: async(req,res) => {
+
+  hatchEgg: async (req, res) => {
     try {
       // 유저와 해당 알을 찾기
-      const { userId } = req.params; 
-      const { eggId } = req.body; 
+      const { userId } = req.params;
+      const { eggId } = req.body;
       const userEgg = await UserEgg.findOne({ userId, eggId });
       const user = await User.findById(userId);
       if (!userEgg) {
-        return res.status(404).json({ type: "error", message: "Egg not found" });
+        return res
+          .status(404)
+          .json({ type: "error", message: "Egg not found" });
       }
       if (!user) {
-        return res.status(404).json({ type: "error", message: "User not found" });
+        return res
+          .status(404)
+          .json({ type: "error", message: "User not found" });
       }
-    
+
       // 목표 걸음 수를 초과하면 알 삭제 및 펫 지급
       if (userEgg.currentStep >= userEgg.goalWalk || true) {
-        await UserEgg.deleteOne({ _id: userEgg._id }); // 알 삭제
+        const result = await UserEgg.deleteOne({ _id: userEgg._id }); // 알 삭제
+        const checkEgg = await UserEgg.findOne({ _id: userEgg._id });
+        if (!checkEgg) {
+          console.log(eggId, "삭제됨");
+        } else {
+          console.log("삭제되지 않음");
+        }
         let randomPet;
 
         const pets = await Pet.find(); // 전체 펫 목록 가져오기
         if (pets.length === 0) {
-          return res.status(500).json({ type: "error", message: "No pets available" });
+          return res
+            .status(500)
+            .json({ type: "error", message: "No pets available" });
         }
 
         const availablePets = pets.filter(
           (pet) => !user.petList.some((userPet) => userPet.petId === pet._id)
-        )
+        );
         if (availablePets.length > 0) {
-          randomPet = availablePets[Math.floor(Math.random() * availablePets.length )]
+          randomPet =
+            availablePets[Math.floor(Math.random() * availablePets.length)];
           user.petList.push({
             petId: randomPet._id,
             petName: randomPet.petName,
             price: randomPet.price,
             petLink: randomPet.petLink,
           });
-        }  
+        }
         // 유저 펫 목록에 추가
 
         const updatedUser = await user.save(); // 변경 사항 저장
-        const log = new Log({ userId, logType:"pet", logContent: randomPet.petLink });
+        const log = new Log({
+          userId,
+          logType: "pet",
+          logContent: randomPet.petLink,
+        });
         const newLog = await log.save();
-        console.log(newLog)
-        console.log(randomPet); 
         return res.json({ type: "success", data: randomPet });
       } else {
         return res.json({ type: "error", message: "걸음수 부족" });
       }
     } catch (error) {
-      return res.status(500).json({ type: "error", message: "Internal server error" });
+      return res
+        .status(500)
+        .json({ type: "error", message: "Internal server error" });
     }
-}
-}
+  },
+};
