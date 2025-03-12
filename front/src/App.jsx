@@ -14,6 +14,8 @@ import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
          Store,
          ShoppingOrderPage} from "./page";
 import NicknamePage from "./page/nickname/NicknamePage";
+import ShoppingPage from "./page/shopping/ShoppingPage";
+import ShoppingDetailPage from "./page/shopping/ShoppingDetailPage";
 
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
@@ -68,6 +70,12 @@ function App() {
                   element={<StepAnalysisPage />}
                 />
                 <Route path="/NicknamePage" element={<NicknamePage />} />
+                <Route path="/ShoppingPage" element={<ShoppingPage />} />
+                <Route
+                  path="/ShoppingDetailPage"
+                  element={<ShoppingDetailPage />}
+                />
+                <Route path="*" element={<NotFound />} />{" "}
                 {/* 없는 페이지 처리 */}
                 {/* 임시 에러페이지, 로딩페이지 */}
                 <Route path="*" element={<NotFound />} />{" "}
