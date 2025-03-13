@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import "./LoginPage.css";
 import Container from "../../component/common/Container";
 import { googleSignIn, googleSignOut } from "../../api/authApi";
+import OverView from "./OverView.jsx"
+import Test from "./Test.jsx";
+
 const LoginPage = () => {
   useEffect(() => {
     // Google API 스크립트 로드
@@ -39,11 +42,14 @@ const LoginPage = () => {
   return (
     <Container>
       <div className="login-container">
+        
+        <OverView/>
+        
         <div id="google-login-btn"></div>
         <br />
-        <div className="" onClick={() => signOut()}>
+        {/* <div className="" onClick={() => signOut()}>
           로그아웃
-        </div>
+        </div> */}
       </div>
     </Container>
   );

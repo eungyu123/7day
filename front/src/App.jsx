@@ -36,7 +36,7 @@ function App() {
   // useAuthRedirect({ appState });
   useLocationTracker({ dispatch });
   const loading = useFetch({ appState, dispatch });
-  if (loading) return <div className="">Loading Page useFetch</div>;
+  if (loading) return <LoadingPage />;
 
   return (
     <>
@@ -75,8 +75,6 @@ function App() {
                     element={<ShoppingDetailPage />}
                   />
                   <Route path="*" element={<NotFound />} />{" "}
-                  {/* 없는 페이지 처리 */}
-                  {/* 임시 에러페이지, 로딩페이지 */}
                   <Route path="/ErrorPage" element={<ErrorPage />} />
                   <Route path="/LoadingPage" element={<LoadingPage />} />
                 </Routes>

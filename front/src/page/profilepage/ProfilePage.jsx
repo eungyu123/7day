@@ -8,6 +8,7 @@ import { getKmFromSteps } from "../../utils/utils";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../constant/constant";
 import { useFetchRewards } from "../../reactQuery/useUser";
+import ProfileInfo from "./ProfileInfo";
 
 export default function ProfilePage() {
   const { data: rewards } = useFetchRewards();
@@ -33,20 +34,15 @@ export default function ProfilePage() {
     <Container>
       <Header PageName={"프로필"} />
       <div className="profile-wrapper">
-        <div className="profile-money">
-          <span className="emojifont">💎</span>
-          {appState.user.userPoint}원
-        </div>
-        <div className="profile-steps font-xs">
-          <span className="font-sm">{distance}</span>
-          <span className="font-xs">km</span> &nbsp;
-          <span className="font-md">{currentSteps}</span> &nbsp;
-          <span className="font-sm">걸음</span>
-        </div>
+        <div>캐릭터</div>
       </div>
+
+      <ProfileInfo userPoint={appState.user.userPoint} distance={distance} currentSteps={currentSteps} />
+
       <div className="profile-title">
         <span className="emojifont">🎁</span>보상
       </div>
+
       <div className="profile-rewards-wrapper">
         {rewards.data.map((reward) => {
           if (reward) {

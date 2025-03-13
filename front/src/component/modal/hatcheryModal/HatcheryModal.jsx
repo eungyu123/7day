@@ -1,8 +1,10 @@
-import { useFetchEgg } from "../../../../reactQuery/useEgg";
+import { useFetchEgg } from "../../../reactQuery/useEgg";
 import "./HatcheryModal.css";
 import { useState, useEffect, useRef } from "react";
-import { getEgg, updateEggState } from "../../../../api/eggApi";
+import { getEgg, updateEggState } from "../../../api/eggApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { EGG_COLORS } from "../../../constant/constant";
+import HatchingEgg from "./HatchingEgg";
 
 export default function HatcheryModal({ setIsOpenHatchery }) {
   const queryClient = useQueryClient(); // queryClient 가져오기
@@ -11,6 +13,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   const [isVisible, setIsVisible] = useState(false);
   const intervalRef = useRef(null);
   const [isHatching, setIsHatching] = useState(false);
+  const [eggType, setEggStype] = useState(null); 
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [eggStyles, setEggStyles] = useState([]); // eggStyles 상태
   const [progress, setProgress] = useState(0); // 진행 상태를 관리
@@ -22,7 +25,8 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
       const hatchingEgg = data.data.find((egg) => egg.state == "hatching");
 
       if (hatchingEgg) {
-        setIsHatching(hatchingEgg.eggType);
+        setIsHatching(true);
+        setEggStype(hatchingEgg.eggType)
         sethatchingProgress(
           (hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100
         );
@@ -37,7 +41,6 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   }, [data]);
 
   const handleDragStart = (e, id) => {
-    console.log("실행 1");
     if (isHatching) return;
     e.dataTransfer.setData("text", id);
     const draggedElement = eggRef.current[id];
@@ -48,8 +51,6 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   };
 
   const handleDragEnd = (e, id) => {
-    console.log("실행 2", isHatching);
-
     if (isHatching) return;
 
     e.dataTransfer.setData("text", id);
@@ -59,16 +60,14 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   };
 
   const handleDragOver = (e) => {
-    console.log("실행 3");
-
     if (isHatching) return;
+
     e.preventDefault();
 
-    const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
     setIsVisible(true);
 
     if (intervalRef.current) return;
-    let currentProgress = 0; // 첫 번째 진행은 즉시 10%로 설정
+    let currentProgress = 0; 
 
     intervalRef.current = setInterval(() => {
       currentProgress += 1; // 5%씩 증가
@@ -78,12 +77,10 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
         clearInterval(intervalRef.current); // 100%가 되면 정지
         intervalRef.current = null;
       }
-    }, 50); // 200ms마다 실행 (부드러운 애니메이션 효과)
+    }, 50);
   };
 
   const handleDragLeave = () => {
-    console.log("실행 4");
-
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -95,15 +92,14 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   const handleDrop = (e, i) => {
     e.preventDefault();
     setProgress(0);
-
-    const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
+    // 드래그한 아이템 데이터를 가져옴
+    const item = e.dataTransfer.getData("text"); 
 
     const updateEgg = async () => {
       const result = await updateEggState({
         eggId: eggRef.current[item].dataset.eggid,
       });
       const res = await getEgg();
-      console.log(res.data);
 
       if (result.type == "success") {
         console.log("queryClient");
@@ -145,7 +141,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
             className="material-symbols-outlined"
             style={{
               fontVariationSettings: "'FILL' 1",
-              color: colors[Number(egg.eggType) - 1],
+              color: EGG_COLORS[Number(egg.eggType) - 1],
               fontSize: "36px",
             }}
           >
@@ -159,39 +155,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
   return (
     <>
       {isHatching ? (
-        <div
-          className="hatchery-modal-wrapper"
-          onClick={() => setIsOpenHatchery(false)}
-        >
-          <div
-            className="hatchery-modal-Hatchery"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="hatchery-modal-Hatchery-title">순조롭게 부화중</div>
-            <div
-              className="hatchery-modal-progress-bar-wrapper"
-              style={{ display: "block" }}
-            >
-              <div
-                className="hatchery-modal-progress-bar "
-                style={{ width: `${hatchingProgress}%` }}
-              ></div>
-            </div>
-            <div className="hatchery-modal-Hatchery-img"></div>
-            <div className="hatchery-modal-egg-img-droped rotate-egg">
-              <span
-                className="material-symbols-outlined"
-                style={{
-                  fontVariationSettings: "'FILL' 1",
-                  color: colors[isHatching - 1],
-                  fontSize: "82px",
-                }}
-              >
-                egg
-              </span>
-            </div>
-          </div>
-        </div>
+        <HatchingEgg setIsOpenHatchery={setIsOpenHatchery} hatchingProgress={hatchingProgress} eggType={eggType}/>
       ) : (
         <div
           className="hatchery-modal-wrapper"
@@ -223,8 +187,6 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
     </>
   );
 }
-
-const colors = ["#FFD700", "#C0C0C0", "#B87333"];
 
 const randomPositionTop = () => {
   return Math.random() * 20 + 65; // 75% ~ 95% 사이의 무작위 위치

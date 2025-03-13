@@ -12,7 +12,6 @@ import { PAGE_URLS } from "../../constant/constant";
 const WalkingCard = forwardRef(({ TrailItem, idx }, ref) => {
   const { appState, dispatch } = useAppContext();
   const navigate = useNavigate();
-  console.log("TrailItem", TrailItem); 
   const complete = TrailItem.landmarks.every((landmark) => landmark.visited);
 
   const WalkingcourseClick = () => {

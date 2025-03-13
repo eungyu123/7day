@@ -9,7 +9,8 @@ import { getUser } from "../../../api/userApi";
 import { setUser } from "../../../context/reducer/action/action";
 import ThreeDModel from "./ThreeModel";
 import RewardModal from "../../modal/RewardModal";
-import HatcheryModal from "./hatcheryModal/HatcheryModal";
+import HatcheryModal from "../../modal/hatcheryModal/HatcheryModal";
+
 
 export default function KaKaoMapComponent() {
   const giftsRef = useRef({});
