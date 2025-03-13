@@ -22,7 +22,9 @@ export default function ShoppingOrderAddress({ index }) {
           <div>
             <div className="shopping-order-address-info">이름</div>
             <div className="shopping-order-address-info">01012345678</div>
-            <div className="shopping-order-address-info">주소주소</div>
+            <div className="shopping-order-address-info">
+              경기도 의정부시 00로 000 (00동, 000000), 000동 000호
+            </div>
           </div>
           <div>
             <Link

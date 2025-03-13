@@ -6,7 +6,7 @@ import ShoppingOrderAddress from "../../component/shopping/ShoppingOrderAddress"
 import ShoppingOrderCart from "../../component/shopping/ShoppingOrderCart";
 import ShoppingOrderMessage from "../../component/shopping/ShoppingOrderMessage";
 import ShoppingOrderCost from "../../component/shopping/ShoppingOrderCost";
-import ShoppingOrderButton from "../../component/shopping/ShoppingOrderButton";
+import ShoppingPurchaseButton from "../../component/shopping/ShoppingPurchaseButton";
 import "../../page/shopping/ShoppingOrder.css";
 
 // import { useState } from "react";
@@ -27,6 +27,7 @@ export default function ShoppingOrderPage() {
   const shopItem = shopItems && shopItems[index];
   console.log("index is ", index);
   console.log("shopItem is ", shopItem);
+  console.log(shopItem.discount / 100);
 
   return (
     <>
@@ -37,14 +38,13 @@ export default function ShoppingOrderPage() {
           itemImg={shopItem.ItemImg}
           itemName={shopItem.Item}
           company={shopItem.Company}
-          price={shopItem.price}
+          price={shopItem.price * ((100 - shopItem.discount) / 100)}
         />
-        <ShoppingOrderCost price={shopItem.price} />
+        <ShoppingOrderCost
+          price={shopItem.price * ((100 - shopItem.discount) / 100)}
+        />
         <ShoppingOrderMessage />
-        <ShoppingOrderButton
-          buttonText={"토스포인트로 결제하기"}
-          index={index}
-        />
+        <ShoppingPurchaseButton buttonText={"토스포인트로 결제하기"} />
       </div>
     </>
   );
