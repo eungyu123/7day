@@ -74,6 +74,14 @@ function App() {
                     path="/ShoppingDetailPage"
                     element={<ShoppingDetailPage />}
                   />
+                  <Route
+                    path="/ShoppingOrderPage"
+                    element={<ShoppingOrderPage />}
+                  />
+                  <Route
+                    path="/ShoppingOrderAddressPage"
+                    element={<ShoppingOrderAddressPage />}
+                  />
                   <Route path="*" element={<NotFound />} />{" "}
                   {/* 없는 페이지 처리 */}
                   {/* 임시 에러페이지, 로딩페이지 */}
