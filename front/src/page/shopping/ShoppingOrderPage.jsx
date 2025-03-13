@@ -18,7 +18,7 @@ export default function ShoppingOrderPage() {
         <ShoppingOrderCart />
         <ShoppingOrderCost />
         <ShoppingOrderMessage />
-        <ShoppingOrderButton />
+        <ShoppingOrderButton buttonText={"토스포인트로 결제하기"} />
       </div>
     </>
   );

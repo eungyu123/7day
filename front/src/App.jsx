@@ -74,6 +74,14 @@ function App() {
                     path="/ShoppingDetailPage"
                     element={<ShoppingDetailPage />}
                   />
+                  <Route
+                    path="/ShoppingOrderPage"
+                    element={<ShoppingOrderPage />}
+                  />
+                  <Route
+                    path="/ShoppingOrderAddressPage"
+                    element={<ShoppingOrderAddressPage />}
+                  />
                   <Route path="*" element={<NotFound />} />{" "}
                   <Route path="/ErrorPage" element={<ErrorPage />} />
                   <Route path="/LoadingPage" element={<LoadingPage />} />

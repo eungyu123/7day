@@ -10,6 +10,7 @@ import UpModal from "../modal/UpModal";
 
 export default function ShoppingOrderAddress() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deliveryMessage, setDeliveryMessage] = useState("배송 시 요청사항");
   const navigate = useNavigate();
   return (
     <>
@@ -34,11 +35,15 @@ export default function ShoppingOrderAddress() {
           className="shopping-order-address-message"
           onClick={() => setIsModalOpen(true)}
         >
-          <p>배송 시 요청사항</p>
+          <p>{deliveryMessage}</p>
           <span class="material-symbols-outlined">arrow_drop_down</span>
         </div>
       </div>
-      <UpModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <UpModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        setDeliveryMessage={setDeliveryMessage}
+      />
     </>
   );
 }

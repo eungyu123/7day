@@ -2,6 +2,7 @@ import "../../index.css";
 
 import Header from "../../component/common/header/Header";
 import ShoppingOrderAddressHome from "../../component/shopping/ShoppingOrderAddressHome";
+import ShoppingOrderButton from "../../component/shopping/ShoppingOrderButton";
 import "../../page/shopping/ShoppingOrder.css";
 
 export default function ShoppingOrderAddressPage() {
@@ -17,13 +18,17 @@ export default function ShoppingOrderAddressPage() {
         <div
           className="shopping-order-address-new"
           style={{ marginTop: "15px" }}
+          onClick={() => onClick()}
         >
-          <span className="emojifont" style={{ marginRight: "12px" }}>
-            ➕
-          </span>
-          새로운 주소
+          <p>
+            <span className="emojifont" style={{ marginRight: "12px" }}>
+              ➕
+            </span>
+            새로운 주소
+          </p>
         </div>
       </div>
+      <ShoppingOrderButton buttonText={"확인"} href="/ShoppingOrderPage" />
     </>
   );
 }
