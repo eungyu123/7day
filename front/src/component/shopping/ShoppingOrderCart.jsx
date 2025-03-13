@@ -1,26 +1,28 @@
 import "../../index.css";
 
-export default function ShoppingOrderCart({ itemImg }) {
+export default function ShoppingOrderCart({
+  itemImg,
+  itemName,
+  company,
+  price,
+}) {
   return (
     <>
       <div className="shopping-order-box">
         <div className="shopping-order-header">주문상품</div>
         <div className="shopping-order-cart-main">
-          <div
-            // src={itemImg}
+          <img
+            src={itemImg}
             style={{
               width: "60px",
               height: "60px",
-              background: "black",
               borderRadius: "10px",
             }}
-          ></div>
+          ></img>
           <div className="shopping-order-cart-info">
-            <div className="shopping-order-cart-info-company">바다사나이</div>
-            <div className="shopping-order-cart-info-itemname">
-              바다사나이 제철 가리비
-            </div>
-            <div className="shopping-order-cart-info-price">10,900원</div>
+            <div className="shopping-order-cart-info-company">{company}</div>
+            <div className="shopping-order-cart-info-itemname">{itemName}</div>
+            <div className="shopping-order-cart-info-price">{price}원</div>
           </div>
         </div>
       </div>

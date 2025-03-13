@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PAGE_URLS } from "../../constant/constant";
+import { Link } from "react-router-dom";
 import "../../index.css";
 import UpModal from "../modal/UpModal";
 
@@ -8,7 +10,7 @@ import UpModal from "../modal/UpModal";
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_drop_down"
 />;
 
-export default function ShoppingOrderAddress() {
+export default function ShoppingOrderAddress({ index }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deliveryMessage, setDeliveryMessage] = useState("배송 시 요청사항");
   const navigate = useNavigate();
@@ -23,12 +25,13 @@ export default function ShoppingOrderAddress() {
             <div className="shopping-order-address-info">주소주소</div>
           </div>
           <div>
-            <div
+            <Link
+              to={`${PAGE_URLS.ShoppingOrderAddressPage}?index=${index}`}
               className="shopping-order-address-info-edit"
-              onClick={() => navigate("/ShoppingOrderAddressPage")}
+              // onClick={() => navigate("/ShoppingOrderAddressPage")}
             >
               수정
-            </div>
+            </Link>
           </div>
         </div>
         <div
