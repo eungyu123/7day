@@ -27,7 +27,11 @@ export default function ShoppingPage() {
       {shopItems.map((Shop, index) => {
         const isLiked = likedItems.includes(index);
         return (
-          <div key={index} className="shoppingpage-item-container">
+          <div
+            key={index}
+            className="shoppingpage-item-container"
+            style={index === 0 ? { marginTop: "60px" } : {}}
+          >
             <div className="shoppingpage-item-img-container">
               <Link
                 to={{
