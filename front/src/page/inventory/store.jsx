@@ -88,7 +88,7 @@ export default function Store() {
                       setItemName(item.petName);
                       setItemPrice(item.price);
                       setSelectedItemId(item._id);
-                      selectedPet(item.petLink);
+                      setSelectedPet(item.petLink);
                     }}
                   />
                 ))}
