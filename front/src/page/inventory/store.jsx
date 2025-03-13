@@ -20,6 +20,10 @@ export default function Store() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [characterItems, setCharacterItems] = useState([]);
   const [petItems, setPetItems] = useState([]);
+  const [imgPath, setImgPath] = useState("");
+  const [itemType, setItemType] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [itemPrice, setItemPrice] = useState(0);
 
   useEffect(() => {
     const fetchStoreData = async () => {
@@ -58,6 +62,10 @@ export default function Store() {
                     onClick={() => {
                       setSelectedItem({ type: "character", ...item });
                       setIsModalOpen(true);
+                      setImgPath(item.characterLink);
+                      setItemType("characters");
+                      setItemName(item.characterName);
+                      setItemPrice(item.price);
                     }}
                   />
                 ))
@@ -71,17 +79,25 @@ export default function Store() {
                     onClick={() => {
                       setSelectedItem({ type: "pet", ...item });
                       setIsModalOpen(true);
+                      setImgPath(item.petLink);
+                      setItemType("pets");
+                      setItemName(item.petName);
+                      setItemPrice(item.price);
                     }}
                   />
                 ))}
           </div>
         </div>
-
+        {console.log("selectedItem: ", selectedItem)};
         <ConfirmCancelModal
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           confirmName={"구매"}
           selectedItem={selectedItem}
+          img={imgPath}
+          type={itemType}
+          itemName={itemName}
+          price={itemPrice}
         />
       </div>
     </>
