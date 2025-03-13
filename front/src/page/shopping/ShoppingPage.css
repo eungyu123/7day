@@ -38,11 +38,12 @@
   margin-right: 10px;
 }
 .material-symbols-outlined {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 .shoppingpage-heart {
   display: flex;
   position: absolute;
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24 !important;
   bottom: 90px;
   right: 10px;
   color: var(--toss-gray);
