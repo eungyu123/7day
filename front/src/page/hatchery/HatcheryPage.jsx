@@ -31,7 +31,11 @@ export default function HatcheryPage() {
   let hatchingEgg;
   if (data.type == "success") {
     hatchingEgg = data?.data?.find((egg) => egg.state == "hatching");
-    console.log("hatchingEgg", hatchingEgg);
+    console.log("hatchingEgg", hatchingEgg, data?.data);
+    //"67d22751f817f755d76be546"
+    //"67d199ecdcad9dd92f3087d3" 
+  } else {
+    hatchingEgg = false; 
   }
 
   useEffect(() => {
@@ -40,20 +44,21 @@ export default function HatcheryPage() {
         setIsHatching(true);
         setEggType(hatchingEgg.eggType);
         setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
-        if (hatchingEgg.currentStep > hatchingEgg.goalWalk || true) {
+        if (hatchingEgg.currentStep >= hatchingEgg.goalWalk || true) {
           setCanHatch(true);
         }
+      } else {
+        setIsHatching( false ); 
       }
 
       const styles = getRandomPosition({ Count: data.data.length });
       setEggStyles(styles); // 상태 업데이트
     }
     setLoading(false); // 로딩 완료 후 상태 변경
-  }, []);
+  }, [data]);
 
   const doHatch = async () => {
     // if (!canHatch) return;
-
     console.log("hatchingEgg", hatchingEgg);
     const data = await doHatchApi({ eggId: hatchingEgg.eggId });
     if (data.type == "success") {

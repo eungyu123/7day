@@ -127,7 +127,7 @@ export default function HatcheryModal({ setIsOpenHatchery }) {
         <div
           key={i}
           ref={(el) => (eggRef.current[i] = el)}
-          data-eggid={egg._id}
+          data-eggid={egg.eggId}
           draggable="true"
           onDragStart={(e) => handleDragStart(e, i)}
           onDragEnd={(e) => handleDragEnd(e, i)}
