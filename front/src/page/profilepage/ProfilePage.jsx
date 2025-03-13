@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../constant/constant";
 import { useFetchRewards } from "../../reactQuery/useUser";
 import ProfileInfo from "./ProfileInfo";
+import ThreeScene from "../../component/Three/ThreeScene";
 
 export default function ProfilePage() {
   const { data: rewards } = useFetchRewards();
@@ -34,7 +35,7 @@ export default function ProfilePage() {
     <Container>
       <Header PageName={"프로필"} />
       <div className="profile-wrapper">
-        <div>캐릭터</div>
+        <ThreeScene character={appState.user.character} pet={appState.user.pet} />
       </div>
 
       <ProfileInfo userPoint={appState.user.userPoint} distance={distance} currentSteps={currentSteps} />
