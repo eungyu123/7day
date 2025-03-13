@@ -23,6 +23,8 @@ app.use("/image", express.static("image"));
 // seed.createSampleData1();
 // seed.createRandomHatcheries();
 // seedEgg.seedEggData();
+const seed = require("./db/seed/seed");
+seed.deleteAllFriendLists();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
