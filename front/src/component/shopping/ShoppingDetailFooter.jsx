@@ -29,7 +29,10 @@ export default function ShoppingDetailFooter({ index }) {
         구매하기
       </div>
       {showOptions && (
-        <div className="shoppingdetailfooter-options-overlay">
+        <div
+          className="shoppingdetailfooter-options-overlay"
+          onClick={() => setShowOptions(false)}
+        >
           <div className="shoppingdetailfooter-options">
             {isClothing && (
               // 옷이면 컬러,색상 옵션 선택
