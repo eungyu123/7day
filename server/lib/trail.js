@@ -7,25 +7,40 @@ module.exports = {
 
       // 모든 산책로 가져오기
       const trails = await Trail.find();
-      if (!trails) return res.status(404).json({ message: "Trail not found" });
+      if (!trails || trails.length === 0) return res.status(404).json({ message: "Trail not found" });
 
       // 유저의 방문 기록 가져오기 (해당 userId가 방문한 모든 기록 조회)
-      const userTrails = await UserTrail.find({ userId });
-      // 각 Trail에 유저 방문 기록을 추가
-      console.log(trails);
-      console.log(userTrails);
+      let userTrails = await UserTrail.find({ userId });
+      if(!userTrails || userTrails.length === 0) {
+        const userTrailPromises = trails.map(async (trail) => {
+          const newUserTrail = new UserTrail({
+            userId,
+            trailId: trail._id.toString(),
+            visitedLandmarks: trail.landmarks.map((landmark) => ({
+              landmarkId: landmark._id,
+              name: landmark.name,
+              image: landmark.image,
+              description: landmark.description,
+              location: landmark.location,
+              visited: false,
+            })),
+          });
+      
+          return newUserTrail.save();
+        });
+        await Promise.all(userTrailPromises);
+        userTrails = await UserTrail.find({ userId });
+      }
+
+
       const updatedTrails = trails.map((trail) => {
-        console.log(trail._id);
-        // 현재 산책로에 해당하는 유저의 기록 찾기
         const userTrail = userTrails.find(
           (ut) => ut.trailId.toString() === trail._id.toString()
         );
-
-        console.log(userTrail);
         
         return {
           ...trail.toObject(), // 기존 산책로 정보 유지
-          landmarks: userTrail?.visitedLandmarks, // 유저가 방문한 명소 목록
+          landmarks: userTrail?.visitedLandmarks , // 유저가 방문한 명소 목록
           image: trail.image, // 산책로 이미지 추가
           address: trail.address, // 산책로 주소 추가
         };
@@ -47,7 +62,6 @@ module.exports = {
       const { trailId } = req.body;
 
       const trail = await Trail.findById(trailId);
-      console.log("trail");
 
       if (!trail) return res.status(404).json({ message: "Trail not found" });
 
