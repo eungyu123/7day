@@ -12,7 +12,8 @@ import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
          HatcheryPage, SettingPage, BadgePage, Inventory, LoginPage, FriendPage, StepAnalysisPage, NotFound, LoadingPage, ErrorPage,
          BadgeGoalPage, BadgeListPage,
          Store,
-         ShoppingOrderPage} from "./page";
+         ShoppingOrderPage,
+         ShoppingOrderAddressPage} from "./page";
 import NicknamePage from "./page/nickname/NicknamePage";
 
 import { PAGE_URLS } from "./constant/constant";
@@ -62,6 +63,10 @@ function App() {
                 <Route
                   path="/ShoppingOrderPage"
                   element={<ShoppingOrderPage />}
+                />
+                <Route
+                  path="/ShoppingOrderAddressPage"
+                  element={<ShoppingOrderAddressPage />}
                 />
                 <Route
                   path="/StepAnalysisPage"

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../index.css";
 import UpModal from "../modal/UpModal";
 
@@ -9,6 +10,7 @@ import UpModal from "../modal/UpModal";
 
 export default function ShoppingOrderAddress() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
       <div className="shopping-order-address shopping-order-box">
@@ -20,7 +22,12 @@ export default function ShoppingOrderAddress() {
             <div className="shopping-order-address-info">주소주소</div>
           </div>
           <div>
-            <div className="shopping-order-address-info-edit">수정</div>
+            <div
+              className="shopping-order-address-info-edit"
+              onClick={() => navigate("/ShoppingOrderAddressPage")}
+            >
+              수정
+            </div>
           </div>
         </div>
         <div

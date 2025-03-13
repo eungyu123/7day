@@ -17,3 +17,4 @@ export { default as StepAnalysisPage } from "./stepAnalysisPage/stepAnalysisPage
 export { default as LoadingPage } from "./loading/LoadingPage";
 export { default as ErrorPage } from "./error/ErrorPage";
 export { default as ShoppingOrderPage } from "./shopping/ShoppingOrderPage";
+export { default as ShoppingOrderAddressPage } from "./shopping/ShoppingOrderAddressPage";
