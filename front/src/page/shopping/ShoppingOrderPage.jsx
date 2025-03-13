@@ -19,7 +19,6 @@ export default function ShoppingOrderPage() {
         <ShoppingOrderCost />
         <ShoppingOrderMessage />
         <ShoppingOrderButton />
-        <div className="shopping-order-button"></div>
       </div>
     </>
   );

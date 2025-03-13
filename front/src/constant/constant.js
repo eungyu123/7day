@@ -16,6 +16,7 @@ export const PAGE_URLS = {
   InventoryPage: "/InventoryPage",
   StorePage: "/StorePage",
   ShoppingOrderPage: "/ShoppingOrderPage",
+  ShoppingOrderAddressPage: "/ShoppingOrderAddressPage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
   ShoppingPage: "/ShoppingPage",
