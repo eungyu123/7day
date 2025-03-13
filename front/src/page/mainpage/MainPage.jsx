@@ -35,7 +35,7 @@ export default function MainPage() {
         />
       </div> */}
       <HalfButtonWrapper>
-        <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />
+        <PointButton icon="💎" title="포인트" des={appState.user.userPoint} href={PAGE_URLS.ShoppingPage} />
         <StoreButton icon="🏪" title="상점" href={PAGE_URLS.StorePage} />
       </HalfButtonWrapper>
       <ButtonWrapper>

@@ -4,7 +4,9 @@ import "../../page/modal/Modal.css";
 import "../../page/inventory/Inventory.css";
 
 import { buyCharacter, buyPet } from "../../api/storeApi";
-
+import { useAppContext } from "../../context/context";
+import { getUser } from "../../api/userApi";
+import { setUser } from "../../context/reducer/action/action";
 export default function ConfirmCancelModal({
   isOpen,
   setIsOpen,
@@ -15,6 +17,7 @@ export default function ConfirmCancelModal({
   itemName,
   price,
 }) {
+  const { appState, dispatch } = useAppContext();
   const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
   const imgPath = `${imgNameWithoutExt}Head.jpg`;
   const imagePath = `/images/${type}/${imgPath}`;
@@ -38,6 +41,9 @@ export default function ConfirmCancelModal({
 
       alert(`${selectedItem.characterName} 구매 완료!`);
       setIsOpen(false);
+
+      const user = await getUser();
+      dispatch(setUser({ user: user.data }));
     } catch (error) {
       console.error("구매 실패: ", error);
     }
