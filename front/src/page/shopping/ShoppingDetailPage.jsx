@@ -1,14 +1,13 @@
 import ShoppingHeader from "../../component/shopping/ShoppingHeader";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { useShopContext } from "../../context/ShopContext";
 import "./ShoppingDetailPage.css";
 export default function ShoppingDetailPage() {
-  const location = useLocation();
-  const { shopItem } = location.state || { shopItem: {} };
-
-  // 만약 shopItem이 없다면 빈 객체를 사용하여 오류를 방지
-  if (!shopItem.Item) {
-    return <div>상품 정보가 없습니다.</div>;
-  }
+  const [searchParams] = useSearchParams();
+  const index = searchParams.get("index");
+  console.log("index:", index);
+  const { shopItems } = useShopContext();
+  const shopItem = shopItems && shopItems[index];
   const clothesoption = [
     {
       color: ["white", "beige", "brown", "black"],
@@ -24,6 +23,12 @@ export default function ShoppingDetailPage() {
         alt={shopItem.Item}
         className="shoppingdetailpage-item-img"
       />
+      <div className="shoppingdetailpage-info">
+        <div className="shoppingdetailpage-info-line1">
+          <p className="shoppingdetailpage-company">{shopItem.Company}</p>
+          <p>22</p>
+        </div>
+      </div>
     </div>
   );
 }
