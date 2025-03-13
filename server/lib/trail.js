@@ -12,13 +12,17 @@ module.exports = {
       // 유저의 방문 기록 가져오기 (해당 userId가 방문한 모든 기록 조회)
       const userTrails = await UserTrail.find({ userId });
       // 각 Trail에 유저 방문 기록을 추가
+      console.log(trails);
+      console.log(userTrails);
       const updatedTrails = trails.map((trail) => {
         console.log(trail._id);
         // 현재 산책로에 해당하는 유저의 기록 찾기
         const userTrail = userTrails.find(
-          (ut) => ut.trailId === trail._id.toString()
+          (ut) => ut.trailId.toString() === trail._id.toString()
         );
 
+        console.log(userTrail);
+        
         return {
           ...trail.toObject(), // 기존 산책로 정보 유지
           landmarks: userTrail?.visitedLandmarks, // 유저가 방문한 명소 목록
@@ -43,7 +47,7 @@ module.exports = {
       const { trailId } = req.body;
 
       const trail = await Trail.findById(trailId);
-      console.log("trail", trail);
+      console.log("trail");
 
       if (!trail) return res.status(404).json({ message: "Trail not found" });
 

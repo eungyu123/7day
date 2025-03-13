@@ -9,43 +9,30 @@ export default function WalkingMain() {
   const { appState, dispatch } = useAppContext();
 
   const { data } = useFetchTrail();
-  const cardsRef = useRef();
   const cardRef = useRef({});
-  const buttonRef = useRef({});
-  const [isOpen, setIsOpen] = useState(0);
-  const [selectCards, setSelectCards] = useState("all");
-
-  console.log("data", data);
+  const [cardHeight, setCardHeight] = useState(10); 
+  const [selectCardsAll, setSelectCardsAll] = useState(true);
 
   const handleTogglePanelClick = () => {
-    if (cardsRef.current) {
-      if (isOpen === 0) {
-        setIsOpen(1);
-        cardsRef.current.style.height = "20vh";
-      } else if (isOpen === 1) {
-        setIsOpen(2);
-        cardsRef.current.style.height = "70vh";
+      if (cardHeight === 10) {
+        setCardHeight(20);
+      } else if (cardHeight === 20) {
+        setCardHeight(70); 
       } else {
-        setIsOpen(0);
-        cardsRef.current.style.height = "10vh";
+        setCardHeight(10); 
       }
-    }
   };
 
   const selectAll = () => {
-    buttonRef.current[0].classList.add("wm-info-header-selected");
-    buttonRef.current[1].classList.remove("wm-info-header-selected");
-    setSelectCards("all");
+    setSelectCardsAll(true);
   };
 
   const selectComplete = () => {
-    buttonRef.current[0].classList.remove("wm-info-header-selected");
-    buttonRef.current[1].classList.add("wm-info-header-selected");
-    setSelectCards("complete");
+    setSelectCardsAll(false);
   };
 
   const scrollToCard = (index) => {
-    if (cardRef.current[index] && isOpen == 1) {
+    if (cardRef.current[index] && cardHeight == 20) {
       cardRef.current[index].scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -54,15 +41,16 @@ export default function WalkingMain() {
   };
 
   useEffect(() => {
-    if (isOpen === 1) {
+    if (cardHeight === 20) {
+      console.log(appState.trailIndex)
       setTimeout(() => {
         scrollToCard(appState.trailIndex);
       }, 250);
     }
-  }, [isOpen]);
+  }, [cardHeight]);
 
   useEffect(() => {
-    if (isOpen === 1) {
+    if (cardHeight === 20) {
       scrollToCard(appState.trailIndex);
     }
   }, [appState.trailIndex]);
@@ -81,7 +69,7 @@ export default function WalkingMain() {
       </div>
 
       {/* content */}
-      <div className="wm-info-list" ref={cardsRef}>
+      <div className={`wm-info-list height-${cardHeight}`} >
         <div
           className="wm-line"
           onClick={() => {
@@ -91,8 +79,7 @@ export default function WalkingMain() {
 
         <div className="wm-info-header ">
           <div
-            className="wm-info-header-selected"
-            ref={(el) => (buttonRef.current[0] = el)}
+            className={`${selectCardsAll== true && "wm-info-header-selected"}` } 
             onClick={() => {
               selectAll();
             }}
@@ -100,7 +87,7 @@ export default function WalkingMain() {
             전체 보기
           </div>
           <div
-            ref={(el) => (buttonRef.current[1] = el)}
+            className={`${selectCardsAll == false && "wm-info-header-selected"}` } 
             onClick={() => {
               selectComplete();
             }}
@@ -111,7 +98,7 @@ export default function WalkingMain() {
         {data
           .filter(
             (TrailItem) =>
-              selectCards === "all" ||
+              selectCardsAll === true ||
               TrailItem.landmarks.every((landmark) => landmark.visited)
           )
           .map((TrailItem, idx) => (

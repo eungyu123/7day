@@ -28,12 +28,12 @@ export default function MainPage() {
   return (
     <Container>
       <MainMap />
-      <div className="main-character-wrapper">
+      {/* <div className="main-character-wrapper">
         <ThreeScene
           character={appState.user.character}
           pet={appState.user.pet}
         />
-      </div>
+      </div> */}
       <HalfButtonWrapper>
         <PointButton icon="💎" title="포인트" des={appState.user.userPoint} />
         <StoreButton icon="🏪" title="상점" href={PAGE_URLS.StorePage} />

@@ -16,8 +16,10 @@ middleware(app);
 
 app.use("/image", express.static("image"));
 
-const seedTrail = require("./db/seed/seedTrail")
+const seedTrail = require("./db/seed/seedTrail");
+const seedEgg = require("./db/seed/seedEgg");
 // seedTrail.createSampleData1();
+// seedEgg.seedAll();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);

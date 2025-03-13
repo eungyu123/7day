@@ -98,7 +98,7 @@ async function createSampleData1() {
   console.log("🚀 산책로 저장 완료:", trails);
 
   // 2️⃣ 유저 산책 기록 추가
-  const userId = "67c7ab335f743adc8dc272a3"; // 실제 문자열 ID 사용
+  const userId = "67c7ab445f743adc8dc272a5"; // 실제 문자열 ID 사용
 
   const userTrailPromises = trails.map(async (savedTrail) => {
     const userTrail = new UserTrail({
@@ -118,7 +118,7 @@ async function createSampleData1() {
   });
 
   const savedUserTrails = await Promise.all(userTrailPromises);
-  console.log("🚀 산책로 저장 완료:", savedUserTrails);
+  console.log("🚀 유저 산책로 저장 완료:", savedUserTrails);
 }
 
 async function createRandomHatcheries() {

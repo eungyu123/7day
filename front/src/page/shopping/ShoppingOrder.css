@@ -116,3 +116,22 @@ hr {
   background-color: var(--toss-blue);
   font-weight: bold;
 }
+
+.shopping-order-address-header {
+  font-size: var(--font-lg);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.shopping-order-address-home-main {
+  display: flex;
+  justify-content: space-between;
+}
+.shopping-order-address-home-header {
+  margin-bottom: 10px;
+}
+.shopping-order-address-home-main > div {
+  margin-right: 10px;
+}
+.shopping-order-address-new: active {
+  transform: scale(0.98);
+}

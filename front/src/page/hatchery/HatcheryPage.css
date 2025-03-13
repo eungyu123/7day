@@ -15,7 +15,7 @@
 }
 
 .hatchery-page-progress-bar-wrapper {
-  width: 50%;
+  width: 65%;
   height: 20px;
   background-color: #b7b7b7;
   border-radius: 10px;
@@ -65,6 +65,9 @@
   font-size: 82px;
   user-select: none;
 }
+.hatchery-page-egg-img-droped.cursor {
+  cursor: pointer;
+}
 
 .rotate-egg {
   animation: shake 1s ease-in-out infinite alternate;
@@ -79,7 +82,7 @@
   }
 }
 
-.egg-scale {
+.scale-egg {
   animation: eggScale 1s ease-in-out infinite alternate;
 }
 
@@ -91,8 +94,6 @@
     transform: translate(-50%, -50%) scale(1.05);
   }
 }
-
-
 
 .hatchery-page-pet-modal-wrapper {
   position: fixed;
@@ -121,8 +122,7 @@
   align-items: center;
 }
 
-
-.hatchery-page-pet-img{ 
+.hatchery-page-pet-img {
   width: 140px;
   height: 140px;
   border-radius: 12px;

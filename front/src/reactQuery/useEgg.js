@@ -7,3 +7,12 @@ export const useFetchEgg = () => {
     queryFn: getEgg,
   });
 };
+
+// export const useFetchEgg = () => {
+//   const query = useSuspenseQuery({
+//     queryKey: ["eggs"],
+//     queryFn: getEgg,
+//   });
+
+//   return { ...query, refetch: query.refetch };
+// };
