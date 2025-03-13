@@ -12,6 +12,7 @@ export default function InventoryItem({
   const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
   const imgPath = `${imgNameWithoutExt}Head.jpg`;
   const imagePath = `/images/${type}/${imgPath}`;
+  console.log(name, "isSelected: ", isSelected);
   return (
     <div
       className={`Inventory-item ${isSelected ? "selected" : ""}`}

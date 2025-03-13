@@ -78,3 +78,22 @@
   height: 100%; /* 부모 컨테이너 크기에 맞추기 */
   object-fit: cover; /* 비율을 유지하며 잘라서 맞추기 */
 }
+.store-purchase-button {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, 0%);
+  background: #f3f4f6;
+  border: none;
+  outline: none;
+}
+.store-purchase-button-main {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  color: white;
+  background-color: var(--toss-blue);
+  font-weight: bold;
+}
