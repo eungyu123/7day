@@ -11,13 +11,12 @@ import ThreeDModel from "./ThreeModel";
 import RewardModal from "../../modal/RewardModal";
 import HatcheryModal from "../../modal/hatcheryModal/HatcheryModal";
 
-
 export default function KaKaoMapComponent() {
   const giftsRef = useRef({});
   const hatcheryRef = useRef({});
   const { appState, dispatch } = useAppContext();
   const { location, locationError, locationLoading, user } = appState;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [isOpenHatchery, setIsOpenHatchery] = useState(false);
 
   const [newReward, setNewReward] = useState(null);
@@ -100,11 +99,11 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            <ThreeDModel
+            {/* <ThreeDModel
               location={location}
               character={user.character}
               pet={user.pet}
-            />
+            /> */}
           </CustomOverlayMap>
         )}
 

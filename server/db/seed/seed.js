@@ -6,18 +6,6 @@ const User = require("../models/User");
 const mongoose = require("mongoose");
 const WalkData = require("../models/WalkData"); // WalkDataSchema가 정의된 파일
 
-// mongoose
-//   .connect(
-//     "mongodb+srv://gudwns1423:gudwns10113@pedometer-db.hjqd5.mongodb.net/pedometer?retryWrites=true&w=majority&appName=pedometer-DB"
-//   )
-//   .then(async () => {
-//     // 데이터 삽입
-//     await walkData.save();
-//     mongoose.connection.close(); // 연결 종료
-//   })
-//   .catch((err) => console.error(err));
-
-// 더미 보상 데이터
 const rewardDummyData = [
   {
     enterpriseName: "쿠폰",
@@ -51,29 +39,69 @@ const missionDummyData = [
     missionContent: "하루 10,000보 걷기",
     missionGoal: 10000,
     missionName: "만보 챌린지",
+    success: false,
+    getReward: false,
   },
   {
     missionContent: "5km 러닝 완료",
     missionGoal: 5000,
     missionName: "러닝 마스터",
+    success: false,
+    getReward: false,
   },
   {
     missionContent: "3일 연속 운동하기",
     missionGoal: 3,
     missionName: "꾸준함의 힘",
+    success: false,
+    getReward: false,
   },
   {
     missionContent: "일주일 연속 출석하기",
     missionGoal: 7,
     missionName: "출석 챌린지",
+    success: false,
+    getReward: false,
   },
   {
     missionContent: "하루 200kcal 소모하기",
     missionGoal: 200,
     missionName: "칼로리 소모",
+    success: false,
+    getReward: false,
   },
 ];
 
+const insertMission = async () => {
+  try {
+    const insertedRewards = await insertReward();
+    // 미션 데이터 삽입 전에 rewardId를 동적으로 할당
+    const updatedMissionData = missionDummyData.map((mission, i) => ({
+      ...mission,
+      rewardId: insertedRewards[i % insertedRewards.length]._id || null,
+    }));
+    console.log("업데이트된 미션 데이터:", updatedMissionData);
+
+    // 미션 데이터 삽입
+    const insertedMissions = await Mission.insertMany(updatedMissionData);
+    console.log("✅ 미션 데이터 삽입 완료!");
+
+    for (let i = 0; i < insertedMissions.length; i++) {
+      const mission = await Mission.findById(insertedMissions[i]._id)
+        .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
+        .exec();
+
+      console.log(`Mission ${mission._id}:`, mission);
+      console.log(
+        `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
+      );
+    }
+    return insertedMissions; // 삽입된 미션 데이터를 반환
+  } catch (error) {
+    console.error("❌ 미션 데이터 삽입 중 오류 발생:", error);
+    throw error; // 오류 발생 시 예외 처리
+  }
+};
 // const walkDummyData = [
 //   {
 //     userId: "67c7ab445f743adc8dc272a5",
@@ -105,36 +133,6 @@ const insertReward = async () => {
     return insertedRewards; // 삽입된 보상 데이터를 반환
   } catch (error) {
     console.error("❌ 리워드 데이터 삽입 중 오류 발생:", error);
-    throw error; // 오류 발생 시 예외 처리
-  }
-};
-
-const insertMission = async () => {
-  try {
-    const insertedRewards = await insertReward();
-    // 미션 데이터 삽입 전에 rewardId를 동적으로 할당
-    const updatedMissionData = missionDummyData.map((mission, i) => ({
-      ...mission,
-      rewardId: insertedRewards[i % insertedRewards.length]._id || null,
-    }));
-    console.log("업데이트된 미션 데이터:", updatedMissionData);
-
-    // 미션 데이터 삽입
-    const insertedMissions = await Mission.insertMany(updatedMissionData);
-    console.log("✅ 미션 데이터 삽입 완료!");
-
-    //     for (let i = 0; i < insertedMissions.length; i++) {
-    //       const mission = await Mission.findById(insertedMissions[i]._id)
-    //         .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
-    //         .exec();
-
-    console.log(`Mission ${mission._id}:`, mission);
-    console.log(
-      `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
-    );
-    return insertedMissions; // 삽입된 미션 데이터를 반환
-  } catch (error) {
-    console.error("❌ 미션 데이터 삽입 중 오류 발생:", error);
     throw error; // 오류 발생 시 예외 처리
   }
 };

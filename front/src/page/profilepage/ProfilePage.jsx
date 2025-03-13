@@ -35,10 +35,17 @@ export default function ProfilePage() {
     <Container>
       <Header PageName={"프로필"} />
       <div className="profile-wrapper">
-        <ThreeScene character={appState.user.character} pet={appState.user.pet} />
+        <ThreeScene
+          character={appState.user.character}
+          pet={appState.user.pet}
+        />
       </div>
 
-      <ProfileInfo userPoint={appState.user.userPoint} distance={distance} currentSteps={currentSteps} />
+      <ProfileInfo
+        userPoint={appState.user.userPoint}
+        distance={distance}
+        currentSteps={currentSteps}
+      />
 
       <div className="profile-title">
         <span className="emojifont">🎁</span>보상
@@ -49,7 +56,7 @@ export default function ProfilePage() {
           if (reward) {
             return (
               <RewardButton
-                imgSrc={`${API_BASE_URL}/image/${reward.image}`}
+                imgSrc={`${API_BASE_URL}/image/reward/${reward.image}`}
                 description={`${reward.enterpriseName}
                         ${reward.content}`}
                 rightIcon="chevron_right"

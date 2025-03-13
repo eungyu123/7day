@@ -17,19 +17,9 @@ middleware(app);
 app.use("/image", express.static("image"));
 
 const seedTrail = require("./db/seed/seedTrail");
-const seedEgg = require("./db/seed/seedEgg");
+const seedAll = require("./db/seed/seedAll");
 // seedTrail.createSampleData1();
-// seedEgg.seedAll();
-//const seedEgg = require("./db/seedEgg");
-// seed.deleteAllHatcheries();
-// seed.createRandomHatcheries();
-//seedEgg.seedEggData();
-//seedEgg.seedUserEggData();
-// seed.createSampleData1();
-// seed.createRandomHatcheries();
-// seedEgg.seedEggData();
-// const seed = require("./db/seed/seed");
-// seed.deleteAllFriendLists();
+seedAll.seedAll();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);

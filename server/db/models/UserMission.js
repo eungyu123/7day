@@ -6,6 +6,7 @@ const UserMissionSchema = new mongoose.Schema(
     userId: { type: String },
     missionId: { type: mongoose.Schema.Types.ObjectId, ref: "Mission" }, // missionId를 ObjectId로 변경하고, 참조 설정
     success: { type: Boolean },
+    getReward: { type: Boolean },
     completedAt: { type: Date },
   },
   { timestamps: true, collection: "usermissions" }

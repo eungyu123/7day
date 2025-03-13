@@ -12,18 +12,9 @@ import {
 
 export default function MissionMain() {
   const { dispatch } = useAppContext();
-  // const [loading, setLoading] = useState(true);
 
   const [missions, setMissions] = useState({});
   let userMissions;
-  // const missions = [
-  //   { MissionContent: "토스 광고 보기" },
-  //   { MissionContent: "1000보 걷기", IsComplete: true },
-  //   { MissionContent: "5000보 걷기" },
-  //   { MissionContent: "10000보 걷기" },
-  //   { MissionContent: "CU에서 100원 이상 계산하기", IsComplete: true },
-  // ];
-
   useEffect(() => {
     const fetchMissions = async () => {
       try {
@@ -35,10 +26,11 @@ export default function MissionMain() {
           await createUserMission();
           userMissions = await getUserMission();
         }
-        console.log("get mission ");
+
+        console.log("get mission ", userMissions);
         setMissions(userMissions); // 가져온 데이터를 상태에 저장
         console.log("setmission까지 완료");
-        dispatch(setMission({ missions: userMissions.data }));
+        dispatch(setMission({ missions: userMissions }));
       } catch (error) {
         console.error("미션을 가져오는 데 실패했습니다:", error);
       }
@@ -57,16 +49,15 @@ export default function MissionMain() {
       <div className="missionmainlist">
         {missions && Array.isArray(missions) && missions.length > 0 ? (
           missions.map((mission, index) => {
-            // console.log(
-            //   "Mission Reward:",
-            //   mission.missionId?.rewardId?.content
-            // );
+            console.log("mission", mission);
             return (
               <MissionList
                 key={index}
                 MissionContent={mission.missionId.missionContent}
-                MissionReward={mission.missionId.rewardId.content}
                 IsComplete={mission.success}
+                getReward={mission.getReward}
+                missionId={mission.missionId._id}
+                rewardId={mission.missionId.rewardId}
               />
             );
           })

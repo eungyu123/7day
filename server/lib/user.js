@@ -117,7 +117,10 @@ module.exports = {
 
       // 마지막 생성시간이 4시간보다 클때 생성
       const lastGeneratedAt = user.lastGiftsGeneratedAt || 0;
-      if (Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10) {
+      if (
+        Date.now() - new Date(lastGeneratedAt).getTime() > 1000 * 60 * 10 ||
+        true
+      ) {
         if (!user?.location?.coordinates) {
           return res.status(400).json({ type: "error" });
         }
@@ -154,14 +157,16 @@ module.exports = {
       const { giftId } = req.body;
 
       const user = await getUser(req, res);
+      // console.log("user", user);
       const gift = user.gifts.find((v) => v._id == giftId);
-
+      console.log("gift", gift);
       if (gift.giftType == "포인트") {
         user.userPoint += Number(gift.point);
       } else if (gift.giftType == "쿠폰") {
         user.rewardList.push(gift.rewardId.toString());
       } else if (gift.giftType == "알") {
         const egg = await Egg.findById(gift?.eggId);
+        console.log(egg);
         const newEgg = new UserEgg({
           userId: user._id.toString(),
           eggId: egg._id.toString(),

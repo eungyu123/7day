@@ -24,6 +24,7 @@ module.exports = {
           userId: userId,
           missionId: mission._id,
           success: success,
+          getReward: false,
           completedAt: null,
           // rewardId: mission.rewardId,
         });
@@ -47,7 +48,6 @@ module.exports = {
           select: "missionContent rewardId", // missionId에서 missionContent와 rewardId 가져오기
           populate: {
             path: "rewardId", // missionId 안의 rewardId 필드를 populate
-            select: "content", // rewardId의 content만 가져오기
           },
         })
         .exec();

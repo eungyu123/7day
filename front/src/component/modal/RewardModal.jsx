@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import "../../page/modal/Modal.css";
-import { API_BASE_URL } from "../../constant/constant";
+import { API_BASE_URL, EGG_COLORS } from "../../constant/constant";
 import { getOneEgg } from "../../api/eggApi";
 import { getReward } from "../../api/rewardApi";
 // import { Link } from "react-router-dom";
@@ -40,47 +40,50 @@ export default function RewardModal({ isOpen, setIsOpen, newReward }) {
           </Dialog.Close>
         </div>
         <div className="modal-body">
-          {/* <span className="modal-icon">🎁</span>
-          <p className="modal-message">축하합니다!</p>
-          <p className="modal-message">
-            <strong>{goal}</strong> 미션 달성!
-          </p>
-          <Dialog.Close asChild>
-            <Link to={PAGE_URLS.MissionPage} className="reward-button">
-              보상받으러 가기
-            </Link>
-          </Dialog.Close> */}
           {newReward && newReward.giftType === "포인트" && (
             <>
-              <span className="modal-icon">🎁</span>
-              <p> {newReward.point} 포인트 획득!</p>
+              <img
+                src="https://em-content.zobj.net/source/microsoft-teams/363/wrapped-gift_1f381.png"
+                loading="lazy"
+                alt="15.0"
+                style={{ width: "60px", height: "60px", marginBottom: "20px" }}
+              />
+              <p className="rm-reward-text">
+                {" "}
+                <b>{newReward.point} 포인트</b> 획득!
+              </p>
             </>
           )}
 
           {newReward && newReward.giftType === "알" && eggData && (
             <>
               <span
-                className="material-symbols-outlined"
+                className="material-symbols-outlined reward-scale-egg"
                 style={{
                   fontVariationSettings: "'FILL' 1",
-                  color: colors[Number(eggData.eggType) - 1],
-                  fontSize: "44px",
+                  color: EGG_COLORS[Number(eggData.eggType) - 1],
+                  fontSize: "80px",
+                  marginBottom: "20px",
                 }}
               >
                 egg
               </span>
-              <p> {Eggs[Number(eggData.eggType) - 1]} 획득!</p>
+              <p className="rm-reward-text">
+                <b>{Eggs[Number(eggData.eggType) - 1]}</b> 획득!
+              </p>
             </>
           )}
 
           {newReward && newReward.giftType === "쿠폰" && couponData && (
             <>
               <img
-                src={`${API_BASE_URL}/image/${couponData.image}`}
+                src={`${API_BASE_URL}/image/reward/${couponData.image}`}
                 alt=""
                 className="rm-reward-image"
               />
-              <p>{couponData.content} 획득!</p>
+              <p className="rm-reward-text">
+                <b>{couponData.content}</b> 획득!
+              </p>
             </>
           )}
         </div>

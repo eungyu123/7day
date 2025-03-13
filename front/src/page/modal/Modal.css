@@ -74,4 +74,22 @@
   height: 80px;
   object-fit: contain;
   background-repeat: no-repeat;
+  margin-bottom: 24px;
+}
+
+.rm-reward-text {
+  margin-bottom: 12px;
+}
+
+.reward-scale-egg {
+  animation: rewardEggScale 1s ease-in-out infinite alternate;
+}
+
+@keyframes rewardEggScale {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1.05);
+  }
 }

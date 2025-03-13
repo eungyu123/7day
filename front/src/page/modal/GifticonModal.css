@@ -5,13 +5,16 @@
   font-size: var(--font-sm);
 }
 .gifticon-modal-img {
-  width: 250px;
+  width: 160px;
+  margin: 24px 0;
 }
 .gifticon-modal-description {
   font-size: var(--font-lg);
-  font-weight: 800;
+  font-weight: 700;
   margin-top: 0;
   margin-bottom: 20px;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .gifticon-modal-barcode-container {

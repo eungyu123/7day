@@ -1,9 +1,14 @@
+const mongoose = require("mongoose");
+
 const {
   getUserMission,
   updateUserMission,
   createUserMission,
 } = require("../db/controllers/UserMissionController");
-const { getReward } = require("../db/controllers/RewardController");
+const Mission = require("../db/models/Mission");
+const UserMission = require("../db/models/UserMission");
+const Reward = require("../db/models/Reward");
+const User = require("../db/models/User");
 module.exports = {
   getUserMission: async (req, res) => {
     try {
@@ -19,10 +24,30 @@ module.exports = {
     }
   },
 
+  finishMission: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { missionId, rewardId } = req.body;
+      const missions = await UserMission.find();
+      const userMission = await UserMission.findOne({ userId, missionId });
+      userMission.getReward = true;
+      await userMission.save();
+      console.log("rewardId", rewardId);
+      const reward = await Mission.findById(missionId);
+      const user = await User.findById(userId);
+      user.rewardList.push(rewardId.toString());
+      await user.save();
+      return res.status(200).json({ type: "success" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ type: "error" });
+    }
+  },
+
   updateUserMission: async (req, res) => {
     try {
       console.log("updateusermission 진입");
-      
+
       const userMission = await updateUserMission(req, res);
       // //const rewardId = userMission.rewardId;
       // const reward = await getReward(rewardId, res);
@@ -41,6 +66,7 @@ module.exports = {
       });
     }
   },
+
   createUserMission: async (req, res) => {
     try {
       console.log("createUser 진입");

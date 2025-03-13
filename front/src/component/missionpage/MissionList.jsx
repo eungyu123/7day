@@ -3,37 +3,25 @@ import "./MissionList.css";
 import { useState } from "react";
 // import RouletteRewardModal from "../modal/RouletteRewardModal";
 import RouletteModal from "../modal/RouletteModal";
+import Header from "../common/header/Header";
+import { PAGE_URLS } from "../../constant/constant";
+import MissionFinishModal from "./MissionFinishModal";
 
 export default function MissionList({
   MissionContent,
-  MissionReward,
   IsComplete,
+  getReward,
+  missionId,
+  rewardId,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
   const [isGiftBoxVisible, setGiftBoxVisible] = useState(true);
   const [isRandomGift, setRandomGift] = useState("");
-
+  const [isOpenRoulette, setIsOpenRoulette] = useState(false);
+  const [isOpenAnimation, setIsOpenAnimation] = useState(false);
   const HandleRewardOpen = () => {
-    RandomGift();
-    setIsOpen(true);
-    setGiftBoxVisible(false);
+    setIsOpenAnimation(true);
   };
-
-  const HandleRewardClose = () => {
-    setIsOpen(false); // 모달을 닫을 때
-  };
-
-  const RandomGift = () => {
-    const randItem = Math.floor(Math.random() * 3) + 1;
-    if (randItem === 1) {
-      setRandomGift("알");
-    } else if (randItem === 2) {
-      setRandomGift("쿠폰");
-    } else {
-      setRandomGift("포인트");
-    }
-  };
-
+  console.log("ids", missionId, rewardId);
   return (
     <>
       <div className="missionlistcontainer">
@@ -41,19 +29,27 @@ export default function MissionList({
         <p
           className={`${IsComplete ? "missioncomplete" : "missionincomplete"}`}
         >
-          {MissionContent}{" "}
+          {MissionContent}
         </p>
-        {IsComplete && isGiftBoxVisible && (
+        {IsComplete && isGiftBoxVisible && !getReward && (
           <p className="emojifont gift-box" onClick={HandleRewardOpen}>
             🎁
           </p>
         )}
       </div>
-      {isOpen && (
+      {isOpenRoulette && (
         <RouletteModal
-          isOpen={isOpen}
-          setIsOpen={HandleRewardClose}
-          gift={isRandomGift}
+          isOpen={isOpenRoulette}
+          setIsOpen={setIsOpenRoulette}
+          missionId={missionId}
+          rewardId={rewardId}
+        />
+      )}
+
+      {isOpenAnimation && (
+        <MissionFinishModal
+          setIsOpenAnimation={setIsOpenAnimation}
+          setIsOpenRoulette={setIsOpenRoulette}
         />
       )}
     </>

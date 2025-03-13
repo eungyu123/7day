@@ -35,7 +35,12 @@ export default function MainPage() {
         />
       </div> */}
       <HalfButtonWrapper>
-        <PointButton icon="💎" title="포인트" des={appState.user.userPoint} href={PAGE_URLS.ShoppingPage} />
+        <PointButton
+          icon="💎"
+          title="포인트"
+          des={appState.user.userPoint}
+          href={PAGE_URLS.ShoppingPage}
+        />
         <StoreButton icon="🏪" title="상점" href={PAGE_URLS.StorePage} />
       </HalfButtonWrapper>
       <ButtonWrapper>
@@ -48,6 +53,14 @@ export default function MainPage() {
           />
         ))}
       </ButtonWrapper>
+
+      {/* <img
+        src="https://em-content.zobj.net/source/microsoft-teams/363/party-popper_1f389.png"
+        loading="lazy"
+        alt="15.0"
+        class="w-auto h-full"
+      ></img> */}
+
       <RewardModal
         isOpen={isRewardModalOpen}
         setIsOpen={setIsRewardModalOpen}

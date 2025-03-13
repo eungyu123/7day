@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import RouletteRewardModal from "./RouletteRewardModal";
 import { removeGiftsAPI } from "../../api/userApi";
 import { useAppContext } from "../../context/context";
 import { getUser } from "../../api/userApi";
 import { setUser } from "../../context/reducer/action/action";
-
+import { finishMission } from "../../api/missionApi";
 import "../../page/modal/RouletteModal.css";
 
-export default function RouletteModal({ isOpen, setIsOpen, gift }) {
-  const { appState, dispatch } = useAppContext();
-
+export default function RouletteModal({
+  isOpen,
+  setIsOpen,
+  missionId,
+  rewardId,
+}) {
   const [spinning, setSpinning] = useState(false); // 회전 상태
   const [rotate, setRotate] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null); // 결과
   const [canSpin, setCanSpin] = useState(true); //돌렸는지 확인
+  const [newReward, setNewReward] = useState(null);
+  const [isOpenReward, setIsOpenReward] = useState(true);
   const prizes = [
     { prize: "🎁" },
     { prize: "🎁" },
@@ -25,20 +30,14 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
     { prize: "🥚" },
     { prize: "💝" },
   ];
-
+  console.log("rewardId", rewardId);
   const handleClick = async () => {
     if (!canSpin) return;
     setSpinning(true);
     setCanSpin(false);
-    let itemIndex;
 
-    if (gift == "알") {
-      itemIndex = prizes.findIndex((item) => item.prize == "🥚");
-    } else if (gift == "쿠폰") {
-      itemIndex = prizes.findIndex((item) => item.prize == "💝");
-    } else {
-      itemIndex = prizes.findIndex((item) => item.prize == "🎁");
-    }
+    const data = await finishMission(missionId, rewardId._id);
+    let itemIndex = prizes.findIndex((item) => item.prize == "🎁");
 
     const randomDegree = 3600 - itemIndex * 45; // 8개 보상이므로 45도
     setRotate(randomDegree);
@@ -46,22 +45,28 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
     setTimeout(() => {
       setSpinning(false);
       setSelectedItem(itemIndex);
+      setNewReward(rewardId);
     }, 4000);
   };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="roulette-modal-content">
-        <div className="roulette-modal-header">
-          <div className="roulette-modal-title">
-            <p className="roulette-modal-title-text">일일 출석 보상</p>
-          </div>
-          <Dialog.Close asChild>
-            <div className="roulette-modal-exit">
-              <button className="modal-close-button">X</button>
+        <Dialog.Close asChild>
+          <div className="commonheader-container">
+            <div
+              className="commonheader-left-section"
+              onClick={() => setIsOpenAnimation(false)}
+            >
+              <span className="material-symbols-outlined">chevron_left</span>
             </div>
-          </Dialog.Close>
+          </div>
+        </Dialog.Close>
+        <div className="roulette-animation-title-wrapper">
+          <div className=""> 룰렛을 돌리세요🍀</div>
+          <div className="">여러가지 쿠폰이 나와요💰</div>
         </div>
+
         <div className="roulette-modal-body">
           <div className="rouletteOuter">
             <div
@@ -101,11 +106,12 @@ export default function RouletteModal({ isOpen, setIsOpen, gift }) {
           >
             룰렛 돌리기
           </button>
-          {selectedItem !== null && (
+
+          {newReward && (
             <RouletteRewardModal
-              isOpen={true}
-              setIsOpen={() => setSelectedItem(null)}
-              gift={gift}
+              isOpen={isOpenReward}
+              setIsOpen={setIsOpenReward}
+              newReward={newReward}
             />
           )}
         </div>

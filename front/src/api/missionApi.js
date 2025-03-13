@@ -45,3 +45,19 @@ export const updateUserMission = async ({
     throw error;
   }
 };
+
+export const finishMission = async (missionId, rewardId) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/mission/finish/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ missionId, rewardId }),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.error("서버 오류:", error);
+  }
+};
