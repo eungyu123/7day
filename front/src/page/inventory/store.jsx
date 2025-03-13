@@ -41,6 +41,12 @@ export default function Store() {
     fetchStoreData();
   }, []);
 
+  const userCharacterList = appState.user.characterList.map(
+    (c) => c.characterLink
+  );
+  const userPetList = appState.user.petList.map((p) => p.petLink);
+  console.log("userPetList: ", userPetList);
+
   return (
     <>
       <Header PageName={"상점"} />
@@ -56,42 +62,72 @@ export default function Store() {
           />
           <div className="inventory-main">
             {selectedTab === "character"
-              ? characterItems.map((item) => (
-                  <InventoryItem
-                    key={item._id}
-                    type="characters"
-                    img={item.characterLink}
-                    name={item.characterName}
-                    isSelected={selectedItemId === item._id}
-                    onClick={() => {
-                      setSelectedItem({ type: "character", ...item });
-                      setImgPath(item.characterLink);
-                      setItemType("characters");
-                      setItemName(item.characterName);
-                      setItemPrice(item.price);
-                      setSelectedItemId(item._id);
-                      setSelectedCharacter(item.characterLink);
-                    }}
-                  />
-                ))
-              : petItems.map((item) => (
-                  <InventoryItem
-                    key={item._id}
-                    type="pets"
-                    img={item.petLink}
-                    name={item.petName}
-                    isSelected={selectedItemId === item._id}
-                    onClick={() => {
-                      setSelectedItem({ type: "pet", ...item });
-                      setImgPath(item.petLink);
-                      setItemType("pets");
-                      setItemName(item.petName);
-                      setItemPrice(item.price);
-                      setSelectedItemId(item._id);
-                      setSelectedPet(item.petLink);
-                    }}
-                  />
-                ))}
+              ? characterItems.map((item) => {
+                  if (!userCharacterList.includes(item.characterLink))
+                    return (
+                      <InventoryItem
+                        key={item._id}
+                        type="characters"
+                        img={item.characterLink}
+                        name={item.characterName}
+                        isSelected={selectedItemId === item._id}
+                        onClick={() => {
+                          setSelectedItem({ type: "character", ...item });
+                          setImgPath(item.characterLink);
+                          setItemType("characters");
+                          setItemName(item.characterName);
+                          setItemPrice(item.price);
+                          setSelectedItemId(item._id);
+                          setSelectedCharacter(item.characterLink);
+                        }}
+                      />
+                    );
+                  else {
+                    return (
+                      <InventoryItem
+                        key={item._id}
+                        type="characters"
+                        img={item.characterLink}
+                        name={item.characterName}
+                        isSelected={selectedItemId === item._id}
+                        isOwned={true}
+                      />
+                    );
+                  }
+                })
+              : petItems.map((item) => {
+                  if (!userPetList.includes(item.petLink)) {
+                    return (
+                      <InventoryItem
+                        key={item._id}
+                        type="pets"
+                        img={item.petLink}
+                        name={item.petName}
+                        isSelected={selectedItemId === item._id}
+                        onClick={() => {
+                          setSelectedItem({ type: "pet", ...item });
+                          setImgPath(item.petLink);
+                          setItemType("pets");
+                          setItemName(item.petName);
+                          setItemPrice(item.price);
+                          setSelectedItemId(item._id);
+                          setSelectedPet(item.petLink);
+                        }}
+                      />
+                    );
+                  } else {
+                    return (
+                      <InventoryItem
+                        key={item._id}
+                        type="pets"
+                        img={item.petLink}
+                        name={item.petName}
+                        isSelected={selectedItemId === item._id}
+                        isOwned={true}
+                      />
+                    );
+                  }
+                })}
           </div>
           <div className="store-purchase-button">
             <div
