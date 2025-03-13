@@ -47,8 +47,8 @@ export const useLocationTracker = ({ dispatch }) => {
         let newLocation;
         if (prevLocation) {
           newLocation = {
-            lat: prevLocation.lat - deltaLng,
-            lng: prevLocation.lng - deltaLng,
+            lat: prevLocation.lat + deltaLng,
+            lng: prevLocation.lng + deltaLng,
           };
         } else {
           newLocation = { lat: latitude, lng: longitude };
@@ -91,7 +91,7 @@ export const useLocationTracker = ({ dispatch }) => {
     };
 
     fetchLocation(); // 초기 위치 가져오기
-    const interval = setInterval(fetchLocation,20000); // 3초마다 위치 업데이트
+    const interval = setInterval(fetchLocation, 20000); // 3초마다 위치 업데이트
 
     return () => clearInterval(interval);
   }, []);
