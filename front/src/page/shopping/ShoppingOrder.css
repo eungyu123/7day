@@ -127,11 +127,27 @@ hr {
   justify-content: space-between;
 }
 .shopping-order-address-home-header {
-  margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
 }
 .shopping-order-address-home-main > div {
+  padding: 5px;
   margin-right: 10px;
 }
-.shopping-order-address-new: active {
+.shopping-order-address-new {
+  width: 100%;
+  height: 30px;
+  /* background: pink; */
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.shopping-order-address-new:active {
+  background: var(--toss-background);
   transform: scale(0.98);
 }
+.shopping-order-address-new > p {
+  /* color: white; */
+}
+.
