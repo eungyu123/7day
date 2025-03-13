@@ -36,8 +36,10 @@ module.exports = {
 
       if (!user) return [];
 
-      const pets = user.petList.map((p) => p.petId);
-      return await Pet.find({ _id: { $nin: pets } });
+      // const pets = user.petList.map((p) => p.petId);
+      // return await Pet.find({ _id: { $nin: pets } });
+      const pets = await Pet.find();
+      return await pets;
     } catch (error) {
       console.error("Error fetching characters:", error);
       throw error;
