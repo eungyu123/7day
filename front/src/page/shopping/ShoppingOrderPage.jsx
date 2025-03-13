@@ -12,7 +12,7 @@ import "../../page/shopping/ShoppingOrder.css";
 export default function ShoppingOrderPage() {
   return (
     <>
-      <Header />
+      <Header BackNavigate="/ShoppingPage" />
       <div className="shopping-order-container">
         <ShoppingOrderAddress />
         <ShoppingOrderCart />
