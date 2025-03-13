@@ -99,11 +99,11 @@ export default function KaKaoMapComponent() {
       >
         {location && (
           <CustomOverlayMap position={location}>
-            {/* <ThreeDModel
+            <ThreeDModel
               location={location}
               character={user.character}
               pet={user.pet}
-            /> */}
+            />
           </CustomOverlayMap>
         )}
 

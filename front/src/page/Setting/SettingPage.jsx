@@ -11,7 +11,7 @@ export default function SettingPage() {
       <div className="setting-container">
         <Header PageName="설정" />
         <ButtonWrapper>
-          <SettingRange title="소리" />
+          {/* <SettingRange title="소리" /> */}
           {settings.map((setting) => {
             return (
               <SettingButton title={setting.title} rightIcon="chevron_right" />
@@ -26,6 +26,10 @@ export default function SettingPage() {
 }
 
 const settings = [
+  {
+    title: "소리",
+    href: "",
+  },
   {
     title: "이용안내",
     href: "",
