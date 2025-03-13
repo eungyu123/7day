@@ -1,6 +1,8 @@
 import "./ShoppingDetailFooter.css";
 import { useState } from "react";
 import { useShopContext } from "../../context/ShopContext";
+import { PAGE_URLS } from "../../constant/constant";
+import { Link } from "react-router-dom";
 
 export default function ShoppingDetailFooter({ index }) {
   const { shopItems } = useShopContext();
@@ -20,6 +22,11 @@ export default function ShoppingDetailFooter({ index }) {
     color: ["white", "beige", "brown", "black"],
     size: ["XS", "S", "M", "L", "XL"],
   };
+
+  /*
+  
+  */
+
   return (
     <div className="shoppingdetailfooter-container ">
       <div
@@ -29,7 +36,10 @@ export default function ShoppingDetailFooter({ index }) {
         구매하기
       </div>
       {showOptions && (
-        <div className="shoppingdetailfooter-options-overlay">
+        <div
+          className="shoppingdetailfooter-options-overlay"
+          onClick={() => setShowOptions(false)}
+        >
           <div className="shoppingdetailfooter-options">
             {isClothing && (
               // 옷이면 컬러,색상 옵션 선택
@@ -98,9 +108,12 @@ export default function ShoppingDetailFooter({ index }) {
               <div className="shoppingdetailfooter-options-cartbtn">
                 장바구니
               </div>
-              <div className="shoppingdetailfooter-options-buybtn">
+              <Link
+                to={`${PAGE_URLS.ShoppingOrderPage}?index=${index}&quantity=${quantity}&color=${selectedColor}&size=${selectedSize}`}
+                className="shoppingdetailfooter-options-buybtn"
+              >
                 바로 구매
-              </div>
+              </Link>
             </div>
           </div>
         </div>

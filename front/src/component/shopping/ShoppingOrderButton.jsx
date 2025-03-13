@@ -1,9 +1,11 @@
 import "../../index.css";
 import { useNavigate } from "react-router-dom";
+import { PAGE_URLS } from "../../constant/constant";
+import { Link } from "react-router-dom";
 
 // import ConfirmCancelModal from "../modal/ConfirmCancelModal";
 
-export default function ShoppingOrderButton({ buttonText, href = "" }) {
+export default function ShoppingOrderButton({ buttonText, href = "", index }) {
   const navigate = useNavigate();
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -12,9 +14,13 @@ export default function ShoppingOrderButton({ buttonText, href = "" }) {
   };
   return (
     <>
-      <div className="shopping-order-button" onClick={handleNextPage}>
+      <Link
+        className="shopping-order-button"
+        onClick={handleNextPage}
+        to={`${PAGE_URLS.ShoppingOrderPage}?index=${index}`}
+      >
         <div className="shopping-order-button-main">{buttonText}</div>
-      </div>
+      </Link>
       {/* <ConfirmCancelModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
