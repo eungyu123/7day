@@ -18,6 +18,7 @@ import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
 import NicknamePage from "./page/nickname/NicknamePage";
 import ShoppingPage from "./page/shopping/ShoppingPage";
 import ShoppingDetailPage from "./page/shopping/ShoppingDetailPage";
+import ShoppingSearchPage from "./page/shopping/ShoppingSearchPage";
 
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
@@ -123,6 +124,10 @@ function App() {
                   <Route
                     path="/ShoppingDetailPage"
                     element={<ShoppingDetailPage />}
+                  />
+                  <Route
+                    path="/ShoppingSearchPage"
+                    element={<ShoppingSearchPage />}
                   />
                   <Route
                     path="/ShoppingOrderPage"

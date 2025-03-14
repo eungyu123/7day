@@ -14,9 +14,12 @@ export default function FriendRank({
     <div
       className={`${IsMe ? "friendrankcontainerme" : "friendrankcontainer"}`}
     >
-      <div className="friendprofile">
-        <img src={imagePath} alt="프로필이미지" className="friendprofileimg" />
-      </div>
+      <img
+        src={imagePath}
+        alt="프로필사진"
+        className="friendprofile"
+        style={{ backgroundColor: !img ? "gray" : "" }}
+      />
       <div className="friendrankinfo">
         <div className="friendranknamemedal">
           <p className="friendrankname">{FriendName}</p>

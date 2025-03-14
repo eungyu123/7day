@@ -1,6 +1,7 @@
 import ShoppingHeader from "../../component/shopping/ShoppingHeader";
 import { useSearchParams } from "react-router-dom";
 import { useShopContext } from "../../context/ShopContext";
+import { useState } from "react";
 import "./ShoppingDetailPage.css";
 import ShoppingDetailFooter from "../../component/shopping/ShoppingDetailFooter";
 
@@ -20,6 +21,10 @@ import ShoppingDetailFooter from "../../component/shopping/ShoppingDetailFooter"
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=download"
 />;
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=check"
+/>;
 
 export default function ShoppingDetailPage() {
   const [searchParams] = useSearchParams();
@@ -27,11 +32,15 @@ export default function ShoppingDetailPage() {
   console.log("index:", index);
   const { shopItems } = useShopContext();
   const shopItem = shopItems && shopItems[index];
+  const [isDownload, setIsDownload] = useState(false);
+  const [doneDownload, setDoneDownload] = useState(false);
   const starreivew = [
     { stars: 1.5, review: "32" },
-    { stars: 5, review: "1,568" },
-    { stars: 4, review: "103" },
-    { stars: 4, review: "20,358" },
+    { stars: 4, review: "1,568" },
+    { stars: 5, review: "5,151" },
+    { stars: 4.5, review: "20,358" },
+    { stars: 4, review: "79,123" },
+    { stars: 3.5, review: "103" },
   ];
   const starindex = index % starreivew.length;
   const renderStars = (rating) => {
@@ -90,6 +99,11 @@ export default function ShoppingDetailPage() {
     }
     return stars;
   };
+  const HandleDownload = () => {
+    setIsDownload(true);
+    setTimeout(() => setIsDownload(false), 2000);
+    setDoneDownload(true);
+  };
   return (
     //{ Item: "", ItemImg: "", price:, discount:, Company: "", Category: "" }
     <div className="shoppingdetailpage-container">
@@ -120,22 +134,32 @@ export default function ShoppingDetailPage() {
           </p>
           <p>{(shopItem.price * (100 - shopItem.discount)) / 100}P</p>
         </div>
-        <div className="shoppingdetailpage-delivery">무료배송</div>
+        {!shopItem.delivery && (
+          <div className="shoppingdetailpage-delivery">무료배송</div>
+        )}
         <div className="shoppingdetailpage-discount-coupon">
           <div className="shoppingdetailpage-discount-coupon-text">
             <div className="shoppingdetailpage-discount-coupon-icon">%</div>
             <p>토스쇼핑 할인 쿠폰</p>
           </div>
-          <span class="material-symbols-outlined">download</span>
+          {!doneDownload ? (
+            <span class="material-symbols-outlined" onClick={HandleDownload}>
+              download
+            </span>
+          ) : (
+            <span class="material-symbols-outlined">check</span>
+          )}
         </div>
         <div className="shoppingdetailpage-line"></div>
         <div className="shoppingdetailpage-delivery-info">
           <div className="shoppingdetailpage-info-row">
             <p className="shoppingdetailpage-delivery-info-graytext">배송비</p>
-            <p className="shoppingdetailpage-delivery-info-text">무료</p>
+            <p className="shoppingdetailpage-delivery-info-text">
+              {shopItem.delivery ? "2500P" : "무료"}
+            </p>
           </div>
           <p className="shoppingdetailpage-delivery-info-graytext-sm">
-            제주, 도서산간지역 5,000원 추가
+            제주, 도서산간지역 5,000P 추가
           </p>
           <div className="shoppingdetailpage-info-row">
             <p className="shoppingdetailpage-delivery-info-graytext">
@@ -150,6 +174,15 @@ export default function ShoppingDetailPage() {
           </p>
         </div>
       </div>
+      {isDownload && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-body">
+              <p> 할인 쿠폰 다운로드 완료</p>
+            </div>
+          </div>
+        </div>
+      )}
       <ShoppingDetailFooter index={index} />
     </div>
   );

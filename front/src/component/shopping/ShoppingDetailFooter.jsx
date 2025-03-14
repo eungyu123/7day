@@ -26,6 +26,8 @@ export default function ShoppingDetailFooter({ index }) {
     setIsCart(true);
     setShowOptions(false);
     setTimeout(() => setIsCart(false), 2000);
+    setSelectedColor("");
+    setSelectedSize("");
   };
 
   return (
@@ -77,7 +79,18 @@ export default function ShoppingDetailFooter({ index }) {
                         ? ` / ${selectedColor} / ${selectedSize}`
                         : ""}
                     </p>
-                    <button onClick={() => setShowOptions(false)}>X</button>
+                    <button
+                      onClick={() => {
+                        if (isClothing) {
+                          setSelectedColor("");
+                          setSelectedSize("");
+                        } else {
+                          setShowOptions(false);
+                        }
+                      }}
+                    >
+                      X
+                    </button>
                   </div>
                   <div className="shoppingdetailfooter-quantity">
                     <div>
@@ -112,7 +125,9 @@ export default function ShoppingDetailFooter({ index }) {
                   <p className="shoppingdetailfooter-totalprice">{price}P</p>
                 </div>
                 <div className="shoppingdetailfooter-totaldelivery">
-                  <p style={{ color: "var(--toss-blue)" }}>배송비 무료</p>
+                  <p style={{ color: "var(--toss-blue)" }}>
+                    {shopItem.delivery ? "배송비 2500P" : "배송비 무료"}
+                  </p>
                 </div>
               </>
             )}
@@ -137,7 +152,7 @@ export default function ShoppingDetailFooter({ index }) {
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-body">
-              <p>구매가 완료되었습니다</p>
+              <p>상품이 장바구니에 담겼습니다</p>
             </div>
           </div>
         </div>
