@@ -66,6 +66,7 @@ export default function FriendPageMain() {
           return {
             friendId: friend.friendId,
             friendName: friend.friendName,
+            FriendCharacter: friend.character,
             steps: friendStepData?.stepRecords?.[0]?.steps || 0, // 친구의 걸음 수
             isSelf: false, // 친구 여부 표시
           };
@@ -78,12 +79,14 @@ export default function FriendPageMain() {
         {
           friendId: userdata._id, // 본인의 ID
           friendName: userdata.nickname, // 본인의 닉네임
+          FriendCharacter: userdata.character,
           steps: userSteps, // 본인의 걸음 수 (기본값 0)
           isSelf: true, // 본인 여부 표시 (UI에서 구별 가능)
         },
       ];
       const sortedData = updatedFriendData.sort((a, b) => b.steps - a.steps);
       setFriendData(sortedData);
+      console.log("sortedData: ", sortedData);
 
       const userRankIndex = sortedData.findIndex((friend) => friend.isSelf);
       const firstPlaceSteps = sortedData[0]?.steps || 0;
@@ -149,6 +152,7 @@ export default function FriendPageMain() {
           key={index}
           FriendName={friend.friendName}
           FriendWalk={friend.steps}
+          img={friend.FriendCharacter}
           FriendRk={index < 3 ? medals[index] : ""}
           IsMe={friend.isSelf}
         />
