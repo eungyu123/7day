@@ -26,3 +26,43 @@
   margin-left: 5%;
   cursor: pointer;
 }
+
+.misstion-animation-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  background-color: white;
+}
+.misstion-animation-title-wrapper {
+  width: 100%;
+  padding: 20px 28px;
+  font-size: var(--font-xl);
+  font-weight: 700;
+}
+.misstion-animation-img-wrapper {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-80%, -50%);
+  max-width: 100px;
+  max-height: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+.misstion-animation-button {
+  position: absolute;
+  bottom: 5%;
+  padding: 16px;
+  font-size: var(--font-md);
+  font-weight: 600;
+  background-color: var(--toss-blue);
+  color: white;
+  width: 80%;
+  text-align: center;
+  border-radius: 16px;
+  letter-spacing: 1px;
+}
