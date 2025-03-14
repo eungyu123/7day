@@ -1,12 +1,20 @@
 .commonheader-container {
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  background-color: none;
+  background-color: white;
   height: 50px;
   margin: 0;
   padding: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.commonheader-spacer {
+  height: 50px;
   width: 100%;
 }
 .commonheader-left-section {
