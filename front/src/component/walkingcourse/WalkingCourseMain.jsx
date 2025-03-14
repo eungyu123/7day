@@ -11,19 +11,30 @@ import StampModal from "./StampModal";
 import LandmarkImages from "./LandMarkImages";
 import LandmarkImage from "./LandMarkImage";
 import TrailImage from "./TrailImage";
-
+import { getRewardByTrail } from "../../api/trailAPi";
+import { useAppContext } from "../../context/context";
+import { setUser } from "../../context/reducer/action/action";
+import WcAnimationModal from "./WcAnimationModal";
+import WcRewardModal from "./WcRewardModal";
 
 export default function WalkingCourseMain() {
+  const {appState, dispatch} = useAppContext(); 
+
   const queryClient = useQueryClient();
   const { mutate: updateUserTrail } = useUpdateUserTrail();
   const location = useLocation();
   const { TrailItemId } = location.state || { TrailItemId: null };
 
   const { data: TrailItem } = useFetchOneTrail({ trailId: TrailItemId });
+  console.log("TrailItem", TrailItem)
+
 
   const [imageIndex, setImageIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenStamp, setIsOpenStamp] = useState(false);
+  const [isOpenAnimation,setIsOpenAnimation] = useState(false); 
+  const [isOpenRewardModal, setIsOpenRewardModal] = useState(false); 
+  const [newReward, setNewReward] = useState(null); 
 
   const complete = TrailItem.landmarks.every((landmark) => landmark.visited);
 
@@ -52,6 +63,15 @@ export default function WalkingCourseMain() {
     queryClient.invalidateQueries(["trail"], TrailItemId);
   };
 
+  const getReward = async () => {
+    const reward = await getRewardByTrail(TrailItem._id)
+    console.log("reward", reward.reward); 
+    setNewReward(reward.reward); 
+
+    dispatch(setUser({user: reward.user}))
+  }
+
+
   return (
     <div className="wc-maincontainer">
       {/* Map */}
@@ -67,7 +87,7 @@ export default function WalkingCourseMain() {
 
       {/* 소개 */}
       <div className="wc-content-wrapper">
-        <TrailImage TrailItem={TrailItem} complete={complete}/>
+        <TrailImage TrailItem={TrailItem} complete={complete}  setIsOpenAnimation={setIsOpenAnimation}/>
 
         <div className="wc-info-imgs-title">
           관련 명소에서 스탬프를 찍으세요!
@@ -108,6 +128,22 @@ export default function WalkingCourseMain() {
           doStamp={doStamp}
         />
       )}
+
+      {isOpenAnimation && 
+         <WcAnimationModal 
+            setIsOpenAnimation={setIsOpenAnimation}
+            setIsOpenRewardModal = {setIsOpenRewardModal}
+            getReward = {getReward} 
+         /> 
+      }
+      {isOpenRewardModal &&newReward&& 
+        <>
+        <WcRewardModal 
+          newReward={newReward}
+          setIsOpenRewardModal={setIsOpenRewardModal}/>
+        </>
+      }
     </div>
+    
   );
 }

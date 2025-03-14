@@ -167,6 +167,7 @@ async function seedTrailData() {
     const userTrail = new UserTrail({
       userId,
       trailId: savedTrail._id.toString(),
+      getReward: false, 
       visitedLandmarks: savedTrail.landmarks.map((landmark) => ({
         landmarkId: landmark._id,
         name: landmark.name,

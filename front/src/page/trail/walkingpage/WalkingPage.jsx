@@ -9,7 +9,7 @@ export default function WalkingPage() {
 
   return (
     <Container column={true}>
-      <Header PageName="산책로 목록" />
+      <Header />
       <WalkingMain />
     </Container>
   );

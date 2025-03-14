@@ -10,7 +10,6 @@ const {
   setPedometerMissionClear,
 } = require("../db/controllers/UserController");
 const { generateRandomGifts } = require("../utils/kakaomap");
-const { get } = require("http");
 
 module.exports = {
   getUser: async (req, res) => {
