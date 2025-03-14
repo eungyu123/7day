@@ -15,6 +15,7 @@ export default function FriendPageMain() {
   const [userRank, setuserRank] = useState(null);
   const [RankText, setRankText] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [haveFriend, setHaveFriend] = useState(false);
 
   // const friendrecord = [
   //   { friendName: "조유민", steps: 14000 },
@@ -42,6 +43,7 @@ export default function FriendPageMain() {
       //친구 데이터 가져오기
       const friendDataResponse = await getUserFriend(); // getUserFriend API 호출
       const frienddata = friendDataResponse.data;
+      if (frienddata) setHaveFriend(true);
       console.log("친구 데이터 응답:", frienddata);
 
       //본인 걸음수 가져오기
@@ -117,7 +119,7 @@ export default function FriendPageMain() {
         <div className="friendmaininfotetext">
           <p className="friendmaininfotextlg">친구</p>
           <p className="friendmaininfotextsm">현재 {userRank}위!</p>
-          <p className="friendmaininfotextsm">{RankText}</p>
+          {haveFriend && <p className="friendmaininfotextsm">{RankText}</p>}
         </div>
         <p
           className="emojifont font-xl"
