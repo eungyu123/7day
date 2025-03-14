@@ -1,6 +1,7 @@
 import ShoppingHeader from "../../component/shopping/ShoppingHeader";
 import "./ShoppingPage.css";
 import { useState } from "react";
+import { useAppContext } from "../../context/context";
 import { Link } from "react-router-dom";
 import { PAGE_URLS } from "../../constant/constant";
 import { useShopContext } from "../../context/ShopContext";
@@ -10,9 +11,9 @@ import { useShopContext } from "../../context/ShopContext";
 />;
 
 export default function ShoppingPage() {
+  const { appState, dispatch } = useAppContext();
   const { shopItems } = useShopContext();
   const [likedItems, setIsLiked] = useState([]);
-
   const toggleLike = (index) => {
     setIsLiked((prev) =>
       prev.includes(index)
@@ -24,6 +25,18 @@ export default function ShoppingPage() {
   return (
     <div className="shoppingpage-container">
       <ShoppingHeader pagename={"토스 쇼핑"} />
+      <div className="shoppingpage-point-container">
+        <p className="shoppingpage-point-text">내 포인트</p>
+        <div className="shoppingpage-point-between">
+          <p className="shoppingpage-mypoint">{appState.user.userPoint}P</p>
+          <button className="shoppingpage-point-btn">출금</button>
+        </div>
+        <div className="shoppingpage-point-row">
+          <p className="emojifont">🎫</p>
+          <p className="shoppingpage-point-text">무료 출금 쿠폰 0개</p>
+        </div>
+      </div>
+      <div className="shoppingpage-line"></div>
       <div className="shoppingpage-items-container">
         {shopItems.map((Shop, index) => {
           const isLiked = likedItems.includes(index);
@@ -60,7 +73,12 @@ export default function ShoppingPage() {
                   {(Shop.price * (100 - Shop.discount)) / 100}P
                 </p>
               </div>
-              <div className="shoppingpage-item-delivery">배송비 무료</div>
+              {!Shop.delivery && (
+                <div className="shoppingpage-item-delivery">배송비 무료</div>
+              )}
+              {/* {Shop.delivery && (
+                <div className="shoppingpage-item-delivery"></div>
+              )} */}
             </div>
           );
         })}

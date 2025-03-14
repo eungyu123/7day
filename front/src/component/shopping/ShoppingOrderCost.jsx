@@ -1,6 +1,6 @@
 import "../../index.css";
 
-export default function ShoppingOrderCost({ price }) {
+export default function ShoppingOrderCost({ price, delivery }) {
   return (
     <>
       <div className="shopping-order-box">
@@ -8,11 +8,11 @@ export default function ShoppingOrderCost({ price }) {
         <div className="shopping-order-cost-main">
           <div className="shopping-order-const-main-content">
             <div className="shopping-order-cost-main-text">총 상품 금액</div>
-            <div className="shopping-order-cost-main-price">{price}원</div>
+            <div className="shopping-order-cost-main-price">{price}P</div>
           </div>
           <div className="shopping-order-const-main-content">
             <div className="shopping-order-cost-main-text">총 배송비</div>
-            <div className="shopping-order-cost-main-price">0원</div>
+            <div className="shopping-order-cost-main-price">{delivery}p</div>
           </div>
           <hr style={{ marginTop: "10px" }} />
           <div className="shopping-order-const-main-content">
@@ -26,7 +26,7 @@ export default function ShoppingOrderCost({ price }) {
               className="shopping-order-cost-main-price"
               style={{ fontSize: "14px" }}
             >
-              {price}원
+              {price + delivery}P
             </div>
           </div>
         </div>
