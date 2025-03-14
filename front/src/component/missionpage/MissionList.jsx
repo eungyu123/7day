@@ -3,7 +3,6 @@ import "./MissionList.css";
 import { useState } from "react";
 // import RouletteRewardModal from "../modal/RouletteRewardModal";
 import RouletteModal from "../modal/RouletteModal";
-import Header from "../common/header/Header";
 import { PAGE_URLS } from "../../constant/constant";
 import MissionFinishModal from "./MissionFinishModal";
 
@@ -15,29 +14,34 @@ export default function MissionList({
   rewardId,
 }) {
   const [isGiftBoxVisible, setGiftBoxVisible] = useState(true);
-  const [isMissionVisible, setMissionVisible] = useState(true);
   const [isRandomGift, setRandomGift] = useState("");
   const [isOpenRoulette, setIsOpenRoulette] = useState(false);
   const [isOpenAnimation, setIsOpenAnimation] = useState(false);
   const HandleRewardOpen = () => {
     setIsOpenAnimation(true);
+    setGiftBoxVisible(false);
   };
   console.log("ids", missionId, rewardId);
   return (
     <>
-      <div className="missionlistcontainer">
-        <p className="emojifont font-2xl">{IsComplete ? "✅" : "🎯"}</p>
-        <p
-          className={`${IsComplete ? "missioncomplete" : "missionincomplete"}`}
-        >
-          {MissionContent}
-        </p>
-        {IsComplete && isGiftBoxVisible && !getReward && (
-          <p className="emojifont gift-box" onClick={HandleRewardOpen}>
-            🎁
+      {!getReward && (
+        <div className="missionlistcontainer">
+          <p className="emojifont font-2xl">{IsComplete ? "✅" : "🎯"}</p>
+          <p
+            className={`${
+              IsComplete ? "missioncomplete" : "missionincomplete"
+            }`}
+          >
+            {MissionContent}
           </p>
-        )}
-      </div>
+          {IsComplete && isGiftBoxVisible && (
+            <p className="emojifont gift-box" onClick={HandleRewardOpen}>
+              🎁
+            </p>
+          )}
+        </div>
+      )}
+
       {isOpenRoulette && (
         <RouletteModal
           isOpen={isOpenRoulette}
