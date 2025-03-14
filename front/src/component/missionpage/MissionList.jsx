@@ -13,8 +13,6 @@ export default function MissionList({
   missionId,
   rewardId,
 }) {
-  const [isGiftBoxVisible, setGiftBoxVisible] = useState(true);
-  const [isRandomGift, setRandomGift] = useState("");
   const [isOpenRoulette, setIsOpenRoulette] = useState(false);
   const [isOpenAnimation, setIsOpenAnimation] = useState(false);
   const HandleRewardOpen = () => {
@@ -33,7 +31,7 @@ export default function MissionList({
           >
             {MissionContent}
           </p>
-          {IsComplete && isGiftBoxVisible && (
+          {IsComplete && (
             <p className="emojifont gift-box" onClick={HandleRewardOpen}>
               🎁
             </p>
