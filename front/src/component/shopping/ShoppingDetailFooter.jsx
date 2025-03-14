@@ -25,6 +25,7 @@ export default function ShoppingDetailFooter({ index }) {
   const handleAddToCart = () => {
     setIsCart(true);
     setShowOptions(false);
+    setTimeout(() => setIsCart(false), 2000);
   };
 
   return (
@@ -128,6 +129,15 @@ export default function ShoppingDetailFooter({ index }) {
               >
                 바로 구매
               </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      {IsCart && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-body">
+              <p>구매가 완료되었습니다</p>
             </div>
           </div>
         </div>
