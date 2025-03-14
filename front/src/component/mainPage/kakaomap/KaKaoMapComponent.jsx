@@ -132,7 +132,7 @@ export default function KaKaoMapComponent() {
                     data-lng={gift.lng}
                     ref={(el) => (giftsRef.current[gift._id] = el)} // giftsRef.current는 객체임
                   >
-                    🎁
+                    <span className="emojifont">🎁</span>
                   </div>
                 </CustomOverlayMap>
               );
