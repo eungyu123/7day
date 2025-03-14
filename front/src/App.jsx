@@ -23,6 +23,8 @@ import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
 import { useFetch } from "./hook/useFetch";
 import { useLocationTracker } from "./hook/useLocationTracker";
+import {useAuth} from "./hook/useAuth"
+import {useAuthRedirect} from "./hook/useAuthRedirect"
 const queryClient = new QueryClient();
 
 function App() {
@@ -32,7 +34,7 @@ function App() {
     dispatch,
   };
   useScrollToTop();
-  // useAuth({ dispatch });
+  useAuth({ dispatch });
   // useAuthRedirect({ appState });
   useLocationTracker({ dispatch });
   const loading = useFetch({ appState, dispatch });

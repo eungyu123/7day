@@ -26,7 +26,7 @@ export const PAGE_URLS = {
   ErrorPage: "/ErrorPage",
 };
 
-export const API_BASE_URL = "http://localhost:3000";
+export const API_BASE_URL = "https://localhost:3000";
 // export const userId = localStorage.getItem("userId");
 export const userId = "67c7d51ba8cc8075572f322f";
 

@@ -8,13 +8,13 @@ export const googleSignIn = async (token) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ credential: token }),
-      // credentials: "include", // 응답으로 오는 쿠키를 받을 수 있도록 설정
+      credentials: "include", // 응답으로 오는 쿠키를 받을 수 있도록 설정
     });
 
     const data = await res.json();
 
     if (data.type === "success") {
-      localStorage.setItem("userId", data._id);
+      localStorage.setItem("googleId", data.googleId);
       const nextUrl = data.nicknameEdit ? "/" : "/NicknamePage";
       window.location.href = `https://localhost:5173${nextUrl}`;
     }
@@ -27,12 +27,12 @@ export const googleSignOut = async () => {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/googleSignout`, {
       method: "get",
-      // credentials: "include", // 쿠키포함해서 요청 보내기
+      credentials: "include", // 쿠키포함해서 요청 보내기
     });
     const data = await res.json();
 
     if (data.type == "success") {
-      localStorage.removeItem("userId");
+      localStorage.removeItem("googleId");
       window.location.reload(); // 페이지 새로고침
     }
   } catch (error) {
@@ -44,7 +44,7 @@ export const checkAuthApi = async () => {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/checkAuth`, {
       method: "GET",
-      // credentials: "include",
+      credentials: "include",
     });
     const data = await res.json();
 

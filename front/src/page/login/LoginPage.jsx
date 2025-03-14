@@ -37,7 +37,7 @@ const LoginPage = () => {
     await googleSignIn(token);
   };
 
-  googleSignOut();
+  // googleSignOut();
 
   return (
     <Container>
@@ -47,9 +47,9 @@ const LoginPage = () => {
         
         <div id="google-login-btn"></div>
         <br />
-        {/* <div className="" onClick={() => signOut()}>
+        <div className="" onClick={() => signOut()}>
           로그아웃
-        </div> */}
+        </div>
       </div>
     </Container>
   );
