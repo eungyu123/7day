@@ -179,11 +179,16 @@ export default function VisitModal({ isOpen, setIsOpen }) {
                 <div
                   className="visit-modal-week-record-item"
                   key={item.day}
-                  style={
-                    item.day == "오늘"
-                      ? { background: "#0064ff", color: "white" }
-                      : {}
-                  }
+                  style={{
+                    ...(item.steps > 1 && {
+                      background: "#63a2ff",
+                      color: "white",
+                    }),
+                    ...(item.day === "오늘" && {
+                      background: "#0064ff",
+                      color: "white",
+                    }),
+                  }}
                 >
                   <p>{item.day}</p>
                 </div>
