@@ -139,6 +139,24 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-left: 2px;
+  padding-right: 2px;
   justify-content: space-between;
+}
+.shoppingdetailfooter-totalquantity {
+  display: flex;
+  flex-direction: row;
+  font-size: var(--font-md);
+}
+.shoppingdetailfooter-totalprice {
+  font-size: var(--font-lg);
+  font-weight: 500;
+}
+.shoppingdetailfooter-totaldelivery {
+  display: flex;
+  justify-content: end;
+  color: var(--toss-blue);
+  font-size: var(--font-sm);
   margin-bottom: 10px;
+  padding-right: 4px;
 }
