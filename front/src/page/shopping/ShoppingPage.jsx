@@ -24,49 +24,47 @@ export default function ShoppingPage() {
   return (
     <div className="shoppingpage-container">
       <ShoppingHeader pagename={"토스 쇼핑"} />
-      {shopItems.map((Shop, index) => {
-        const isLiked = likedItems.includes(index);
-        return (
-          <div
-            key={index}
-            className="shoppingpage-item-container"
-            style={index === 0 ? { marginTop: "60px" } : {}}
-          >
-            <div className="shoppingpage-item-img-container">
-              <Link
-                to={{
-                  pathname: PAGE_URLS.ShoppingDetailPage,
-                  search: `?index=${index}`, // 인덱스값 전달
-                }}
-              >
-                <img
-                  src={Shop.ItemImg}
-                  alt={Shop.Item}
-                  className="shoppingpage-item-img"
-                />
-              </Link>
-              <span
-                className={`material-symbols-outlined shoppingpage-heart ${
-                  isLiked ? "liked" : ""
-                }`}
-                onClick={() => toggleLike(index)}
-              >
-                favorite
-              </span>
-            </div>
-            <p className="shoppingpage-item-text">{Shop.Item}</p>
-            <div className="shoppingpage-item-price">
-              <p className="shoppingpage-item-discount-text">
-                {Shop.discount}%
-              </p>
-              <p className="shoppingpage-item-price-text">
-                {(Shop.price * (100 - Shop.discount)) / 100}P
-              </p>
+      <div className="shoppingpage-items-container">
+        {shopItems.map((Shop, index) => {
+          const isLiked = likedItems.includes(index);
+          return (
+            <div className="shoppingpage-item-container">
+              <div className="shoppingpage-item-img-container">
+                <Link
+                  to={{
+                    pathname: PAGE_URLS.ShoppingDetailPage,
+                    search: `?index=${index}`, // 인덱스값 전달
+                  }}
+                >
+                  <img
+                    src={Shop.ItemImg}
+                    alt={Shop.Item}
+                    className="shoppingpage-item-img"
+                  />
+                </Link>
+                <span
+                  className={`material-symbols-outlined shoppingpage-heart ${
+                    isLiked ? "liked" : ""
+                  }`}
+                  onClick={() => toggleLike(index)}
+                >
+                  favorite
+                </span>
+              </div>
+              <p className="shoppingpage-item-text">{Shop.Item}</p>
+              <div className="shoppingpage-item-price">
+                <p className="shoppingpage-item-discount-text">
+                  {Shop.discount}%
+                </p>
+                <p className="shoppingpage-item-price-text">
+                  {(Shop.price * (100 - Shop.discount)) / 100}P
+                </p>
+              </div>
               <div className="shoppingpage-item-delivery">배송비 무료</div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
