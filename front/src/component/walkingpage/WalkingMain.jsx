@@ -8,7 +8,8 @@ import { useAppContext } from "../../context/context";
 export default function WalkingMain() {
   const { appState, dispatch } = useAppContext();
 
-  const { data } = useFetchTrail();
+  const { data:trailData } = useFetchTrail();
+  console.log("trailData",trailData)
   const cardRef = useRef({});
   const [cardHeight, setCardHeight] = useState(10); 
   const [selectCardsAll, setSelectCardsAll] = useState(true);
@@ -65,7 +66,7 @@ export default function WalkingMain() {
       </div>
 
       <div className="wm-map-wrapper">
-        <WalkingKaKaoMap TrailItem={data} />
+        <WalkingKaKaoMap TrailItem={trailData} />
       </div>
 
       {/* content */}
@@ -95,7 +96,7 @@ export default function WalkingMain() {
             완료
           </div>
         </div>
-        {data
+        {trailData
           .filter(
             (TrailItem) =>
               selectCardsAll === true ||

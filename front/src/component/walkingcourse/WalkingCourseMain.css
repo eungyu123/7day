@@ -34,6 +34,14 @@
   padding-bottom: 8px;
 }
 
+.emojifont.wc-gift {
+  vertical-align: 1.8px; /* 원하는 값으로 조절 */
+  cursor: pointer;
+}
+.emojifont.wc-emoji-right{
+  padding: 0 8px;
+}
+
 .wc-info-coord {
   font-weight: 500;
   color: var(--toss-gray);
@@ -296,4 +304,42 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%) rotate(-45deg);
   }
+}
+
+
+.wc-animation-img-wrapper {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-80%, -50%); /* 기본 위치 */
+  max-width: 100px;
+  max-height: 100px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 100px;
+}
+
+.wc-animation-img-wrapper.updown {
+  animation: upanddown 2s ease-in-out infinite alternate;
+}
+
+@keyframes upanddown {
+  0% {
+    transform: translate(-80%, -50%) translateY(7%) 
+  }
+  50% {
+    transform: translate(-80%, -50%) translateY(0%) 
+  }
+  100% {
+    transform: translate(-80%, -50%) translateY(7%) ;
+  }
+}
+
+.wc-reward-modal-text{
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 기본 위치 */
+  text-align: center;
+  font-weight: 600;
 }

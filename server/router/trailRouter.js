@@ -17,4 +17,9 @@ router.put("/userTrail/:userId", async (req, res) => {
   trail.updateVisitedLandmark(req, res);
 });
 
+router.post("/getReward/:userId", async(req,res) => {
+  console.log("getRewardBytrail")
+  trail.getRewardByTrail(req,res); 
+})
+
 module.exports = router;

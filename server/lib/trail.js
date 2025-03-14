@@ -1,4 +1,5 @@
 const { Trail, UserTrail } = require("../db/models/Trail");
+const User = require("../db/models/User")
 
 module.exports = {
   getTrails: async (req, res) => {
@@ -16,6 +17,7 @@ module.exports = {
           const newUserTrail = new UserTrail({
             userId,
             trailId: trail._id.toString(),
+            getReward: false, 
             visitedLandmarks: trail.landmarks.map((landmark) => ({
               landmarkId: landmark._id,
               name: landmark.name,
@@ -40,6 +42,7 @@ module.exports = {
         
         return {
           ...trail.toObject(), // 기존 산책로 정보 유지
+          getReward: userTrail.getReward, 
           landmarks: userTrail?.visitedLandmarks , // 유저가 방문한 명소 목록
           image: trail.image, // 산책로 이미지 추가
           address: trail.address, // 산책로 주소 추가
@@ -66,9 +69,13 @@ module.exports = {
       if (!trail) return res.status(404).json({ message: "Trail not found" });
 
       const userTrail = await UserTrail.findOne({ userId, trailId });
+      // console.log(userTrail)
+
       const updatedTrails = {
         ...trail.toObject(), // 기존 산책로 정보 유지
+        
         landmarks: userTrail?.visitedLandmarks, // 유저가 방문한 명소 목록
+        getReward: userTrail.getReward,
         image: trail.image, // 산책로 이미지 추가
         address: trail.address, // 산책로 주소 추가
       };
@@ -108,4 +115,36 @@ module.exports = {
       res.status(500).json({ message: "Server error", error });
     }
   },
+
+  getRewardByTrail: async (req,res) => {
+    try {
+      const { userId } = req.params; 
+      const { trailId } = req.body; 
+      console.log(userId, trailId); 
+      const user = await User.findById(userId); 
+      const userTrail = await UserTrail.findOne({ userId, trailId }); 
+      console.log("userTrail", userTrail); 
+
+      if (userTrail.getReward) {
+        return res.status(400).json({ type: "error", message: "이미 보상을 받았습니다." });
+      }
+
+      const allVisited  = userTrail.visitedLandmarks.every((landmark) => landmark.visited === true);
+      console.log(allVisited )
+      if (allVisited ) {
+        const randomPoint = Math.floor(Math.random() * 100) + 1
+        user.userPoint = (user.userPoint || 0) + randomPoint;
+        const savedUser = await user.save(); 
+        userTrail.getReward = true;
+        await userTrail.save();
+        
+        return res.status(200).json({type: "success", user:savedUser, reward: randomPoint}); 
+      } else {
+        return res.status(400).json({type: "error", message: "아직 스탬프를 찍지 않은 랜드마크가 있습니다."})
+      }
+
+    } catch (error) {
+      return res.status(500).json({type: "error"}); 
+    }
+  }
 };

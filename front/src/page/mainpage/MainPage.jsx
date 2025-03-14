@@ -17,14 +17,9 @@ import RewardModal from "../../component/modal/RewardModal";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
-  const [isRouletteModalOpen, setIsRouletteModalOpen] = useState(false);
-  const [isRewardModalOpen, setIsRewardModalOpen] = useState(false);
 
   // console.log("appState.user", appState.user);
-  useEffect(() => {
-    setIsRouletteModalOpen(false);
-    setIsRewardModalOpen(false);
-  }, []);
+
   return (
     <Container>
       <MainMap />
@@ -61,15 +56,8 @@ export default function MainPage() {
         class="w-auto h-full"
       ></img> */}
 
-      <RewardModal
-        isOpen={isRewardModalOpen}
-        setIsOpen={setIsRewardModalOpen}
-        goal={"5km 러닝 완료"}
-      />
-      <RouletteModal
-        isOpen={isRouletteModalOpen}
-        setIsOpen={setIsRouletteModalOpen}
-      />
+
+
     </Container>
   );
 }

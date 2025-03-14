@@ -33,6 +33,7 @@ const UserTrailSchema = new mongoose.Schema({
     type: String,
     required: true,
   }, // 산책로 ID (String, Trail 모델 참조)
+  getReward: {type: Boolean }, 
   visitedLandmarks: [
     {
       landmarkId: { type: String }, // 명소 ID (String, Landmark 모델 참조)
