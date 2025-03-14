@@ -1,5 +1,5 @@
 import "./App.css";
-import { useReducer, Suspense } from "react";
+import { useReducer, Suspense, useState, useEffect } from "react";
 import { ShopProvider } from "./context/ShopContext";
 import { ErrorBoundary } from "react-error-boundary";
 import { initialState } from "./context/constant";
@@ -18,6 +18,7 @@ import { MainPage, MissionPage, ProfilePage, WalkingPage, WalkingCoursePage,
 import NicknamePage from "./page/nickname/NicknamePage";
 import ShoppingPage from "./page/shopping/ShoppingPage";
 import ShoppingDetailPage from "./page/shopping/ShoppingDetailPage";
+import ShoppingSearchPage from "./page/shopping/ShoppingSearchPage";
 
 import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
@@ -25,14 +26,66 @@ import { useFetch } from "./hook/useFetch";
 import { useLocationTracker } from "./hook/useLocationTracker";
 import {useAuth} from "./hook/useAuth"
 import {useAuthRedirect} from "./hook/useAuthRedirect"
+
+import PedometerClearModal from "./component/modal/PedometerClearModal";
+
+import { getWalkData } from "./api/walkApi";
+import { setPedometerMissionClear } from "./api/userApi";
+
 const queryClient = new QueryClient();
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pedometerClear, setPedometerClear] = useState(false);
   const providerState = {
     appState,
     dispatch,
   };
+
+  // 만보 확인
+  useEffect(() => {
+    const updatePedometerMission = async () => {
+      try {
+        const response = await setPedometerMissionClear();
+        console.log("만보 미션 클리어 업데이트 완료:", response);
+
+        if (response.pedometerMissionClear) {
+          setPedometerClear(true);
+        }
+      } catch (error) {
+        console.error("만보 미션 업데이트 실패:", error);
+      }
+    };
+    updatePedometerMission();
+
+    const fetchWalkData = async () => {
+      try {
+        const today = new Date().toISOString().split("T")[0];
+        const response = await getWalkData(today, today);
+
+        if (response?.type === "success" && response?.stepRecords?.length > 0) {
+          const steps = response.stepRecords[0].steps;
+
+          if (steps >= 10000 && !appState.user.pedometerMissionClear) {
+            setIsModalOpen(true);
+          }
+          // if (steps >= 10000) {
+          //   setIsModalOpen(true);
+          // }
+        }
+      } catch (error) {
+        console.error("걸음 데이터 가져오기 실패:", error);
+      }
+    };
+
+    fetchWalkData();
+
+    const interval = setInterval(fetchWalkData, 60000);
+
+    return () => clearInterval(interval);
+  }, [pedometerClear]);
+
   useScrollToTop();
   useAuth({ dispatch });
   // useAuthRedirect({ appState });
@@ -77,6 +130,10 @@ function App() {
                     element={<ShoppingDetailPage />}
                   />
                   <Route
+                    path="/ShoppingSearchPage"
+                    element={<ShoppingSearchPage />}
+                  />
+                  <Route
                     path="/ShoppingOrderPage"
                     element={<ShoppingOrderPage />}
                   />
@@ -93,6 +150,7 @@ function App() {
           </Suspense>
         </ErrorBoundary>
       </QueryClientProvider>
+      <PedometerClearModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </>
   );
 }

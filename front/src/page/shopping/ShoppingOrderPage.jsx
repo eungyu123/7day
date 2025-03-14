@@ -29,6 +29,8 @@ export default function ShoppingOrderPage() {
   console.log("shopItem is ", shopItem);
   console.log(shopItem.discount / 100);
 
+  const deliveryfee = shopItem.delivery ? 2500 : 0;
+
   return (
     <>
       <Header BackNavigate={`/ShoppingDetailPage?index=${index}`} />
@@ -42,6 +44,7 @@ export default function ShoppingOrderPage() {
         />
         <ShoppingOrderCost
           price={shopItem.price * ((100 - shopItem.discount) / 100)}
+          delivery={deliveryfee}
         />
         <ShoppingOrderMessage />
         <ShoppingPurchaseButton buttonText={"토스포인트로 결제하기"} />

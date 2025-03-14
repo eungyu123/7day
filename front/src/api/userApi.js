@@ -13,6 +13,38 @@ export const getUser = async () => {
   }
 };
 
+export const setPoints = async (point) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/setUserPoints`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, point }),
+    });
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setPedometerMissionClear = async () => {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/user/setPedometerMissionClear/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // credentials: "include",
+      }
+    );
+
+    return res.json();
+  } catch (error) {
+    throw error; // 네트워크 오류 또는 CORS 오류
+  }
+};
+
 export const updateUserName = async (newUserName) => {
   try {
     const res = await fetch(`${API_BASE_URL}/user/${userId}`, {

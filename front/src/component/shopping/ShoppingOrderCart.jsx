@@ -22,7 +22,7 @@ export default function ShoppingOrderCart({
           <div className="shopping-order-cart-info">
             <div className="shopping-order-cart-info-company">{company}</div>
             <div className="shopping-order-cart-info-itemname">{itemName}</div>
-            <div className="shopping-order-cart-info-price">{price}원</div>
+            <div className="shopping-order-cart-info-price">{price}P</div>
           </div>
         </div>
       </div>

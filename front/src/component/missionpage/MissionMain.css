@@ -9,7 +9,8 @@
 }
 .missioninfocontainer {
   display: flex;
-  width: 80%;
+  width: 100%;
+  padding: 0 24px;
   height: 10%;
 }
 .missioninfotext {

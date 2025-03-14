@@ -6,9 +6,10 @@ const {
   updateUser,
   createUser,
   updateFriends,
+  setUserPoints,
+  setPedometerMissionClear,
 } = require("../db/controllers/UserController");
 const { generateRandomGifts } = require("../utils/kakaomap");
-const { get } = require("http");
 
 module.exports = {
   getUser: async (req, res) => {
@@ -39,6 +40,40 @@ module.exports = {
         type: "error",
         message: "fetching update failed",
       });
+    }
+  },
+  setPoints: async (req, res) => {
+    try {
+      const { userId, point } = req.body;
+
+      console.log("[user.js] 유저아이디는 ", userId);
+      console.log("[user.js]포인트는 ", point);
+
+      const user = await setUserPoints(userId, point);
+
+      res.status(200).json({
+        type: "success",
+        message: "set Point!",
+        data: user,
+      });
+    } catch (error) {
+      res.status(400).json({ type: "error", message: error.message });
+    }
+  },
+  setPedometerMissionClear: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      console.log("[setPedometerMissionClear] userId: ", userId);
+
+      const user = await setPedometerMissionClear(userId);
+
+      res.status(200).json({
+        type: "success",
+        message: "PedometerMission clear!",
+        data: user,
+      });
+    } catch (error) {
+      res.status(400).json({ type: "error", message: error.message });
     }
   },
 

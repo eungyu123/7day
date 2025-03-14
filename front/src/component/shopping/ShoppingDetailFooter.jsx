@@ -8,11 +8,11 @@ export default function ShoppingDetailFooter({ index }) {
   const { shopItems } = useShopContext();
   const shopItem = shopItems && shopItems[index];
   const [showOptions, setShowOptions] = useState(false);
+  const [IsCart, setIsCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const initialPrice = (shopItem.price * (100 - shopItem.discount)) / 100;
   const [price, setPrice] = useState(initialPrice);
   const isClothing = shopItem?.Category === "옷";
-  console.log("옷?", isClothing);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
 
@@ -22,13 +22,16 @@ export default function ShoppingDetailFooter({ index }) {
     color: ["white", "beige", "brown", "black"],
     size: ["XS", "S", "M", "L", "XL"],
   };
-
-  /*
-  
-  */
+  const handleAddToCart = () => {
+    setIsCart(true);
+    setShowOptions(false);
+    setTimeout(() => setIsCart(false), 2000);
+    setSelectedColor("");
+    setSelectedSize("");
+  };
 
   return (
-    <div className="shoppingdetailfooter-container ">
+    <div className="shoppingdetailfooter-container">
       <div
         className="shoppingdetailfooter-buybtn"
         onClick={() => setShowOptions(true)}
@@ -40,7 +43,10 @@ export default function ShoppingDetailFooter({ index }) {
           className="shoppingdetailfooter-options-overlay"
           onClick={() => setShowOptions(false)}
         >
-          <div className="shoppingdetailfooter-options">
+          <div
+            className="shoppingdetailfooter-options"
+            onClick={(e) => e.stopPropagation()} // 내부 클릭 시 닫히지 않도록 막기
+          >
             {isClothing && (
               // 옷이면 컬러,색상 옵션 선택
               <>
@@ -64,48 +70,72 @@ export default function ShoppingDetailFooter({ index }) {
             )}
             {isOptionSelected && (
               // 옵션 선택 후 개수 조절 UI 표시
-              <div className="shoppingdetailfooter-item">
-                <div className="shoppingdetailfooter-quantity">
-                  <p>
-                    {shopItem?.Item}
-                    {isClothing && selectedColor && selectedSize
-                      ? ` / ${selectedColor} / ${selectedSize}`
-                      : ""}
-                  </p>
-                  <button onClick={() => setShowOptions(false)}>X</button>
-                </div>
-                <div className="shoppingdetailfooter-quantity">
-                  <div>
+              <>
+                <div className="shoppingdetailfooter-item">
+                  <div className="shoppingdetailfooter-quantity">
+                    <p>
+                      {shopItem?.Item}
+                      {isClothing && selectedColor && selectedSize
+                        ? ` / ${selectedColor} / ${selectedSize}`
+                        : ""}
+                    </p>
                     <button
                       onClick={() => {
-                        if (quantity > 1) {
-                          setQuantity((prev) => prev - 1);
-                          setPrice((prev) => prev - initialPrice);
+                        if (isClothing) {
+                          setSelectedColor("");
+                          setSelectedSize("");
+                        } else {
+                          setShowOptions(false);
                         }
                       }}
                     >
-                      -
-                    </button>
-                    <span>{quantity}</span>
-                    <button
-                      onClick={() => {
-                        setQuantity((prev) => prev + 1);
-                        setPrice((prev) => prev + initialPrice);
-                      }}
-                    >
-                      +
+                      X
                     </button>
                   </div>
-                  <p>{price}P</p>
+                  <div className="shoppingdetailfooter-quantity">
+                    <div>
+                      <button
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setQuantity((prev) => prev - 1);
+                            setPrice((prev) => prev - initialPrice);
+                          }
+                        }}
+                      >
+                        -
+                      </button>
+                      <span>{quantity}</span>
+                      <button
+                        onClick={() => {
+                          setQuantity((prev) => prev + 1);
+                          setPrice((prev) => prev + initialPrice);
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p>{price}P</p>
+                  </div>
                 </div>
-              </div>
+                <div className="shoppingdetailfooter-total">
+                  <div className="shoppingdetailfooter-totalquantity">
+                    <p style={{ color: "var(--toss-blue)" }}>{quantity}</p>
+                    <p style={{ color: "var(--toss-gray)" }}>개 상품 금액</p>
+                  </div>
+                  <p className="shoppingdetailfooter-totalprice">{price}P</p>
+                </div>
+                <div className="shoppingdetailfooter-totaldelivery">
+                  <p style={{ color: "var(--toss-blue)" }}>
+                    {shopItem.delivery ? "배송비 2500P" : "배송비 무료"}
+                  </p>
+                </div>
+              </>
             )}
-            <div className="shoppingdetailfooter-total">
-              <p>{quantity}개 상품 금액</p>
-              <p>{price}P</p>
-            </div>
             <div className="shoppingdetailfooter-options-btn">
-              <div className="shoppingdetailfooter-options-cartbtn">
+              <div
+                className="shoppingdetailfooter-options-cartbtn"
+                onClick={handleAddToCart}
+              >
                 장바구니
               </div>
               <Link
@@ -114,6 +144,15 @@ export default function ShoppingDetailFooter({ index }) {
               >
                 바로 구매
               </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      {IsCart && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-body">
+              <p>상품이 장바구니에 담겼습니다</p>
             </div>
           </div>
         </div>

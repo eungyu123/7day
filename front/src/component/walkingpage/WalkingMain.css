@@ -16,17 +16,17 @@ body {
 /* 헤더 */
 .wm-infocontainer1 {
   display: flex;
-  height: 10vh;
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 .wm-info {
   display: flex;
   flex-direction: column;
   height: 10%;
-  width: 80%;
+  padding: 0 20px;
+  width: 100%;
   justify-content: center;
 }
 .wm-infotext1 {

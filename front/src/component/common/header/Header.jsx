@@ -9,20 +9,25 @@ function Header({ PageName, BackNavigate = "/", isErrorPage = false }) {
   const navigate = useNavigate();
 
   return (
-    <div className="commonheader-container">
-      <div
-        className="commonheader-left-section"
-        onClick={
-          isErrorPage ? window.location.reload() : () => navigate(BackNavigate)
-        }
-      >
-        <span className="material-symbols-outlined">chevron_left</span>
+    <>
+      <div className="commonheader-container">
+        <div
+          className="commonheader-left-section"
+          onClick={
+            isErrorPage
+              ? window.location.reload()
+              : () => navigate(BackNavigate)
+          }
+        >
+          <span className="material-symbols-outlined">chevron_left</span>
+        </div>
+        <div className="commonheader-center-section">
+          <p className="commonheader-headertext">{PageName}</p>
+        </div>
+        <div className="commonheader-right-section"></div>
       </div>
-      <div className="commonheader-center-section">
-        <p className="commonheader-headertext">{PageName}</p>
-      </div>
-      <div className="commonheader-right-section"></div>
-    </div>
+      <div className="commonheader-spacer"></div>
+    </>
   );
 }
 export default Header;
