@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "../../context/context";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import "../../page/modal/Modal.css";
 
-// import { getWalkData } from "../../api/walkApi";
+import { setPoints } from "../../api/userApi";
+// import { useAppContext } from "../../context/context";
 
-export default function CheckModal({ isOpen, setIsOpen }) {
-  // const [currentSteps, setCurrentSteps] = useState(0);
-
-  // useEffect(() => {
-  //   const fetchWalkData = async () => {
-  //     const today = new Date().toISOString().split("T")[0];
-
-  //     const response = await getWalkData(today, today);
-
-  //     if (response.type === "success" && response.stepRecords.length > 0) {
-  //       setCurrentSteps(response.stepRecords[0].steps);
-  //     }
-  //   };
-  //   fetchWalkData();
-  // }, []);
-
+export default function PedometerClearModal({ isOpen, setIsOpen }) {
+  const { appState, dispatch } = useAppContext();
   const points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const randomNum = Math.floor(Math.random() * 10);
+  const point = points[randomNum];
+
+  useEffect(() => {
+    const handlePoint = async () => {
+      try {
+        if (!appState.user.PedometerClearModal) {
+          const response = await setPoints(point);
+        }
+      } catch (error) {
+        console.error("포인트 셋팅 실패:", error);
+      }
+    };
+    handlePoint();
+  }, []);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -42,7 +44,7 @@ export default function CheckModal({ isOpen, setIsOpen }) {
             style={{ width: "60px", height: "60px", marginBottom: "20px" }}
           />
           <p>
-            <b>{points[randomNum]}포인트</b> 획득!
+            <b>{point}포인트</b> 획득!
           </p>
         </div>
       </Dialog.Content>

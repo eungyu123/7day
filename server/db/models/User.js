@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
     friendList: [{ friend_id: { type: String } }],
     googleId: { type: String, required: true },
     userPoint: { type: Number, required: true },
+    pedometerMissionClear: { type: Boolean }, // 만보 미션 클리어 추가
     pet: { type: String },
     petList: [
       {

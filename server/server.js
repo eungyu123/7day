@@ -19,7 +19,7 @@ app.use("/image", express.static("image"));
 const seedTrail = require("./db/seed/seedTrail");
 const seedAll = require("./db/seed/seedAll");
 // seedTrail.createSampleData1();
-seedAll.seedAll();
+// seedAll.seedAll();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);

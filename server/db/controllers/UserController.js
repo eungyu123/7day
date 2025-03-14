@@ -93,4 +93,34 @@ module.exports = {
       throw error;
     }
   },
+
+  setUserPoints: async (userId, point) => {
+    try {
+      const user = await User.findById(userId);
+
+      if (!user) throw new Error("존재하지 않는 유저");
+
+      user.userPoint += point;
+
+      await user.save();
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+  setPedometerMissionClear: async (userId) => {
+    try {
+      const user = await User.findById(userId);
+      console.log("user", user._id);
+      if (!user) throw new Error("존재하지 않는 유저");
+
+      user.pedometerMissionClear = true;
+
+      await user.save();
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
 };

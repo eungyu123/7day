@@ -27,12 +27,14 @@ import { useLocationTracker } from "./hook/useLocationTracker";
 import PedometerClearModal from "./component/modal/PedometerClearModal";
 
 import { getWalkData } from "./api/walkApi";
+import { setPedometerMissionClear } from "./api/userApi";
 
 const queryClient = new QueryClient();
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pedometerClear, setPedometerClear] = useState(false);
   const providerState = {
     appState,
     dispatch,
@@ -40,6 +42,20 @@ function App() {
 
   // 만보 확인
   useEffect(() => {
+    const updatePedometerMission = async () => {
+      try {
+        const response = await setPedometerMissionClear();
+        console.log("만보 미션 클리어 업데이트 완료:", response);
+
+        if (response.pedometerMissionClear) {
+          setPedometerClear(true);
+        }
+      } catch (error) {
+        console.error("만보 미션 업데이트 실패:", error);
+      }
+    };
+    updatePedometerMission();
+
     const fetchWalkData = async () => {
       try {
         const today = new Date().toISOString().split("T")[0];
@@ -48,10 +64,12 @@ function App() {
         if (response?.type === "success" && response?.stepRecords?.length > 0) {
           const steps = response.stepRecords[0].steps;
 
-          if (steps >= 10000) {
+          if (steps >= 10000 && !appState.user.pedometerMissionClear) {
             setIsModalOpen(true);
-            console.log("유저 포인트!!! ", appState.user.userPoint);
           }
+          // if (steps >= 10000) {
+          //   setIsModalOpen(true);
+          // }
         }
       } catch (error) {
         console.error("걸음 데이터 가져오기 실패:", error);
@@ -63,11 +81,9 @@ function App() {
     const interval = setInterval(fetchWalkData, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [pedometerClear]);
 
   useScrollToTop();
-  // useAuth({ dispatch });
-  // useAuthRedirect({ appState });
   useLocationTracker({ dispatch });
   const loading = useFetch({ appState, dispatch });
   if (loading) return <LoadingPage />;
