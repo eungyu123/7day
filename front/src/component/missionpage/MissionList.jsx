@@ -11,6 +11,7 @@ export default function MissionList({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isGiftBoxVisible, setGiftBoxVisible] = useState(true);
+  const [isMissionVisible, setMissionVisible] = useState(true);
   const [isRandomGift, setRandomGift] = useState("");
 
   const HandleRewardOpen = () => {
@@ -21,6 +22,7 @@ export default function MissionList({
 
   const HandleRewardClose = () => {
     setIsOpen(false); // 모달을 닫을 때
+    setMissionVisible(false);
   };
 
   const RandomGift = () => {
@@ -36,19 +38,21 @@ export default function MissionList({
 
   return (
     <>
-      <div className="missionlistcontainer">
-        <p className="emojifont font-2xl">{IsComplete ? "✅" : "🎯"}</p>
-        <p
-          className={`${IsComplete ? "missioncomplete" : "missionincomplete"}`}
-        >
-          {MissionContent}{" "}
-        </p>
-        {IsComplete && isGiftBoxVisible && (
-          <p className="emojifont gift-box" onClick={HandleRewardOpen}>
-            🎁
+      {isMissionVisible && (
+        <div className="missionlistcontainer">
+          <p className="emojifont font-2xl">{IsComplete ? "✅" : "🎯"}</p>
+          <p
+            className={`$ {IsComplete ? "missioncomplete" : "missionincomplete"}`}
+          >
+            {MissionContent}{" "}
           </p>
-        )}
-      </div>
+          {IsComplete && isGiftBoxVisible && (
+            <p className="emojifont gift-box" onClick={HandleRewardOpen}>
+              🎁
+            </p>
+          )}
+        </div>
+      )}
       {isOpen && (
         <RouletteModal
           isOpen={isOpen}
