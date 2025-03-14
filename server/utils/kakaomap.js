@@ -7,7 +7,6 @@ module.exports = {
     const count = 20;
     const eggs = await Egg.find();
     const rewards = await Reward.find();
-    console.log("rewards", rewards);
     const items = new Array(count).fill(0).map(() => {
       const giftType = gifts[Math.floor(Math.random() * gifts.length)];
       if (giftType === "포인트") {

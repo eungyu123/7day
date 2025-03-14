@@ -129,7 +129,27 @@
 
 .roulette-animation-title-wrapper {
   width: 100%;
-  padding: 16px 28px;
-  font-size: var(--font-lg);
+  padding: 12px 28px;
+  font-size: var(--font-xl);
   font-weight: 700;
+}
+
+.roulette-m-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: none;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  z-index: 200;
+}
+.roulette-m-left-section {
+  display: flex;
+  height: 100%;
+  width: 80px;
+  align-items: center;
+  cursor: pointer;
 }

@@ -20,38 +20,33 @@ module.exports = {
         return res.status(400).json({ error: "토큰이 없습니다." });
       }
 
-      // ✅ ID 토큰 검증
       const googleToken = await client.verifyIdToken({
         idToken: credential,
         audience: CLIENT_ID,
       });
-      // 토큰 정보
       const payload = googleToken.getPayload();
 
-      // ✅ MongoDB에서 사용자 검색
       let user = await User.findOne({ googleId: payload.sub });
 
       if (!user) {
-        // ✅ 존재하지 않으면 새로 저장
         user = new User({
           nickname: payload.name,
           nicknameEdit: false,
           friendList: [],
-          userPoint: 0,
           googleId: payload.sub,
+          userPoint: 0,
         });
 
         await user.save();
-        console.log("DB insert success:", user);
+        console.log("DB insert success:", user.nickname, user.nicknameEdit);
       } else {
-        console.log("User already exists:", user);
+        console.log("User already exists:", user.nickname, user.nicknameEdit);
       }
 
       // 자체 토큰
       const token = jwt.sign(
         {
           id: payload.sub,
-          // iat: Math.floor(Date.now() / 1000), // 발급 시간
         },
         TOKEN_SECRET_KEY,
         { expiresIn: "7d" }
@@ -67,6 +62,7 @@ module.exports = {
       return res.json({
         type: "success",
         message: "로그인 성공",
+        userId: user._id,
         googleId: payload.sub,
         nicknameEdit: user.nicknameEdit,
       });
@@ -107,6 +103,7 @@ module.exports = {
     try {
       const decoded = jwt.verify(token, TOKEN_SECRET_KEY);
       const user = await User.findOne({ googleId: decoded.id });
+      console.log(user.nickname, user.nicknameEdit);
       return res.status(200).json({
         type: "success",
         isAuthenticated: true,

@@ -24,7 +24,7 @@ export default function ShoppingPage() {
 
   return (
     <div className="shoppingpage-container">
-      <ShoppingHeader pagename={"토스 쇼핑"} />
+      <ShoppingHeader />
       <div className="shoppingpage-point-container">
         <p className="shoppingpage-point-text">내 포인트</p>
         <div className="shoppingpage-point-between">

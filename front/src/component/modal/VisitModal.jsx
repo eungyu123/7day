@@ -187,6 +187,8 @@ export default function VisitModal({ isOpen, setIsOpen }) {
                     ...(item.day === "오늘" && {
                       background: "#0064ff",
                       color: "white",
+                      fontSize: "12px",
+                      fontWeight: "400",
                     }),
                   }}
                 >

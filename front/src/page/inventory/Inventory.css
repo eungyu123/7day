@@ -20,7 +20,6 @@
 }
 .inventory {
   width: 100%;
-  height: calc(100% - 350px);
   background-color: white;
   border-radius: 15px 15px 0px 0px;
   flex: 1;
@@ -28,9 +27,10 @@
   flex-direction: column;
   margin-top: -20px;
   z-index: 2;
+  padding-bottom: 48px;
 }
 .inventory-header {
-  height: 60px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -39,7 +39,7 @@
 .inventory-select {
   flex: 1;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 12px;
   color: var(--toss-gray);
   font-weight: 600;
   font-size: 17px;
@@ -53,8 +53,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 15px;
-
+  margin: 6px 15px;
   overflow-y: auto;
 }
 .Inventory-item {
@@ -92,8 +91,7 @@
   outline: none;
 }
 .store-purchase-button-main {
-  padding-top: 15px;
-  padding-bottom: 20px;
+  padding: 15px 0;
   border-radius: 10px 10px 0 0;
   text-align: center;
   color: white;

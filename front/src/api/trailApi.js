@@ -59,20 +59,19 @@ export const updateUserTrail = async ({ trailId, landmarkId }) => {
   }
 };
 
-
 export const getRewardByTrail = async (trailId) => {
   try {
     const res = await fetch(`${API_BASE_URL}/trail/getReward/${userId}`, {
-      method:"POST", 
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },      
-      body: JSON.stringify({trailId})
-    })
-    console.log(res); 
-    return res.json(); 
-  } catch(error) {
-    console.log(error); 
-    throw error; 
+      },
+      body: JSON.stringify({ trailId }),
+    });
+    console.log(res);
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
-}
+};

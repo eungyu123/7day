@@ -6,8 +6,8 @@ import fs from "fs";
 export default defineConfig({
   server: {
     https: {
-      key: fs.readFileSync("./ssl/localhost+11-key.pem"),
-      cert: fs.readFileSync("./ssl/localhost+11.pem"),
+      key: fs.readFileSync("./ssl/key.pem"),
+      cert: fs.readFileSync("./ssl/cert.pem"),
     },
   },
   plugins: [react()],

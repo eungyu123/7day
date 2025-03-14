@@ -16,7 +16,6 @@ export default function ProfilePage() {
   const { appState, dispatch } = useAppContext();
   const [currentSteps, setCurrentSteps] = useState(0);
   const [distance, setDistance] = useState(0);
-  console.log(rewards);
 
   useEffect(() => {
     const fetchWalkData = async () => {
@@ -65,6 +64,9 @@ export default function ProfilePage() {
           }
         })}
       </div>
+      {rewards.data.length <= 3 && (
+        <div style={{ height: `${200 * rewards.data.length}px` }}></div>
+      )}
     </Container>
   );
 }

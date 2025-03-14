@@ -1,0 +1,86 @@
+.wc-reward-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  background-color: white;
+}
+.wc-reward-modal {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: none;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.wc-reward-modal > div {
+  display: flex;
+  height: 100%;
+  width: 80px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wc-center-section {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.wc-reward-modal-img-wrapper {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-80%, -50%); /* 기본 위치 */
+  max-width: 100px;
+  max-height: 100px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 100px;
+}
+
+.wc-reward-modal-img-wrapper.updown {
+  animation: upanddown 2s ease-in-out infinite alternate;
+}
+
+@keyframes upanddown {
+  0% {
+    transform: translate(-80%, -50%) translateY(7%);
+  }
+  50% {
+    transform: translate(-80%, -50%) translateY(0%);
+  }
+  100% {
+    transform: translate(-80%, -50%) translateY(7%);
+  }
+}
+
+.wc-reward-modal-text {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 기본 위치 */
+  text-align: center;
+  font-weight: 600;
+}
+
+.wc-reward-modal-button {
+  position: absolute;
+  bottom: 5%;
+  padding: 16px;
+  font-size: var(--font-md);
+  font-weight: 600;
+  background-color: var(--toss-blue);
+  color: white;
+  width: 80%;
+  text-align: center;
+  border-radius: 16px;
+  letter-spacing: 1px;
+}

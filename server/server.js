@@ -1,12 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs"); 
+const fs = require("fs");
 const https = require("https");
 // 67c7ab335f743adc8dc272a3
 //Express 앱 생성
 const port = 3000;
 const app = express();
 const path = require("path");
+
+app.use(
+  cors({
+    origin: "https://localhost:5173",
+    credentials: true,
+  })
+);
 
 const connectDB = require("./db/connectDB");
 
@@ -20,7 +27,7 @@ app.use("/image", express.static("image"));
 const seedTrail = require("./db/seed/seedTrail");
 const seedAll = require("./db/seed/seedAll");
 // seedTrail.createSampleData1();
-// seedAll.seedAll();
+seedAll.seedAll();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
@@ -53,8 +60,8 @@ const eggRouter = require("./router/eggRouter");
 app.use("/egg", eggRouter);
 
 // 인증서 파일 경로 쿠키설정을 위해서 cors 설정 때문에 해야함
-const privateKey = fs.readFileSync("./ssl/localhost+2-key.pem", "utf8");
-const certificate = fs.readFileSync("./ssl/localhost+2.pem", "utf8");
+const privateKey = fs.readFileSync("./ssl/key.pem", "utf8");
+const certificate = fs.readFileSync("./ssl/cert.pem", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 // HTTPS 서버 설정

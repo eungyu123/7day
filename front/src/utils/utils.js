@@ -37,8 +37,6 @@ export function getDecimalPlaces(num) {
   return parts.length === 2 ? parts[1].length : 0;
 }
 
-
-
 // 방향 구하기
 
 export function latLngToVector3(lat, lng, radius = 1) {
@@ -58,4 +56,8 @@ export function calculateDirection({ point1, point2 }) {
 
   return newPos.clone().sub(prevPos).normalize(); // 방향 벡터 (정규화)
 }
- // THREE.Vector3(x, y, z)
+// THREE.Vector3(x, y, z)
+
+export function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

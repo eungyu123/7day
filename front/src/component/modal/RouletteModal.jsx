@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import RouletteRewardModal from "./RouletteRewardModal";
-import { removeGiftsAPI } from "../../api/userApi";
-import { useAppContext } from "../../context/context";
-import { getUser } from "../../api/userApi";
-import { setUser } from "../../context/reducer/action/action";
 import { finishMission } from "../../api/missionApi";
 import "../../page/modal/RouletteModal.css";
 
@@ -53,9 +49,9 @@ export default function RouletteModal({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content className="roulette-modal-content">
         <Dialog.Close asChild>
-          <div className="commonheader-container">
+          <div className="roulette-m-container">
             <div
-              className="commonheader-left-section"
+              className="roulette-m-left-section"
               onClick={() => setIsOpenAnimation(false)}
             >
               <span className="material-symbols-outlined">chevron_left</span>
@@ -63,8 +59,12 @@ export default function RouletteModal({
           </div>
         </Dialog.Close>
         <div className="roulette-animation-title-wrapper">
-          <div className=""> 룰렛을 돌리세요🍀</div>
-          <div className="">여러가지 쿠폰이 나와요💰</div>
+          <div className="">
+            룰렛을 돌리세요&nbsp;<span className="emojifont">🍀</span>
+          </div>
+          <div className="">
+            여러가지 쿠폰이 나와요&nbsp;<span className="emojifont">💰</span>
+          </div>
         </div>
 
         <div className="roulette-modal-body">

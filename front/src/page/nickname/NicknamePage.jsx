@@ -1,23 +1,32 @@
 import Header from "../../component/common/header/Header";
 import "./NicknamePage.css";
 import { useState } from "react";
+import { updateUserName } from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 export default function NicknamePage() {
   const [nickname, setNickname] = useState(""); // nickname 상태 추가
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  // const handleInputChange = (e) => {
-  //   setNickname(e.target.value); // 입력값 상태 업데이트
-  // };
-  const handleNicknameSet = () => {
-    if (!nickname.trim()) {
-      setError("닉네임을 입력하세요.");
-      return;
+  const handleInputChange = (e) => {
+    setNickname(e.target.value); // 입력값 상태 업데이트
+  };
+
+  const handleNicknameSet = async () => {
+    if (!nickname) {
+      alert("닉네임을 입력해주세요.");
+    } else {
+      const data = await updateUserName(nickname);
+      alert(data.message);
+      console.log(data);
+      if (data.type == "success") {
+        // navigate("/");
+      }
     }
   };
   return (
     <>
-      <Header BackNavigate="/ProfilePage" />
+      <Header />
       <div className="nicknamepagecontainer">
         <div className="nicknamepagesettingcontainer">
           <p className="nicknamepagetextlg">닉네임을 설정해주세요.</p>
@@ -29,14 +38,12 @@ export default function NicknamePage() {
             name="nickname"
             placeholder="닉네임을 입력하세요"
             className="nicknamepageinput"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
+            onChange={handleInputChange}
           />
         </div>
-        {error && <p className="nickname-error-message">{error}</p>}
         <div className="nicknamebtncontainer">
           <div
-            className="nicknamebtn"
+            className={`nicknamebtn ${nickname ? "active" : ""}`}
             disabled={!nickname}
             onClick={handleNicknameSet}
           >

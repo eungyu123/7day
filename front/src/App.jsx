@@ -24,8 +24,8 @@ import { PAGE_URLS } from "./constant/constant";
 import { useScrollToTop } from "./hook/useScrollToTop";
 import { useFetch } from "./hook/useFetch";
 import { useLocationTracker } from "./hook/useLocationTracker";
-import {useAuth} from "./hook/useAuth"
-import {useAuthRedirect} from "./hook/useAuthRedirect"
+import { useAuth } from "./hook/useAuth";
+import { useAuthRedirect } from "./hook/useAuthRedirect";
 
 import PedometerClearModal from "./component/modal/PedometerClearModal";
 
@@ -88,7 +88,7 @@ function App() {
 
   useScrollToTop();
   useAuth({ dispatch });
-  // useAuthRedirect({ appState });
+  useAuthRedirect({ appState });
   useLocationTracker({ dispatch });
   const loading = useFetch({ appState, dispatch });
   if (loading) return <LoadingPage />;
@@ -102,8 +102,9 @@ function App() {
             <appContext.Provider value={providerState}>
               <ShopProvider>
                 <Routes>
-                  <Route path="/" element={<MainPage />} />
                   <Route path="/LoginPage" element={<LoginPage />} />
+                  <Route path="/NicknamePage" element={<NicknamePage />} />
+                  <Route path="/" element={<MainPage />} />
                   <Route path="/MissionPage" element={<MissionPage />} />
                   <Route path="/WalkingPage" element={<WalkingPage />} />
                   <Route
@@ -123,7 +124,6 @@ function App() {
                     path="/StepAnalysisPage"
                     element={<StepAnalysisPage />}
                   />
-                  <Route path="/NicknamePage" element={<NicknamePage />} />
                   <Route path="/ShoppingPage" element={<ShoppingPage />} />
                   <Route
                     path="/ShoppingDetailPage"

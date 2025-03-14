@@ -80,15 +80,14 @@ export const updateEggStep = async ({ steps }) => {
   }
 };
 
-
-export const  doHatchApi = async ({ eggId }) => {
+export const doHatchApi = async ({ eggId }) => {
   const res = await fetch(`${API_BASE_URL}/egg/hatch/${userId}`, {
-    method:"POST", 
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ eggId }),
-  })
+  });
 
-  return res.json()
-}
+  return res.json();
+};
