@@ -5,8 +5,11 @@ import "../../page/modal/VisitModal.css";
 import { getKaclFromSteps, getKmFromSteps } from "../../utils/utils";
 
 import { getWalkData } from "../../api/walkApi";
+import { useAppContext } from "../../context/context";
 
 export default function VisitModal({ isOpen, setIsOpen }) {
+  const { appState, dispatch } = useAppContext();
+
   const [currentSteps, setCurrentSteps] = useState(0);
   const [visitCount, setVisitCount] = useState(1);
   const [todayIndex, setTodayIndex] = useState(0);
@@ -69,14 +72,10 @@ export default function VisitModal({ isOpen, setIsOpen }) {
             .replace(".", "")
             .trim();
 
-          const todayRecord = stepRecords.find((record) =>
-            record.date.startsWith(todayString)
-          );
-
-          if (todayRecord) {
-            setCurrentSteps(todayRecord.steps);
-            setCalories(getKaclFromSteps(todayRecord.steps).toFixed(2));
-            setDistance(getKmFromSteps(todayRecord.steps).toFixed(2));
+          if (appState.todayWalk) {
+            setCurrentSteps(appState.todayWalk);
+            setCalories(getKaclFromSteps(appState.todayWalk).toFixed(2));
+            setDistance(getKmFromSteps(appState.todayWalk).toFixed(2));
           } else {
             setCurrentSteps(0);
           }

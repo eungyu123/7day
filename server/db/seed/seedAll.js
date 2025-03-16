@@ -7,7 +7,7 @@ const Log = require("../models/Log");
 const Mission = require("../models/Mission");
 const UserMission = require("../models/UserMission");
 const Walk = require("../models/WalkData");
-const userId = "67d66dabcdfd076cc87d3823"; // 랜덤한 유저 ID 생성
+const userId = "67d691f2cf69e415952d3fe0"; // 랜덤한 유저 ID 생성
 
 async function seedEggData() {
   try {
@@ -26,7 +26,7 @@ async function seedEggData() {
     console.log("🥚 Egg 데이터 삽입 완료:", eggs);
 
     // 2️⃣ UserEgg 데이터 30개 생성
-    await seedUserEggData(eggs);
+    // await seedUserEggData(eggs);
   } catch (error) {
     console.error("❌ 데이터 시드 중 오류 발생:", error);
   }
@@ -196,7 +196,7 @@ async function seedRandomHatcheries() {
   // 30개의 랜덤한 Hatchery 데이터 생성
   const hatcheries = [];
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     const { randomLat, randomLng } = getRandomCoordinate();
 
     const hatchery = new Hatchery({
@@ -380,7 +380,7 @@ const seedWalkData = async () => {
     // MongoDB에 데이터 삽입
 
     const walkDatas = await Walk.insertMany(walkData);
-    console.log("✅ 랜덤 걷기 데이터 45개 삽입 완료!", walkDatas);
+    console.log("✅ 랜덤 걷기 데이터 45개 삽입 완료!");
   } catch (error) {
     console.log("테스트3");
 

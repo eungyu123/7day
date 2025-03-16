@@ -4,7 +4,7 @@ const Reward = require("../db/models/Reward");
 
 module.exports = {
   generateRandomGifts: async function ({ lat, lng }) {
-    const count = 20;
+    const count = 30;
     const eggs = await Egg.find();
     const rewards = await Reward.find();
     const items = new Array(count).fill(0).map(() => {

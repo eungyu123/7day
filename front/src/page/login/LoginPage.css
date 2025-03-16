@@ -1,6 +1,5 @@
 .login-container {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,6 +25,7 @@
 .overview-img {
   width: 240px;
   height: 280px;
+  object-fit: cover;
 }
 
 .overview-left-arrow {
@@ -70,5 +70,6 @@
 .overview-img-info {
   margin-bottom: 40px;
   width: 240px;
+  height: 50px;
   text-align: center;
 }

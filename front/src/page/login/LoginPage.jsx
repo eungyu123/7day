@@ -40,7 +40,7 @@ const LoginPage = () => {
   return (
     <Container>
       <div className="login-container">
-        <OverView />
+        {/* <OverView /> */}
 
         <div id="google-login-btn"></div>
         <br />

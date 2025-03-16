@@ -94,7 +94,7 @@ export const useLocationTracker = ({ dispatch }) => {
     };
 
     fetchLocation(); // 초기 위치 가져오기
-    const interval = setInterval(fetchLocation, 100000); // 3초마다 위치 업데이트
+    const interval = setInterval(fetchLocation, 10000); // 3초마다 위치 업데이트
 
     return () => clearInterval(interval);
   }, [userId]);
