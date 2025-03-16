@@ -6,6 +6,7 @@ const LogSchema = new mongoose.Schema(
     userId: { type: String },
     logdate: { type: Date },
     logType: { type: String },
+    logImage: { type: String },
     logContent: { type: String },
   },
   { timestamps: true, collection: "logs" }

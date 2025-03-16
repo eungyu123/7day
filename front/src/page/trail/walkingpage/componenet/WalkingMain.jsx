@@ -5,9 +5,13 @@ import { useNavigate } from "react-router-dom";
 import WalkingKaKaoMap from "./WalkingKaKaoMap";
 import WalkingCard from "./WalkingCard";
 import { useAppContext } from "../../../../context/context";
+import { setTrailIndex } from "../../../../context/reducer/action/action";
+
 export default function WalkingMain() {
   const { appState, dispatch } = useAppContext();
-
+  useEffect(() => {
+    dispatch(setTrailIndex({ trailIndex: null }));
+  }, []);
   const { data: trailData } = useFetchTrail();
   console.log("trailData", trailData);
   const cardRef = useRef({});

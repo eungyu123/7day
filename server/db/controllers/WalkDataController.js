@@ -20,6 +20,8 @@ module.exports = {
     endDate.setHours(23, 59, 59, 999); // 23:59:59.999로 설정
 
     //date가 startDate와 endDate 사이에 있는 walkdata를 반환
+    const test = await WalkData.find({ userId: req.params.userId });
+    console.log(test);
     const walkData = await WalkData.find(
       {
         userId: req.params.userId,

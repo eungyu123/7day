@@ -18,17 +18,9 @@ export default function ProfilePage() {
   const [distance, setDistance] = useState(0);
 
   useEffect(() => {
-    const fetchWalkData = async () => {
-      const today = new Date().toISOString().split("T")[0];
-
-      const response = await getWalkData(today, today);
-      if (response.type === "success" && response.stepRecords.length > 0) {
-        setCurrentSteps(response.stepRecords[0].steps);
-        setDistance(getKmFromSteps(response.stepRecords[0].steps));
-      }
-    };
-    fetchWalkData();
-  });
+    setCurrentSteps(appState.todayWalk);
+    setDistance(getKmFromSteps(appState.todayWalk));
+  }, [appState.todayWalk]);
 
   return (
     <Container>
@@ -64,9 +56,7 @@ export default function ProfilePage() {
           }
         })}
       </div>
-      {rewards.data.length <= 3 && (
-        <div style={{ height: `${200 * rewards.data.length}px` }}></div>
-      )}
+      <div style={{ height: `600px` }}></div>
     </Container>
   );
 }

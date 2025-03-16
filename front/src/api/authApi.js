@@ -13,6 +13,7 @@ export const googleSignIn = async (token) => {
 
     const data = await res.json();
     console.log(data);
+    localStorage.setItem("userId", data.userId);
     if (data.type === "success") {
       const nextUrl = data.nicknameEdit ? "/" : "/NicknamePage";
       window.location.href = `https://localhost:5173${nextUrl}`;
@@ -31,6 +32,7 @@ export const googleSignOut = async () => {
     const data = await res.json();
 
     if (data.type == "success") {
+      localStorage.removeItem("userId");
       window.location.reload();
     }
   } catch (error) {

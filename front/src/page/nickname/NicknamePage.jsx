@@ -20,7 +20,7 @@ export default function NicknamePage() {
       alert(data.message);
       console.log(data);
       if (data.type == "success") {
-        // navigate("/");
+        navigate("/");
       }
     }
   };

@@ -17,15 +17,17 @@ export default function MapButton() {
   };
 
   const fetchCurrentLocation = async () => {
-    const position = await getCurrentPosition();
-    const { latitude, longitude } = position.coords;
+    // const position = await getCurrentPosition();
+    const { lat, lng } = appState.location;
+
+    // const { latitude, longitude } = position.coords;
 
     const deltaLat = (Math.random() * 1) / 100000;
     const deltaLng = (Math.random() * 1) / 100000;
 
     const newLocation = {
-      lat: latitude + deltaLat, // 위도에 약간의 변화
-      lng: longitude + deltaLng, // 경도에 약간의 변화
+      lat: lat + deltaLat, // 위도에 약간의 변화
+      lng: lng + deltaLng, // 경도에 약간의 변화
     };
 
     dispatch(setLocation(newLocation));

@@ -44,9 +44,6 @@ const LoginPage = () => {
 
         <div id="google-login-btn"></div>
         <br />
-        <div className="" onClick={() => googleSignOut()}>
-          로그아웃
-        </div>
       </div>
     </Container>
   );

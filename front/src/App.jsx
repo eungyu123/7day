@@ -70,9 +70,6 @@ function App() {
           if (steps >= 10000 && !appState.user.pedometerMissionClear) {
             setIsModalOpen(true);
           }
-          // if (steps >= 10000) {
-          //   setIsModalOpen(true);
-          // }
         }
       } catch (error) {
         console.error("걸음 데이터 가져오기 실패:", error);

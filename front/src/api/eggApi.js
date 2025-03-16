@@ -65,6 +65,7 @@ export const updateEggState = async ({ eggId }) => {
 };
 
 export const updateEggStep = async ({ steps }) => {
+  if (!userId) return;
   try {
     const res = await fetch(`${API_BASE_URL}/egg/${userId}`, {
       method: "PUT",

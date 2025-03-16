@@ -12,9 +12,9 @@ module.exports = {
       if (giftType === "포인트") {
         return {
           giftType,
-          point: Math.floor(Math.random() * 5) + 1,
-          lat: lat + (Math.random() - 0.5) / 10,
-          lng: lng + (Math.random() - 0.5) / 10,
+          point: Math.floor(Math.random() * 1000) + 1,
+          lat: lat + (Math.random() - 0.5) / 100,
+          lng: lng + (Math.random() - 0.5) / 100,
         };
       } else if (giftType === "쿠폰") {
         const randomReward =
@@ -24,16 +24,16 @@ module.exports = {
         return {
           giftType,
           rewardId: randomReward._id.toString(),
-          lat: lat + (Math.random() - 0.5) / 10,
-          lng: lng + (Math.random() - 0.5) / 10,
+          lat: lat + (Math.random() - 0.5) / 100,
+          lng: lng + (Math.random() - 0.5) / 100,
         };
       } else {
         const randomEgg = eggs[Math.floor(Math.random() * eggs.length)];
         return {
           giftType,
           eggId: randomEgg._id.toString(),
-          lat: lat + (Math.random() - 0.5) / 10,
-          lng: lng + (Math.random() - 0.5) / 10,
+          lat: lat + (Math.random() - 0.5) / 100,
+          lng: lng + (Math.random() - 0.5) / 100,
         };
       }
     });

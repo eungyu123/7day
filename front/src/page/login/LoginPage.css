@@ -15,6 +15,7 @@
 }
 
 .overview-img-wrapper {
+  position: relative;
   width: 240px;
   height: 280px;
   background-color: black;
@@ -23,17 +24,34 @@
 }
 
 .overview-img {
+  width: 240px;
+  height: 280px;
+}
 
+.overview-left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.overview-right-arrow {
+  position: absolute;
+  top: 50%;
+  left: 93%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .overview-img-index-circle-wrapper {
   display: flex;
-  gap: 4px; 
+  gap: 4px;
   margin-bottom: 40px;
 }
 
 .overview-img-index-circle {
-  width: 8px ;
+  width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: rgb(120, 120, 120);
@@ -43,14 +61,13 @@
   background-color: rgb(40, 40, 40);
 }
 
-
-.overview-img-title{
+.overview-img-title {
   font-size: var(--font-lg);
-  font-weight:700;
+  font-weight: 700;
   margin-bottom: 12px;
 }
 
-.overview-img-info{
+.overview-img-info {
   margin-bottom: 40px;
   width: 240px;
   text-align: center;

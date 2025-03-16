@@ -35,6 +35,24 @@ module.exports = {
           friendList: [],
           googleId: payload.sub,
           userPoint: 0,
+          character: "groot.glb",
+          characterList: [
+            {
+              characterId: "67c7e53b18757a2a43f8fcc3",
+              characterName: "그루트",
+              price: 500,
+              characterLink: "groot.glb",
+            },
+          ],
+          pet: "GreenChubby.glb",
+          petList: [
+            {
+              petId: "67c7e59f684ef9ca216756e9",
+              petName: "초록뚱이",
+              price: 300,
+              petLink: "GreenChubby.glb",
+            },
+          ],
         });
 
         await user.save();
@@ -59,6 +77,7 @@ module.exports = {
         sameSite: "None", // "Strict" 이면 같은 출처에서만 적용 현재는 서버, 클라 분리했기때문에 "None",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7일간 유지
       });
+
       return res.json({
         type: "success",
         message: "로그인 성공",

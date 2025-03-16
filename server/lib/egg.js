@@ -163,7 +163,8 @@ module.exports = {
         const log = new Log({
           userId,
           logType: "pet",
-          logContent: randomPet.petLink,
+          logImage: randomPet.petLink,
+          logContent: randomPet.petName,
         });
         const newLog = await log.save();
         return res.json({ type: "success", data: randomPet });
