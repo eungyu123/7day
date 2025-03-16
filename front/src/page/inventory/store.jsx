@@ -24,7 +24,7 @@ export default function Store() {
   const [itemType, setItemType] = useState("");
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState(0);
-
+  const [isOpenPurchaseModal, setIsOpenPurchaseModal] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState("");
   const [selectedPet, setSelectedPet] = useState("");
 
@@ -147,7 +147,15 @@ export default function Store() {
           type={itemType}
           itemName={itemName}
           price={itemPrice}
+          setIsOpenPurchaseModal={setIsOpenPurchaseModal}
         />
+
+        {isOpenPurchaseModal && (
+          <div className="store-purchase-modal">
+            <div className=""></div>
+            <div className=""></div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -363,6 +363,62 @@ const insertUser = async () => {
   }
 };
 
+const initializeUsers = async () => {
+  try {
+    const targetNicknames = [
+      "홍길동",
+      "안철수",
+      "김갑룡",
+      "이상혁",
+      "박봄",
+      "은규",
+    ];
+
+    // 각 사용자별로 데이터 초기화
+    for (let i = 0; i < targetNicknames.length; i++) {
+      const nickname = targetNicknames[i];
+
+      // nickname을 기준으로 사용자 찾기
+      const user = await User.findOne({ nickname });
+
+      if (user) {
+        // 필요한 필드를 업데이트
+        user.friendList = []; // 빈 친구 리스트로 초기화
+        user.googleId = `googleId_${i}`; // googleId 업데이트
+        user.userPoint = 0; // 포인트 초기화
+        user.character = "groot.glb"; // 기본 캐릭터 설정
+        user.characterList = [
+          {
+            characterId: "67c7e53b18757a2a43f8fcc3",
+            characterName: "그루트",
+            price: 500,
+            characterLink: "groot.glb",
+          },
+        ];
+        user.pet = "GreenChubby.glb"; // 기본 펫 설정
+        user.petList = [
+          {
+            petId: "67c7e59f684ef9ca216756e9",
+            petName: "초록뚱이",
+            price: 300,
+            petLink: "GreenChubby.glb",
+          },
+        ];
+
+        // 업데이트된 데이터 저장
+        await user.save();
+        console.log(`✅ ${nickname} 사용자 데이터 업데이트 완료`);
+      } else {
+        console.log(`❌ ${nickname} 사용자를 찾을 수 없습니다.`);
+      }
+    }
+
+    console.log("✅ 모든 사용자 데이터 초기화 완료!");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deleteLog = async () => {
   try {
     const deletelog = await Log.deleteMany({});
@@ -394,6 +450,7 @@ const seedAll = async () => {
   await seedReward();
   await insertMission();
   // await insertUser();
+  await initializeUsers();
   await seedRandomHatcheries();
   await seedWalkData();
 };
