@@ -23,7 +23,7 @@ async function seedEggData() {
       { eggType: "3", goalWalk: 1500, petLink: "" },
     ]);
 
-    console.log("🥚 Egg 데이터 삽입 완료:", eggs);
+    console.log("🥚 Egg 데이터 삽입 완료:");
 
     // 2️⃣ UserEgg 데이터 30개 생성
     // await seedUserEggData(eggs);
@@ -150,7 +150,7 @@ async function seedTrailData() {
     },
   ]);
 
-  console.log("🚀 산책로 저장 완료:", trails);
+  console.log("🚀 산책로 저장 완료:");
 
   // 2️⃣ 유저 산책 기록 추가
   const userId = "67c7ab445f743adc8dc272a5"; // 실제 문자열 ID 사용
@@ -174,7 +174,7 @@ async function seedTrailData() {
   });
 
   const savedUserTrails = await Promise.all(userTrailPromises);
-  console.log("🚀 유저 산책로 저장 완료:", savedUserTrails);
+  console.log("🚀 유저 산책로 저장 완료:");
 }
 
 async function seedRandomHatcheries() {
@@ -184,8 +184,8 @@ async function seedRandomHatcheries() {
     const lngBase = 127.0711621661235;
 
     // ±0.025도 (약 0.25km) 범위에서 랜덤한 값 생성
-    const latOffset = (Math.random() - 0.5) * 0.01;
-    const lngOffset = (Math.random() - 0.5) * 0.01;
+    const latOffset = (Math.random() - 0.5) * 0.03;
+    const lngOffset = (Math.random() - 0.5) * 0.04;
 
     const randomLat = latBase + latOffset;
     const randomLng = lngBase + lngOffset;
@@ -196,7 +196,7 @@ async function seedRandomHatcheries() {
   // 30개의 랜덤한 Hatchery 데이터 생성
   const hatcheries = [];
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 15; i++) {
     const { randomLat, randomLng } = getRandomCoordinate();
 
     const hatchery = new Hatchery({
@@ -248,7 +248,7 @@ async function seedReward() {
       },
     ];
     const insertedRewards = await Reward.insertMany(rewards);
-    console.log(insertedRewards);
+    console.log("보상넣기");
   } catch (error) {
     console.error(error);
   }
@@ -291,7 +291,7 @@ const insertMission = async () => {
       ...mission,
       rewardId: insertedRewards[i % insertedRewards.length]._id || null,
     }));
-    console.log("업데이트된 미션 데이터:", updatedMissionData);
+    console.log("업데이트된 미션 데이터:");
 
     // 미션 데이터 삽입
     await Mission.deleteMany({});
@@ -302,13 +302,7 @@ const insertMission = async () => {
       const mission = await Mission.findById(insertedMissions[i]._id)
         .populate("rewardId", "content") // rewardId 필드를 populate하여 content를 가져옵니다.
         .exec();
-
-      console.log(`Mission ${mission._id}:`, mission);
-      console.log(
-        `Mission ${mission._id}: Reward Content - ${mission.rewardId.content}`
-      );
     }
-    console.log(insertedMissions);
 
     const removeum = await UserMission.deleteMany({});
     console.log("삭제 (seedAll) ", removeum);
@@ -422,7 +416,6 @@ const initializeUsers = async () => {
 const deleteLog = async () => {
   try {
     const deletelog = await Log.deleteMany({});
-    console.log(deletelog);
   } catch (error) {
     console.log(error);
   }
