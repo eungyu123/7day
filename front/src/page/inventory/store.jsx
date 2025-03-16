@@ -6,6 +6,7 @@ import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
 import ConfirmCancelModal from "../../component/modal/ConfirmCancelModal";
+import StoreModal from "./StoreModal";
 
 import Header from "../../component/common/header/Header";
 import { getStore } from "../../api/storeApi";
@@ -151,10 +152,14 @@ export default function Store() {
         />
 
         {isOpenPurchaseModal && (
-          <div className="store-purchase-modal">
-            <div className=""></div>
-            <div className=""></div>
-          </div>
+          <StoreModal
+            isOpen={isOpenPurchaseModal}
+            setIsOpen={setIsOpenPurchaseModal}
+            selectedItem={selectedItem}
+            img={imgPath}
+            type={itemType}
+            itemName={itemName}
+          />
         )}
       </div>
     </>

@@ -17,7 +17,6 @@ export default function NicknamePage() {
       alert("닉네임을 입력해주세요.");
     } else {
       const data = await updateUserName(nickname);
-      alert(data.message);
       console.log(data);
       if (data.type == "success") {
         navigate("/");

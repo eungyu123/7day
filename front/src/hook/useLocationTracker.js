@@ -17,7 +17,7 @@ import { setTodayWalk } from "../context/reducer/action/action";
 
 /** 위치 추적 훅 시간으로 계산 */
 export const useLocationTracker = ({ dispatch }) => {
-  if (!userId) return;
+  if (!localStorage.getItem("userId")) return;
   let prevLocation = null;
 
   useEffect(() => {

@@ -87,9 +87,7 @@ export default function HatcheryPage() {
             logs.data.map((log) => {
               return (
                 <LogButton
-                  imgSrc={`/images/pets/${
-                    log.logContent.split(".")[0]
-                  }Head.jpg`}
+                  imgSrc={`/images/pets/${log.logImage.split(".")[0]}Head.jpg`}
                   description={log.logContent}
                   href={PAGE_URLS.InventoryPage}
                 />

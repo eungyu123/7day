@@ -17,10 +17,10 @@ async function seedEggData() {
     // 1️⃣ Egg 데이터 생성 (5개)
     const eggs = await Egg.insertMany([
       { eggType: "1", goalWalk: 1500, petLink: "" },
-      { eggType: "2", goalWalk: 3000, petLink: "" },
-      { eggType: "1", goalWalk: 2000, petLink: "" },
-      { eggType: "1", goalWalk: 2500, petLink: "" },
-      { eggType: "3", goalWalk: 4000, petLink: "" },
+      { eggType: "2", goalWalk: 1500, petLink: "" },
+      { eggType: "1", goalWalk: 1500, petLink: "" },
+      { eggType: "1", goalWalk: 1500, petLink: "" },
+      { eggType: "3", goalWalk: 1500, petLink: "" },
     ]);
 
     console.log("🥚 Egg 데이터 삽입 완료:", eggs);
@@ -196,7 +196,7 @@ async function seedRandomHatcheries() {
   // 30개의 랜덤한 Hatchery 데이터 생성
   const hatcheries = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     const { randomLat, randomLng } = getRandomCoordinate();
 
     const hatchery = new Hatchery({
@@ -450,6 +450,7 @@ const seedAll = async () => {
   await seedReward();
   await insertMission();
   // await insertUser();
+  await deleteLog();
   await initializeUsers();
   await seedRandomHatcheries();
   await seedWalkData();
@@ -542,27 +543,27 @@ const walkData = [
   },
   {
     userId,
-    steps: 4567,
+    steps: 12567,
     date: "2025-02-17",
   },
   {
     userId,
-    steps: 1234,
+    steps: 13234,
     date: "2025-02-18",
   },
   {
     userId,
-    steps: 6789,
+    steps: 14789,
     date: "2025-02-19",
   },
   {
     userId,
-    steps: 2345,
+    steps: 15345,
     date: "2025-02-20",
   },
   {
     userId,
-    steps: 7890,
+    steps: 16890,
     date: "2025-02-21",
   },
   {
@@ -572,7 +573,7 @@ const walkData = [
   },
   {
     userId,
-    steps: 5678,
+    steps: 17678,
     date: "2025-02-23",
   },
   {
@@ -582,12 +583,12 @@ const walkData = [
   },
   {
     userId,
-    steps: 4567,
+    steps: 14567,
     date: "2025-02-25",
   },
   {
     userId,
-    steps: 1234,
+    steps: 13234,
     date: "2025-02-26",
   },
   {
@@ -622,7 +623,7 @@ const walkData = [
   },
   {
     userId,
-    steps: 4567,
+    steps: 15567,
     date: "2025-03-05",
   },
   {
@@ -642,7 +643,7 @@ const walkData = [
   },
   {
     userId,
-    steps: 7890,
+    steps: 12890,
     date: "2025-03-09",
   },
   {
@@ -652,12 +653,12 @@ const walkData = [
   },
   {
     userId,
-    steps: 5678,
+    steps: 12678,
     date: "2025-03-11",
   },
   {
     userId,
-    steps: 3456,
+    steps: 13456,
     date: "2025-03-12",
   },
   {
@@ -667,7 +668,7 @@ const walkData = [
   },
   {
     userId,
-    steps: 1234,
+    steps: 15234,
     date: "2025-03-14",
   },
   {
