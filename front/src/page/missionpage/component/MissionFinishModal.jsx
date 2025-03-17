@@ -15,7 +15,7 @@ export default function MissionFinishModal({
       </div>
       <div className="mission-animation-title-wrapper">
         <div className="mission-animation-title"> 축하해요</div>
-        <div className="mission-animation-subtitle">미션을 완수했어요👏</div>
+        <div className="mission-animation-subtitle">미션을 완수했어요<span className="emojifont">👏</span></div>
       </div>
 
       <div className="mission-animation-img-wrapper">

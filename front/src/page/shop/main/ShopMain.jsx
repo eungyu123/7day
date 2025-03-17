@@ -4,7 +4,7 @@ export default function ShopMain() {
     return (
         <Container column={true}>
         <div className="spm-header">
-            <div className="">토스 쇼핑</div>
+            <div className="">7day 쇼핑</div>
             <div className="">
                 <div className="">검색</div>
                 <div className="">사용자</div>

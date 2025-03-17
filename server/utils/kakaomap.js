@@ -4,7 +4,7 @@ const Reward = require("../db/models/Reward");
 
 module.exports = {
   generateRandomGifts: async function ({ lat, lng }) {
-    const count = 30;
+    const count = 100;
     const eggs = await Egg.find();
     const rewards = await Reward.find();
     const items = new Array(count).fill(0).map(() => {
@@ -13,8 +13,8 @@ module.exports = {
         return {
           giftType,
           point: Math.floor(Math.random() * 1000) + 1,
-          lat: lat + (Math.random() - 0.5) / 100,
-          lng: lng + (Math.random() - 0.5) / 100,
+          lat: lat + (Math.random() - 0.5) / 50,
+          lng: lng + (Math.random() - 0.5) / 50,
         };
       } else if (giftType === "쿠폰") {
         const randomReward =
@@ -24,16 +24,16 @@ module.exports = {
         return {
           giftType,
           rewardId: randomReward._id.toString(),
-          lat: lat + (Math.random() - 0.5) / 100,
-          lng: lng + (Math.random() - 0.5) / 100,
+          lat: lat + (Math.random() - 0.5) / 50,
+          lng: lng + (Math.random() - 0.5) / 50,
         };
       } else {
         const randomEgg = eggs[Math.floor(Math.random() * eggs.length)];
         return {
           giftType,
           eggId: randomEgg._id.toString(),
-          lat: lat + (Math.random() - 0.5) / 100,
-          lng: lng + (Math.random() - 0.5) / 100,
+          lat: lat + (Math.random() - 0.5) / 50,
+          lng: lng + (Math.random() - 0.5) / 50,
         };
       }
     });

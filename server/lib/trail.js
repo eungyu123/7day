@@ -136,7 +136,7 @@ module.exports = {
       );
       console.log(allVisited);
       if (allVisited) {
-        const randomPoint = Math.floor(Math.random() * 10000) + 1;
+        const randomPoint = Math.floor(Math.random() * 50000) + 20000;
         user.userPoint = (user.userPoint || 0) + randomPoint;
         const savedUser = await user.save();
         userTrail.getReward = true;

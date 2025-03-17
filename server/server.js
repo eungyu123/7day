@@ -60,8 +60,8 @@ const eggRouter = require("./router/eggRouter");
 app.use("/egg", eggRouter);
 
 // 인증서 파일 경로 쿠키설정을 위해서 cors 설정 때문에 해야함
-const privateKey = fs.readFileSync("./ssl/key.pem", "utf8");
-const certificate = fs.readFileSync("./ssl/cert.pem", "utf8");
+const privateKey = fs.readFileSync("./ssl/localhost+2-key.pem", "utf8");
+const certificate = fs.readFileSync("./ssl/localhost+2.pem", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 // HTTPS 서버 설정

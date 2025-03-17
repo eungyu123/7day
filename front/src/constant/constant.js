@@ -1,5 +1,3 @@
-import { ShoppingOrderPage } from "../page";
-
 export const PAGE_URLS = {
   MainPage: "/",
   LoginPage: "/LoginPage",
@@ -30,14 +28,10 @@ export const API_BASE_URL = "https://localhost:3000";
 // export const userId = localStorage.getItem("userId");
 export const userId = "67d691f2cf69e415952d3fe0";
 
-// _id: new ObjectId('67d691f2cf69e415952d3fe0'),
-
 // _id: new ObjectId('67d691f2cf69e415952d3fe3'),
-
 // _id: new ObjectId('67d691f2cf69e415952d3fe6'),
-
 // _id: new ObjectId('67d691f2cf69e415952d3fe9'),
-
 // _id: new ObjectId('67d691f2cf69e415952d3fec'),
 
 export const EGG_COLORS = ["#FFD700", "#C0C0C0", "#B87333"];
+

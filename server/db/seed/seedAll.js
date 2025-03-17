@@ -180,8 +180,8 @@ async function seedTrailData() {
 async function seedRandomHatcheries() {
   const result = await Hatchery.deleteMany({});
   function getRandomCoordinate() {
-    const latBase = 37.624352566123505;
-    const lngBase = 127.0711621661235;
+    const latBase = 37.56141586286453;
+    const lngBase = 126.96903996286447;
 
     // ±0.025도 (약 0.25km) 범위에서 랜덤한 값 생성
     const latOffset = (Math.random() - 0.5) * 0.03;
@@ -196,7 +196,7 @@ async function seedRandomHatcheries() {
   // 30개의 랜덤한 Hatchery 데이터 생성
   const hatcheries = [];
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 20; i++) {
     const { randomLat, randomLng } = getRandomCoordinate();
 
     const hatchery = new Hatchery({
@@ -445,7 +445,7 @@ const seedAll = async () => {
   // await insertUser();
   await deleteLog();
   await initializeUsers();
-  await seedRandomHatcheries();
+  // await seedRandomHatcheries();
   await seedWalkData();
 };
 

@@ -14,7 +14,7 @@ export default function WcAnimationModal({
       <div className="wc-animation-modal-title-wrapper">
         <div className="wc-animation-modal-title"> 축하해요</div>
         <div className="wc-animation-modal-subtitle">
-          스탬프를 다 찍었어요👏
+          스탬프를 다 찍었어요<span className="emojifont">👏</span>
         </div>
       </div>
 

@@ -140,7 +140,7 @@ export default function ShoppingDetailPage() {
         <div className="shoppingdetailpage-discount-coupon">
           <div className="shoppingdetailpage-discount-coupon-text">
             <div className="shoppingdetailpage-discount-coupon-icon">%</div>
-            <p>토스쇼핑 할인 쿠폰</p>
+            <p>7day 쇼핑 할인 쿠폰</p>
           </div>
           {!doneDownload ? (
             <span class="material-symbols-outlined" onClick={HandleDownload}>
