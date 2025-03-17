@@ -24,11 +24,11 @@ export default function ShoppingPage() {
 
   return (
     <div className="shoppingpage-container">
-      <ShoppingHeader pagename={"토스 쇼핑"} />
+      <ShoppingHeader />
       <div className="shoppingpage-point-container">
         <p className="shoppingpage-point-text">내 포인트</p>
         <div className="shoppingpage-point-between">
-          <p className="shoppingpage-mypoint">{appState.user.userPoint}P</p>
+          <p className="shoppingpage-mypoint">{appState.user.userPoint}원</p>
           <button className="shoppingpage-point-btn">출금</button>
         </div>
         <div className="shoppingpage-point-row">
@@ -70,7 +70,7 @@ export default function ShoppingPage() {
                   {Shop.discount}%
                 </p>
                 <p className="shoppingpage-item-price-text">
-                  {(Shop.price * (100 - Shop.discount)) / 100}P
+                  {(Shop.price * (100 - Shop.discount)) / 100}원
                 </p>
               </div>
               {!Shop.delivery && (

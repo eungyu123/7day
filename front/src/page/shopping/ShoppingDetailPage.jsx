@@ -132,7 +132,7 @@ export default function ShoppingDetailPage() {
           <p className="shoppingdetailpage-discount-text">
             {shopItem.discount}%
           </p>
-          <p>{(shopItem.price * (100 - shopItem.discount)) / 100}P</p>
+          <p>{(shopItem.price * (100 - shopItem.discount)) / 100}원</p>
         </div>
         {!shopItem.delivery && (
           <div className="shoppingdetailpage-delivery">무료배송</div>
@@ -159,7 +159,7 @@ export default function ShoppingDetailPage() {
             </p>
           </div>
           <p className="shoppingdetailpage-delivery-info-graytext-sm">
-            제주, 도서산간지역 5,000P 추가
+            제주, 도서산간지역 5,000원 추가
           </p>
           <div className="shoppingdetailpage-info-row">
             <p className="shoppingdetailpage-delivery-info-graytext">

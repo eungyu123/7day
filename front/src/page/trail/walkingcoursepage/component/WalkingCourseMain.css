@@ -1,0 +1,306 @@
+.wc-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 90vh;
+  align-items: center;
+}
+
+/* 다시시작  */
+.wc-map-wrapper {
+  width: 100%;
+  height: 60vh;
+}
+
+.wc-content-wrapper {
+  width: 100%;
+  padding: 10px 20px;
+}
+.wc-info-wrapper {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wc-info-header {
+  width: 100%;
+  font-size: 14px;
+  color: var(--toss-blue);
+  padding: 10px 0;
+}
+
+.wc-info-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  padding-bottom: 8px;
+}
+
+.emojifont.wc-gift {
+  vertical-align: 1.8px; /* 원하는 값으로 조절 */
+  cursor: pointer;
+}
+.emojifont.wc-emoji-right {
+  padding: 0 8px;
+}
+
+.wc-info-coord {
+  font-weight: 500;
+  color: var(--toss-gray);
+  padding-bottom: 4px;
+  font-size: 14px;
+}
+
+.wc-info-imgs-title {
+  width: 100%;
+  color: var(--toss-gray);
+  padding: 20px 0;
+  font-size: var(--font-lg);
+  font-weight: 700;
+}
+
+.wc-info-imgs {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 8px;
+}
+
+.wc-info-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  flex: 0 0 auto;
+  background-size: cover;
+  background-position: center;
+}
+
+.wc-info-img.selected {
+  width: 63px;
+  height: 63px;
+  border: 3px solid var(--toss-blue);
+}
+
+.wc-info-bt-line {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wc-landmark-img {
+  width: 100%;
+  height: 240px;
+  background-color: black;
+  margin-bottom: 8px;
+  background-size: cover; /* 이미지 확대 */
+  background-position: center;
+}
+
+.wc-landmark-header-wrapper {
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wc-landmark-title-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.wc-landmark-title {
+  font-weight: 700;
+}
+.wc-landmark-title-stamp {
+  width: 20px;
+  height: 20px;
+  background-image: url("../../../../assets/stamp_color.png");
+  background-size: cover;
+}
+
+.wc-landmark-marker {
+  position: absolute;
+  right: 12px;
+  top: 60%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background-image: url("../../../../assets/marker_red.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.wc-landmark-marker.selected {
+  filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.8));
+}
+/* .wc-landmark-marker.selected::after {
+  content: "✔️";
+  position: absolute;
+  top: -20px;
+  font-size: 20px;
+  font-weight: bold;
+} */
+
+.wc-landmark-marker-index {
+  position: absolute;
+  top: 40%;
+  left: 36%;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+  color: white;
+  font-size: 0.825rem;
+}
+
+.wc-landmark-coord {
+  font-weight: 500;
+  color: var(--toss-gray);
+  padding-bottom: 4px;
+  font-size: 14px;
+}
+
+.wc-landmark-info {
+  font-weight: 500;
+  color: var(--toss-gray);
+  padding-bottom: 4px;
+}
+
+.wc-landmark-info-des {
+  color: var(--toss-gray);
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.wc-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--toss-blue);
+  padding: 8px 0;
+  color: white;
+  border-radius: 12px;
+}
+
+/* 모달  */
+.wc-stamp-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.wc-stamp-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: var(--modal-radius);
+  padding: 20px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wc-stamp-wrapper {
+  width: 200px;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--toss-blue);
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.wc-stamp-wrapper.not-visited {
+  width: 200px;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  border: 1px dashed var(--toss-blue);
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.wc-stamp-title {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  color: #426bff;
+  margin-bottom: 32px;
+}
+
+.wc-stamp-img {
+  width: 72px;
+  height: 72px;
+  background-image: url("../../../../assets/stamp.png");
+  background-size: contain;
+  margin-bottom: 32px;
+}
+
+.wc-stamp-day {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  color: #426bff;
+}
+.wc-stamp-not-visit {
+  text-align: center;
+  font-size: 0.825rem;
+  font-weight: 400;
+  color: #426bff;
+}
+
+.wc-stamp-button {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  background-color: var(--toss-blue);
+  padding: 8px 0;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.wc-stamp-animation {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-image: url("../../../../assets/stamp_color.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: stamp-animation 2s ease-in-out forwards;
+}
+
+@keyframes stamp-animation {
+  0% {
+    top: 0;
+    left: 100%;
+    transform: translateX(-100%) translateY(0) rotate(60deg);
+  }
+  50% {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  80% {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+  }
+  100% {
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+  }
+}

@@ -17,7 +17,7 @@ export default function HatcheryPage() {
   const [eggType, setEggType] = useState(null);
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [progress, setProgress] = useState(0); // 진행 상태를 관리
-  const [canHatch, setCanHatch] = useState(true);
+  const [canHatch, setCanHatch] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
   const [reward, setReward] = useState(null);
@@ -31,7 +31,7 @@ export default function HatcheryPage() {
   if (eggs.type == "success") {
     hatchingEgg = eggs?.data?.find((egg) => egg.state == "hatching");
   } else {
-    hatchingEgg = false; 
+    hatchingEgg = false;
   }
 
   useEffect(() => {
@@ -40,18 +40,18 @@ export default function HatcheryPage() {
         setIsHatching(true);
         setEggType(hatchingEgg.eggType);
         setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
-        if (hatchingEgg.currentStep >= hatchingEgg.goalWalk || true) {
+        if (hatchingEgg.currentStep >= hatchingEgg.goalWalk) {
           setCanHatch(true);
         }
       } else {
-        setIsHatching( false ); 
+        setIsHatching(false);
       }
     }
     setLoading(false); // 로딩 완료 후 상태 변경
   }, [eggs]);
 
   const doHatch = async () => {
-    // if (!canHatch) return;
+    if (!canHatch) return;
     console.log("hatchingEgg", hatchingEgg);
     const data = await doHatchApi({ eggId: hatchingEgg.eggId });
     if (data.type == "success") {
@@ -87,9 +87,7 @@ export default function HatcheryPage() {
             logs.data.map((log) => {
               return (
                 <LogButton
-                  imgSrc={`/images/pets/${
-                    log.logContent.split(".")[0]
-                  }Head.jpg`}
+                  imgSrc={`/images/pets/${log.logImage.split(".")[0]}Head.jpg`}
                   description={log.logContent}
                   href={PAGE_URLS.InventoryPage}
                 />

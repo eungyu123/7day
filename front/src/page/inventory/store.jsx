@@ -6,6 +6,7 @@ import InventoryTabs from "../../component/inventory/InventoryTabs";
 import InventoryItem from "../../component/inventory/InventoryItem";
 import CharacterViewer from "../../component/inventory/CharacterViewer";
 import ConfirmCancelModal from "../../component/modal/ConfirmCancelModal";
+import StoreModal from "./StoreModal";
 
 import Header from "../../component/common/header/Header";
 import { getStore } from "../../api/storeApi";
@@ -24,7 +25,7 @@ export default function Store() {
   const [itemType, setItemType] = useState("");
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState(0);
-
+  const [isOpenPurchaseModal, setIsOpenPurchaseModal] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState("");
   const [selectedPet, setSelectedPet] = useState("");
 
@@ -147,7 +148,19 @@ export default function Store() {
           type={itemType}
           itemName={itemName}
           price={itemPrice}
+          setIsOpenPurchaseModal={setIsOpenPurchaseModal}
         />
+
+        {isOpenPurchaseModal && (
+          <StoreModal
+            isOpen={isOpenPurchaseModal}
+            setIsOpen={setIsOpenPurchaseModal}
+            selectedItem={selectedItem}
+            img={imgPath}
+            type={itemType}
+            itemName={itemName}
+          />
+        )}
       </div>
     </>
   );

@@ -17,4 +17,7 @@ router.get("/rewards/:userId", (req, res) => {
   main.getRewards(req, res);
 });
 
+router.get("/cp", (req, res) => {
+  main.updatePetName(req, res);
+});
 module.exports = router;

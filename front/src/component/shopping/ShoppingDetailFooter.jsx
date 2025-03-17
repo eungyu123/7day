@@ -114,7 +114,7 @@ export default function ShoppingDetailFooter({ index }) {
                         +
                       </button>
                     </div>
-                    <p>{price}P</p>
+                    <p>{price}원</p>
                   </div>
                 </div>
                 <div className="shoppingdetailfooter-total">
@@ -122,7 +122,7 @@ export default function ShoppingDetailFooter({ index }) {
                     <p style={{ color: "var(--toss-blue)" }}>{quantity}</p>
                     <p style={{ color: "var(--toss-gray)" }}>개 상품 금액</p>
                   </div>
-                  <p className="shoppingdetailfooter-totalprice">{price}P</p>
+                  <p className="shoppingdetailfooter-totalprice">{price}원</p>
                 </div>
                 <div className="shoppingdetailfooter-totaldelivery">
                   <p style={{ color: "var(--toss-blue)" }}>

@@ -12,7 +12,12 @@ export default function BasicButton({ icon, description, href }) {
       </div>
       <div className="common-basic-btn-des">{description}</div>
       <div className="common-basic-btn-icon">
-        <span className="material-symbols-outlined font-xl">chevron_right</span>
+        <span
+          className="material-symbols-outlined"
+          style={{ fontSize: "24px" }}
+        >
+          chevron_right
+        </span>
       </div>
     </Component>
   );

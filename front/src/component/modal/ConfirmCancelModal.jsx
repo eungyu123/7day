@@ -16,6 +16,7 @@ export default function ConfirmCancelModal({
   type,
   itemName,
   price,
+  setIsOpenPurchaseModal,
 }) {
   const { appState, dispatch } = useAppContext();
   const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
@@ -39,7 +40,7 @@ export default function ConfirmCancelModal({
         return;
       }
 
-      alert(`${selectedItem.characterName} 구매 완료!`);
+      setIsOpenPurchaseModal(true);
       setIsOpen(false);
 
       const user = await getUser();

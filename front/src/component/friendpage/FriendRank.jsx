@@ -8,7 +8,11 @@ export default function FriendRank({
   IsMe = false,
 }) {
   const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
-  const imgPath = `${imgNameWithoutExt}Head.jpg`;
+  let imgPath = `${imgNameWithoutExt}Head.jpg`;
+  console.log(imgPath, "imgPath", img);
+  if (!img) {
+    imgPath = "grootHead.jpg";
+  }
   const imagePath = `/images/characters/${imgPath}`;
   return (
     <div

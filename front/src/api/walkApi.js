@@ -27,6 +27,7 @@ export const getWalkData = async (startDate, endDate, insertUserId) => {
 };
 
 export const updateWalkData = async ({ steps }) => {
+  if (!userId) return;
   try {
     const res = await fetch(`${API_BASE_URL}/walkdatas/${userId}`, {
       method: "PUT",

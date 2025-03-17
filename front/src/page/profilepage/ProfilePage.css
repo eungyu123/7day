@@ -26,11 +26,11 @@
   font-weight: 700;
 }
 
-.profile-rewards-wrapper{
+.profile-rewards-wrapper {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%; 
-  padding:20px;
+  width: 100%;
+  padding: 20px;
   margin-bottom: 20px;
 }

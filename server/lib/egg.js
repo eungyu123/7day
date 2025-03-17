@@ -7,7 +7,6 @@ module.exports = {
     try {
       const { eggId } = req.body;
       const egg = await Egg.findById(eggId);
-      console.log("egg", egg);
       res.json({ type: "success", data: egg });
     } catch (error) {
       console.log(error);
@@ -19,7 +18,7 @@ module.exports = {
       const { userId } = req.params;
 
       const userEggs = await UserEgg.find({ userId });
-      
+
       if (!userEggs.length) {
         console.log(userEggs.length);
         return res.status(404).json({
@@ -40,7 +39,7 @@ module.exports = {
       const { eggId } = req.body;
       console.log(userId, eggId);
 
-      const userEgg = await UserEgg.findOne({userId,eggId});
+      const userEgg = await UserEgg.findOne({ userId, eggId });
 
       await UserEgg.updateMany(
         { userId, state: "hatching", _id: { $ne: eggId } }, // eggId가 아닌 hatching 상태의 알들을 찾음
@@ -127,8 +126,11 @@ module.exports = {
 
       // 목표 걸음 수를 초과하면 알 삭제 및 펫 지급
       if (userEgg.currentStep >= userEgg.goalWalk || true) {
-        const result = await UserEgg.deleteOne({  userId: userEgg.userId, eggId: userEgg.eggId }); // 알 삭제
-        console.log(result, userEgg.eggId, eggId)
+        const result = await UserEgg.deleteOne({
+          userId: userEgg.userId,
+          eggId: userEgg.eggId,
+        }); // 알 삭제
+        console.log(result, userEgg.eggId, eggId);
         let randomPet;
 
         const pets = await Pet.find(); // 전체 펫 목록 가져오기
@@ -141,7 +143,7 @@ module.exports = {
         // const availablePets = pets.filter(
         //   (pet) => !user.petList.some((userPet) => userPet.petId === pet._id.toString())
         // );
-        const availablePets = pets; 
+        const availablePets = pets;
         if (availablePets.length > 0) {
           randomPet =
             availablePets[Math.floor(Math.random() * availablePets.length)];
@@ -152,8 +154,8 @@ module.exports = {
             petLink: randomPet.petLink,
           });
         } else {
-          console.log("모든 펫 소유중")
-          return res.json({type:"error", message:"모든 펫 소유중"})
+          console.log("모든 펫 소유중");
+          return res.json({ type: "error", message: "모든 펫 소유중" });
         }
         // 유저 펫 목록에 추가
 
@@ -161,7 +163,8 @@ module.exports = {
         const log = new Log({
           userId,
           logType: "pet",
-          logContent: randomPet.petLink,
+          logImage: randomPet.petLink,
+          logContent: randomPet.petName,
         });
         const newLog = await log.save();
         return res.json({ type: "success", data: randomPet });
@@ -169,7 +172,7 @@ module.exports = {
         return res.json({ type: "error", message: "걸음수 부족" });
       }
     } catch (error) {
-      console.log(error); 
+      console.log(error);
       return res
         .status(500)
         .json({ type: "error", message: "Internal server error" });

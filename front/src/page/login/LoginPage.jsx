@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "./LoginPage.css";
 import Container from "../../component/common/Container";
 import { googleSignIn, googleSignOut } from "../../api/authApi";
-import OverView from "./OverView.jsx"
+import OverView from "./OverView.jsx";
 import Test from "./Test.jsx";
 
 const LoginPage = () => {
@@ -37,19 +37,13 @@ const LoginPage = () => {
     await googleSignIn(token);
   };
 
-  googleSignOut();
-
   return (
     <Container>
       <div className="login-container">
-        
-        <OverView/>
-        
+        {/* <OverView /> */}
+
         <div id="google-login-btn"></div>
         <br />
-        {/* <div className="" onClick={() => signOut()}>
-          로그아웃
-        </div> */}
       </div>
     </Container>
   );

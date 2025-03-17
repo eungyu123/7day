@@ -46,9 +46,6 @@ module.exports = {
     try {
       const { userId, point } = req.body;
 
-      console.log("[user.js] 유저아이디는 ", userId);
-      console.log("[user.js]포인트는 ", point);
-
       const user = await setUserPoints(userId, point);
 
       res.status(200).json({
@@ -63,7 +60,6 @@ module.exports = {
   setPedometerMissionClear: async (req, res) => {
     try {
       const userId = req.params.userId;
-      console.log("[setPedometerMissionClear] userId: ", userId);
 
       const user = await setPedometerMissionClear(userId);
 
@@ -86,7 +82,6 @@ module.exports = {
         friends.map(async (friendId) => {
           //각각의 friend 정보 찾는 함수
           const friend = await getUser({ params: { userId: friendId } });
-          console.log("friendid로 get user", friend);
           return {
             friendId: friend._id,
             friendName: friend.nickname,
@@ -119,7 +114,6 @@ module.exports = {
           message: "User not found",
         });
       }
-      console.log("User found:"); // 사용자 확인
 
       if (user.friendList.some((friend) => friend.friend_id === friendid)) {
         console.log("이미 존재하는 친구");
@@ -194,7 +188,6 @@ module.exports = {
       const user = await getUser(req, res);
       // console.log("user", user);
       const gift = user.gifts.find((v) => v._id == giftId);
-      console.log("gift", gift);
       if (gift.giftType == "포인트") {
         user.userPoint += Number(gift.point);
       } else if (gift.giftType == "쿠폰") {

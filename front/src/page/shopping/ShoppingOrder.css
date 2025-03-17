@@ -34,7 +34,7 @@
   width: 50px;
   text-align: center;
   color: white;
-  padding: 5px;
+  padding: 8px;
   border-radius: var(--button-radius);
 }
 .shopping-order-address-info-edit:active {
@@ -150,4 +150,3 @@ hr {
 .shopping-order-address-new > p {
   /* color: white; */
 }
-.

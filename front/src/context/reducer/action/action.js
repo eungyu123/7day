@@ -98,3 +98,11 @@ export function setTrailRandmarkIndex({ trailRandmarkIndex }) {
     payload: { trailRandmarkIndex },
   };
 }
+
+export function setTodayWalk({ steps }) {
+  console.log(steps);
+  return {
+    type: actionType.setTodayWalk,
+    payload: { steps },
+  };
+}

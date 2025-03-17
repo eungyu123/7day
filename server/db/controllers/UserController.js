@@ -30,15 +30,21 @@ module.exports = {
     return user;
   },
   updateUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
+    const updateData = req.body.nickname
+      ? { nickname: req.body.nickname, nicknameEdit: true }
+      : req.body;
+
+    const user = await User.findByIdAndUpdate(req.params.userId, updateData, {
       new: true,
     });
+
     if (!user) {
       return res.status(400).json({
         type: "error",
         message: "user searching failed",
       });
     }
+    console.log(user.nickname, user.nicknameEdit);
     return user;
   },
   deleteUser: async (req, res) => {

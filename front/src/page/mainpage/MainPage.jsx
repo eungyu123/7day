@@ -1,34 +1,22 @@
 import "./MainPage.css";
 
-import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/context";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
 import BasicButton from "../../component/common/button/BasicButton";
-import MainMap from "../../component/mainPage/kakaomap/MainMap";
 import Container from "../../component/common/Container";
 import HalfButtonWrapper from "../../component/common/wrapper/HalfBasicButtonWrapper";
-import VisitModal from "../../component/modal/VisitModal";
 import { PAGE_URLS } from "../../constant/constant";
-import PointButton from "../../component/mainPage/PointButton";
-import StoreButton from "../../component/mainPage/StoreButton";
-import RouletteModal from "../../component/modal/RouletteModal";
-import ThreeScene from "../../component/Three/ThreeScene";
-import RewardModal from "../../component/modal/RewardModal";
+import MainMap from "./component/kakaomap/MainMap";
+import PointButton from "./component/PointButton";
+import StoreButton from "./component/StoreButton";
 
 export default function MainPage() {
   const { appState, dispatch } = useAppContext();
 
-  // console.log("appState.user", appState.user);
-
   return (
     <Container>
       <MainMap />
-      {/* <div className="main-character-wrapper">
-        <ThreeScene
-          character={appState.user.character}
-          pet={appState.user.pet}
-        />
-      </div> */}
+
       <HalfButtonWrapper>
         <PointButton
           icon="💎"
@@ -38,6 +26,7 @@ export default function MainPage() {
         />
         <StoreButton icon="🏪" title="상점" href={PAGE_URLS.StorePage} />
       </HalfButtonWrapper>
+
       <ButtonWrapper>
         {buttonsProp.map((button) => (
           <BasicButton
@@ -48,16 +37,6 @@ export default function MainPage() {
           />
         ))}
       </ButtonWrapper>
-
-      {/* <img
-        src="https://em-content.zobj.net/source/microsoft-teams/363/party-popper_1f389.png"
-        loading="lazy"
-        alt="15.0"
-        class="w-auto h-full"
-      ></img> */}
-
-
-
     </Container>
   );
 }

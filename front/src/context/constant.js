@@ -10,4 +10,6 @@ export const initialState = {
   trailIndex: null,
   trailLocation: null,
   trailRandmarkIndex: null,
+
+  todayWalk: null,
 };

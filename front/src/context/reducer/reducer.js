@@ -31,7 +31,11 @@ export function appReducer(state, action) {
     case actionType.setLocation: {
       return {
         ...state,
-        location: { lat: action.payload.lat, lng: action.payload.lng, vector: action.payload?.vector },
+        location: {
+          lat: action.payload.lat,
+          lng: action.payload.lng,
+          vector: action.payload?.vector,
+        },
       };
     }
 
@@ -102,6 +106,13 @@ export function appReducer(state, action) {
       return {
         ...state,
         trailRandmarkIndex: action.payload.trailRandmarkIndex,
+      };
+    }
+
+    case actionType.setTodayWalk: {
+      return {
+        ...state,
+        todayWalk: action.payload.steps,
       };
     }
     default:
