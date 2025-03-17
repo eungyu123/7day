@@ -43,7 +43,7 @@ export default function FriendPageMain() {
       //친구 데이터 가져오기
       const friendDataResponse = await getUserFriend(); // getUserFriend API 호출
       const frienddata = friendDataResponse.data;
-      if (frienddata) setHaveFriend(true);
+      if (frienddata.length != 0) setHaveFriend(true);
       console.log("친구 데이터 응답:", frienddata);
 
       //본인 걸음수 가져오기
