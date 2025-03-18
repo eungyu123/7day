@@ -29,15 +29,21 @@ module.exports = {
     return user;
   },
   updateUser: async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
+    const updateData = req.body.nickname
+      ? { nickname: req.body.nickname, nicknameEdit: true }
+      : req.body;
+
+    const user = await User.findByIdAndUpdate(req.params.userId, updateData, {
       new: true,
     });
+
     if (!user) {
       return res.status(400).json({
         type: "error",
         message: "user searching failed",
       });
     }
+    console.log(user.nickname, user.nicknameEdit);
     return user;
   },
   deleteUser: async (req, res) => {
@@ -89,6 +95,36 @@ module.exports = {
       return await Pet.find({ _id: { $in: pets } });
     } catch (error) {
       console.error("Error fetching characters:", error);
+      throw error;
+    }
+  },
+
+  setUserPoints: async (userId, point) => {
+    try {
+      const user = await User.findById(userId);
+
+      if (!user) throw new Error("존재하지 않는 유저");
+
+      user.userPoint += point;
+
+      await user.save();
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+  setPedometerMissionClear: async (userId) => {
+    try {
+      const user = await User.findById(userId);
+      console.log("user", user._id);
+      if (!user) throw new Error("존재하지 않는 유저");
+
+      user.pedometerMissionClear = true;
+
+      await user.save();
+
+      return user;
+    } catch (error) {
       throw error;
     }
   },

@@ -13,17 +13,25 @@ export const PAGE_URLS = {
   BadgeListPage: "/BadgeListPage",
   InventoryPage: "/InventoryPage",
   StorePage: "/StorePage",
+  ShoppingOrderPage: "/ShoppingOrderPage",
+  ShoppingOrderAddressPage: "/ShoppingOrderAddressPage",
   StepAnalysisPage: "/StepAnalysisPage",
   NicknamePage: "/NicknamePage",
+  ShoppingPage: "/ShoppingPage",
+  ShoppingDetailPage: "/ShoppingDetailPage",
   not: "not",
   LoadingPage: "/LoadingPage",
   ErrorPage: "/ErrorPage",
 };
 
-export const API_BASE_URL = "http://localhost:3000";
+export const API_BASE_URL = "https://localhost:3000";
 // export const userId = localStorage.getItem("userId");
-export const userId = "67c7ab335f743adc8dc272a3";
+export const userId = "67d691f2cf69e415952d3fe0";
 
-// 67c7ab335f743adc8dc272a3,
-// 67c7ab445f743adc8dc272a5
-// 67c7ab4b5f743adc8dc272a7
+// _id: new ObjectId('67d691f2cf69e415952d3fe3'),
+// _id: new ObjectId('67d691f2cf69e415952d3fe6'),
+// _id: new ObjectId('67d691f2cf69e415952d3fe9'),
+// _id: new ObjectId('67d691f2cf69e415952d3fec'),
+
+export const EGG_COLORS = ["#FFD700", "#C0C0C0", "#B87333"];
+

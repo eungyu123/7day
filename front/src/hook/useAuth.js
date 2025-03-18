@@ -7,6 +7,7 @@ export function useAuth({ dispatch }) {
     const fetchAuth = async () => {
       try {
         const isAuthenticated = await checkAuthApi();
+        console.log(isAuthenticated)
         dispatch(checkAuth({ isAuthenticated: isAuthenticated })); // 인증 상태 업데이트
       } catch (error) {
         console.error(error);

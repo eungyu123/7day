@@ -38,3 +38,44 @@ export const updateInventoryData = async ({ newCharacter, newPet }) => {
     throw err;
   }
 };
+
+export const updateUserCharacter = async ({ character }) => {
+  try {
+    console.log("chacter: ", character);
+    const res = await fetch(`${API_BASE_URL}/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ character }),
+      // credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error(`서버 오류 발생: ${res.status} ${res.statusText}`);
+    }
+
+    return res.json({ message: "Update complete" });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserPet = async ({ pet }) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ pet }),
+      // credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error(`서버 오류 발생: ${res.status} ${res.statusText}`);
+    }
+
+    return res.json({ message: "Update complete" });
+  } catch (error) {
+    throw error;
+  }
+};

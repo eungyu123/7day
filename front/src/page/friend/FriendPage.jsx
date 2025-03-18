@@ -5,7 +5,7 @@ import "./FriendPage.css";
 export default function FriendPage() {
   return (
     <>
-      <Header />
+      <Header PageName="친구" />
       <FriendPageMain />
     </>
   );

@@ -1,334 +1,100 @@
 import { useFetchEgg } from "../../reactQuery/useEgg";
 import "./HatcheryPage.css";
 import { useState, useEffect, useRef } from "react";
-import { updateEggState } from "../../api/eggApi";
-import { useQueryClient } from "@tanstack/react-query";
 import Container from "../../component/common/Container";
 import Header from "../../component/common/header/Header";
-import BasicButton from "../../component/common/button/BasicButton";
 import ButtonWrapper from "../../component/common/wrapper/ButtonWrapper";
-import { insertLog } from "../../api/logApi";
+import { PAGE_URLS } from "../../constant/constant";
+import { doHatchApi } from "../../api/eggApi";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFetchLog } from "../../reactQuery/useLog";
+import LogButton from "../../component/common/button/LogButton";
+import PetModal from "./petModal";
+import HatchingEgg from "./HatchingEgg";
 
 export default function HatcheryPage() {
-  const queryClient = useQueryClient(); // queryClient 가져오기
-
-  const eggRef = useRef({});
-  const iconEggRef = useRef({});
-  const barWrapperRef = useRef(null);
-  const progressBarRef = useRef(null);
-
   const [isHatching, setIsHatching] = useState(false);
   const [eggType, setEggType] = useState(null);
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [progress, setProgress] = useState(0); // 진행 상태를 관리
-  const [finished, setFinished] = useState(false);
-  const [timeFinished, setTimeFinished] = useState(false);
-  const [dragTimer, setDragTimer] = useState(null);
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
-  const [eggStyles, setEggStyles] = useState([]); // eggStyles 상태
+  const [canHatch, setCanHatch] = useState(false);
 
-  const { data } = useFetchEgg();
-  const {data: logs} = useFetchLog(); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [reward, setReward] = useState(null);
 
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const hatchingEgg = data.data.find((egg) => egg.state == "hatching");
+  const { data: eggs } = useFetchEgg();
+  const { data: logs } = useFetchLog();
 
-    // 부화장 페이지 접속시 데이터 받아서 부화중 판단
-    if (hatchingEgg) {
-      setIsHatching(true);
-      setEggType(hatchingEgg.eggType);
-      setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
-    }
-
-    const styles = getRandomPosition({ Count: data.data.length });
-
-    setEggStyles(styles); // 상태 업데이트
-    setLoading(false); // 로딩 완료 후 상태 변경
-  }, []);
+  let hatchingEgg;
+  if (eggs.type == "success") {
+    hatchingEgg = eggs?.data?.find((egg) => egg.state == "hatching");
+  } else {
+    hatchingEgg = false;
+  }
 
   useEffect(() => {
-    if (progress == 100) {
-      const timer = setTimeout(() => {
-        setTimeFinished(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [progress]);
-
-  const handleDragStart = (e, id) => {
-    if (isHatching) return;
-    
-    e.dataTransfer.setData("text", id);
-    const draggedElement = eggRef.current[id];
-    setTimeout(() => {
-      draggedElement.style.display = "none";
-    }, 0);
-  };
-
-  const handleDragEnd = (e, id) => {
-    if (isHatching) return;
-
-    e.dataTransfer.setData("text", id);
-    const draggedElement = eggRef.current[id];
-    draggedElement.style.display = "block";
-    barWrapperRef.current.style.display = "none";
-    //progressBarRef.current.classList.remove("full-width"); // 클래스 제거 이방식은 왜 안되는지 모르겠음음
-    setProgress(0); // progress 바가 다시 0%로 돌아감
-    console.log("set0", progress);
-  };
-
-  const handleDragOver = (e) => {
-    if (finished || isHatching) return;
-    e.preventDefault();
-
-    barWrapperRef.current.style.display = "block";
-
-    if (!isDraggingOver) {
-      setIsDraggingOver(true);
-
-      setProgress(0);
-      // 올리고 있으면 증가 
-      const timer = setInterval(() => {
-        setProgress((prevProgress) => {
-          const newProgress = prevProgress + 15;
-          if (newProgress >= 100) {
-            clearInterval(timer);
-            setTimeFinished(true);
-            return 100;
-          }
-          return newProgress;
-        });
-      }, 80);
-
-      setDragTimer(timer);
-    }
-  };
-
-  const handleDragLeave = (e) => {
-    if (finished || isHatching) return;
-    e.preventDefault();
-
-    // 타이머 제거
-    if (dragTimer) {
-      clearInterval(dragTimer);
-      setDragTimer(null);
-    }
-
-    setIsDraggingOver(false);
-    barWrapperRef.current.style.display = "none";
-    setProgress(0);
-  };
-
-  const handleDrop = (e) => {
-    if (isHatching) return;
-
-    e.preventDefault();
-    const item = e.dataTransfer.getData("text"); // 드래그한 아이템 데이터를 가져옴
-    console.log(
-      "set2",
-      eggRef.current[item],
-      eggRef.current[item].dataset.eggid
-    );
-
-    const updateEgg = async () => {
-      const result = await updateEggState({
-        eggId: eggRef.current[item].dataset.eggid,
-      });
-      if (result.type == "success") {
-        // setIsopenPet(true); 
-        queryClient.invalidateQueries("eggs");
+    if (eggs.type == "success") {
+      if (hatchingEgg) {
+        setIsHatching(true);
+        setEggType(hatchingEgg.eggType);
+        setProgress((hatchingEgg.currentStep / hatchingEgg.goalWalk) * 100);
+        if (hatchingEgg.currentStep >= hatchingEgg.goalWalk) {
+          setCanHatch(true);
+        }
+      } else {
+        setIsHatching(false);
       }
-    };
+    }
+    setLoading(false); // 로딩 완료 후 상태 변경
+  }, [eggs]);
 
-    if (timeFinished == true) {
-      
-      updateEgg();
-      // insertLog();
-      const draggedElement = eggRef.current[item];
-      const iconEggElement = iconEggRef.current[item];
-      draggedElement.style.position = "absolute";
-      draggedElement.style.top = "50%";
-      draggedElement.style.left = "50%";
-      draggedElement.style.transform = "translate(-50%, -50%)";
-      iconEggElement.style.fontSize = "82px";
-      setFinished(true);
-    } else {
-      setTimeFinished(false);
+  const doHatch = async () => {
+    if (!canHatch) return;
+    console.log("hatchingEgg", hatchingEgg);
+    const data = await doHatchApi({ eggId: hatchingEgg.eggId });
+    if (data.type == "success") {
+      setIsOpen(true);
+      setReward(data.data);
+      await queryClient.invalidateQueries("eggs");
+      await queryClient.refetchQueries("eggs");
     }
   };
 
-  const renderEggs = () => {
-    return data.data
-      .slice(0, eggStyles.length)
-      .filter((v) => v.state == "unhatched")
-      .map((egg, i) => (
-        <div
-          key={i}
-          ref={(el) => (eggRef.current[i] = el)}
-          data-eggid={egg._id}
-          draggable="true"
-          onDragStart={(e) => handleDragStart(e)}
-          onDragEnd={(e) => handleDragEnd(e)}
-          onDragLeave={(e) => handleDragLeave(e)}
-          className="hatchery-modal-egg-img"
-          style={{
-            position: "absolute",
-            top: eggStyles[i].top, // top 위치
-            left: eggStyles[i].left, // left 위치
-            transform: eggStyles[i].transform,
-          }}
-        >
-          <span
-            ref={(el) => (iconEggRef.current[i] = el)}
-            data-eggid={egg._id}
-            className="material-symbols-outlined"
-            style={{
-              fontVariationSettings: "'FILL' 1",
-              color: colors[Number(egg.eggType) - 1],
-              fontSize: "36px",
-            }}
-          >
-            egg
-          </span>
-        </div>
-      ));
-  };
   if (loading) return null;
 
   return (
     <>
-    <Container column={true}>
-      <Header PageName="부화장"/>
-      {isHatching ? (
-        <div
-          className="hatchery-modal-wrapper"
-        >
-          <div
-            className="hatchery-modal-Hatchery"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="hatchery-modal-Hatchery-title">순조롭게 부화중</div>
-            <div
-              className="hatchery-modal-progress-bar-wrapper"
-              style={{ display: "block" }}
-              ref={barWrapperRef}
-            >
-              <div
-                className="hatchery-modal-progress-bar "
-                style={{ width: `${progress}%` }}
-                ref={progressBarRef}
-              ></div>
-            </div>
-            <div className="hatchery-modal-Hatchery-img"></div>
-            <div className="hatchery-modal-egg-img-droped rotate-egg">
-              <span
-                className="material-symbols-outlined"
-                style={{
-                  fontVariationSettings: "'FILL' 1",
-                  color: colors[eggType - 1],
-                  fontSize: "82px",
-                }}
-              >
-                egg
-              </span>
-            </div>
-            {renderEggs()}
+      <Container column={true}>
+        {isOpen && <PetModal setIsOpen={setIsOpen} reward={reward} />}
+        <Header PageName={"부화장"} />
+        {isHatching ? (
+          <HatchingEgg
+            progress={progress}
+            canHatch={canHatch}
+            eggType={eggType}
+            onClick={doHatch}
+          />
+        ) : (
+          <div className="hatchery-page-wrapper">
+            <div className="hatchery-page-Hatchery-img"></div>
           </div>
-        </div>
-      ) : (
-        <div
-          className="hatchery-modal-wrapper"
-        >
-          <div
-            className="hatchery-modal-Hatchery"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="hatchery-modal-progress-bar-wrapper "
-              ref={barWrapperRef}
-            >
-              <div
-                className="hatchery-modal-progress-bar"
-                style={{ width: `${progress}%` }} // 진행 상태에 따라 width가 변화
-                ref={progressBarRef}
-              ></div>
-            </div>
-            <div
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              className="hatchery-modal-Hatchery-img"
-            ></div>
-            {renderEggs()}
-          </div>
-        </div>
-      )}
+        )}
 
-      <ButtonWrapper>
-        <BasicButton/>
-      </ButtonWrapper>
-    </Container>
-
+        <ButtonWrapper>
+          {logs &&
+            logs.data.map((log) => {
+              return (
+                <LogButton
+                  imgSrc={`/images/pets/${log.logImage.split(".")[0]}Head.jpg`}
+                  description={log.logContent}
+                  href={PAGE_URLS.InventoryPage}
+                />
+              );
+            })}
+        </ButtonWrapper>
+      </Container>
     </>
   );
 }
-
-const colors = ["#FFD700", "#C0C0C0", "#B87333"];
-
-const randomPositionTop = () => {
-  return Math.random() * 20 + 65; // 75% ~ 95% 사이의 무작위 위치
-};
-
-const randomPositionLeft = () => {
-  return Math.random() * 60 + 5; // 75% ~ 95% 사이의 무작위 위치
-};
-
-const randomRotate = () => {
-  return Math.random() * 50 - 25; // -20도 ~ 20도 사이의 무작위 회전
-};
-function getDistance(x1, y1, x2, y2) {
-  return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
-}
-
-const getRandomPosition = ({ Count }) => {
-  const styles = [];
-  const positions = [];
-  const maxAttempts = 20; // 중복 방지 최대 시도 횟수
-  const minDistance = 6; // 최소 거리 (단위: %)
-
-  for (let i = 0; i < Count; i++) {
-    let attempt = 0;
-    let top, left;
-    let isValid = false;
-
-    while (attempt < maxAttempts) {
-      top = randomPositionTop();
-      left = randomPositionLeft();
-
-      if (
-        positions.every(
-          (pos) => getDistance(pos.top, pos.left, top, left) >= minDistance
-        )
-      ) {
-        isValid = true;
-        break;
-      }
-      attempt++;
-    }
-
-    if (!isValid) {
-      break;
-    }
-
-    positions.push({ top, left });
-
-    styles.push({
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `rotate(${randomRotate()}deg) translate(80%, 50%)`,
-    });
-  }
-
-  return styles;
-};

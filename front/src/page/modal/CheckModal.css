@@ -1,0 +1,29 @@
+.check-modal-check input {
+  display: none;
+}
+.check-modal-check .check-modal-icon {
+  display: inline-block;
+  width: 100px;
+  height: 100ox;
+  background-color: transparent;
+  border: 10px solid #000;
+  border-radius: 5px;
+  position: relative;
+}
+.check-modal-check .check-modal-icon::before,
+.check-modal-check .check-modal-icon::after {
+  content: "";
+  display: inline-block;
+  width: 200px;
+  height: 0;
+  background-color: var(--toss-blue);
+  position: absolute;
+  transform-origin: left top;
+  border-radius: 5px;
+}
+
+.check-modal-check .check-modal-icon::before {
+  top: 50px;
+  left: 12px;
+  transform: rotate(-45deg);
+}

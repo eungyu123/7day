@@ -1,20 +1,105 @@
-.main-container {
+/* MainMap.jsx */
+.main-map-wrapper {
   width: 100%;
-  max-width: 767px;
-  margin: auto;
-  display: flex;
-  flex-flow: row wrap;
+  height: 400px;
+  position: relative;
 }
 
-/* 캐릭터 레이아웃  */
-.main-character-wrapper {
-  width: 100%;
-  height: 300px;
-  background-color: gray;
-  margin-bottom: 16px;
+.main-map-steps-display {
+  position: absolute;
+  padding: 8px 16px;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 10;
+  color: white;
+  border-radius: 20px;
+  background-color: var(--toss-blue);
 }
-body {
-  margin: 0;
-  padding: 0;
-  background-color: lightgray;
+
+.main-map-btn-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  right: 12px;
+  z-index: 10;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.main-map-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* BUTTON */
+.main-half-btn {
+  display: flex;
+  width: 48%;
+  padding-right: 16px;
+  padding-left: 28px;
+  height: 60px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+  transition: transform 0.1s ease-in-out;
+  background-color: white;
+}
+
+.main-half-btn:hover {
+  background-color: rgb(236, 236, 236);
+  color: black;
+}
+
+.main-half-btn-left {
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  padding: 10px 0;
+  margin-bottom: 4px;
+}
+
+.main-half-btn-left-title {
+  margin-bottom: 4px;
+}
+
+.main-half-btn-left-des {
+  padding-left: 4px;
+  font-size: var(--font-sm);
+}
+
+/* KaKaoMap */
+
+.main-marker {
+  color: "#00ff04";
+  font-size: "2rem";
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+.fade-y-out-rotate {
+  animation: fade-y-out-rotate 1.2s ease-in-out forwards;
+}
+
+.main-img-wrapper-hatchery {
+  background: url("../../assets/hatchery.png") no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+@keyframes fade-y-out-rotate {
+  0% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  100% {
+    transform: translateY(-30px) rotateY(420deg);
+  }
 }

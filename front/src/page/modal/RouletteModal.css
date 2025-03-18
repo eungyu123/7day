@@ -1,15 +1,11 @@
 .roulette-modal-content {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 320px;
-  transform: translate(-50%, -50%);
-  background: white;
-  border-radius: var(--modal-radius);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  color: var(--toss-gray);
-  z-index: 1050;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  background-color: white;
 }
 
 .roulette-modal-header {
@@ -54,7 +50,7 @@
   border-radius: 50%;
   border: 10px solid var(--toss-blue);
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 60px;
 }
 .roulette {
   width: 100%;
@@ -112,17 +108,48 @@
   z-index: 1;
 }
 .rouletteBtn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
+  position: absolute;
+  bottom: 5%;
+  padding: 16px;
+  font-size: var(--font-md);
+  font-weight: 600;
   background-color: var(--toss-blue);
   color: white;
-  border: none;
-  border-radius: 5px;
+  width: 80%;
+  text-align: center;
+  border-radius: 16px;
+  letter-spacing: 1px;
   cursor: pointer;
 }
 
 .rouletteBtn:disabled {
   background-color: gray;
   cursor: not-allowed;
+}
+
+.roulette-animation-title-wrapper {
+  width: 100%;
+  padding: 12px 28px;
+  font-size: var(--font-xl);
+  font-weight: 700;
+}
+
+.roulette-m-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: none;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  z-index: 200;
+}
+.roulette-m-left-section {
+  display: flex;
+  height: 100%;
+  width: 80px;
+  align-items: center;
+  cursor: pointer;
 }

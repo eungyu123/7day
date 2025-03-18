@@ -1,6 +1,6 @@
 .common-setting-btn {
   display: flex;
-  width: 95%;
+  width: 100%;
   padding: 20px 8px;
   height: 60px;
   box-sizing: border-box;
@@ -39,6 +39,8 @@
   border-radius: 40px;
   opacity: 1;
   transition: opacity 0.2s;
+  padding-left: 2.5px;
+  padding-right: 2.5px;
 }
 .sound-volume-bar:active {
   opacity: 0.8;

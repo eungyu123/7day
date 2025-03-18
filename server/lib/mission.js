@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const {
   getUserMission,
   updateUserMission,
@@ -17,6 +19,26 @@ module.exports = {
         type: "error",
         message: "UserMission fetch failed",
       });
+    }
+  },
+
+  finishMission: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { missionId, rewardId } = req.body;
+      const missions = await UserMission.find();
+      const userMission = await UserMission.findOne({ userId, missionId });
+      userMission.getReward = true;
+      await userMission.save();
+      console.log("rewardId", rewardId);
+      const reward = await Mission.findById(missionId);
+      const user = await User.findById(userId);
+      user.rewardList.push(rewardId.toString());
+      await user.save();
+      return res.status(200).json({ type: "success" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ type: "error" });
     }
   },
 
@@ -42,6 +64,7 @@ module.exports = {
       });
     }
   },
+
   createUserMission: async (req, res) => {
     try {
       console.log("createUser 진입");

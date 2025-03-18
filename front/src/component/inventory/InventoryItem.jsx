@@ -8,13 +8,16 @@ export default function InventoryItem({
   name,
   isSelected,
   onClick,
+  isOwned = false,
 }) {
   const imgNameWithoutExt = img ? img.replace(/\.[^/.]+$/, "") : "";
   const imgPath = `${imgNameWithoutExt}Head.jpg`;
   const imagePath = `/images/${type}/${imgPath}`;
   return (
     <div
-      className={`Inventory-item ${isSelected ? "selected" : ""}`}
+      className={`Inventory-item ${isSelected ? "selected" : ""} ${
+        isOwned ? "owned-inventory-item" : "not-owned-inventory-item"
+      }`}
       onClick={onClick}
       style={{
         borderRadius: "8px",

@@ -30,6 +30,36 @@ module.exports = {
       });
     }
   },
+  setPoints: async (req, res) => {
+    try {
+      const { userId, point } = req.body;
+
+      const user = await setUserPoints(userId, point);
+
+      res.status(200).json({
+        type: "success",
+        message: "set Point!",
+        data: user,
+      });
+    } catch (error) {
+      res.status(400).json({ type: "error", message: error.message });
+    }
+  },
+  setPedometerMissionClear: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+
+      const user = await setPedometerMissionClear(userId);
+
+      res.status(200).json({
+        type: "success",
+        message: "PedometerMission clear!",
+        data: user,
+      });
+    } catch (error) {
+      res.status(400).json({ type: "error", message: error.message });
+    }
+  },
 
   getFriends: async (req, res) => {
     try {
@@ -158,6 +188,7 @@ module.exports = {
         }
       } else if (gift.giftType == "알") {
         const egg = await Egg.findById(gift?.eggId);
+        console.log(egg);
         const newEgg = new UserEgg({
           userId: user._id,
           eggId: egg._id,

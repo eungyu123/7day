@@ -65,6 +65,7 @@ export const updateEggState = async ({ eggId }) => {
 };
 
 export const updateEggStep = async ({ steps }) => {
+  if (!userId) return;
   try {
     const res = await fetch(`${API_BASE_URL}/egg/${userId}`, {
       method: "PUT",
@@ -78,4 +79,16 @@ export const updateEggStep = async ({ steps }) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const doHatchApi = async ({ eggId }) => {
+  const res = await fetch(`${API_BASE_URL}/egg/hatch/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ eggId }),
+  });
+
+  return res.json();
 };

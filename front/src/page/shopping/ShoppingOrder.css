@@ -1,0 +1,152 @@
+.shopping-order-container {
+  padding-bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.shopping-order-box {
+  width: 100%;
+  padding: 20px;
+  background: white;
+  margin-bottom: 20px;
+}
+
+.shopping-order-header {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.shopping-order-address-info-box {
+  display: flex;
+  justify-content: space-between;
+}
+.shopping-order-address-info {
+  font-size: var(--font-sm);
+  margin-bottom: 3px;
+}
+.shopping-order-address-info-edit {
+  background-color: var(--toss-blue);
+  width: 50px;
+  text-align: center;
+  color: white;
+  padding: 8px;
+  border-radius: var(--button-radius);
+}
+.shopping-order-address-info-edit:active {
+  transform: scale(0.98);
+}
+.shopping-order-address-message {
+  margin-top: 10px;
+  background-color: var(--toss-background);
+  border-radius: var(--button-radius);
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(32, 38, 50, 0.59);
+}
+.shopping-order-address-message > p {
+  line-height: 2;
+  padding-left: 10px;
+}
+.shopping-order-cart-main {
+  display: flex;
+}
+.shopping-order-cart-info {
+  margin-left: 10px;
+  font-size: 13px;
+}
+.shopping-order-cart-info > div {
+  padding-bottom: 2px;
+}
+.shopping-order-cart-info-company {
+  font-weight: 700;
+}
+.shopping-order-cost-main {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+.shopping-order-const-main-content {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+.shopping-order-cost-main-text {
+  font-size: 13px;
+}
+.shopping-order-cost-main-price {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+hr {
+  background: var(--toss-light-gray);
+  height: 1px;
+  border: 0;
+}
+
+.shopping-order-message-main {
+  padding: 0 25px;
+  font-size: var(--font-sm);
+  color: rgba(32, 38, 50, 0.38);
+  padding-bottom: 80px;
+}
+
+.shopping-order-button {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, 0%);
+  background: #f3f4f6;
+  border: none;
+  outline: none;
+}
+.shopping-order-button-main {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  color: white;
+  background-color: var(--toss-blue);
+  font-weight: bold;
+}
+
+.shopping-order-address-header {
+  font-size: var(--font-lg);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.shopping-order-address-home-main {
+  display: flex;
+  justify-content: space-between;
+}
+.shopping-order-address-home-header {
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.shopping-order-address-home-main > div {
+  padding: 5px;
+  margin-right: 10px;
+}
+.shopping-order-address-new {
+  width: 100%;
+  height: 30px;
+  /* background: pink; */
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.shopping-order-address-new:active {
+  background: var(--toss-background);
+  transform: scale(0.98);
+}
+.shopping-order-address-new > p {
+  /* color: white; */
+}

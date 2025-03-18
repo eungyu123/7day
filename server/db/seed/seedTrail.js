@@ -99,7 +99,7 @@ async function createSampleData1() {
   console.log("🚀 산책로 저장 완료:", trails);
 
   // 2️⃣ 유저 산책 기록 추가
-  const userId = "67c7ab335f743adc8dc272a3"; // 실제 문자열 ID 사용
+  const userId = "67c7ab445f743adc8dc272a5"; // 실제 문자열 ID 사용
 
   const userTrailPromises = trails.map(async (savedTrail) => {
     const userTrail = new models.UserTrail({
@@ -119,7 +119,7 @@ async function createSampleData1() {
   });
 
   const savedUserTrails = await Promise.all(userTrailPromises);
-  console.log("🚀 산책로 저장 완료:", savedUserTrails);
+  console.log("🚀 유저 산책로 저장 완료:", savedUserTrails);
 }
 
 const Reward = require("../models/Reward"); // Reward 모델 경로에 맞게 수정
@@ -131,19 +131,29 @@ async function seedReward() {
   try {
     const rewards = [
       {
-        enterpriseName: "burgerking",
+        enterpriseName: "버거킹",
         content: "2000원 할인권",
         image: "burgerking.png",
       },
       {
         enterpriseName: "CU",
-        content: "1000원 쿠폰",
-        image: "CU.png",
+        content: "10000원 쿠폰",
+        image: "CU10000.png",
       },
       {
-        enterpriseName: "lotteria",
-        content: "감자튀김",
-        image: "lotteria.png",
+        enterpriseName: "롯데리아",
+        content: "쉬림프 버거 세트",
+        image: "lotteria-shimpburger.png",
+      },
+      {
+        enterpriseName: "GS25",
+        content: "포스틱",
+        image: "postic.png",
+      },
+      {
+        enterpriseName: "스타벅스",
+        content: "아메리카노 조각케이크 세트",
+        image: "starbucks.png",
       },
     ];
 

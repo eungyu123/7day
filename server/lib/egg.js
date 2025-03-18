@@ -7,7 +7,6 @@ module.exports = {
     try {
       const { eggId } = req.body;
       const egg = await Egg.findById(eggId);
-      console.log("egg", egg);
       res.json({ type: "success", data: egg });
     } catch (error) {
       console.log(error);
@@ -20,9 +19,14 @@ module.exports = {
 
       const userEggs = await UserEgg.find({ userId });
 
-      if (!userEggs.length)
-        return res.status(404).json({ message: "No eggs found for this user" });
-
+      if (!userEggs.length) {
+        console.log(userEggs.length);
+        return res.status(404).json({
+          type: "error",
+          message: "No eggs found for this user",
+          error: "error",
+        });
+      }
       res.json({ type: "success", data: userEggs });
     } catch (error) {
       res.status(500).json({ message: "Server error", error });
@@ -35,7 +39,7 @@ module.exports = {
       const { eggId } = req.body;
       console.log(userId, eggId);
 
-      const userEgg = await UserEgg.findById(eggId);
+      const userEgg = await UserEgg.findOne({ userId, eggId });
 
       await UserEgg.updateMany(
         { userId, state: "hatching", _id: { $ne: eggId } }, // eggId가 아닌 hatching 상태의 알들을 찾음
@@ -49,7 +53,6 @@ module.exports = {
       }
 
       const updatedUserEgg = await userEgg.save();
-      console.log(updatedUserEgg);
       res.json({
         type: "success",
         message: "Egg updated",

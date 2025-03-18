@@ -34,9 +34,10 @@ module.exports = {
       const user = await User.findById(userId);
       if (!user) return [];
 
-      // const characters = await Character.find();
-      const characters = user.characterList.map((c) => c.characterId);
-      return await Character.find({ _id: { $nin: characters } });
+      const characters = await Character.find();
+      // const characters = user.characterList.map((c) => c.characterId);
+      // return await Character.find({ _id: { $nin: characters } });
+      return await characters;
     } catch (error) {
       console.error("Error fetching characters:", error);
       throw error;

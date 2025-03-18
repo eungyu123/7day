@@ -5,16 +5,20 @@ const Mission = require("../lib/mission");
 
 router.get("/:userId", async (req, res) => {
   console.log("getmission router");
-  Mission.getUserMission(req, res);
+  await Mission.getUserMission(req, res);
 });
 
 router.put("/:userId", async (req, res) => {
-  Mission.updateUserMission(req, res);
+  await Mission.updateUserMission(req, res);
 });
 
 router.get("/createusermission/:userId", async (req, res) => {
   console.log("createmission router");
-  Mission.createUserMission(req, res);
+  await Mission.createUserMission(req, res);
 });
 
+router.post("/finish/:userId", async (req, res) => {
+  console.log("finish mission");
+  await Mission.finishMission(req, res);
+});
 module.exports = router;

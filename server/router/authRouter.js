@@ -13,4 +13,9 @@ router.get("/googleSignout", async (req, res) => {
   await auth.googleSignout(req, res);
 });
 
+router.get("/checkAuth", async (req, res) => {
+  console.log("/checkAuth");
+  await auth.checkAuth(req, res);
+});
+
 module.exports = router;

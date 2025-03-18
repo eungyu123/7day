@@ -11,26 +11,6 @@ export default function BadgeListPage() {
       name: "5000보 걷기",
       image: BadgeImg,
     },
-    {
-      id: 2,
-      name: "5만보 걷기",
-      image: BadgeImg,
-    },
-    {
-      id: 3,
-      name: "10만보 걷기",
-      image: BadgeImg,
-    },
-    {
-      id: 4,
-      name: "50만보 걷기",
-      image: BadgeImg,
-    },
-    {
-      id: 5,
-      name: "100만보 걷기",
-      image: BadgeImg,
-    },
   ];
 
   return (

@@ -6,6 +6,13 @@ const port = 3000;
 const app = express();
 const path = require("path");
 
+app.use(
+  cors({
+    origin: "https://localhost:5173",
+    credentials: true,
+  })
+);
+
 const connectDB = require("./db/connectDB");
 
 connectDB();
@@ -19,11 +26,16 @@ middleware(app);
 
 app.use("/image", express.static("image"));
 
-const seedTrail = require("./db/seed/seedTrail")
+const seedTrail = require("./db/seed/seedTrail");
+const seedAll = require("./db/seed/seedAll");
 // seedTrail.createSampleData1();
+seedAll.seedAll();
 
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
+
+const authRouter = require("./router/authRouter");
+app.use("/auth", authRouter);
 
 const userRouter = require("./router/userRouter");
 app.use("/user", userRouter);
